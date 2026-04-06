@@ -18,8 +18,9 @@ import pillarsLineAsset from "@/assets/images/home/pillars/line.svg?url";
 				as="div"
 				class="pt-4 lg:pt-7"
 				:initial="{ opacity: 0, x: -24 }"
-				:animate="{ opacity: 1, x: 0 }"
-				:transition="{ duration: 0.55, ease: 'easeOut' }"
+				:while-in-view="{ opacity: 1, x: 0 }"
+				:in-view-options="{ once: false, amount: 0.35 }"
+				:transition="{ duration: 0.65, ease: 'easeOut' }"
 			>
 				<span
 					class="inline-flex rounded-full border border-(--pillars-label-border) px-6 py-3 text-xs font-medium tracking-[0.16em] text-(--pillars-label-text)"
@@ -36,8 +37,9 @@ import pillarsLineAsset from "@/assets/images/home/pillars/line.svg?url";
 				as="div"
 				class="border border-(--pillars-card-border) bg-(--pillars-card-bg)"
 				:initial="{ opacity: 0, y: 22 }"
-				:animate="{ opacity: 1, y: 0 }"
-				:transition="{ duration: 0.6, delay: 0.08, ease: 'easeOut' }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: false, amount: 0.3 }"
+				:transition="{ duration: 0.7, delay: 0.08, ease: 'easeOut' }"
 			>
 				<div class="space-y-8 p-(--pillars-content-padding)">
 					<div class="space-y-2">
@@ -59,8 +61,9 @@ import pillarsLineAsset from "@/assets/images/home/pillars/line.svg?url";
 					as="div"
 					class="relative bg-(--pillars-highlight-bg) px-(--pillars-content-padding-x) py-(--pillars-highlight-padding-y) text-(--pillars-highlight-text) lg:-ml-(--pillars-highlight-offset)"
 					:initial="{ opacity: 0, y: 18 }"
-					:animate="{ opacity: 1, y: 0 }"
-					:transition="{ duration: 0.55, delay: 0.18, ease: 'easeOut' }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: false, amount: 0.45 }"
+					:transition="{ duration: 0.65, delay: 0.2, ease: 'easeOut' }"
 				>
 					<div class="absolute inset-y-0 left-0 w-(--pillars-highlight-bar-width) bg-primary" />
 					<div class="space-y-6">
