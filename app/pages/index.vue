@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HomeHeroBanner from "@/components/home/home-hero-banner.vue";
+import HomeGlobalExpansion from "@/components/home/home-global-expansion.vue";
 import HomeOurPhilosophy from "@/components/home/home-our-philosophy.vue";
 import HomeThreePillars from "@/components/home/home-three-pillars.vue";
 
@@ -24,5 +25,6 @@ useHead({
 		<HomeHeroBanner />
 		<HomeThreePillars />
 		<HomeOurPhilosophy />
+		<HomeGlobalExpansion />
 	</main>
 </template>
