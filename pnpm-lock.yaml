@@ -66,9 +66,6 @@ importers:
         specifier: 3.25.76
         version: 3.25.76
     devDependencies:
-      '@biomejs/biome':
-        specifier: 2.4.10
-        version: 2.4.10
       '@tailwindcss/vite':
         specifier: ^4.2.2
         version: 4.2.2(vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))
@@ -4055,6 +4052,7 @@ snapshots:
       '@biomejs/cli-linux-x64-musl': 2.4.10
       '@biomejs/cli-win32-arm64': 2.4.10
       '@biomejs/cli-win32-x64': 2.4.10
+    optional: true
 
   '@biomejs/cli-darwin-arm64@2.4.10':
     optional: true
