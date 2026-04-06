@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Motion } from "motion-v";
+import logoSrc from "@/assets/images/logo-rockads.svg";
+import { Button } from "@/components/ui/button";
 
 type ServiceItem = {
 	title: string;
@@ -18,7 +20,6 @@ const props = withDefaults(defineProps<{ transparent?: boolean }>(), {
 	transparent: false,
 });
 
-const logoSrc = "/images/logo-rockads.svg";
 const headerRef = ref<HTMLElement | null>(null);
 const route = useRoute();
 
@@ -83,9 +84,23 @@ const activeItems = computed(() => {
 
 const headerClasses = computed(() => {
 	return [
-		pinned.value ? "fixed bg-surface-darker header-pinned" : "absolute",
-		!pinned.value && !props.transparent ? "bg-surface-darker" : "",
+		pinned.value
+			? "fixed border-b border-border bg-background/95 shadow-sm backdrop-blur header-pinned"
+			: "absolute",
+		!pinned.value && !props.transparent ? "bg-background/95 backdrop-blur" : "",
 	];
+});
+
+const isOverlayMode = computed(() => {
+	return props.transparent && !pinned.value && !mobileMenuOpen.value;
+});
+
+const headerTextClass = computed(() => {
+	return isOverlayMode.value ? "text-white" : "text-foreground";
+});
+
+const headerMutedClass = computed(() => {
+	return isOverlayMode.value ? "bg-white/30" : "bg-border";
 });
 
 let lastScrollY = 0;
@@ -173,12 +188,23 @@ onUnmounted(() => {
 					alt="Rockads"
 					class="h-[27px] w-[142px]"
 				>
-				<div class="hidden h-5 w-px bg-white/30 md:block" />
-				<span class="hidden text-base font-medium text-white md:block">Your Growth Partner</span>
+				<div
+					class="hidden h-5 w-px md:block"
+					:class="headerMutedClass"
+				/>
+				<span
+					class="hidden text-base font-medium md:block"
+					:class="headerTextClass"
+				>
+					Your Growth Partner
+				</span>
 			</NuxtLink>
 
 			<nav class="hidden items-center gap-10 lg:flex">
-				<div class="flex items-center gap-10 text-base font-medium text-white">
+				<div
+					class="flex items-center gap-10 text-base font-medium"
+					:class="headerTextClass"
+				>
 					<div
 						class="relative"
 						@mouseenter="openDesktopServices"
@@ -225,11 +251,11 @@ onUnmounted(() => {
 									>
 										<span
 											class="block text-sm leading-5 font-semibold"
-											:class="activeCategory === category.id ? 'text-primary' : 'text-surface-dark'"
+											:class="activeCategory === category.id ? 'text-primary' : 'text-foreground'"
 										>
 											{{ category.title }}
 										</span>
-										<span class="mt-0.5 block text-xs leading-4 text-text-gray-light">
+										<span class="mt-0.5 block text-xs leading-4 text-muted-foreground">
 											{{ category.subtitle }}
 										</span>
 									</NuxtLink>
@@ -245,10 +271,10 @@ onUnmounted(() => {
 										:animate="{ opacity: 1, y: 0 }"
 										:transition="{ duration: 0.14, ease: 'easeOut' }"
 									>
-										<span class="block text-sm leading-5 font-semibold text-surface-dark">
+										<span class="block text-sm leading-5 font-semibold text-foreground">
 											{{ item.title }}
 										</span>
-										<span class="mt-0.5 block text-xs leading-4 text-text-gray-light">
+										<span class="mt-0.5 block text-xs leading-4 text-muted-foreground">
 											{{ item.description }}
 										</span>
 									</Motion>
@@ -267,17 +293,21 @@ onUnmounted(() => {
 					</NuxtLink>
 				</div>
 
-				<button
+				<Button
 					type="button"
-					class="h-[48px] rounded-lg bg-primary-600 px-4 py-3 text-base font-medium text-white transition-colors hover:bg-primary"
+					size="lg"
+					class="h-[48px] rounded-lg px-5 text-base font-medium"
 				>
 					Get Started
-				</button>
+				</Button>
 			</nav>
 
-			<button
+			<Button
 				type="button"
-				class="flex h-10 w-10 items-center justify-center text-white lg:hidden"
+				variant="ghost"
+				size="icon"
+				class="lg:hidden"
+				:class="headerTextClass"
 				:aria-expanded="mobileMenuOpen"
 				aria-label="Toggle navigation menu"
 				@click="toggleMobileMenu"
@@ -334,13 +364,13 @@ onUnmounted(() => {
 						y2="18"
 					/>
 				</svg>
-			</button>
+			</Button>
 		</div>
 
 		<Motion
 			v-if="mobileMenuOpen"
 			as="div"
-			class="absolute left-0 right-0 top-full border-t border-white/10 bg-surface-darker/95 backdrop-blur-lg lg:hidden"
+			class="absolute left-0 right-0 top-full border-t border-border bg-background/95 backdrop-blur-lg lg:hidden"
 			:initial="{ opacity: 0, y: -8 }"
 			:animate="{ opacity: 1, y: 0 }"
 			:exit="{ opacity: 0, y: -8 }"
@@ -349,7 +379,7 @@ onUnmounted(() => {
 			<div class="flex flex-col gap-1 px-5 py-6">
 				<button
 					type="button"
-					class="flex w-full items-center justify-between py-3 text-base font-medium text-white"
+					class="flex w-full items-center justify-between py-3 text-base font-medium text-foreground"
 					:aria-expanded="mobileServicesOpen"
 					@click="mobileServicesOpen = !mobileServicesOpen"
 				>
@@ -387,8 +417,8 @@ onUnmounted(() => {
 							:key="item.title"
 							class="py-1 pl-3"
 						>
-							<span class="block text-sm text-white/90">{{ item.title }}</span>
-							<span class="block text-xs text-white/40">{{ item.description }}</span>
+							<span class="block text-sm text-foreground">{{ item.title }}</span>
+							<span class="block text-xs text-muted-foreground">{{ item.description }}</span>
 						</div>
 					</div>
 				</Motion>
@@ -397,16 +427,17 @@ onUnmounted(() => {
 					v-for="link in desktopLinks"
 					:key="`mobile-${link.label}`"
 					:to="link.href"
-					class="py-3 text-base font-medium text-white"
+					class="py-3 text-base font-medium text-foreground"
 				>
 					{{ link.label }}
 				</NuxtLink>
-				<button
+				<Button
 					type="button"
-					class="mt-4 rounded-lg bg-primary-600 px-4 py-3 text-base font-medium text-white transition-colors hover:bg-primary"
+					size="lg"
+					class="mt-4 text-base font-medium"
 				>
 					Get Started
-				</button>
+				</Button>
 			</div>
 		</Motion>
 	</header>

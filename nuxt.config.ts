@@ -5,6 +5,9 @@ export default defineNuxtConfig({
 	modules: ["shadcn-nuxt"],
 	devtools: { enabled: true },
 	css: ["~/assets/css/tailwind.css"],
+	alias: {
+		"@": new URL("./app", import.meta.url).pathname,
+	},
 	compatibilityDate: "2025-07-15",
 
 	vite: {

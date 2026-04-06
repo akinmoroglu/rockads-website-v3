@@ -1,0 +1,23 @@
+---
+description: Prioritize shadcn and project conventions over direct Figma replication unless explicitly requested
+alwaysApply: true
+---
+
+# Figma Adaptation Priority Policy
+
+Default behavior for UI implementation in this repository:
+
+- Prioritize `shadcn` primitives and existing project conventions over direct pixel-perfect Figma replication.
+- Treat Figma designs as reference input to be adapted into the current component system and tokenized styling.
+- Reuse components from `app/components/ui` first, then extend with shadcn-compatible primitives if needed.
+
+Use direct Figma style preservation only when the user explicitly asks for one of these intents:
+
+- "Keep Figma style as-is"
+- "Implement exactly like Figma"
+- Equivalent explicit instruction to preserve Figma visuals over existing system patterns
+
+When the user provides code and asks to "adapt to our structure":
+
+- Refactor to project standards (`Vue 3 + script setup + Tailwind tokens + shadcn-first`)
+- Preserve behavior and intent while aligning naming, structure, and styling with the codebase conventions
