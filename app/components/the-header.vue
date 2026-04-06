@@ -171,10 +171,10 @@ onUnmounted(() => {
 					class="h-[27px] w-[142px]"
 				>
 				<div
-					class="hidden h-5 w-px bg-border md:block"
+					class="hidden h-5 w-px bg-white/30 md:block"
 				/>
 				<span
-					class="hidden text-base font-medium text-foreground md:block"
+					class="hidden text-base font-medium text-white md:block"
 				>
 					Your Growth Partner
 				</span>
@@ -182,7 +182,7 @@ onUnmounted(() => {
 
 			<nav class="hidden items-center gap-10 lg:flex">
 				<div
-					class="flex items-center gap-10 text-base font-medium text-foreground"
+					class="flex items-center gap-10 text-base font-medium text-white"
 				>
 					<div
 						class="relative"
@@ -285,7 +285,7 @@ onUnmounted(() => {
 				type="button"
 				variant="ghost"
 				size="icon"
-				class="text-foreground lg:hidden"
+				class="text-white hover:bg-white/10 lg:hidden"
 				:aria-expanded="mobileMenuOpen"
 				aria-label="Toggle navigation menu"
 				@click="toggleMobileMenu"
@@ -348,7 +348,7 @@ onUnmounted(() => {
 		<Motion
 			v-if="mobileMenuOpen"
 			as="div"
-			class="absolute left-0 right-0 top-full border-t border-border bg-background/95 backdrop-blur-lg lg:hidden"
+			class="absolute left-0 right-0 top-full border-t border-(--header-border) bg-(--header-background)/95 backdrop-blur-lg lg:hidden"
 			:initial="{ opacity: 0, y: -8 }"
 			:animate="{ opacity: 1, y: 0 }"
 			:exit="{ opacity: 0, y: -8 }"
@@ -357,7 +357,7 @@ onUnmounted(() => {
 			<div class="flex flex-col gap-1 px-5 py-6">
 				<button
 					type="button"
-					class="flex w-full items-center justify-between py-3 text-base font-medium text-foreground"
+					class="flex w-full items-center justify-between py-3 text-base font-medium text-white"
 					:aria-expanded="mobileServicesOpen"
 					@click="mobileServicesOpen = !mobileServicesOpen"
 				>
@@ -395,8 +395,8 @@ onUnmounted(() => {
 							:key="item.title"
 							class="py-1 pl-3"
 						>
-							<span class="block text-sm text-foreground">{{ item.title }}</span>
-							<span class="block text-xs text-muted-foreground">{{ item.description }}</span>
+							<span class="block text-sm text-white">{{ item.title }}</span>
+							<span class="block text-xs text-white/60">{{ item.description }}</span>
 						</div>
 					</div>
 				</Motion>
@@ -405,7 +405,7 @@ onUnmounted(() => {
 					v-for="link in desktopLinks"
 					:key="`mobile-${link.label}`"
 					:to="link.href"
-					class="py-3 text-base font-medium text-foreground"
+					class="py-3 text-base font-medium text-white"
 				>
 					{{ link.label }}
 				</NuxtLink>
