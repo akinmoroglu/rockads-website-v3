@@ -8,12 +8,12 @@ const forwardedProps = useForwardProps(props);
 </script>
 
 <template>
-  <Primitive
-    data-slot="pin-input-separator"
-    v-bind="forwardedProps"
-  >
-    <slot>
-      <IconMinus />
-    </slot>
-  </Primitive>
+	<Primitive
+		data-slot="pin-input-separator"
+		v-bind="forwardedProps"
+	>
+		<slot>
+			<IconMinus />
+		</slot>
+	</Primitive>
 </template>

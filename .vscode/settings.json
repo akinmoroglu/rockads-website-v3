@@ -1,13 +1,7 @@
 {
 	"editor.codeActionsOnSave": {
-		"source.fixAll.biome": "explicit",
-		"source.organizeImports.biome": "always",
-		"source.sortImports.biome": "always",
-		"source.removeUnusedImports.biome": "always",
-		"source.action.useSortedAttributes.biome": "explicit",
-		"source.action.useSortedClasses.biome": "explicit",
-		"source.action.useSortedKeys.biome": "explicit",
-		"source.action.useSortedProperties.biome": "explicit"
+		"source.fixAll.eslint": "always",
+		"source.organizeImports.eslint": "always"
 	},
 	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
 	"[markdown]": {

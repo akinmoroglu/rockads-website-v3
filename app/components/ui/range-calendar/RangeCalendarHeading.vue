@@ -19,14 +19,14 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <RangeCalendarHeading
-    v-slot="{ headingValue }"
-    data-slot="range-calendar-heading"
-    :class="cn('text-sm font-medium', props.class)"
-    v-bind="forwardedProps"
-  >
-    <slot :heading-value>
-      {{ headingValue }}
-    </slot>
-  </RangeCalendarHeading>
+	<RangeCalendarHeading
+		v-slot="{ headingValue }"
+		data-slot="range-calendar-heading"
+		:class="cn('text-sm font-medium', props.class)"
+		v-bind="forwardedProps"
+	>
+		<slot :heading-value>
+			{{ headingValue }}
+		</slot>
+	</RangeCalendarHeading>
 </template>

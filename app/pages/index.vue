@@ -14,7 +14,7 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <TheHeader transparent />
-  </div>
+	<div>
+		<TheHeader transparent />
+	</div>
 </template>

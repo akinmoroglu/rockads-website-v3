@@ -21,14 +21,14 @@ const props = withDefaults(
 </script>
 
 <template>
-  <Primitive
-    data-slot="item"
-    :data-variant="variant"
-    :data-size="size"
-    :as="as"
-    :as-child="asChild"
-    :class="cn(itemVariants({ variant, size }), props.class)"
-  >
-    <slot />
-  </Primitive>
+	<Primitive
+		data-slot="item"
+		:data-variant="variant"
+		:data-size="size"
+		:as="as"
+		:as-child="asChild"
+		:class="cn(itemVariants({ variant, size }), props.class)"
+	>
+		<slot />
+	</Primitive>
 </template>

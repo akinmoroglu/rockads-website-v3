@@ -9,10 +9,10 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <ContextMenuSub
-    data-slot="context-menu-sub"
-    v-bind="forwarded"
-  >
-    <slot />
-  </ContextMenuSub>
+	<ContextMenuSub
+		data-slot="context-menu-sub"
+		v-bind="forwarded"
+	>
+		<slot />
+	</ContextMenuSub>
 </template>

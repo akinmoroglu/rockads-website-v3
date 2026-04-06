@@ -18,13 +18,13 @@ const colorConfig = computed(() => {
 </script>
 
 <template>
-  <Primitive
-    v-if="colorConfig.length"
-    as="style"
-  >
-    {{ Object.entries(THEMES)
-      .map(
-        ([theme, prefix]) => `
+	<Primitive
+		v-if="colorConfig.length"
+		as="style"
+	>
+		{{ Object.entries(THEMES)
+			.map(
+				([theme, prefix]) => `
 ${prefix} [data-chart=${id}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
@@ -33,10 +33,10 @@ ${colorConfig
       || itemConfig.color
     return color ? `  --color-${key}: ${color};` : null
   })
-        .join("\n")}
+				.join("\n")}
 }
 `,
-      )
-      .join("\n") }}
-  </Primitive>
+			)
+			.join("\n") }}
+	</Primitive>
 </template>

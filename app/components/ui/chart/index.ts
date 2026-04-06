@@ -24,8 +24,8 @@ interface ChartContextProps {
 	config: Ref<ChartConfig>;
 }
 
-export const [useChart, provideChartContext] =
-	createContext<ChartContextProps>("Chart");
+export const [useChart, provideChartContext]
+	= createContext<ChartContextProps>("Chart");
 
 export {
 	VisCrosshair as ChartCrosshair,

@@ -2,14 +2,14 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-	compatibilityDate: "2025-07-15",
+	modules: ["shadcn-nuxt"],
 	devtools: { enabled: true },
 	css: ["~/assets/css/tailwind.css"],
+	compatibilityDate: "2025-07-15",
 
 	vite: {
 		plugins: [tailwindcss()],
 	},
-	modules: ["shadcn-nuxt"],
 	shadcn: {
 		/**
 		 * Prefix for all the imported component.
