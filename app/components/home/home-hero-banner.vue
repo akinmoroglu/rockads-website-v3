@@ -22,13 +22,13 @@ const partnerIcons = [
 </script>
 
 <template>
-	<section class="relative overflow-hidden border-b border-white/10 bg-[linear-gradient(180deg,#02050e_42.81%,#02123e_100%)] text-white">
+	<section class="relative overflow-visible border-b border-white/10 bg-[linear-gradient(180deg,#02050e_42.81%,#02123e_100%)] text-white">
 		<div class="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.55)_1px,transparent_1px)] bg-size-[22px_22px] opacity-8" />
 
 		<Motion
 			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute -left-[56px] top-[220px] z-1 hidden h-[620px] w-[390px] lg:block"
+			class="pointer-events-none absolute -left-[164px] top-[148px] z-1 hidden h-[820px] w-[540px] lg:block"
 			:initial="{ opacity: 0.78, x: -8, y: 10 }"
 			:animate="{ opacity: [0.8, 0.96, 0.8], x: [0, 6, 0], y: [10, -8, 10] }"
 			:transition="{ duration: 12, repeat: Infinity, ease: 'easeInOut' }"
@@ -44,7 +44,7 @@ const partnerIcons = [
 		<Motion
 			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute -right-[48px] top-[196px] z-1 hidden h-[620px] w-[390px] lg:block"
+			class="pointer-events-none absolute -right-[156px] top-[132px] z-1 hidden h-[820px] w-[540px] lg:block"
 			:initial="{ opacity: 0.78, x: 8, y: -10 }"
 			:animate="{ opacity: [0.8, 0.96, 0.8], x: [0, -6, 0], y: [-10, 8, -10] }"
 			:transition="{ duration: 12.8, repeat: Infinity, ease: 'easeInOut' }"
