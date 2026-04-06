@@ -1,5 +1,5 @@
 ---
-description: Enforce Vue/Nuxt/Tailwind/shadcn-nuxt/Biome project standards
+description: Enforce Vue/Nuxt/Tailwind/shadcn-nuxt/Oxlint-ESLint project standards
 alwaysApply: true
 ---
 
@@ -29,9 +29,9 @@ alwaysApply: true
 - Prefer semantic token utilities (`bg-background`, `text-foreground`, `border-border`) over hardcoded colors.
 - Keep dark mode compatible by relying on tokenized classes and existing `dark` variant behavior.
 
-## Biome and Formatting
+## Linting and Formatting
 
-- Follow `biome.json` as source of truth for linting and formatting.
+- Use Oxlint + ESLint (`pnpm lint`) as source of truth for linting.
 - Preserve tab indentation and double-quote style in JavaScript/TypeScript.
 - Do not introduce new lint suppressions unless there is no practical alternative.
 
