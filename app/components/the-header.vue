@@ -18,6 +18,7 @@ type ServiceCategory = {
 
 const headerRef = ref<HTMLElement | null>(null);
 const route = useRoute();
+const { isHeaderTransparent } = useMarketingHeaderAppearance();
 
 const mobileMenuOpen = ref(false);
 const mobileServicesOpen = ref(false);
@@ -78,8 +79,15 @@ const activeItems = computed(() => {
 });
 
 const headerClasses = computed(() => {
+	const baseClasses = "sticky transition-colors duration-200";
+
+	if (isHeaderTransparent.value) {
+		return [baseClasses, "border-b border-transparent bg-transparent backdrop-blur-0"];
+	}
+
 	return [
-		"sticky border-b border-[var(--header-border)] bg-[var(--header-background)] backdrop-blur transition-colors duration-200",
+		baseClasses,
+		"border-b border-[var(--header-border)] bg-[var(--header-background)] backdrop-blur",
 	];
 });
 
@@ -107,7 +115,6 @@ watch(
 		servicesOpen.value = false;
 	},
 );
-
 </script>
 
 <template>
@@ -376,4 +383,3 @@ watch(
 		</Motion>
 	</header>
 </template>
-
