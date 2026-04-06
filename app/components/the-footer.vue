@@ -7,7 +7,7 @@ const legalLinks = [
 </script>
 
 <template>
-	<footer class="footer-shell mt-20 text-white">
+	<footer class="footer-shell  text-white">
 		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-16 text-center lg:px-12">
 			<p class="mb-12 text-base  tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
 				The only partner you'll ever need.

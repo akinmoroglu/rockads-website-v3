@@ -28,8 +28,8 @@ const whoWeServeCards = [
 </script>
 
 <template>
-	<section class="who-we-serve-section relative overflow-hidden bg-(--who-bg) py-20 lg:py-28">
-		<div class="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[250px] overflow-hidden lg:h-[285px]">
+	<section class="who-we-serve-section relative overflow-hidden bg-(--who-bg) pt-16 pb-8 lg:min-h-[589px] lg:pt-[80px] lg:pb-0">
+		<div class="pointer-events-none absolute inset-x-0 -bottom-40 z-0 h-auto overflow-hidden">
 			<img
 				:src="serveGlobeAsset"
 				alt=""
@@ -38,7 +38,7 @@ const whoWeServeCards = [
 			>
 		</div>
 
-		<div class="mx-auto w-full max-w-[1240px] px-5 lg:px-12 ">
+		<div class="relative z-10 mx-auto w-full max-w-[1240px] px-5 lg:px-12">
 			<Motion
 				as="div"
 				class="mx-auto flex max-w-[660px] flex-col items-center gap-6 text-center"
@@ -57,7 +57,7 @@ const whoWeServeCards = [
 				</h2>
 			</Motion>
 
-			<div class="relative z-10 mt-14 grid gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
+			<div class="mx-auto mt-10 grid max-w-[1120px] gap-6 lg:mt-[88px] lg:grid-cols-3 lg:gap-8">
 				<Motion
 					v-for="(card, index) in whoWeServeCards"
 					:key="card.title"
