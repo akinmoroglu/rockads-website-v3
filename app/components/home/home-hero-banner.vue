@@ -9,8 +9,8 @@ import {
 	IconBrandX,
 } from "@tabler/icons-vue";
 import { Button } from "@/components/ui/button";
-import HomeHeroLeftGlow from "@/components/home/glows/home-hero-left-glow.vue";
-import HomeHeroRightGlow from "@/components/home/glows/home-hero-right-glow.vue";
+import leftGlowAsset from "@/assets/images/home/hero/left-glow.svg?url";
+import rightGlowAsset from "@/assets/images/home/hero/right-glow.svg?url";
 
 const partnerIcons = [
 	{ component: IconBrandX, label: "X partner" },
@@ -33,9 +33,12 @@ const partnerIcons = [
 			:animate="{ opacity: [0.8, 0.96, 0.8], x: [0, 6, 0], y: [10, -8, 10] }"
 			:transition="{ duration: 12, repeat: Infinity, ease: 'easeInOut' }"
 		>
-			<HomeHeroLeftGlow
-				class="h-full w-full brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
-			/>
+			<img
+				:src="leftGlowAsset"
+				alt=""
+				aria-hidden="true"
+				class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+			>
 		</Motion>
 
 		<Motion
@@ -46,9 +49,12 @@ const partnerIcons = [
 			:animate="{ opacity: [0.8, 0.96, 0.8], x: [0, -6, 0], y: [-10, 8, -10] }"
 			:transition="{ duration: 12.8, repeat: Infinity, ease: 'easeInOut' }"
 		>
-			<HomeHeroRightGlow
-				class="h-full w-full brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
-			/>
+			<img
+				:src="rightGlowAsset"
+				alt=""
+				aria-hidden="true"
+				class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+			>
 		</Motion>
 
 		<div class="relative z-10 mx-auto flex min-h-[860px] w-full max-w-[1440px] flex-col items-center px-5 pb-8 pt-[132px] lg:min-h-[900px] lg:px-12 lg:pt-[160px]">
