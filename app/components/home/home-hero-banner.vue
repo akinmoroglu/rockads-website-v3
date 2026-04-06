@@ -145,8 +145,8 @@ const partnerIcons = [
 						role="img"
 						class="flex size-8 items-center justify-center rounded-full bg-white/10 p-1"
 						:initial="{ opacity: 0, y: 8 }"
-						:animate="{ opacity: 1, y: [0, -2, 0] }"
-						:transition="{ duration: 2.4, delay: 0.3 + (index * 0.08), ease: 'easeInOut' }"
+						:animate="{ opacity: 1, y: 0 }"
+						:transition="{ duration: 0.45, delay: 0.3 + (index * 0.08), ease: 'easeOut' }"
 					>
 						<component
 							:is="icon.component"
