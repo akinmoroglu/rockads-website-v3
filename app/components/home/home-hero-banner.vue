@@ -9,8 +9,8 @@ import {
 	IconBrandX,
 } from "@tabler/icons-vue";
 import { Button } from "@/components/ui/button";
-import leftGlowAsset from "@/assets/images/home/hero/left-glow.svg?url";
-import rightGlowAsset from "@/assets/images/home/hero/right-glow.svg?url";
+import HomeHeroLeftGlow from "@/components/home/glows/home-hero-left-glow.vue";
+import HomeHeroRightGlow from "@/components/home/glows/home-hero-right-glow.vue";
 
 const partnerIcons = [
 	{ component: IconBrandX, label: "X partner" },
@@ -26,26 +26,32 @@ const partnerIcons = [
 		<div class="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.55)_1px,transparent_1px)] bg-size-[18px_18px] opacity-15" />
 
 		<Motion
-			as="img"
-			:src="leftGlowAsset"
-			alt=""
+			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute -left-[340px] top-10 z-1 hidden h-[760px] w-auto rotate-38 select-none brightness-150 contrast-125 saturate-150 mix-blend-screen lg:block"
-			:initial="{ opacity: 0.62, x: -28, y: 12 }"
-			:animate="{ opacity: 0.8, x: 0, y: [12, -8, 12] }"
-			:transition="{ duration: 11, repeat: Infinity, ease: 'easeInOut' }"
-		/>
+			class="pointer-events-none absolute -left-[24px] top-[184px] z-1 hidden h-[580px] w-[288px] lg:block"
+			:initial="{ opacity: 0.78, x: -8, y: 10 }"
+			:animate="{ opacity: [0.8, 0.96, 0.8], x: [0, 6, 0], y: [10, -8, 10] }"
+			:transition="{ duration: 12, repeat: Infinity, ease: 'easeInOut' }"
+		>
+			<div class="absolute inset-0 rounded-full bg-[#0a8bff]/36 blur-[88px]" />
+			<HomeHeroLeftGlow
+				class="h-full w-full brightness-135 saturate-150 filter-[drop-shadow(0_0_48px_rgba(18,131,255,0.5))]"
+			/>
+		</Motion>
 
 		<Motion
-			as="img"
-			:src="rightGlowAsset"
-			alt=""
+			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute -right-[210px] top-18 z-1 hidden h-[680px] w-auto -scale-y-100 rotate-99 select-none brightness-150 contrast-125 saturate-150 mix-blend-screen lg:block"
-			:initial="{ opacity: 0.58, x: 22, y: -10 }"
-			:animate="{ opacity: 0.78, x: 0, y: [-10, 10, -10] }"
-			:transition="{ duration: 12.5, repeat: Infinity, ease: 'easeInOut' }"
-		/>
+			class="pointer-events-none absolute -right-[24px] top-[184px] z-1 hidden h-[580px] w-[288px] lg:block"
+			:initial="{ opacity: 0.78, x: 8, y: -10 }"
+			:animate="{ opacity: [0.8, 0.96, 0.8], x: [0, -6, 0], y: [-10, 8, -10] }"
+			:transition="{ duration: 12.8, repeat: Infinity, ease: 'easeInOut' }"
+		>
+			<div class="absolute inset-0 rounded-full bg-[#0a8bff]/36 blur-[88px]" />
+			<HomeHeroRightGlow
+				class="h-full w-full brightness-135 saturate-150 filter-[drop-shadow(0_0_48px_rgba(18,131,255,0.5))]"
+			/>
+		</Motion>
 
 		<div class="relative z-10 mx-auto flex min-h-[820px] w-full max-w-[1440px] flex-col items-center px-5 pb-8 pt-[132px] lg:px-12 lg:pt-[160px]">
 			<Motion
