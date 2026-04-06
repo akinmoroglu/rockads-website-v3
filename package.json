@@ -9,7 +9,9 @@
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
 		"lint": "oxlint . && eslint .",
-		"lint:fix": "oxlint . && eslint . --fix"
+		"lint:fix": "oxlint . && eslint . --fix",
+		"format": "eslint . --fix",
+		"format:check": "eslint ."
 	},
 	"dependencies": {
 		"@tanstack/vue-table": "^8.21.3",

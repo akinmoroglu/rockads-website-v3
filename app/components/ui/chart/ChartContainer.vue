@@ -14,23 +14,23 @@ const props = defineProps<{
   class?: HTMLAttributes["class"]
   config: ChartConfig
   cursor?: boolean
-}>()
+}>();
 
 defineSlots<{
   default: {
     id: string
     config: ChartConfig
   }
-}>()
+}>();
 
-const { config } = toRefs(props)
-const uniqueId = useId()
-const chartId = computed(() => `chart-${props.id || uniqueId.replace(/:/g, "")}`)
+const { config } = toRefs(props);
+const uniqueId = useId();
+const chartId = computed(() => `chart-${props.id || uniqueId.replace(/:/g, "")}`);
 
 provideChartContext({
-  id: uniqueId,
-  config,
-})
+	id: uniqueId,
+	config,
+});
 </script>
 
 <template>
