@@ -6,7 +6,15 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": [
+			"./app/**/*.ts",
+			"./app/**/*.tsx",
+			"./app/**/*.js",
+			"./app/**/*.jsx",
+			"./app/**/*.mjs",
+			"./app/**/*.vue"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -18,7 +26,8 @@
 			"recommended": true,
 			"correctness": {
 				"noUnusedImports": "off",
-				"noUnusedVariables": "off"
+				"noUnusedVariables": "off",
+				"noVueDuplicateKeys": "off"
 			}
 		}
 	},
