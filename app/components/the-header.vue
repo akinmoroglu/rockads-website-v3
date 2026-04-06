@@ -23,7 +23,6 @@ const mobileMenuOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const servicesOpen = ref(false);
 const activeCategory = ref("core");
-const pinned = ref(false);
 
 const desktopLinks = [
 	{ label: "Solutions", href: "/solutions" },
@@ -80,45 +79,9 @@ const activeItems = computed(() => {
 
 const headerClasses = computed(() => {
 	return [
-		pinned.value ? "fixed header-pinned" : "absolute",
-		"border-b border-[var(--header-border)] bg-[var(--header-background)] backdrop-blur transition-colors duration-200",
+		"sticky border-b border-[var(--header-border)] bg-[var(--header-background)] backdrop-blur transition-colors duration-200",
 	];
 });
-
-let lastScrollY = 0;
-let ticking = false;
-const THRESHOLD = 100;
-
-const onScroll = () => {
-	if (ticking) {
-		return;
-	}
-
-	ticking = true;
-	requestAnimationFrame(() => {
-		const currentScrollY = window.scrollY;
-		const headerHeight = headerRef.value?.offsetHeight ?? 100;
-
-		if (
-			currentScrollY > headerHeight + THRESHOLD
-			&& currentScrollY > lastScrollY
-		) {
-			pinned.value = false;
-		}
-		else if (
-			currentScrollY > headerHeight + THRESHOLD
-			&& currentScrollY < lastScrollY
-		) {
-			pinned.value = true;
-		}
-		else if (currentScrollY <= headerHeight) {
-			pinned.value = false;
-		}
-
-		lastScrollY = currentScrollY;
-		ticking = false;
-	});
-};
 
 const openDesktopServices = () => {
 	servicesOpen.value = true;
@@ -145,13 +108,6 @@ watch(
 	},
 );
 
-onMounted(() => {
-	window.addEventListener("scroll", onScroll, { passive: true });
-});
-
-onUnmounted(() => {
-	window.removeEventListener("scroll", onScroll);
-});
 </script>
 
 <template>
@@ -421,19 +377,3 @@ onUnmounted(() => {
 	</header>
 </template>
 
-<style scoped>
-.header-pinned {
-  animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-  }
-
-  to {
-    transform: translateY(0);
-  }
-}
-</style>
