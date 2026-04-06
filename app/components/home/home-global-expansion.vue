@@ -1,69 +1,108 @@
 <script setup lang="ts">
-import { ArrowRight } from "lucide-vue-next";
 import { Motion } from "motion-v";
+import serveGlobeAsset from "@/assets/images/home/serve/serve-globe.svg?url";
+
+const whoWeServeCards = [
+	{
+		title: "E-Commerce Brands",
+		description:
+			"Scale without a ceiling. For founders and growth leads ready to move fast across global markets.",
+		lineColor: "#0E82FF",
+		variant: "light",
+	},
+	{
+		title: "Digital Agencies",
+		description:
+			"One dashboard. Unlimited clients. Automate the operational layer so your team can focus entirely on strategy.",
+		lineColor: "#E8D500",
+		variant: "dark",
+	},
+	{
+		title: "Enterprise & Performance Teams",
+		description:
+			"Infrastructure that never sleeps. Stability and compliance for mission-critical advertising operations.",
+		lineColor: "#FF5A52",
+		variant: "light",
+	},
+] as const;
 </script>
 
 <template>
-	<section class="expansion-section bg-(--expansion-bg) py-20 text-(--expansion-text) lg:py-28">
-		<div class="mx-auto grid w-full max-w-[1240px] gap-10 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14 lg:px-12">
+	<section class="who-we-serve-section relative overflow-hidden bg-(--who-bg) py-20 lg:py-28">
+		<div class="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[250px] overflow-hidden lg:h-[285px]">
+			<img
+				:src="serveGlobeAsset"
+				alt=""
+				aria-hidden="true"
+				class="h-full w-full object-cover object-bottom opacity-65"
+			>
+		</div>
+
+		<div class="mx-auto w-full max-w-[1240px] px-5 lg:px-12 ">
 			<Motion
 				as="div"
-				:initial="{ opacity: 0, y: 24 }"
+				class="mx-auto flex max-w-[660px] flex-col items-center gap-6 text-center"
+				:initial="{ opacity: 0, y: 16 }"
 				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: false, amount: 0.3 }"
-				:transition="{ duration: 0.65, ease: 'easeOut' }"
+				:in-view-options="{ once: false, amount: 0.5 }"
+				:transition="{ duration: 0.6, ease: 'easeOut' }"
 			>
 				<span
-					class="inline-flex rounded-full border border-(--expansion-pill-border) bg-(--expansion-pill-bg) px-5 py-2 text-xs font-medium tracking-[0.16em] text-(--expansion-pill-text)"
+					class="inline-flex rounded-full border border-(--who-pill-border) bg-(--who-pill-bg) px-6 py-3 text-sm font-medium tracking-[0.16em] text-(--who-pill-text)"
 				>
-					GLOBAL EXPANSION
+					WHO WE SERVE
 				</span>
-				<h2 class="mt-7 max-w-[700px] text-[38px] leading-[1.1] font-semibold tracking-[-0.02em] sm:text-[52px] lg:text-[62px]">
-					Expand into new markets
-					<span class="text-primary">with confidence</span>
+				<h2 class="text-[38px] leading-[1.15] font-medium tracking-[-0.02em] text-(--who-title) sm:text-[44px] lg:text-[48px]">
+					Built for Ambitious <span class="text-primary">Teams</span>
 				</h2>
-				<p class="mt-6 max-w-[680px] text-lg leading-[1.65] text-(--expansion-muted)">
-					From payments to operational compliance, Rockads removes the complexity of global growth so your team can focus
-					on performance, speed, and sustainable scaling.
-				</p>
 			</Motion>
 
-			<Motion
-				as="div"
-				class="rounded-2xl border border-(--expansion-card-border) bg-(--expansion-card-bg) p-7 shadow-[0_20px_60px_rgba(7,15,29,0.1)] lg:p-9"
-				:initial="{ opacity: 0, y: 20 }"
-				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: false, amount: 0.35 }"
-				:transition="{ duration: 0.65, delay: 0.08, ease: 'easeOut' }"
-			>
-				<h3 class="text-2xl leading-tight font-semibold text-(--expansion-text)">
-					Ready to unlock your next region?
-				</h3>
-				<p class="mt-4 text-base leading-7 text-(--expansion-muted)">
-					Work with a dedicated team that combines strategic guidance, technical execution, and enterprise-grade
-					infrastructure for high-volume growth.
-				</p>
-				<NuxtLink
-					to="/contact"
-					class="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+			<div class="relative z-10 mt-14 grid gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
+				<Motion
+					v-for="(card, index) in whoWeServeCards"
+					:key="card.title"
+					as="article"
+					class="rounded-2xl border p-8 lg:min-h-[308px] lg:p-12"
+					:class="card.variant === 'dark'
+						? 'border-white/20 bg-(--who-card-dark-bg) text-(--who-card-dark-text)'
+						: 'border-(--who-card-border) bg-(--who-card-bg) text-(--who-card-text)'"
+					:initial="{ opacity: 0, y: 20 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: false, amount: 0.35 }"
+					:transition="{ duration: 0.6, delay: index * 0.08, ease: 'easeOut' }"
 				>
-					Schedule a strategy call
-					<ArrowRight class="size-4" />
-				</NuxtLink>
-			</Motion>
+					<div
+						class="h-[4px] w-9 rounded-full"
+						:style="{ backgroundColor: card.lineColor }"
+					/>
+					<h3 class="mt-10 text-[30px] leading-[1.2] font-medium lg:text-[32px]">
+						{{ card.title }}
+					</h3>
+					<p
+						class="mt-6 text-lg leading-[1.45]"
+						:class="card.variant === 'dark' ? 'text-(--who-card-dark-muted)' : 'text-(--who-card-muted)'"
+					>
+						{{ card.description }}
+					</p>
+				</Motion>
+			</div>
 		</div>
 	</section>
 </template>
 
 <style scoped>
-.expansion-section {
-	--expansion-bg: #f8fafc;
-	--expansion-text: #0f172a;
-	--expansion-muted: rgba(15, 23, 42, 0.74);
-	--expansion-pill-border: rgba(15, 23, 42, 0.14);
-	--expansion-pill-bg: rgba(15, 23, 42, 0.03);
-	--expansion-pill-text: #334155;
-	--expansion-card-border: rgba(15, 23, 42, 0.1);
-	--expansion-card-bg: #ffffff;
+.who-we-serve-section {
+	--who-bg: #f7f9fb;
+	--who-title: #151b26;
+	--who-pill-border: #cce5f9;
+	--who-pill-bg: #ffffff;
+	--who-pill-text: #9fa6bb;
+	--who-card-bg: #ffffff;
+	--who-card-border: #cce5f9;
+	--who-card-text: #151b26;
+	--who-card-muted: #9fa6bb;
+	--who-card-dark-bg: #10151e;
+	--who-card-dark-text: #ffffff;
+	--who-card-dark-muted: #9fa6bb;
 }
 </style>
