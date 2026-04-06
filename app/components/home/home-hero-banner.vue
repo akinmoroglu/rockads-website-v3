@@ -22,39 +22,53 @@ const partnerIcons = [
 </script>
 
 <template>
-	<section class="relative overflow-visible border-b border-white/10 bg-[linear-gradient(180deg,#02050e_42.81%,#02123e_100%)] text-white">
+	<section class="relative overflow-hidden border-b border-white/10 bg-[linear-gradient(180deg,#02050e_42.81%,#02123e_100%)] text-white">
 		<div class="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.55)_1px,transparent_1px)] bg-size-[22px_22px] opacity-8" />
 
 		<Motion
 			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute -left-[164px] top-[148px] z-1 hidden h-[820px] w-[540px] lg:block"
-			:initial="{ opacity: 0.78, x: -8, y: 10 }"
-			:animate="{ opacity: [0.8, 0.96, 0.8], x: [0, 6, 0], y: [10, -8, 10] }"
-			:transition="{ duration: 12, repeat: Infinity, ease: 'easeInOut' }"
+			class="pointer-events-none absolute -left-[380px] top-[8px] z-1 hidden h-[970px] w-[920px] lg:block"
+			:initial="{ opacity: 0, x: -180 }"
+			:animate="{ opacity: 1, x: 0 }"
+			:transition="{ duration: 1.1, ease: 'easeOut' }"
 		>
-			<img
-				:src="leftGlowAsset"
-				alt=""
-				aria-hidden="true"
-				class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+			<Motion
+				as="div"
+				class="h-full w-full"
+				:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, 6, 0], y: [10, -8, 10] }"
+				:transition="{ duration: 6.2, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
 			>
+				<img
+					:src="leftGlowAsset"
+					alt=""
+					aria-hidden="true"
+					class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+				>
+			</Motion>
 		</Motion>
 
 		<Motion
 			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute -right-[156px] top-[132px] z-1 hidden h-[820px] w-[540px] lg:block"
-			:initial="{ opacity: 0.78, x: 8, y: -10 }"
-			:animate="{ opacity: [0.8, 0.96, 0.8], x: [0, -6, 0], y: [-10, 8, -10] }"
-			:transition="{ duration: 12.8, repeat: Infinity, ease: 'easeInOut' }"
+			class="pointer-events-none absolute -right-[398px] -top-[106px] z-1 hidden h-[970px] w-[920px] lg:block"
+			:initial="{ opacity: 0, x: 180 }"
+			:animate="{ opacity: 1, x: 0 }"
+			:transition="{ duration: 1.1, ease: 'easeOut' }"
 		>
-			<img
-				:src="rightGlowAsset"
-				alt=""
-				aria-hidden="true"
-				class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+			<Motion
+				as="div"
+				class="h-full w-full"
+				:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, -6, 0], y: [-10, 8, -10] }"
+				:transition="{ duration: 6.6, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
 			>
+				<img
+					:src="rightGlowAsset"
+					alt=""
+					aria-hidden="true"
+					class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+				>
+			</Motion>
 		</Motion>
 
 		<div class="relative z-10 mx-auto flex min-h-[860px] w-full max-w-[1440px] flex-col items-center px-5 pb-8 pt-[132px] lg:min-h-[900px] lg:px-12 lg:pt-[160px]">
@@ -109,7 +123,7 @@ const partnerIcons = [
 				<Button
 					as-child
 					size="lg"
-					class="h-14 rounded-lg bg-[#0A8BFF] px-8 text-base font-medium text-white shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:bg-[#0683f3]"
+					class=" rounded-lg  text-base font-medium text-white shadow-[0_0_0_1px_rgba(255,255,255,0.06)]"
 				>
 					<NuxtLink to="/contact">
 						<CalendarDays class="size-5" />
