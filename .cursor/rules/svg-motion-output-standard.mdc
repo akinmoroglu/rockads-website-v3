@@ -1,0 +1,18 @@
+---
+description: Standard output format for SVG animation requests
+alwaysApply: true
+---
+
+# SVG Animation Output Standard
+
+When the user asks for an "animated SVG", produce a Vue component output in this exact style unless they explicitly request otherwise:
+
+- Use inline SVG markup inside the Vue template (no `?url`, no `?raw`, no `v-html`).
+- Use `motion-v` and wrap relevant SVG nodes with `Motion` (`svg`, `g`, `path`, and related tags when needed).
+- Keep per-path animation explicit:
+  - `:initial="{ pathLength: 0, opacity: 0 }"`
+  - `:animate="{ pathLength: 1, opacity: 1 }"`
+  - `:transition` with a valid Vue-safe easing format (prefer cubic-bezier array, e.g. `[0.42, 0, 0.58, 1]`).
+- Preserve the original SVG geometry and visual attributes (`d`, `stroke`, `fill`, `clip-path`, etc.) while only adding animation props.
+- Keep implementation in project conventions (`Vue 3`, `<script setup lang="ts">`, Tailwind token usage, shadcn-first where relevant).
+- Avoid introducing linter or parser-breaking attribute expressions.

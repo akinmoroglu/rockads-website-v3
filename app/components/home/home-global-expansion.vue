@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Motion } from "motion-v";
-import serveGlobeAsset from "@/assets/images/home/serve/serve-globe.svg?url";
+import HomeServeGlobeAnimated from "@/components/home/home-serve-globe-animated.vue";
 
 const whoWeServeCards = [
 	{
@@ -30,12 +30,7 @@ const whoWeServeCards = [
 <template>
 	<section class="who-we-serve-section relative overflow-hidden bg-(--who-bg) pt-16 pb-8 lg:min-h-[589px] lg:pt-[80px] lg:pb-0">
 		<div class="pointer-events-none absolute inset-x-0 -bottom-40 z-0 h-auto overflow-hidden">
-			<img
-				:src="serveGlobeAsset"
-				alt=""
-				aria-hidden="true"
-				class="h-full w-full object-cover object-bottom opacity-65"
-			>
+			<HomeServeGlobeAnimated />
 		</div>
 
 		<div class="relative z-10 mx-auto w-full max-w-[1240px] px-5 lg:px-12">
@@ -57,7 +52,7 @@ const whoWeServeCards = [
 				</h2>
 			</Motion>
 
-			<div class="mx-auto mt-10 grid max-w-[1120px] gap-6 lg:mt-[88px] lg:grid-cols-3 lg:gap-8">
+			<div class="mx-auto mt-10 grid max-w-[1120px] gap-6 lg:mt-[88px] lg:grid-cols-3 lg:gap-8 lg:pb-37">
 				<Motion
 					v-for="(card, index) in whoWeServeCards"
 					:key="card.title"
