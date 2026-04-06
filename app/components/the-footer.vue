@@ -9,13 +9,13 @@ const legalLinks = [
 <template>
 	<footer class="footer-shell mt-20 text-white">
 		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-16 text-center lg:px-12">
-			<p class="mb-12 text-base font-semibold tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
+			<p class="mb-12 text-base  tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
 				The only partner you'll ever need.
 			</p>
 
 			<div class="relative w-full max-w-(--footer-headline-max-width)">
 				<div class="footer-glow pointer-events-none absolute inset-0 -z-10 rounded-full" />
-				<h2 class="font-medium text-white">
+				<h2 class="text-white">
 					<span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Stable.</span>
 					<span class="block text-5xl leading-[1.18] text-(--footer-accent-color) md:text-6xl md:leading-[1.2]">Enduring.</span>
 					<span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Limitless.</span>
@@ -28,7 +28,7 @@ const legalLinks = [
 		</div>
 
 		<div class="border-t border-(--footer-border-color)">
-			<div class="mx-auto flex w-full max-w-(--footer-max-width) flex-col gap-4 px-5 py-7 text-base font-medium text-(--footer-link-color) md:flex-row md:items-center md:justify-between lg:px-12">
+			<div class="mx-auto flex w-full max-w-(--footer-max-width) flex-col gap-4 px-5 py-7 text-base text-(--footer-link-color) md:flex-row md:items-center md:justify-between lg:px-12">
 				<div class="flex items-center gap-5">
 					<template
 						v-for="(link, index) in legalLinks"
