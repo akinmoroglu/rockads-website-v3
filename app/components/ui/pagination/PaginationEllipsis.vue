@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import type { PaginationEllipsisProps } from "reka-ui"
-import type { HTMLAttributes } from "vue"
-import { reactiveOmit } from "@vueuse/core"
-import { IconDots } from '@tabler/icons-vue'
-import { PaginationEllipsis } from "reka-ui"
-import { cn } from "@/lib/utils"
+import { IconDots } from "@tabler/icons-vue";
+import { reactiveOmit } from "@vueuse/core";
+import type { PaginationEllipsisProps } from "reka-ui";
+import { PaginationEllipsis } from "reka-ui";
+import type { HTMLAttributes } from "vue";
+import { cn } from "@/lib/utils";
 
-const props = defineProps<PaginationEllipsisProps & { class?: HTMLAttributes["class"] }>()
+const props = defineProps<
+	PaginationEllipsisProps & { class?: HTMLAttributes["class"] }
+>();
 
-const delegatedProps = reactiveOmit(props, "class")
+const delegatedProps = reactiveOmit(props, "class");
 </script>
 
 <template>
