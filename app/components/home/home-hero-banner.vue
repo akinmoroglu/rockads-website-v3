@@ -28,7 +28,7 @@ const partnerIcons = [
 		<Motion
 			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute -left-[56px] top-[220px] z-1 hidden h-[640px] w-[420px] lg:block"
+			class="pointer-events-none absolute -left-[56px] top-[220px] z-1 hidden h-[620px] w-[390px] lg:block"
 			:initial="{ opacity: 0.78, x: -8, y: 10 }"
 			:animate="{ opacity: [0.8, 0.96, 0.8], x: [0, 6, 0], y: [10, -8, 10] }"
 			:transition="{ duration: 12, repeat: Infinity, ease: 'easeInOut' }"
