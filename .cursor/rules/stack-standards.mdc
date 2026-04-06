@@ -1,0 +1,43 @@
+---
+description: Enforce Vue/Nuxt/Tailwind/shadcn-nuxt/Biome project standards
+alwaysApply: true
+---
+
+# Rockads Frontend Standards
+
+## Scope
+
+- Apply these standards to all implementation and refactor tasks in this repository.
+- Keep all code, comments, and user-facing text in English.
+
+## Vue and Nuxt
+
+- Use Vue 3 Composition API with `<script setup lang="ts">` for components.
+- Prefer Nuxt auto-imported composables (`useRoute`, `useRouter`, `useAsyncData`) instead of manual imports when available.
+- Keep components focused; extract reusable logic to composables under `app/composables` when logic grows.
+- Avoid direct browser globals in SSR paths; gate browser-only access with `import.meta.client`.
+
+## UI and shadcn-nuxt
+
+- Reuse existing primitives in `app/components/ui` before creating new base UI components.
+- Keep variant logic in `class-variance-authority` patterns when a component has multiple visual states.
+- Use the configured shadcn component directory (`@/components/ui`) and current no-prefix setup.
+
+## Tailwind CSS (v4)
+
+- Use Tailwind utility classes and design tokens from `app/assets/css/tailwind.css`.
+- Prefer semantic token utilities (`bg-background`, `text-foreground`, `border-border`) over hardcoded colors.
+- Keep dark mode compatible by relying on tokenized classes and existing `dark` variant behavior.
+
+## Biome and Formatting
+
+- Follow `biome.json` as source of truth for linting and formatting.
+- Preserve tab indentation and double-quote style in JavaScript/TypeScript.
+- Do not introduce new lint suppressions unless there is no practical alternative.
+
+## Quality Guardrails
+
+- Keep naming explicit and domain-driven; avoid vague names like `data`, `item`, `temp`.
+- Prefer small, typed helpers over duplicated inline logic.
+- Update or add minimal tests when behavior changes.
+- Run `pnpm lint` (or `pnpm lint:fix` when needed) after substantive edits.
