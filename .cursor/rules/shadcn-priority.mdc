@@ -12,6 +12,7 @@ When building or updating UI in this repository, `shadcn` is the first choice.
 - If a needed primitive does not exist, add it in a `shadcn`-compatible structure and API style.
 - Keep visual states in `class-variance-authority` patterns when variants are required.
 - Preserve token-based Tailwind usage and avoid hardcoded color values.
+- For interactive motion in UI components, prefer `motion-v` patterns over bespoke animation implementations.
 
 Decision order:
 

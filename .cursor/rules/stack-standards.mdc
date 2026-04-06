@@ -24,6 +24,13 @@ alwaysApply: true
 - Keep variant logic in `class-variance-authority` patterns when a component has multiple visual states.
 - Use the configured shadcn component directory (`@/components/ui`) and current no-prefix setup.
 
+## Motion and Animation
+
+- Prefer `motion-v` for component-level motion and enter/exit transitions instead of custom animation utilities.
+- Keep motion subtle and purposeful; avoid decorative animations that reduce readability or perceived performance.
+- Respect reduced-motion preferences and provide non-animated fallbacks when motion is optional.
+- Reuse shared timing and easing tokens/patterns; avoid ad-hoc per-component animation values.
+
 ## Tailwind CSS (v4)
 
 - Use Tailwind utility classes and design tokens from `app/assets/css/tailwind.css`.
