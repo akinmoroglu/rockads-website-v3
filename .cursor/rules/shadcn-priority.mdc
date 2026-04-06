@@ -1,0 +1,20 @@
+---
+description: Shadcn-first UI decision policy
+alwaysApply: true
+---
+
+# Shadcn-First UI Policy
+
+When building or updating UI in this repository, `shadcn` is the first choice.
+
+- Start with existing components in `app/components/ui` before creating new primitives.
+- Prefer composing screens from `shadcn` primitives instead of custom base components.
+- If a needed primitive does not exist, add it in a `shadcn`-compatible structure and API style.
+- Keep visual states in `class-variance-authority` patterns when variants are required.
+- Preserve token-based Tailwind usage and avoid hardcoded color values.
+
+Decision order:
+
+1. Reuse an existing `app/components/ui` component.
+2. Add/adapt a `shadcn`-style primitive.
+3. Build custom UI only if options 1 and 2 are not viable.

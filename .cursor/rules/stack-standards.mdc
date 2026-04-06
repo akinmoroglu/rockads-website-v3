@@ -19,6 +19,7 @@ alwaysApply: true
 
 ## UI and shadcn-nuxt
 
+- Follow a shadcn-first decision policy: reuse `app/components/ui` primitives first, then add shadcn-compatible primitives, and only then build custom UI.
 - Reuse existing primitives in `app/components/ui` before creating new base UI components.
 - Keep variant logic in `class-variance-authority` patterns when a component has multiple visual states.
 - Use the configured shadcn component directory (`@/components/ui`) and current no-prefix setup.
