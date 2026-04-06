@@ -1,0 +1,138 @@
+<script setup lang="ts">
+import { Motion } from "motion-v";
+import { CalendarDays } from "lucide-vue-next";
+import {
+	IconBrandGoogle,
+	IconBrandMeta,
+	IconBrandSnapchat,
+	IconBrandTiktok,
+	IconBrandX,
+} from "@tabler/icons-vue";
+import { Button } from "@/components/ui/button";
+import leftGlowAsset from "@/assets/images/home/hero/left-glow.svg?url";
+import rightGlowAsset from "@/assets/images/home/hero/right-glow.svg?url";
+
+const partnerIcons = [
+	{ component: IconBrandX, label: "X partner" },
+	{ component: IconBrandSnapchat, label: "Snapchat partner" },
+	{ component: IconBrandTiktok, label: "TikTok partner" },
+	{ component: IconBrandGoogle, label: "Google partner" },
+	{ component: IconBrandMeta, label: "Meta partner" },
+];
+</script>
+
+<template>
+	<section class="relative overflow-hidden border-b border-white/10 bg-[linear-gradient(180deg,#02050e_42.81%,#02123e_100%)] text-white">
+		<div class="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.55)_1px,transparent_1px)] bg-size-[18px_18px] opacity-15" />
+
+		<Motion
+			as="img"
+			:src="leftGlowAsset"
+			alt=""
+			aria-hidden="true"
+			class="pointer-events-none absolute -left-[340px] top-10 z-1 hidden h-[760px] w-auto rotate-38 select-none brightness-150 contrast-125 saturate-150 mix-blend-screen lg:block"
+			:initial="{ opacity: 0.62, x: -28, y: 12 }"
+			:animate="{ opacity: 0.8, x: 0, y: [12, -8, 12] }"
+			:transition="{ duration: 11, repeat: Infinity, ease: 'easeInOut' }"
+		/>
+
+		<Motion
+			as="img"
+			:src="rightGlowAsset"
+			alt=""
+			aria-hidden="true"
+			class="pointer-events-none absolute -right-[210px] top-18 z-1 hidden h-[680px] w-auto -scale-y-100 rotate-99 select-none brightness-150 contrast-125 saturate-150 mix-blend-screen lg:block"
+			:initial="{ opacity: 0.58, x: 22, y: -10 }"
+			:animate="{ opacity: 0.78, x: 0, y: [-10, 10, -10] }"
+			:transition="{ duration: 12.5, repeat: Infinity, ease: 'easeInOut' }"
+		/>
+
+		<div class="relative z-10 mx-auto flex min-h-[820px] w-full max-w-[1440px] flex-col items-center px-5 pb-8 pt-[132px] lg:px-12 lg:pt-[160px]">
+			<Motion
+				as="div"
+				class="rounded-full border border-[#37A4FF]/35 bg-[#0a75cb]/20 px-3 py-2 text-sm font-medium text-white/90"
+				:initial="{ opacity: 0, y: 12 }"
+				:animate="{ opacity: 1, y: 0 }"
+				:transition="{ duration: 0.45, ease: 'easeOut' }"
+			>
+				Stable. <span class="italic">Enduring.</span> Limitless.
+			</Motion>
+
+			<Motion
+				as="h1"
+				class="mt-6 text-center text-[46px] leading-[1.05] font-extrabold tracking-[-0.03em] text-[#99CBF3] sm:text-[60px] lg:text-[80px]"
+				:initial="{ opacity: 0, y: 18 }"
+				:animate="{ opacity: 1, y: 0 }"
+				:transition="{ duration: 0.55, delay: 0.1, ease: 'easeOut' }"
+			>
+				Grow without limits.
+			</Motion>
+
+			<Motion
+				as="p"
+				class="mt-5 max-w-[709px] text-center text-[19px] leading-8 text-white/95 lg:text-[20px]"
+				:initial="{ opacity: 0, y: 14 }"
+				:animate="{ opacity: 1, y: 0 }"
+				:transition="{ duration: 0.55, delay: 0.16, ease: 'easeOut' }"
+			>
+				Rockads is a cross-border business accelerator; the stable, intelligent, scalable ground upon which the world's
+				fastest-growing brands and entrepreneurs build their global operations.
+			</Motion>
+
+			<Motion
+				as="p"
+				class="mt-5 max-w-[709px] text-center text-[19px] leading-8 text-[#747A8E] lg:text-[20px]"
+				:initial="{ opacity: 0, y: 12 }"
+				:animate="{ opacity: 1, y: 0 }"
+				:transition="{ duration: 0.55, delay: 0.22, ease: 'easeOut' }"
+			>
+				A global growth partner and a next-generation full-stack platform.
+			</Motion>
+
+			<Motion
+				as="div"
+				class="mt-9"
+				:initial="{ opacity: 0, y: 14, scale: 0.98 }"
+				:animate="{ opacity: 1, y: 0, scale: [0.98, 1, 0.98] }"
+				:transition="{ duration: 1.5, delay: 0.26, ease: 'easeInOut' }"
+			>
+				<Button
+					as-child
+					size="lg"
+					class="h-14 rounded-lg bg-[#0A8BFF] px-8 text-base font-medium text-white shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:bg-[#0683f3]"
+				>
+					<NuxtLink to="/contact">
+						<CalendarDays class="size-5" />
+						Book a Call
+					</NuxtLink>
+				</Button>
+			</Motion>
+
+			<div class="mt-auto flex flex-col items-center gap-5 pb-4 pt-14">
+				<p class="text-center text-xs font-medium tracking-[0.02em] text-white/95">
+					OFFICIAL PLATFORM PARTNERS
+				</p>
+				<div class="flex items-center gap-4">
+					<Motion
+						v-for="(icon, index) in partnerIcons"
+						:key="icon.label"
+						as="div"
+						:aria-label="icon.label"
+						role="img"
+						class="flex size-8 items-center justify-center rounded-full bg-white/10 p-1"
+						:initial="{ opacity: 0, y: 8 }"
+						:animate="{ opacity: 1, y: [0, -2, 0] }"
+						:transition="{ duration: 2.4, delay: 0.3 + (index * 0.08), ease: 'easeInOut' }"
+					>
+						<component
+							:is="icon.component"
+							class="size-[18px] text-white"
+							aria-hidden="true"
+							stroke-width="1.8"
+						/>
+					</Motion>
+				</div>
+			</div>
+		</div>
+	</section>
+</template>
