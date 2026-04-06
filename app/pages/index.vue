@@ -39,7 +39,7 @@ const highlights = [
 
 <template>
 	<div class="min-h-screen bg-background text-foreground">
-		<TheHeader transparent />
+		<TheHeader />
 
 		<main class="mx-auto w-full max-w-[1440px] px-5 pt-[104px] pb-16 lg:px-12 lg:pt-[140px] lg:pb-24">
 			<section class="max-w-3xl space-y-6 py-12 lg:py-16">

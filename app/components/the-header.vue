@@ -16,10 +16,6 @@ type ServiceCategory = {
 	items: ServiceItem[];
 };
 
-const props = withDefaults(defineProps<{ transparent?: boolean }>(), {
-	transparent: false,
-});
-
 const headerRef = ref<HTMLElement | null>(null);
 const route = useRoute();
 
@@ -84,23 +80,9 @@ const activeItems = computed(() => {
 
 const headerClasses = computed(() => {
 	return [
-		pinned.value
-			? "fixed border-b border-border bg-background/95 shadow-sm backdrop-blur header-pinned"
-			: "absolute",
-		!pinned.value && !props.transparent ? "bg-background/95 backdrop-blur" : "",
+		pinned.value ? "fixed header-pinned" : "absolute",
+		"border-b border-[var(--header-border)] bg-[var(--header-background)] backdrop-blur transition-colors duration-200",
 	];
-});
-
-const isOverlayMode = computed(() => {
-	return props.transparent && !pinned.value && !mobileMenuOpen.value;
-});
-
-const headerTextClass = computed(() => {
-	return isOverlayMode.value ? "text-white" : "text-foreground";
-});
-
-const headerMutedClass = computed(() => {
-	return isOverlayMode.value ? "bg-white/30" : "bg-border";
 });
 
 let lastScrollY = 0;
@@ -189,12 +171,10 @@ onUnmounted(() => {
 					class="h-[27px] w-[142px]"
 				>
 				<div
-					class="hidden h-5 w-px md:block"
-					:class="headerMutedClass"
+					class="hidden h-5 w-px bg-border md:block"
 				/>
 				<span
-					class="hidden text-base font-medium md:block"
-					:class="headerTextClass"
+					class="hidden text-base font-medium text-foreground md:block"
 				>
 					Your Growth Partner
 				</span>
@@ -202,8 +182,7 @@ onUnmounted(() => {
 
 			<nav class="hidden items-center gap-10 lg:flex">
 				<div
-					class="flex items-center gap-10 text-base font-medium"
-					:class="headerTextClass"
+					class="flex items-center gap-10 text-base font-medium text-foreground"
 				>
 					<div
 						class="relative"
@@ -306,8 +285,7 @@ onUnmounted(() => {
 				type="button"
 				variant="ghost"
 				size="icon"
-				class="lg:hidden"
-				:class="headerTextClass"
+				class="text-foreground lg:hidden"
 				:aria-expanded="mobileMenuOpen"
 				aria-label="Toggle navigation menu"
 				@click="toggleMobileMenu"
