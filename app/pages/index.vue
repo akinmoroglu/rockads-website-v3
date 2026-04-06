@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HomeHeroBanner from "@/components/home/home-hero-banner.vue";
+import HomeOurPhilosophy from "@/components/home/home-our-philosophy.vue";
 import HomeThreePillars from "@/components/home/home-three-pillars.vue";
 
 definePageMeta({
@@ -22,5 +23,6 @@ useHead({
 	<main class="w-full">
 		<HomeHeroBanner />
 		<HomeThreePillars />
+		<HomeOurPhilosophy />
 	</main>
 </template>
