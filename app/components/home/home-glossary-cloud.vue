@@ -2,6 +2,9 @@
 import { useMediaQuery } from "@vueuse/core";
 import { Motion } from "motion-v";
 import glossaryGlobeSrc from "@/assets/images/home/glossary/globe.svg?url";
+import HoverCard from "@/components/ui/hover-card/HoverCard.vue";
+import HoverCardContent from "@/components/ui/hover-card/HoverCardContent.vue";
+import HoverCardTrigger from "@/components/ui/hover-card/HoverCardTrigger.vue";
 
 type RawTag = {
 	text: string;
@@ -22,7 +25,6 @@ const cloudRef = ref<HTMLElement | null>(null);
 const mouseX = ref(0);
 const mouseY = ref(0);
 const mouseInside = ref(false);
-const hoveredTag = ref<number | null>(null);
 
 const LENS_MAX = 1.5;
 const LENS_MIN = 0.5;
@@ -75,6 +77,14 @@ const tags: Tag[] = rawTags.map((t) => {
 	};
 });
 
+/** One HoverCard per tag; only the open row mounts portal content (Presence). */
+const tagOpen = reactive(tags.map(() => false));
+
+const activeTagIndex = computed(() => {
+	const idx = tagOpen.findIndex(open => open);
+	return idx === -1 ? null : idx;
+});
+
 const allTagsMobile = [
 	"/billing-changes", "/shopify-automation", "/manus-ai", "/spark-ads",
 	"/budget-rules", "/lookalike-audiences", "/capi-pixel", "/fix-roas",
@@ -111,12 +121,17 @@ function onMouseMove(e: MouseEvent) {
 
 function onMouseLeave() {
 	mouseInside.value = false;
-	hoveredTag.value = null;
 }
 
-function getTagStyle(index: number): Record<string, string | number> {
+type TagStyleOptions = {
+	/** When true, paints the label above the glossary card (duplicate of the hovered hit target). */
+	overlay?: boolean;
+};
+
+function getTagStyle(index: number, options?: TagStyleOptions): Record<string, string | number> {
+	const overlay = options?.overlay === true;
 	const tag = tags[index]!;
-	const isHovered = hoveredTag.value === index;
+	const isHovered = tagOpen[index] === true;
 	const reduceMotion = prefersReducedMotion.value;
 
 	let scale = 1;
@@ -124,6 +139,8 @@ function getTagStyle(index: number): Record<string, string | number> {
 	let color = "var(--muted-foreground)";
 	let originX = 50;
 	let originY = 50;
+
+	const tooltipOpen = tagOpen.some(open => open);
 
 	if (cloudRef.value) {
 		const cw = cloudRef.value.offsetWidth;
@@ -162,9 +179,15 @@ function getTagStyle(index: number): Record<string, string | number> {
 		}
 	}
 
+	if (tooltipOpen && isHovered && !overlay) {
+		opacity = 0;
+	}
+
 	const transition = reduceMotion
 		? "color 0.2s ease"
 		: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, color 0.2s ease, transform-origin 0.3s ease";
+
+	const tagZ = tooltipOpen ? (isHovered ? (overlay ? 60 : 0) : 0) : (isHovered ? 10 : 1);
 
 	return {
 		left: tag.x + "%",
@@ -175,37 +198,21 @@ function getTagStyle(index: number): Record<string, string | number> {
 		opacity,
 		color,
 		transition,
-		zIndex: isHovered ? 10 : 1,
+		zIndex: tagZ,
 	};
 }
 
-const popupStyle = computed(() => {
-	if (hoveredTag.value === null || !cloudRef.value) return { display: "none" };
-	const tag = tags[hoveredTag.value]!;
-	const cw = cloudRef.value.offsetWidth;
-	const ch = cloudRef.value.offsetHeight;
-
-	const tagX = (tag.x / 100) * cw;
-	const tagY = (tag.y / 100) * ch;
-
-	const popupW = Math.min(330, cw - 20);
-	const popupH = 200;
-	const gap = 12;
-	const tagAnchor = 28;
-
-	let left = tagX - popupW / 2;
-	let top = tagY + tagAnchor + gap;
-
-	if (top + popupH > ch - 16) top = tagY - popupH - gap;
-	if (left + popupW > cw - 16) left = cw - popupW - 16;
-	if (left < 16) left = 16;
-	if (top < 16) top = 16;
-
-	return {
-		left: `${left}px`,
-		top: `${top}px`,
-	};
+const hoveredTagOverlayStyle = computed((): Record<string, string | number> => {
+	const i = activeTagIndex.value;
+	if (i === null) return {};
+	return getTagStyle(i, { overlay: true });
 });
+
+const hoverCardContentClass = computed(() =>
+	prefersReducedMotion.value
+		? "z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,380px)] max-w-[380px] overflow-y-auto rounded-sm border-0 bg-transparent p-0 text-white shadow-none outline-none [&[data-state=closed]]:animate-none [&[data-state=open]]:animate-none"
+		: "z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,380px)] max-w-[380px] overflow-y-auto rounded-sm border-0 bg-transparent p-0 text-white shadow-none outline-none",
+);
 
 const motionTransition = computed(() => ({
 	duration: prefersReducedMotion.value ? 0 : 0.55,
@@ -264,12 +271,12 @@ const motionTransitionDelayed = computed(() => ({
 			>
 				<div
 					ref="cloudRef"
-					class="relative mx-auto h-[400px] w-full md:h-[450px] lg:h-[500px]"
+					class="relative isolate mx-auto h-[400px] w-full md:h-[450px] lg:h-[500px]"
 					@mousemove="onMouseMove"
 					@mouseleave="onMouseLeave"
 				>
 					<div
-						class="pointer-events-none absolute hidden h-[500px] w-[500px] rounded-full transition-opacity duration-700 motion-reduce:transition-none md:block"
+						class="pointer-events-none absolute z-0 hidden h-[500px] w-[500px] rounded-full transition-opacity duration-700 motion-reduce:transition-none md:block"
 						:class="mouseInside ? 'opacity-100' : 'opacity-0'"
 						:style="{
 							left: mouseX - 250 + 'px',
@@ -278,53 +285,66 @@ const motionTransitionDelayed = computed(() => ({
 						}"
 					/>
 
-					<div class="absolute inset-0 hidden md:block">
-						<span
+					<div class="absolute inset-0 z-10 hidden md:block">
+						<HoverCard
 							v-for="(tag, i) in tags"
 							:key="tag.text + '-' + i"
-							class="absolute cursor-pointer font-medium whitespace-nowrap select-none"
-							:style="getTagStyle(i)"
-							@mouseenter="hoveredTag = i"
-							@mouseleave="hoveredTag = null"
-							@click="onTagClick(i)"
+							v-model:open="tagOpen[i]"
+							:open-delay="0"
+							:close-delay="120"
 						>
-							{{ tag.text }}
-						</span>
-					</div>
-
-					<Transition name="glossary-popup">
-						<div
-							v-if="hoveredTag !== null"
-							class="glossary-tooltip pointer-events-none absolute z-30 w-[min(100%,330px)] max-w-[330px] rounded-2xl p-8"
-							:style="popupStyle"
-						>
-							<div class="flex flex-col gap-4">
-								<div class="flex items-start gap-3">
+							<HoverCardTrigger as-child>
+								<span
+									class="absolute cursor-pointer whitespace-nowrap select-none"
+									:style="getTagStyle(i)"
+									@click="onTagClick(i)"
+								>
+									{{ tag.text }}
+								</span>
+							</HoverCardTrigger>
+							<HoverCardContent
+								side="bottom"
+								align="center"
+								:side-offset="12"
+								:class="hoverCardContentClass"
+							>
+								<div class="glossary-tooltip relative rounded-sm">
 									<div
-										class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary"
+										class="absolute top-0 right-5 z-10 flex size-14 -translate-y-1/2 items-center justify-center bg-primary text-primary-foreground"
 										aria-hidden="true"
 									>
 										<svg
-											class="h-5 w-5"
+											class="size-7"
 											viewBox="0 0 24 24"
 											fill="none"
 											stroke="currentColor"
 											stroke-width="2"
 											stroke-linecap="round"
+											stroke-linejoin="round"
 										>
-											<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
+											<circle
+												cx="7.5"
+												cy="15.5"
+												r="5.5"
+											/>
+											<path d="m21 2-9.6 9.6" />
+											<path d="m15.5 7.5 3 3L22 7l-3-3" />
 										</svg>
 									</div>
-									<h3 class="min-w-0 pt-1 text-base leading-snug font-semibold tracking-tight text-white lg:text-lg">
-										{{ tags[hoveredTag!]?.text }}
-									</h3>
+									<div class="flex flex-col gap-6 px-10 pt-10 pr-16 pb-10">
+										<h3
+											class="min-w-0 text-3xl leading-tight font-normal tracking-tight text-white italic md:text-4xl md:leading-[1.15]"
+										>
+											{{ tag.text }}
+										</h3>
+										<p class="text-base leading-relaxed font-normal text-white md:text-lg">
+											{{ tag.desc }}
+										</p>
+									</div>
 								</div>
-								<p class="text-sm leading-5 font-medium text-(--glossary-tooltip-body)">
-									{{ tags[hoveredTag!]?.desc }}
-								</p>
-							</div>
-						</div>
-					</Transition>
+							</HoverCardContent>
+						</HoverCard>
+					</div>
 
 					<div class="flex flex-wrap items-center justify-center gap-3 pt-4 md:hidden">
 						<span
@@ -333,6 +353,19 @@ const motionTransitionDelayed = computed(() => ({
 							class="rounded-full border border-border bg-background/80 px-3 py-1.5 text-sm font-medium text-muted-foreground"
 						>
 							{{ slug }}
+						</span>
+					</div>
+
+					<div
+						v-if="activeTagIndex !== null"
+						class="pointer-events-none absolute inset-0 z-60 hidden md:block"
+						aria-hidden="true"
+					>
+						<span
+							class="absolute whitespace-nowrap select-none"
+							:style="hoveredTagOverlayStyle"
+						>
+							{{ tags[activeTagIndex]?.text }}
 						</span>
 					</div>
 				</div>
@@ -349,39 +382,13 @@ const motionTransitionDelayed = computed(() => ({
 	--glossary-pill-bg: oklch(1 0 0 / 60%);
 	--glossary-pill-text: oklch(0.48 0.02 255);
 	--glossary-title: oklch(0.22 0.02 260);
-	--glossary-tooltip-bg: #151b26;
+	--glossary-tooltip-bg: #1a1d23;
 	--glossary-tooltip-shadow: 0 16px 48px -12px oklch(0.25 0.04 260 / 55%);
-	--glossary-tooltip-body: oklch(0.78 0.02 260);
 	background-color: var(--glossary-bg);
 }
 
 .glossary-tooltip {
 	background-color: var(--glossary-tooltip-bg);
 	box-shadow: var(--glossary-tooltip-shadow);
-}
-
-.glossary-popup-enter-active {
-	transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glossary-popup-leave-active {
-	transition: opacity 0.15s ease, transform 0.15s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.glossary-popup-enter-active,
-	.glossary-popup-leave-active {
-		transition-duration: 0.01ms;
-	}
-}
-
-.glossary-popup-enter-from {
-	opacity: 0;
-	transform: translateY(10px) scale(0.96);
-}
-
-.glossary-popup-leave-to {
-	opacity: 0;
-	transform: translateY(6px) scale(0.98);
 }
 </style>
