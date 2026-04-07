@@ -22,13 +22,13 @@ const partnerIcons = [
 </script>
 
 <template>
-	<section class="relative min-h-screen bg-linear-to-b from-black to-[#02123e] overflow-hidden">
+	<section class="relative min-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e]">
 		<div class="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.55)_1px,transparent_1px)] bg-size-[22px_22px] opacity-8" />
 
 		<Motion
 			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute -left-[380px] top-[8px] z-1 hidden h-[970px] w-[920px] lg:block"
+			class="pointer-events-none absolute top-[8px] left-[-380px] z-1 hidden h-[970px] w-[920px] lg:block"
 			:initial="{ opacity: 0, x: -180 }"
 			:animate="{ opacity: 1, x: 0 }"
 			:transition="{ duration: 1.1, ease: 'easeOut' }"
@@ -51,7 +51,7 @@ const partnerIcons = [
 		<Motion
 			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute -right-[398px] -top-[106px] z-1 hidden h-[970px] w-[920px] lg:block"
+			class="pointer-events-none absolute top-[-106px] right-[-398px] z-1 hidden h-[970px] w-[920px] lg:block"
 			:initial="{ opacity: 0, x: 180 }"
 			:animate="{ opacity: 1, x: 0 }"
 			:transition="{ duration: 1.1, ease: 'easeOut' }"
@@ -71,7 +71,7 @@ const partnerIcons = [
 			</Motion>
 		</Motion>
 
-		<div class="relative z-10 mx-auto flex min-h-[860px] w-full max-w-[1440px] flex-col items-center px-5 pb-8 pt-[132px] lg:min-h-[900px] lg:px-12 lg:pt-[160px]">
+		<div class="relative z-10 mx-auto flex min-h-[860px] w-full max-w-[1440px] flex-col items-center px-5 pt-[132px] pb-8 lg:min-h-[900px] lg:px-12 lg:pt-[160px]">
 			<Motion
 				as="div"
 				class="rounded-full border border-[#37A4FF]/35 bg-[#0a75cb]/20 px-3 py-2 text-sm  text-white/90"
@@ -132,7 +132,7 @@ const partnerIcons = [
 				</Button>
 			</Motion>
 
-			<div class="mt-auto flex flex-col items-center gap-5 pb-4 pt-14">
+			<div class="mt-auto flex flex-col items-center gap-5 pt-14 pb-4">
 				<p class="text-center text-xs  tracking-[0.02em] text-white/95">
 					OFFICIAL PLATFORM PARTNERS
 				</p>
