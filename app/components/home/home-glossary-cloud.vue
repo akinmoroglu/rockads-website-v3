@@ -227,7 +227,7 @@ const motionTransitionDelayed = computed(() => ({
 			<img
 				:src="glossaryGlobeSrc"
 				alt=""
-				class="min-h-[105%] max-w-none min-w-[105%] shrink-0 object-cover opacity-[var(--glossary-globe-opacity)]"
+				class="min-h-[105%] max-w-none min-w-[105%] shrink-0 object-cover opacity-(--glossary-globe-opacity)"
 				decoding="async"
 			>
 		</div>
