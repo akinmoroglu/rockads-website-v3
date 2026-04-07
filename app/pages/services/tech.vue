@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import {
-	IconBroadcast,
 	IconBrush,
 	IconBuildingStore,
 	IconPhoto,
 	IconPlayerPlay,
+	IconShoppingBag,
 	IconSparkles,
-	IconTopologyStar3,
+	IconTopologyStarRing,
 } from "@tabler/icons-vue";
 import { Button } from "@/components/ui/button";
 import techAutomationPath from "@/assets/images/services/tech/ad-automation.svg?url";
@@ -16,9 +16,9 @@ import techGooglePath from "@/assets/images/services/tech/google.svg?url";
 import techTikTokPath from "@/assets/images/services/tech/tiktok.svg?url";
 import techXPath from "@/assets/images/services/tech/x-twitter.svg?url";
 import techSnapchatPath from "@/assets/images/services/tech/snapchat.svg?url";
-import complianceAiPath from "@/assets/images/services/tech/compliance-ai.svg?url";
+import ComplianceAiAnimated from "@/components/icons/animated/compliance-ai-animated.vue";
+import HowItWorksDotsAnimated from "@/components/icons/animated/how-it-works-dots-animated.vue";
 import aiCreativeStudioPath from "@/assets/images/services/tech/ai-creative-studio.svg?url";
-import howItWorksDotsPath from "@/assets/images/services/tech/how-it-works.svg?url";
 
 useHead({
 	title: "Tech Services - Rockads",
@@ -63,7 +63,7 @@ const audienceCards = [
 	{
 		title: "E-Commerce Brands",
 		body: "A complete tech stack for brands scaling globally — from creative production to campaign deployment to automated optimization. No more stitching together five different tools.",
-		icon: IconBroadcast,
+		icon: IconShoppingBag,
 	},
 	{
 		title: "Digital Agencies",
@@ -73,7 +73,7 @@ const audienceCards = [
 	{
 		title: "Enterprise & Performance Teams",
 		body: "Enterprise-grade infrastructure with role-based access, approval workflows, audit trails, and compliance built into every layer. Scale without losing control.",
-		icon: IconTopologyStar3,
+		icon: IconTopologyStarRing,
 	},
 ];
 
@@ -290,7 +290,7 @@ onUnmounted(() => {
 				<h1 class="text-[40px] leading-[1.14] md:text-[48px] lg:text-[56px]">
 					<span class="text-primary">Tech</span> <span class="text-text-base">Services</span>
 				</h1>
-				<p class="mt-4 text-base text-foreground/50 lg:mt-5 lg:text-lg">
+				<p class="mt-4 text-base font-medium text-foreground lg:mt-5 lg:text-lg">
 					The Full Stack for Global Ad Operations
 				</p>
 				<p class="mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base">
@@ -364,10 +364,7 @@ onUnmounted(() => {
 						Stay compliant. Stay live. Stay ahead. Continuously monitor campaigns, creatives, and account health across every platform. Pre-publish policy scanning, real-time risk monitoring, and cross-border regulatory intelligence.
 					</p>
 					<div class="mt-10 flex justify-start">
-						<img
-							:src="complianceAiPath"
-							alt=""
-						>
+						<ComplianceAiAnimated />
 					</div>
 				</div>
 			</div>
@@ -398,15 +395,7 @@ onUnmounted(() => {
 			<div
 				class="border-primary-light relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl border bg-[#f7f9fb]"
 			>
-				<img
-					:src="howItWorksDotsPath"
-					alt=""
-					class="pointer-events-none absolute inset-x-0 bottom-0 z-0 block h-auto w-full max-w-none select-none"
-					decoding="async"
-					width="1140"
-					height="480"
-					aria-hidden="true"
-				>
+				<HowItWorksDotsAnimated />
 				<div
 					class="relative z-10 grid gap-10 p-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,465px)] lg:gap-x-8 lg:gap-y-0 lg:p-12 xl:grid-cols-[447px_465px] xl:gap-x-[132px]"
 				>
