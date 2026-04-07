@@ -313,7 +313,7 @@ onUnmounted(() => {
 
 		<!-- Automation -->
 		<section class="bg-muted/80 px-5 py-12 lg:px-0 lg:py-16">
-			<div class="border-primary-light relative mx-auto grid h-120 max-w-[1140px] gap-10 overflow-hidden rounded-4xl border bg-surface-dark md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
+			<div class="border-primary-light relative mx-auto grid h-112 max-w-[1140px] gap-10 overflow-hidden rounded-4xl border bg-surface-dark md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
 				<div class="flex flex-col p-12">
 					<h2 class="text-2xl leading-tight text-white lg:text-[32px]">
 						Automation
@@ -323,7 +323,7 @@ onUnmounted(() => {
 					</p>
 				</div>
 				<div
-					class="tech-automation-mock absolute right-4 bottom-4 overflow-hidden rounded-2xl shadow-lg"
+					class="tech-automation-mock absolute right-3 bottom-3 overflow-hidden rounded-2xl shadow-lg"
 					aria-hidden="true"
 				>
 					<img
