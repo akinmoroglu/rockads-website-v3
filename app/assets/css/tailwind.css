@@ -44,6 +44,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-surface-cream: var(--surface-cream);
+	--color-surface-dark: var(--surface-dark);
   /* Marketing display / Figma headline accent (e.g. footer "Enduring.") */
   --font-fraunces: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
 }
@@ -84,6 +85,7 @@
 	--header-background: oklch(0.0672 0 0);
 	--header-border: oklch(0.2178 0 0);
 	--surface-cream: oklch(0.9744 0.0203 74.66);
+	--surface-dark: oklch(0.2215 0.0235 262.33);
 	--marketing-header-height: 4.5rem;
 	--marketing-header-height-lg: 6.25rem;
 }
@@ -123,6 +125,7 @@
 	--header-background: #010101;
 	--header-border: #1a1a1a;
 	--surface-cream: oklch(0.22 0.035 82.79);
+	--surface-dark: oklch(0.2215 0.0235 262.33);
 }
 
 @layer base {

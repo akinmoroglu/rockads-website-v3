@@ -41,31 +41,31 @@ const MIN_OPACITY = 0.85;
 const MAX_OPACITY = 0.95;
 
 const rawTags: RawTag[] = [
-	{ text: "/billing-changes", x: 6, y: 6, url: "https://blog.rockads.com/meta-ads-billing-changes-2026/", desc: "Meta is removing credit card payments for high-spend ad accounts. Switch to invoicing or direct debit before April 2026 to keep campaigns running." },
-	{ text: "/shopify-automation", x: 42, y: 4, url: "https://blog.rockads.com/shopify-ad-automation/", desc: "Connect your Shopify store to ad automation so campaigns react to inventory changes, bestsellers, and new product launches in real time." },
-	{ text: "/manus-ai", x: 76, y: 8, url: "https://blog.rockads.com/how-to-use-manus-ai-meta-ad-library/", desc: "Use AI agents to automate competitor ad analysis in Meta Ad Library and uncover winning creative strategies at scale." },
-	{ text: "/mer-trap", x: 48, y: 36, url: "https://blog.rockads.com/why-your-best-roas-days-might-be-killing-your-cash-flow/", desc: "High platform ROAS can mask cannibalized organic sales. Shift focus to MER and incremental ROAS to protect your real cash flow." },
-	{ text: "/lookalike-audiences", x: 22, y: 16, url: "https://blog.rockads.com/expand-your-reach-with-meta-lookalike-audiences/", desc: "Reach new customers who share key attributes with your best buyers using Meta Lookalike Audiences for efficient scaling." },
-	{ text: "/spark-ads", x: 40, y: 56, url: "https://blog.rockads.com/what-are-tiktok-spark-ads/", desc: "Spark Ads boost existing organic content as paid ads, blending creator authenticity with scalable reach on TikTok." },
-	{ text: "/cpm-optimization", x: 58, y: 14, url: "https://blog.rockads.com/cpm-in-meta-ads-why-its-high-and-how-to-reduce-it/", desc: "Understand what drives high CPM in Meta Ads and apply practical tactics to bring your cost per thousand impressions down." },
-	{ text: "/catalog-ads", x: 86, y: 18, url: "https://blog.rockads.com/tiktok-smart-catalog-ads/", desc: "Smart+ Catalog Ads combine dynamic creative with AI-powered targeting for scalable, conversion-optimized product campaigns." },
-	{ text: "/creative-practices", x: 4, y: 28, url: "https://blog.rockads.com/tiktok-ads-creative-best-practices/", desc: "After TikTok's Q2 algorithm shift, creative freshness and hook clarity matter more than ever for ad delivery performance." },
-	{ text: "/budget-rules", x: 38, y: 24, url: "https://blog.rockads.com/budget-automation-rules-you-need-to-scale-meta-ads/", desc: "Five essential automation rules to scale Meta Ads — auto-scale winners, pause losers, cap tests, and reallocate unused spend." },
-	{ text: "/content-production", x: 68, y: 26, url: "https://blog.rockads.com/from-hook-ideas-to-scroll-stopping-creatives/", desc: "AI tools take you from brief to tested ad creative in 15 minutes — handling hooks, copy variations, and CTA optimization at scale." },
-	{ text: "/campaign-roles", x: 14, y: 38, url: "https://blog.rockads.com/campaign-role-automation-playbook/", desc: "Assign specific roles to campaigns — prospecting, retargeting, testing, loyalty — with tailored automation rules for each." },
-	{ text: "/capi-pixel", x: 80, y: 34, url: "https://blog.rockads.com/capi-vs-pixel/", desc: "Relying on Meta Pixel alone can lose up to 70% of conversion data. Add server-side CAPI to survive iOS privacy restrictions." },
-	{ text: "/reels-scoring", x: 28, y: 46, url: "https://blog.rockads.com/how-meta-scores-your-reels-ads-engagement-watch-time-more/", desc: "Meta scores Reels ads on watch time, hook strength, and engagement signals. Poor scores lead to higher CPMs and slower delivery." },
-	{ text: "/fix-roas", x: 60, y: 44, url: "https://blog.rockads.com/how-to-diagnose-and-fix-poor-roas-in-meta-ads/", desc: "Diagnose poor ROAS through funnel breakdown, audience saturation, and creative fatigue — then fix it with targeted optimizations." },
-	{ text: "/ppc-automation", x: 86, y: 46, url: "https://blog.rockads.com/signs-your-ppc-campaigns-need-automation/", desc: "Five clear signs your PPC campaigns need automation — constant manual bid adjustments, multi-platform chaos, and budget waste." },
-	{ text: "/ad-fatigue", x: 6, y: 54, url: "https://blog.rockads.com/what-is-ad-fatigue-and-how-to-beat-it-in-your-meta-tiktok-campaigns/", desc: "When audiences see the same ads too often, CTR drops and CPC rises. Rotate creatives weekly and cap frequency at 3–4." },
-	{ text: "/automation-roi", x: 72, y: 54, url: "https://blog.rockads.com/how-to-calculate-roi-from-ppc-automation-tools/", desc: "Calculate the true return from PPC automation by measuring time savings, performance lifts, and reduced manual overhead." },
-	{ text: "/meta-dropshipping", x: 18, y: 66, url: "https://blog.rockads.com/how-to-run-meta-ads-for-dropshipping/", desc: "Step-by-step guide to running profitable Meta Ads for dropshipping with niche targeting, Pixel setup, and optimized placements." },
-	{ text: "/tiktok-blackfriday", x: 52, y: 64, url: "https://blog.rockads.com/essential-tiktok-marketing-tips-to-supercharge-your-black-friday-campaigns/", desc: "Supercharge Black Friday campaigns on TikTok with trending content, retargeting strategies, and compelling ad creatives." },
-	{ text: "/ai-marketing", x: 82, y: 66, url: "https://blog.rockads.com/revolutionize-your-marketing-how-artificial-intelligence-is-changing-the-game/", desc: "AI is transforming marketing through advanced data analysis, personalized campaigns, chatbots, and automated optimization." },
-	{ text: "/blackfriday-checklist", x: 4, y: 78, url: "https://blog.rockads.com/ultimate-black-friday-checklist-for-performance-marketers/", desc: "The ultimate performance marketing checklist for Black Friday — from audience setup to creative testing and budget planning." },
-	{ text: "/tiktok-shadowban", x: 36, y: 76, url: "https://blog.rockads.com/tiktok-shadowban-what-is-it-and-how-to-get-unshadowbanned/", desc: "TikTok can silently limit your reach if you violate guidelines. Learn how to detect a shadowban and recover your visibility." },
-	{ text: "/community-guidelines", x: 66, y: 78, url: "https://blog.rockads.com/behind-the-scenes-of-tiktoks-community-guidelines/", desc: "Explore the content policies TikTok enforces to maintain a safe environment — from hate speech rules to copyright enforcement." },
-	{ text: "/google-suspensions", x: 24, y: 90, url: "https://blog.rockads.com/understanding-and-overcoming-circumventing-systems-suspensions/", desc: "Google Ads account suspended for circumventing systems? Learn why it happens and the exact steps to appeal and recover." },
+	{ text: "billing-changes", x: 6, y: 6, url: "https://blog.rockads.com/meta-ads-billing-changes-2026/", desc: "Meta is removing credit card payments for high-spend ad accounts. Switch to invoicing or direct debit before April 2026 to keep campaigns running." },
+	{ text: "shopify-automation", x: 42, y: 4, url: "https://blog.rockads.com/shopify-ad-automation/", desc: "Connect your Shopify store to ad automation so campaigns react to inventory changes, bestsellers, and new product launches in real time." },
+	{ text: "manus-ai", x: 76, y: 8, url: "https://blog.rockads.com/how-to-use-manus-ai-meta-ad-library/", desc: "Use AI agents to automate competitor ad analysis in Meta Ad Library and uncover winning creative strategies at scale." },
+	{ text: "mer-trap", x: 48, y: 36, url: "https://blog.rockads.com/why-your-best-roas-days-might-be-killing-your-cash-flow/", desc: "High platform ROAS can mask cannibalized organic sales. Shift focus to MER and incremental ROAS to protect your real cash flow." },
+	{ text: "lookalike-audiences", x: 22, y: 16, url: "https://blog.rockads.com/expand-your-reach-with-meta-lookalike-audiences/", desc: "Reach new customers who share key attributes with your best buyers using Meta Lookalike Audiences for efficient scaling." },
+	{ text: "spark-ads", x: 40, y: 56, url: "https://blog.rockads.com/what-are-tiktok-spark-ads/", desc: "Spark Ads boost existing organic content as paid ads, blending creator authenticity with scalable reach on TikTok." },
+	{ text: "cpm-optimization", x: 58, y: 14, url: "https://blog.rockads.com/cpm-in-meta-ads-why-its-high-and-how-to-reduce-it/", desc: "Understand what drives high CPM in Meta Ads and apply practical tactics to bring your cost per thousand impressions down." },
+	{ text: "catalog-ads", x: 86, y: 18, url: "https://blog.rockads.com/tiktok-smart-catalog-ads/", desc: "Smart+ Catalog Ads combine dynamic creative with AI-powered targeting for scalable, conversion-optimized product campaigns." },
+	{ text: "creative-practices", x: 4, y: 28, url: "https://blog.rockads.com/tiktok-ads-creative-best-practices/", desc: "After TikTok's Q2 algorithm shift, creative freshness and hook clarity matter more than ever for ad delivery performance." },
+	{ text: "budget-rules", x: 38, y: 24, url: "https://blog.rockads.com/budget-automation-rules-you-need-to-scale-meta-ads/", desc: "Five essential automation rules to scale Meta Ads — auto-scale winners, pause losers, cap tests, and reallocate unused spend." },
+	{ text: "content-production", x: 68, y: 26, url: "https://blog.rockads.com/from-hook-ideas-to-scroll-stopping-creatives/", desc: "AI tools take you from brief to tested ad creative in 15 minutes — handling hooks, copy variations, and CTA optimization at scale." },
+	{ text: "campaign-roles", x: 14, y: 38, url: "https://blog.rockads.com/campaign-role-automation-playbook/", desc: "Assign specific roles to campaigns — prospecting, retargeting, testing, loyalty — with tailored automation rules for each." },
+	{ text: "capi-pixel", x: 80, y: 34, url: "https://blog.rockads.com/capi-vs-pixel/", desc: "Relying on Meta Pixel alone can lose up to 70% of conversion data. Add server-side CAPI to survive iOS privacy restrictions." },
+	{ text: "reels-scoring", x: 28, y: 46, url: "https://blog.rockads.com/how-meta-scores-your-reels-ads-engagement-watch-time-more/", desc: "Meta scores Reels ads on watch time, hook strength, and engagement signals. Poor scores lead to higher CPMs and slower delivery." },
+	{ text: "fix-roas", x: 60, y: 44, url: "https://blog.rockads.com/how-to-diagnose-and-fix-poor-roas-in-meta-ads/", desc: "Diagnose poor ROAS through funnel breakdown, audience saturation, and creative fatigue — then fix it with targeted optimizations." },
+	{ text: "ppc-automation", x: 86, y: 46, url: "https://blog.rockads.com/signs-your-ppc-campaigns-need-automation/", desc: "Five clear signs your PPC campaigns need automation — constant manual bid adjustments, multi-platform chaos, and budget waste." },
+	{ text: "ad-fatigue", x: 6, y: 54, url: "https://blog.rockads.com/what-is-ad-fatigue-and-how-to-beat-it-in-your-meta-tiktok-campaigns/", desc: "When audiences see the same ads too often, CTR drops and CPC rises. Rotate creatives weekly and cap frequency at 3–4." },
+	{ text: "automation-roi", x: 72, y: 54, url: "https://blog.rockads.com/how-to-calculate-roi-from-ppc-automation-tools/", desc: "Calculate the true return from PPC automation by measuring time savings, performance lifts, and reduced manual overhead." },
+	{ text: "meta-dropshipping", x: 18, y: 66, url: "https://blog.rockads.com/how-to-run-meta-ads-for-dropshipping/", desc: "Step-by-step guide to running profitable Meta Ads for dropshipping with niche targeting, Pixel setup, and optimized placements." },
+	{ text: "tiktok-blackfriday", x: 52, y: 64, url: "https://blog.rockads.com/essential-tiktok-marketing-tips-to-supercharge-your-black-friday-campaigns/", desc: "Supercharge Black Friday campaigns on TikTok with trending content, retargeting strategies, and compelling ad creatives." },
+	{ text: "ai-marketing", x: 82, y: 66, url: "https://blog.rockads.com/revolutionize-your-marketing-how-artificial-intelligence-is-changing-the-game/", desc: "AI is transforming marketing through advanced data analysis, personalized campaigns, chatbots, and automated optimization." },
+	{ text: "blackfriday-checklist", x: 4, y: 78, url: "https://blog.rockads.com/ultimate-black-friday-checklist-for-performance-marketers/", desc: "The ultimate performance marketing checklist for Black Friday — from audience setup to creative testing and budget planning." },
+	{ text: "tiktok-shadowban", x: 36, y: 76, url: "https://blog.rockads.com/tiktok-shadowban-what-is-it-and-how-to-get-unshadowbanned/", desc: "TikTok can silently limit your reach if you violate guidelines. Learn how to detect a shadowban and recover your visibility." },
+	{ text: "community-guidelines", x: 66, y: 78, url: "https://blog.rockads.com/behind-the-scenes-of-tiktoks-community-guidelines/", desc: "Explore the content policies TikTok enforces to maintain a safe environment — from hate speech rules to copyright enforcement." },
+	{ text: "google-suspensions", x: 24, y: 90, url: "https://blog.rockads.com/understanding-and-overcoming-circumventing-systems-suspensions/", desc: "Google Ads account suspended for circumventing systems? Learn why it happens and the exact steps to appeal and recover." },
 ];
 
 const tags: Tag[] = rawTags.map((t) => {
@@ -211,8 +211,8 @@ const hoveredTagOverlayStyle = computed((): Record<string, string | number> => {
 
 const hoverCardContentClass = computed(() =>
 	prefersReducedMotion.value
-		? "z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,380px)] max-w-[380px] overflow-y-auto rounded-sm border-0 bg-transparent p-0 text-white shadow-none outline-none [&[data-state=closed]]:animate-none [&[data-state=open]]:animate-none"
-		: "z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,380px)] max-w-[380px] overflow-y-auto rounded-sm border-0 bg-transparent p-0 text-white shadow-none outline-none",
+		? "z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,330px)] max-w-[330px] overflow-y-auto rounded-sm border-0 bg-surface-dark p-0 shadow-none outline-none [&[data-state=closed]]:animate-none [&[data-state=open]]:animate-none"
+		: "z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,330px)] max-w-[330px] overflow-y-auto rounded-sm border-0 bg-surface-dark p-0 shadow-none outline-none",
 );
 
 const motionTransition = computed(() => ({
@@ -309,39 +309,19 @@ const motionTransitionDelayed = computed(() => ({
 								:side-offset="12"
 								:class="cn(hoverCardContentClass)"
 							>
-								<div class="glossary-tooltip relative rounded-sm">
-									<div
-										class="absolute top-0 right-5 z-10 flex size-14 -translate-y-1/2 items-center justify-center bg-primary text-primary-foreground"
-										aria-hidden="true"
+								<div
+									class="glossary-tooltip flex flex-col gap-4 rounded-sm p-4"
+								>
+									<h3
+										class="min-w-0 text-[32px] leading-normal text-white italic"
 									>
-										<svg
-											class="size-7"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										>
-											<circle
-												cx="7.5"
-												cy="15.5"
-												r="5.5"
-											/>
-											<path d="m21 2-9.6 9.6" />
-											<path d="m15.5 7.5 3 3L22 7l-3-3" />
-										</svg>
-									</div>
-									<div class="flex flex-col gap-6 px-10 pt-10 pr-16 pb-10">
-										<h3
-											class="min-w-0 text-3xl leading-tight font-normal tracking-tight text-white italic md:text-4xl md:leading-[1.15]"
-										>
-											{{ tag.text }}
-										</h3>
-										<p class="text-base leading-relaxed font-normal text-white md:text-lg">
-											{{ tag.desc }}
-										</p>
-									</div>
+										{{ tag.text }}
+									</h3>
+									<p
+										class="max-w-[266px] text-sm leading-5 text-balance text-white"
+									>
+										{{ tag.desc }}
+									</p>
 								</div>
 							</HoverCardContent>
 						</HoverCard>
@@ -376,6 +356,8 @@ const motionTransitionDelayed = computed(() => ({
 </template>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,400;0,500;1,400&display=swap");
+
 .glossary-section {
 	--glossary-bg: #f7f9fb;
 	--glossary-globe-opacity: 0.65;
@@ -383,7 +365,9 @@ const motionTransitionDelayed = computed(() => ({
 	--glossary-pill-bg: oklch(1 0 0 / 60%);
 	--glossary-pill-text: oklch(0.48 0.02 255);
 	--glossary-title: oklch(0.22 0.02 260);
-	--glossary-tooltip-bg: #1a1d23;
+	/* Figma: surface/default/dark */
+	--glossary-tooltip-bg: #151b26;
+	--glossary-tooltip-body: #fff5e8;
 	--glossary-tooltip-shadow: 0 16px 48px -12px oklch(0.25 0.04 260 / 55%);
 	background-color: var(--glossary-bg);
 }
