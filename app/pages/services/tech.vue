@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import {
+	IconBroadcast,
 	IconBrush,
-	IconBulb,
 	IconBuildingStore,
 	IconPhoto,
 	IconPlayerPlay,
-	IconServer,
-	IconShoppingBag,
 	IconSparkles,
+	IconTopologyStar3,
 } from "@tabler/icons-vue";
 import { Button } from "@/components/ui/button";
 import techAutomationPath from "@/assets/images/services/tech/ad-automation.svg?url";
@@ -63,17 +62,17 @@ const audienceCards = [
 	{
 		title: "E-Commerce Brands",
 		body: "A complete tech stack for brands scaling globally — from creative production to campaign deployment to automated optimization. No more stitching together five different tools.",
-		icon: IconBuildingStore,
+		icon: IconBroadcast,
 	},
 	{
 		title: "Digital Agencies",
 		body: "Manage more clients without growing your ops team. Unified tools for launching, monitoring, and optimizing campaigns across every client and every platform.",
-		icon: IconShoppingBag,
+		icon: IconBuildingStore,
 	},
 	{
-		title: "Enterprise & performance teams",
+		title: "Enterprise & Performance Teams",
 		body: "Enterprise-grade infrastructure with role-based access, approval workflows, audit trails, and compliance built into every layer. Scale without losing control.",
-		icon: IconServer,
+		icon: IconTopologyStar3,
 	},
 ];
 
@@ -375,7 +374,7 @@ onUnmounted(() => {
 
 		<!-- AI Creative Studio -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
-			<div class="relative mx-auto max-w-[1140px] rounded-2xl bg-[#e5f1ff] px-8 pt-8 lg:px-12 lg:pt-12">
+			<div class="relative mx-auto max-w-[1140px] rounded-4xl bg-[#e5f1ff] px-8 pt-8 lg:px-12 lg:pt-12">
 				<div class="mx-auto max-w-[656px] text-center">
 					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 						AI Creative Studio
@@ -393,37 +392,49 @@ onUnmounted(() => {
 			</div>
 		</section>
 
-		<!-- How it works + audiences -->
+		<!-- How it works + audiences (Figma: Automation frame — two columns, dot texture) -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
-			<div class="border-primary-light mx-auto grid max-w-[1140px] gap-10 overflow-hidden rounded-2xl border bg-card p-8 lg:grid-cols-[minmax(0,1fr)_465px] lg:gap-14 lg:p-12">
-				<div>
-					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
-						How It Works Together
-					</h2>
-					<p class="text-text-base mt-6 text-sm leading-relaxed lg:mt-8 lg:text-base">
-						AI Creative Studio generates ad creatives from your product feed and brand assets. Compliance AI scans every creative and campaign configuration for policy compliance before launch. Ad Launcher deploys compliant campaigns across all platforms and markets simultaneously.
-					</p>
-					<p class="text-text-base mt-4 text-sm leading-relaxed lg:text-base">
-						Automation monitors performance and automatically optimizes budgets, pauses underperformers, and scales winners. Performance data feeds back into AI Creative Studio to generate better-performing creative iterations.
-					</p>
-				</div>
-				<div class="flex flex-col gap-6">
-					<div
-						v-for="a in audienceCards"
-						:key="a.title"
-						class="rounded-2xl border border-border bg-muted/30 p-6"
-					>
-						<component
-							:is="a.icon"
-							class="h-8 w-8 text-primary"
-							stroke-width="1.5"
-						/>
-						<h3 class="text-text-base mt-4 text-lg font-medium">
-							{{ a.title }}
-						</h3>
-						<p class="text-text-gray-dark mt-3 text-sm leading-relaxed">
-							{{ a.body }}
+			<div
+				class="border-primary-light relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl border bg-card"
+			>
+				<div
+					class="tech-together-dots pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[min(480px,52%)]"
+					aria-hidden="true"
+				/>
+				<div
+					class="relative z-10 grid gap-10 p-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,465px)] lg:gap-x-8 lg:gap-y-0 lg:p-12 xl:grid-cols-[447px_465px] xl:gap-x-[132px]"
+				>
+					<div class="max-w-none xl:max-w-[447px]">
+						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+							How It Works Together
+						</h2>
+						<p class="text-text-base mt-6 text-base leading-relaxed">
+							AI Creative Studio generates ad creatives from your product feed and brand assets. Compliance AI scans every creative and campaign configuration for policy compliance before launch. Ad Launcher deploys compliant campaigns across all platforms and markets simultaneously.
 						</p>
+						<p class="text-text-base mt-4 text-base leading-relaxed">
+							Automation monitors performance and automatically optimizes budgets, pauses underperformers, and scales winners. Performance data feeds back into AI Creative Studio to generate better-performing creative iterations.
+						</p>
+					</div>
+					<div class="flex flex-col gap-6">
+						<div
+							v-for="a in audienceCards"
+							:key="a.title"
+							class="flex flex-col gap-6 rounded-2xl bg-card p-6 shadow-sm"
+						>
+							<component
+								:is="a.icon"
+								class="size-8 shrink-0 text-primary"
+								stroke-width="1.5"
+							/>
+							<div class="flex flex-col gap-4">
+								<h3 class="text-text-base text-xl leading-7 font-medium">
+									{{ a.title }}
+								</h3>
+								<p class="text-text-gray-dark text-base leading-normal">
+									{{ a.body }}
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -514,5 +525,14 @@ onUnmounted(() => {
 		filter: blur(20px);
 		opacity: 0.9;
 	}
+}
+
+.tech-together-dots {
+	background-image: radial-gradient(circle, rgb(200 205 213) 1.25px, transparent 1.25px);
+	background-size: 22px 22px;
+	background-position: 0 0;
+	mask-image: linear-gradient(to top right, black 0%, transparent 58%);
+	-webkit-mask-image: linear-gradient(to top right, black 0%, transparent 58%);
+	opacity: 0.55;
 }
 </style>
