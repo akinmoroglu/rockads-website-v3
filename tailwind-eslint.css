@@ -1,0 +1,2 @@
+/* ESLint tailwindcss plugin entry: resolve cwd = project root for Tailwind v4 design system */
+@import "./app/assets/css/tailwind.css";
