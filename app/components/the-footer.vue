@@ -8,43 +8,6 @@ const legalLinks = [
 
 <template>
 	<footer class="footer-shell  text-white">
-		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-16 text-center lg:px-12">
-			<p class="mb-12 text-base tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
-				The only partner you'll ever need.
-			</p>
-
-			<div class="relative flex w-full max-w-[492px] flex-col items-center gap-9">
-				<div
-					class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[260px] w-[300px] max-w-[calc(100%+2rem)] -translate-x-1/2 -translate-y-1/2 md:h-[350px] md:w-[400px] lg:h-[458px] lg:w-[536px]"
-					aria-hidden="true"
-				>
-					<div class="footer-hero-ellipse size-full rounded-full" />
-				</div>
-
-				<div class="relative z-10 w-full max-w-(--footer-headline-max-width)">
-					<h2 class="text-white">
-						<!-- <span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Stable.</span>
-						<span class="block text-5xl leading-[1.18] text-(--footer-accent-color) md:text-6xl md:leading-[1.2]">Enduring.</span>
-						<span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Limitless.</span> -->
-
-						<p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
-							Stable.
-						</p>
-						<p class="text-[40px] leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
-							<em class="footer-enduring text-(--footer-accent-color)">Enduring.</em>
-						</p>
-						<p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
-							Limitless.
-						</p>
-					</h2>
-				</div>
-
-				<p class="relative z-10 max-w-(--footer-description-max-width) text-sm leading-5 text-(--footer-description-color)">
-					When others come and go, we'll still be here. Join the infrastructure built to last.
-				</p>
-			</div>
-		</div>
-
 		<div class="border-t border-(--footer-border-color)">
 			<div class="mx-auto flex w-full max-w-(--footer-max-width) flex-col gap-4 px-5 py-7 text-base text-(--footer-link-color) md:flex-row md:items-center md:justify-between lg:px-12">
 				<div class="flex items-center gap-5">

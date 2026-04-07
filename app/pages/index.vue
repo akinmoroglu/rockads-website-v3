@@ -5,6 +5,7 @@ import HomeHeroBanner from "@/components/home/home-hero-banner.vue";
 import HomeNumbersStats from "@/components/home/home-numbers-stats.vue";
 import HomeOurPhilosophy from "@/components/home/home-our-philosophy.vue";
 import HomeThreePillars from "@/components/home/home-three-pillars.vue";
+import HomeCta from "@/components/home/home-cta.vue";
 
 definePageMeta({
 	layout: "marketing",
@@ -30,5 +31,6 @@ useHead({
 		<HomeGlobalExpansion />
 		<HomeNumbersStats />
 		<HomeGlossaryCloud />
+		<HomeCta />
 	</main>
 </template>
