@@ -120,7 +120,7 @@ watch(
 <template>
 	<header
 		ref="headerRef"
-		class="sticky top-0 z-50 w-full shrink-0 h-(--marketing-header-height) lg:h-(--marketing-header-height-lg)"
+		class="sticky top-0 z-50 h-(--marketing-header-height) w-full shrink-0 lg:h-(--marketing-header-height-lg)"
 		:class="headerClasses"
 	>
 		<div class="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between px-5 lg:px-12">
@@ -175,7 +175,7 @@ watch(
 						<Motion
 							v-if="servicesOpen"
 							as="div"
-							class="absolute left-1/2 top-full w-[560px] -translate-x-1/2 pt-4"
+							class="absolute top-full left-1/2 w-[560px] -translate-x-1/2 pt-4"
 							:initial="{ opacity: 0, y: -8 }"
 							:animate="{ opacity: 1, y: 0 }"
 							:exit="{ opacity: 0, y: -8 }"
@@ -316,7 +316,7 @@ watch(
 		<Motion
 			v-if="mobileMenuOpen"
 			as="div"
-			class="absolute left-0 right-0 top-full border-t border-(--header-border) bg-(--header-background)/95 backdrop-blur-lg lg:hidden"
+			class="absolute top-full right-0 left-0 border-t border-(--header-border) bg-(--header-background)/95 backdrop-blur-lg lg:hidden"
 			:initial="{ opacity: 0, y: -8 }"
 			:animate="{ opacity: 1, y: 0 }"
 			:exit="{ opacity: 0, y: -8 }"
