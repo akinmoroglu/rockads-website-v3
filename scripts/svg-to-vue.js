@@ -281,14 +281,14 @@ function processSvg(raw, propsMode, preserveColors) {
 
 		if (propsMode === "full") {
 			// Build dynamic stroke bindings with extracted defaults as fallbacks
-			const strokeWidth = strokeDefaults["stroke-width"] ?? "2";
-			const strokeLinecap = strokeDefaults["stroke-linecap"] ?? "round";
-			const strokeLinejoin = strokeDefaults["stroke-linejoin"] ?? "round";
+			const _strokeWidth = strokeDefaults["stroke-width"] ?? "2";
+			const _strokeLinecap = strokeDefaults["stroke-linecap"] ?? "round";
+			const _strokeLinejoin = strokeDefaults["stroke-linejoin"] ?? "round";
 
 			dynamicAttrs.push(
-				":stroke-width=\"strokeWidth\"",
-				":stroke-linecap=\"strokeLinecap\"",
-				":stroke-linejoin=\"strokeLinejoin\"",
+				":stroke-width=\"_strokeWidth\"",
+				":stroke-linecap=\"_strokeLinecap\"",
+				":stroke-linejoin=\"_strokeLinejoin\"",
 				"v-bind=\"{ style: color ? `color: ${color}` : undefined }\"",
 			);
 		}
