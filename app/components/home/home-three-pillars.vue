@@ -106,7 +106,7 @@ onUnmounted(() => {
 				<div class="flex flex-col lg:flex-row gap-8 lg:gap-[42px]">
 					<!-- Left column -->
 					<div class="lg:w-[447px] shrink-0 flex flex-col gap-6 lg:gap-8">
-						<span class="inline-flex self-start items-center px-4 lg:px-6 py-2 lg:py-3 border border-border rounded-md text-primary text-xs lg:text-sm font-medium tracking-[2.24px]">
+						<span class="inline-flex self-start items-center px-4 lg:px-6 py-2 lg:py-3 border border-border rounded-full text-primary text-xs lg:text-sm font-medium tracking-[2.24px]">
 							CORE PILLARS
 						</span>
 						<h2 class="text-[32px] lg:text-[48px] font-medium leading-[40px] lg:leading-[56px] text-foreground">
