@@ -9,22 +9,40 @@ const legalLinks = [
 <template>
 	<footer class="footer-shell  text-white">
 		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-16 text-center lg:px-12">
-			<p class="mb-12 text-base  tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
+			<p class="mb-12 text-base tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
 				The only partner you'll ever need.
 			</p>
 
-			<div class="relative w-full max-w-(--footer-headline-max-width)">
-				<div class="footer-glow pointer-events-none absolute inset-0 -z-10 rounded-full" />
-				<h2 class="text-white">
-					<span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Stable.</span>
-					<span class="block text-5xl leading-[1.18] text-(--footer-accent-color) md:text-6xl md:leading-[1.2]">Enduring.</span>
-					<span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Limitless.</span>
-				</h2>
-			</div>
+			<div class="relative flex w-full max-w-[492px] flex-col items-center gap-9">
+				<div
+					class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[260px] w-[300px] max-w-[calc(100%+2rem)] -translate-x-1/2 -translate-y-1/2 md:h-[350px] md:w-[400px] lg:h-[458px] lg:w-[536px]"
+					aria-hidden="true"
+				>
+					<div class="footer-hero-ellipse size-full rounded-full" />
+				</div>
 
-			<p class="mt-9 max-w-(--footer-description-max-width) text-sm leading-5 text-(--footer-description-color)">
-				When others come and go, we'll still be here. Join the infrastructure built to last.
-			</p>
+				<div class="relative z-10 w-full max-w-(--footer-headline-max-width)">
+					<h2 class="text-white">
+						<!-- <span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Stable.</span>
+						<span class="block text-5xl leading-[1.18] text-(--footer-accent-color) md:text-6xl md:leading-[1.2]">Enduring.</span>
+						<span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Limitless.</span> -->
+
+						<p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+							Stable.
+						</p>
+						<p class="text-[40px] leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+							<em class="footer-enduring text-(--footer-accent-color)">Enduring.</em>
+						</p>
+						<p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+							Limitless.
+						</p>
+					</h2>
+				</div>
+
+				<p class="relative z-10 max-w-(--footer-description-max-width) text-sm leading-5 text-(--footer-description-color)">
+					When others come and go, we'll still be here. Join the infrastructure built to last.
+				</p>
+			</div>
 		</div>
 
 		<div class="border-t border-(--footer-border-color)">
@@ -72,13 +90,35 @@ const legalLinks = [
 	--footer-max-width: 1440px;
 	--footer-hero-min-height: 686px;
 	--footer-headline-max-width: 536px;
-	--footer-description-max-width: 272px;
+	--footer-description-max-width: 372px;
 	--footer-kicker-tracking: 0.3em;
 
 	background-color: var(--footer-bg-color);
 }
 
-.footer-glow {
-	background: radial-gradient(circle, rgb(38 56 94 / 45%) 0%, rgb(8 11 15 / 0%) 72%);
+/* Fraunces italic bold — matches Figma footer headline accent (SOFT / WONK axes) */
+.footer-enduring {
+	font-family: var(--font-fraunces);
+	font-style: italic;
+	font-weight: 700;
+	font-variation-settings: "SOFT" 0, "WONK" 1;
+}
+
+/* Figma footer CTA: large blurred ellipse behind headline stack (node 19822:38117) */
+.footer-hero-ellipse {
+	background: radial-gradient(
+		ellipse 75% 72% at 50% 50%,
+		rgb(38 56 94 / 52%) 0%,
+		rgb(38 56 94 / 16%) 45%,
+		rgb(8 11 15 / 0%) 72%
+	);
+	filter: blur(40px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.footer-hero-ellipse {
+		filter: blur(20px);
+		opacity: 0.9;
+	}
 }
 </style>

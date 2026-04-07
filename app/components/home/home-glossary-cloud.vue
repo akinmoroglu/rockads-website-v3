@@ -5,6 +5,7 @@ import glossaryGlobeSrc from "@/assets/images/home/glossary/globe.svg?url";
 import HoverCard from "@/components/ui/hover-card/HoverCard.vue";
 import HoverCardContent from "@/components/ui/hover-card/HoverCardContent.vue";
 import HoverCardTrigger from "@/components/ui/hover-card/HoverCardTrigger.vue";
+import { cn } from "@/lib/utils";
 
 type RawTag = {
 	text: string;
@@ -306,7 +307,7 @@ const motionTransitionDelayed = computed(() => ({
 								side="bottom"
 								align="center"
 								:side-offset="12"
-								:class="hoverCardContentClass"
+								:class="cn(hoverCardContentClass)"
 							>
 								<div class="glossary-tooltip relative rounded-sm">
 									<div

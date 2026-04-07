@@ -1,22 +1,22 @@
 <template>
-	<section class="relative bg-[#f7f9fb] overflow-hidden py-12 lg:py-20">
+	<section class="relative overflow-hidden bg-[#f7f9fb] py-12 lg:py-20">
 		<!-- Layer_6 topographic background -->
-		<div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+		<div class="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
 			<img
 				:src="topoLayer"
 				alt=""
-				class="w-full h-full object-cover max-w-none opacity-75"
+				class="h-full w-full max-w-none object-cover opacity-75"
 			>
 		</div>
 		<div
 			ref="cloudRef"
-			class="max-w-[1440px] mx-auto h-[400px] md:h-[450px] lg:h-[500px] relative px-5 md:px-10 lg:px-0"
+			class="relative mx-auto h-[400px] max-w-[1440px] px-5 md:h-[450px] md:px-10 lg:h-[500px] lg:px-0"
 			@mousemove="onMouseMove"
 			@mouseleave="onMouseLeave"
 		>
 			<!-- Subtle glow following cursor -->
 			<div
-				class="absolute w-[500px] h-[500px] rounded-full pointer-events-none transition-opacity duration-700 hidden md:block"
+				class="pointer-events-none absolute hidden h-[500px] w-[500px] rounded-full transition-opacity duration-700 md:block"
 				:class="mouseInside ? 'opacity-100' : 'opacity-0'"
 				:style="{
 					left: mouseX - 250 + 'px',
@@ -30,7 +30,7 @@
 				<span
 					v-for="(tag, i) in tags"
 					:key="tag.text + '-' + i"
-					class="absolute font-medium select-none whitespace-nowrap cursor-pointer"
+					class="absolute cursor-pointer font-medium whitespace-nowrap select-none"
 					:style="getTagStyle(i)"
 					@mouseenter="hoveredTag = i"
 					@mouseleave="hoveredTag = null"
@@ -44,13 +44,13 @@
 			<Transition name="glossary-popup">
 				<div
 					v-if="hoveredTag !== null"
-					class="absolute z-30 w-[280px] lg:w-[320px] bg-surface-dark rounded-2xl p-5 lg:p-6 shadow-2xl pointer-events-none"
+					class="bg-surface-dark pointer-events-none absolute z-30 w-[280px] rounded-2xl p-5 shadow-2xl lg:w-[320px] lg:p-6"
 					:style="popupStyle"
 				>
-					<div class="flex items-center gap-3 mb-3">
-						<div class="w-8 h-8 bg-primary/15 rounded-lg flex items-center justify-center shrink-0">
+					<div class="mb-3 flex items-center gap-3">
+						<div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/15">
 							<svg
-								class="w-4 h-4"
+								class="h-4 w-4"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="#1F71EA"
@@ -60,22 +60,22 @@
 								<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
 							</svg>
 						</div>
-						<h4 class="text-white text-base lg:text-lg font-semibold leading-snug">
+						<h4 class="text-base leading-snug font-semibold text-white lg:text-lg">
 							{{ tags[hoveredTag!]?.text }}
 						</h4>
 					</div>
-					<p class="text-text-gray-light text-xs lg:text-sm leading-relaxed">
+					<p class="text-text-gray-light text-xs leading-relaxed lg:text-sm">
 						{{ tags[hoveredTag!]?.desc }}
 					</p>
 				</div>
 			</Transition>
 
 			<!-- Mobile: simplified tag cloud -->
-			<div class="flex flex-wrap gap-3 justify-center items-center pt-4 md:hidden">
+			<div class="flex flex-wrap items-center justify-center gap-3 pt-4 md:hidden">
 				<span
 					v-for="tag in allTagsMobile"
 					:key="tag"
-					class="text-text-gray-light/70 font-medium text-sm px-3 py-1.5 border border-gray-200 rounded-full"
+					class="text-text-gray-light/70 rounded-full border border-gray-200 px-3 py-1.5 text-sm font-medium"
 				>
 					{{ tag }}
 				</span>
