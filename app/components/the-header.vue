@@ -20,6 +20,11 @@ const headerRef = ref<HTMLElement | null>(null);
 const route = useRoute();
 const { isHeaderTransparent } = useMarketingHeaderAppearance();
 
+const pinned = ref(false);
+let lastScrollY = 0;
+let ticking = false;
+const SCROLL_PIN_THRESHOLD_PX = 100;
+
 const mobileMenuOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const servicesOpen = ref(false);
@@ -78,17 +83,61 @@ const activeItems = computed(() => {
 	);
 });
 
-const headerClasses = computed(() => {
-	const baseClasses = "transition-colors duration-200";
+const headerLayoutClasses = computed(() => {
+	const height
+		= "h-(--marketing-header-height) w-full lg:h-(--marketing-header-height-lg)";
+
+	if (pinned.value) {
+		return [
+			height,
+			"header-pinned fixed top-0 right-0 left-0 z-50 border-b border-[var(--header-border)] bg-[var(--header-background)] backdrop-blur",
+		];
+	}
+
+	const base = `${height} absolute top-0 right-0 left-0 z-50 transition-colors duration-200`;
 
 	if (isHeaderTransparent.value) {
-		return [baseClasses, "border-b border-transparent bg-transparent backdrop-blur-0"];
+		return [base, "border-b border-transparent bg-transparent backdrop-blur-none"];
 	}
 
 	return [
-		baseClasses,
+		base,
 		"border-b border-[var(--header-border)] bg-[var(--header-background)] backdrop-blur",
 	];
+});
+
+function onHeaderScroll() {
+	if (ticking) {
+		return;
+	}
+	ticking = true;
+	requestAnimationFrame(() => {
+		const y = window.scrollY;
+		const headerH = headerRef.value?.offsetHeight ?? 100;
+		const pastReveal = y > headerH + SCROLL_PIN_THRESHOLD_PX;
+
+		if (pastReveal && y > lastScrollY) {
+			pinned.value = false;
+		}
+		else if (pastReveal && y < lastScrollY) {
+			pinned.value = true;
+		}
+		else if (y <= headerH) {
+			pinned.value = false;
+		}
+
+		lastScrollY = y;
+		ticking = false;
+	});
+}
+
+onMounted(() => {
+	lastScrollY = window.scrollY;
+	window.addEventListener("scroll", onHeaderScroll, { passive: true });
+});
+
+onUnmounted(() => {
+	window.removeEventListener("scroll", onHeaderScroll);
 });
 
 const openDesktopServices = () => {
@@ -120,8 +169,7 @@ watch(
 <template>
 	<header
 		ref="headerRef"
-		class="sticky top-0 z-50 h-(--marketing-header-height) w-full shrink-0 lg:h-(--marketing-header-height-lg)"
-		:class="headerClasses"
+		:class="headerLayoutClasses"
 	>
 		<div class="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between px-5 lg:px-12">
 			<NuxtLink
@@ -388,3 +436,25 @@ watch(
 		</Motion>
 	</header>
 </template>
+
+<style scoped>
+.header-pinned {
+	animation: marketing-header-slide-down 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+	box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes marketing-header-slide-down {
+	from {
+		transform: translateY(-100%);
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.header-pinned {
+		animation: none;
+	}
+}
+</style>

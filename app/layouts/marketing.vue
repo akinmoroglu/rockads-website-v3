@@ -15,7 +15,7 @@ watch(
 </script>
 
 <template>
-	<div class="flex min-h-screen flex-col bg-background text-foreground">
+	<div class="relative flex min-h-screen flex-col bg-background text-foreground">
 		<TheHeader />
 		<div class="min-h-0 flex-1">
 			<slot />
