@@ -22,7 +22,7 @@ const partnerIcons = [
 </script>
 
 <template>
-	<section class="relative overflow-hidden border-b border-white/10 bg-[linear-gradient(180deg,#02050e_42.81%,#02123e_100%)] text-white">
+	<section class="relative min-h-screen bg-linear-to-b from-black to-[#02123e] overflow-hidden">
 		<div class="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.55)_1px,transparent_1px)] bg-size-[22px_22px] opacity-8" />
 
 		<Motion
