@@ -99,8 +99,6 @@ export function useAuthApi() {
 		}
 	}
 
-	const root = () => requireBase();
-
 	return {
 		baseURL,
 

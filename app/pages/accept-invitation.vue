@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { acceptInvitationFormSchema } from "@/lib/auth-form-schemas";
+import { extractAccessToken } from "@/utils/auth-token";
 
 definePageMeta({
 	layout: "auth",
@@ -32,6 +33,7 @@ useHead({
 });
 
 const authApi = useAuthApi();
+const session = useAuthSession();
 const route = useRoute();
 
 const formSchema = toTypedSchema(acceptInvitationFormSchema);
@@ -58,12 +60,14 @@ async function onSubmit(values: {
 	isSubmitting.value = true;
 	try {
 		const nameTrimmed = values.name?.trim();
-		await authApi.acceptInvitation({
+		const data = await authApi.acceptInvitation({
 			token: token.value,
 			password: values.password,
 			password_confirmation: values.password_confirmation,
 			...(nameTrimmed ? { name: nameTrimmed } : {}),
 		});
+		const accessToken = extractAccessToken(data);
+		if (accessToken) session.setAccessToken(accessToken);
 		success.value = true;
 	}
 	catch (error: unknown) {

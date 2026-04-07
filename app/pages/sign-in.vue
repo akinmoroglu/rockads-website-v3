@@ -51,8 +51,8 @@ async function onSubmit(values: { email: string; password: string }) {
 		});
 		const token = extractAccessToken(data);
 		if (!token) {
-			apiError.value =
-				"Sign-in succeeded but no access token was returned. Expected `access_token`, `accessToken`, or `token` in the JSON body.";
+			apiError.value
+				= "Sign-in succeeded but no access token was returned. Expected `access_token`, `accessToken`, or `token` in the JSON body.";
 			return;
 		}
 		session.setAccessToken(token);

@@ -25,6 +25,7 @@ import {
 	resendVerificationFormSchema,
 	verifyEmailTokenFormSchema,
 } from "@/lib/auth-form-schemas";
+import { extractAccessToken } from "@/utils/auth-token";
 
 definePageMeta({
 	layout: "auth",
@@ -35,7 +36,13 @@ useHead({
 });
 
 const authApi = useAuthApi();
+const session = useAuthSession();
 const route = useRoute();
+
+function persistTokenFromResponse(data: unknown) {
+	const t = extractAccessToken(data);
+	if (t) session.setAccessToken(t);
+}
 
 const verifySchema = toTypedSchema(verifyEmailTokenFormSchema);
 const resendSchema = toTypedSchema(resendVerificationFormSchema);
@@ -69,7 +76,8 @@ onMounted(async () => {
 	autoVerifyState.value = "pending";
 	autoVerifyMessage.value = "";
 	try {
-		await authApi.verifyEmail({ token: linkToken.value });
+		const data = await authApi.verifyEmail({ token: linkToken.value });
+		persistTokenFromResponse(data);
 		autoVerifyState.value = "success";
 	}
 	catch (error: unknown) {
@@ -84,7 +92,8 @@ async function onManualVerify(values: { token: string }) {
 	manualError.value = null;
 	manualSubmitting.value = true;
 	try {
-		await authApi.verifyEmail({ token: values.token.trim() });
+		const data = await authApi.verifyEmail({ token: values.token.trim() });
+		persistTokenFromResponse(data);
 		manualSuccess.value = true;
 	}
 	catch (error: unknown) {

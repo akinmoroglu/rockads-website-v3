@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { resetPasswordFormSchema } from "@/lib/auth-form-schemas";
+import { extractAccessToken } from "@/utils/auth-token";
 
 definePageMeta({
 	layout: "auth",
@@ -32,6 +33,7 @@ useHead({
 });
 
 const authApi = useAuthApi();
+const session = useAuthSession();
 const route = useRoute();
 
 const formSchema = toTypedSchema(resetPasswordFormSchema);
@@ -56,11 +58,13 @@ async function onSubmit(values: {
 	}
 	isSubmitting.value = true;
 	try {
-		await authApi.resetPassword({
+		const data = await authApi.resetPassword({
 			token: token.value,
 			password: values.password,
 			password_confirmation: values.password_confirmation,
 		});
+		const accessToken = extractAccessToken(data);
+		if (accessToken) session.setAccessToken(accessToken);
 		success.value = true;
 	}
 	catch (error: unknown) {
