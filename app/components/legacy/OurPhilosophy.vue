@@ -49,12 +49,12 @@
 								mode="out-in"
 							>
 								<p
-									:key="activeItem.id"
+									:key="activeItem?.id"
 									class="text-base lg:text-lg font-normal leading-[24px] lg:leading-[28px] text-white/80"
 								>
-									{{ activeItem.p1 }}
+									{{ activeItem?.p1 }}
 									<br><br>
-									{{ activeItem.p2 }}
+									{{ activeItem?.p2 }}
 								</p>
 							</Transition>
 						</div>
