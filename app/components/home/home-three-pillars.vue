@@ -91,32 +91,32 @@ onUnmounted(() => {
 		:style="{ height: isDesktop ? scrollHeight + 'px' : 'auto' }"
 	>
 		<section
-			class="relative bg-surface-cream overflow-hidden"
+			class="relative overflow-hidden bg-surface-cream"
 			:class="isDesktop ? 'sticky top-0 min-h-screen' : ''"
 		>
 			<!-- Decorative lines background -->
-			<div class="absolute inset-0 border border-border rounded-3xl overflow-hidden">
+			<div class="absolute inset-0 overflow-hidden rounded-3xl border border-border">
 				<img
 					:src="pillarsDecorativeFrameAsset"
-					class="w-full h-full object-cover"
+					class="h-full w-full object-cover"
 				>
 			</div>
 
-			<div class="relative max-w-[1440px] mx-auto px-5 md:px-10 lg:px-[160px] py-16 lg:py-[117px]">
-				<div class="flex flex-col lg:flex-row gap-8 lg:gap-[42px]">
+			<div class="relative mx-auto max-w-[1440px] px-5 py-16 md:px-10 lg:px-[160px] lg:py-[117px]">
+				<div class="flex flex-col gap-8 lg:flex-row lg:gap-[42px]">
 					<!-- Left column -->
-					<div class="lg:w-[447px] shrink-0 flex flex-col gap-6 lg:gap-8">
-						<span class="inline-flex self-start items-center px-4 lg:px-6 py-2 lg:py-3 border border-border rounded-full text-primary text-xs lg:text-sm font-medium tracking-[2.24px]">
+					<div class="flex shrink-0 flex-col gap-6 lg:w-[447px] lg:gap-8">
+						<span class="inline-flex items-center self-start rounded-full border border-border px-4 py-2 text-xs font-medium tracking-[2.24px] text-primary lg:px-6 lg:py-3 lg:text-sm">
 							CORE PILLARS
 						</span>
-						<h2 class="text-[32px] lg:text-[48px] font-medium leading-[40px] lg:leading-[56px] text-foreground">
+						<h2 class="text-[32px] leading-[40px] font-medium text-foreground lg:text-[48px] lg:leading-[56px]">
 							The Three Pillars <span class="text-primary">of Rockads</span>
 						</h2>
 
 						<!-- Scroll progress indicator (desktop) -->
 						<div
 							v-if="isDesktop"
-							class="hidden lg:flex flex-col gap-2 mt-4"
+							class="mt-4 hidden flex-col gap-2 lg:flex"
 						>
 							<div
 								v-for="(pillar, i) in pillars"
@@ -138,16 +138,16 @@ onUnmounted(() => {
 					</div>
 
 					<!-- Right column - accordion -->
-					<div class="flex-1 flex flex-col">
+					<div class="flex flex-1 flex-col">
 						<div
 							v-for="(pillar, index) in pillars"
 							:key="pillar.id"
-							class="transition-colors duration-300 rounded-2xl"
+							class="rounded-2xl transition-colors duration-300"
 							:class="activeId === pillar.id ? 'bg-foreground' : 'bg-transparent'"
 						>
 							<!-- Header (always visible) -->
 							<button
-								class="w-full text-left px-6 lg:px-10 transition-all duration-300 group"
+								class="group w-full px-6 text-left transition-all duration-300 lg:px-10"
 								:class="activeId === pillar.id ? 'pt-8 lg:pt-10 pb-4' : 'py-8 lg:py-10'"
 								@click="toggle(pillar.id)"
 							>
@@ -159,7 +159,7 @@ onUnmounted(() => {
 										>
 											{{ String(index + 1).padStart(2, '0') }}
 										</span>
-										<h3 class="font-accent italic text-[28px] md:text-[32px] lg:text-[40px] leading-[1.15] text-primary transition-colors duration-300">
+										<h3 class="font-accent text-[28px] leading-[1.15] text-primary italic transition-colors duration-300 md:text-[32px] lg:text-[40px]">
 											{{ pillar.title }}
 										</h3>
 										<span
@@ -172,7 +172,7 @@ onUnmounted(() => {
 
 									<!-- Toggle icon -->
 									<div
-										class="w-10 h-10 rounded-full border flex items-center justify-center shrink-0 mt-2 transition-colors duration-300"
+										class="mt-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-colors duration-300"
 										:class="activeId === pillar.id ? 'border-background/20' : 'border-border'"
 									>
 										<svg
@@ -233,8 +233,8 @@ onUnmounted(() => {
 								:class="activeId === pillar.id ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
 							>
 								<div class="overflow-hidden">
-									<div class="px-6 lg:px-10 pb-8 lg:pb-10">
-										<p class="text-sm md:text-base leading-[22px] md:leading-[26px] text-background/70">
+									<div class="px-6 pb-8 lg:px-10 lg:pb-10">
+										<p class="text-sm leading-[22px] text-background/70 md:text-base md:leading-[26px]">
 											{{ pillar.description }}
 										</p>
 									</div>
