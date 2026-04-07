@@ -3,9 +3,39 @@
  * Interactive dot grid (Core / Tech services hero pattern).
  * Each instance owns its own animation loop and pointer mapping.
  */
-import { ref, onMounted, onUnmounted } from "vue";
+import { computed, ref, onMounted, onUnmounted } from "vue";
+
+const props = withDefaults(
+	defineProps<{
+		/** `hero`: white hero. `lightCard`: pale surfaces (e.g. #f7f9fb) — stronger dots. */
+		variant?: "hero" | "lightCard";
+	}>(),
+	{ variant: "hero" },
+);
 
 const dotCanvas = ref<HTMLCanvasElement | null>(null);
+
+const palette = computed(() => {
+	if (props.variant === "lightCard") {
+		return {
+			dot: "#7d8fa3",
+			active: "#1F71EA",
+			/** Peak opacity at the strongest corner */
+			alphaScale: 0.95,
+			/** Fully transparent toward top-right */
+			alphaFloor: 0,
+			/** Bottom-left strong → fades toward top-right */
+			fadeOrigin: "bottomLeft" as const,
+		};
+	}
+	return {
+		dot: "#c8cdd5",
+		active: "#1F71EA",
+		alphaScale: 0.55,
+		alphaFloor: 0,
+		fadeOrigin: "topRight" as const,
+	};
+});
 
 interface Dot {
 	cx: number;
@@ -18,8 +48,6 @@ interface Dot {
 
 const DOT_SIZE = 2;
 const DOT_GAP = 22;
-const DOT_COLOR = "#c8cdd5";
-const DOT_ACTIVE = "#1F71EA";
 const PROXIMITY = 100;
 const SPEED_TRIGGER = 80;
 const SPRING = 0.135;
@@ -66,15 +94,16 @@ function hexToRgb(hex: string): [number, number, number] {
 	return [parseInt(m[1]!, 16), parseInt(m[2]!, 16), parseInt(m[3]!, 16)];
 }
 
-const baseRgb = hexToRgb(DOT_COLOR);
-const activeRgb = hexToRgb(DOT_ACTIVE);
-
 function drawDots() {
 	const canvas = dotCanvas.value;
 	if (!canvas) return;
 	const ctx = canvas.getContext("2d");
 	if (!ctx) return;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+	const baseRgb = hexToRgb(palette.value.dot);
+	const activeRgb = hexToRgb(palette.value.active);
+	const { alphaScale, alphaFloor, fadeOrigin } = palette.value;
 
 	const proxSq = PROXIMITY * PROXIMITY;
 
@@ -113,9 +142,17 @@ function drawDots() {
 			b = Math.round(b + (activeRgb[2] - b) * t);
 		}
 
-		const diag = gridW + gridH;
-		const fromTopRight = (gridW - dot.cx) + dot.cy;
-		const baseAlpha = Math.max(0, 1 - fromTopRight / diag) * 0.55;
+		const diag = Math.max(gridW + gridH, 1);
+		let fade: number;
+		if (fadeOrigin === "bottomLeft") {
+			const fromBottomLeft = dot.cx + (gridH - dot.cy);
+			fade = 1 - Math.min(1, fromBottomLeft / diag);
+		}
+		else {
+			const fromTopRight = (gridW - dot.cx) + dot.cy;
+			fade = Math.max(0, 1 - fromTopRight / diag);
+		}
+		const baseAlpha = Math.min(1, alphaFloor + fade * alphaScale);
 
 		ctx.beginPath();
 		ctx.arc(px, py, DOT_SIZE / 2, 0, Math.PI * 2);

@@ -192,7 +192,7 @@ const audienceCards = [
 			<div
 				class="border-primary-light relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl border bg-[#f7f9fb]"
 			>
-				<TechServicesDotGridCanvas />
+				<TechServicesDotGridCanvas variant="lightCard" />
 				<div
 					class="relative z-10 grid gap-10 p-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,465px)] lg:gap-x-8 lg:gap-y-0 lg:p-12 xl:grid-cols-[447px_465px] xl:gap-x-[132px]"
 				>
