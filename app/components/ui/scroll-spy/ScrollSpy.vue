@@ -10,6 +10,7 @@ import {
 	type ScrollSpyDirection,
 	type ScrollSpyOrientation,
 } from "./scroll-spy-context";
+import { resolveDomElement } from "./resolveDomElement";
 
 const props = withDefaults(
 	defineProps<{
@@ -166,7 +167,7 @@ watch(
 		() => props.scrollContainer,
 	],
 	() => {
-		if (!import.meta.client) {
+		if (!import.meta.client || typeof IntersectionObserver === "undefined") {
 			return;
 		}
 
@@ -213,8 +214,11 @@ watch(
 			},
 		);
 
-		for (const element of map.values()) {
-			observer.observe(element);
+		for (const node of map.values()) {
+			const element = resolveDomElement(node);
+			if (element) {
+				observer.observe(element);
+			}
 		}
 
 		observerCleanup = () => {
