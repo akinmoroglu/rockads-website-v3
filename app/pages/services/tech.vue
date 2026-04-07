@@ -1,0 +1,600 @@
+<template>
+	<div class="font-display">
+		<TheHeader />
+
+		<!-- Hero -->
+		<section class="relative overflow-hidden bg-muted/80">
+			<canvas
+				ref="dotCanvas"
+				class="pointer-events-none absolute inset-0 h-full w-full"
+			/>
+			<div class="relative mx-auto max-w-[1066px] px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
+				<h1 class="text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]">
+					<span class="text-primary">Tech</span> <span class="text-text-base">Services</span>
+				</h1>
+				<p class="text-text-gray-dark mt-4 text-base font-medium lg:mt-5 lg:text-lg">
+					The Full Stack for Global Ad Operations
+				</p>
+				<p class="text-text-base mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base">
+					From campaign creation to compliance, from automation to creative intelligence and more… Everything you need to run, scale, and protect your global operations.
+				</p>
+				<p class="text-text-base mt-4 max-w-[1066px] text-sm leading-relaxed lg:mt-5 lg:text-base">
+					Running global ad operations across platforms, markets, and teams demands more than a collection of disconnected tools. It demands an integrated system where every action — from launching a campaign to checking compliance, from reallocating budget to generating creatives — flows through one intelligent layer. That's Rockads.
+				</p>
+				<Button
+					as-child
+					size="lg"
+					class="mt-8 lg:mt-10"
+				>
+					<NuxtLink to="/sign-up">
+						Get Started in Minutes
+					</NuxtLink>
+				</Button>
+			</div>
+		</section>
+
+		<!-- Automation -->
+		<section class="bg-muted/80 px-5 pt-4 pb-12 lg:px-0 lg:pb-16">
+			<div class="border-primary-light mx-auto grid max-w-[1140px] gap-10 overflow-hidden rounded-2xl border bg-card p-8 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12 lg:p-12">
+				<div class="flex flex-col">
+					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+						Automation
+					</h2>
+					<p class="text-text-base mt-6 text-sm leading-relaxed lg:text-base">
+						Your operations, on autopilot. Eliminate manual bottlenecks across campaign management, budget allocation, and performance optimization. Rule-based actions, smart budget redistribution, and scheduled operations — all running across every platform.
+					</p>
+				</div>
+				<div
+					class="tech-automation-mock overflow-hidden rounded-xl border border-white/10 shadow-lg"
+					aria-hidden="true"
+				>
+					<div class="flex items-center gap-2 bg-[#1a1d24] px-3 py-2.5">
+						<div class="flex gap-1.5">
+							<div class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+							<div class="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+							<div class="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+						</div>
+						<div class="mx-2 min-w-0 flex-1 rounded-md bg-[#2a2f3a] px-2 py-1 text-center">
+							<span class="text-[10px] text-white/50">console.rockads.com/automation</span>
+						</div>
+					</div>
+					<div class="bg-[#12151c] p-4 text-white">
+						<p class="text-[11px] font-medium text-white/70">
+							Use a template to get started
+						</p>
+						<p class="mt-1 text-[10px] leading-relaxed text-white/45">
+							We've curated the most commonly used automation rules for you. Select one and make quick edits to start using it immediately.
+						</p>
+						<div class="mt-4 space-y-2">
+							<div class="rounded-lg border border-white/10 bg-white/5 p-3">
+								<p class="text-xs font-medium">
+									Pause High CPI
+								</p>
+								<p class="mt-1 text-[10px] leading-relaxed text-white/50">
+									Pauses campaigns with CPI over a set threshold.
+								</p>
+							</div>
+							<div class="rounded-lg border border-white/10 bg-white/5 p-3">
+								<p class="text-xs font-medium">
+									Boost Low CPA Ads
+								</p>
+								<p class="mt-1 text-[10px] leading-relaxed text-white/50">
+									Increases budget on ads beating your CPA target.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Ad Launcher + Compliance AI -->
+		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-16">
+			<div class="mx-auto grid max-w-[1140px] gap-6 md:grid-cols-2 lg:gap-8">
+				<div class="border-primary-light flex flex-col rounded-2xl border bg-card p-8 lg:p-12">
+					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+						Ad Launcher
+					</h2>
+					<p class="text-text-base mt-6 text-sm leading-relaxed lg:text-base">
+						One launch. Every platform. Every market. Build once, customize per market, and deploy across Meta, Google, TikTok, Snapchat, and X simultaneously. Unified campaign builder, market-specific customization, and instant multi-platform deployment.
+					</p>
+					<div class="mt-8 flex flex-wrap gap-3.5">
+						<div
+							v-for="p in platformLogos"
+							:key="p.name"
+							:class="[
+								'flex h-[82px] min-w-[72px] flex-1 items-center justify-center rounded-2xl px-4',
+								p.bgClass,
+							]"
+						>
+							<img
+								:src="p.src"
+								:alt="p.name"
+								class="max-h-10 w-auto object-contain"
+							>
+						</div>
+					</div>
+				</div>
+				<div class="border-primary-light flex flex-col rounded-2xl border bg-card p-8 lg:p-12">
+					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+						Compliance AI
+					</h2>
+					<p class="text-text-base mt-6 text-sm leading-relaxed lg:text-base">
+						Stay compliant. Stay live. Stay ahead. Continuously monitor campaigns, creatives, and account health across every platform. Pre-publish policy scanning, real-time risk monitoring, and cross-border regulatory intelligence.
+					</p>
+					<div class="mt-10 flex justify-start">
+						<svg
+							class="tech-compliance-brain h-[129px] w-[178px] shrink-0 text-primary"
+							viewBox="0 0 178 129"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+							aria-hidden="true"
+						>
+							<path
+								class="text-primary/25"
+								stroke="currentColor"
+								stroke-width="1"
+								stroke-dasharray="4 6"
+								d="M12 64c18-28 48-44 77-44s59 16 77 44"
+							/>
+							<path
+								class="text-primary/25"
+								stroke="currentColor"
+								stroke-width="1"
+								stroke-dasharray="4 6"
+								d="M166 64c-18 28-48 44-77 44s-59-16-77-44"
+							/>
+							<path
+								fill="currentColor"
+								fill-opacity="0.12"
+								stroke="currentColor"
+								stroke-width="1.5"
+								d="M72 38c-8 6-14 16-14 28 0 18 14 32 32 32h10c18 0 32-14 32-32 0-12-6-22-14-28-4-3-9-5-14-5h-18c-5 0-10 2-14 5Z"
+							/>
+							<path
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+								d="M89 38v52M72 52c4-6 10-10 17-10m22 10c4-6 10-10 17-10M72 78c6 8 16 13 27 13m22-13c6 8 16 13 27 13"
+							/>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- AI Creative Studio -->
+		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
+			<div class="border-primary-light mx-auto max-w-[1140px] rounded-2xl border bg-card p-8 lg:p-12">
+				<div class="mx-auto max-w-[656px] text-center">
+					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+						AI Creative Studio
+					</h2>
+					<p class="text-text-base mt-4 text-sm leading-relaxed lg:mt-6 lg:text-base">
+						Creatives that perform. At any scale. Generate, iterate, and optimize ad creatives with AI powered by real-time performance data. From product feeds to multi-format output, with automated localization and brand consistency.
+					</p>
+				</div>
+				<div class="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+					<div
+						v-for="c in creativeTypes"
+						:key="c.title"
+						class="rounded-xl border border-border bg-muted/40 p-4"
+					>
+						<div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+							<component
+								:is="c.icon"
+								class="h-5 w-5"
+								stroke-width="1.5"
+							/>
+						</div>
+						<h3 class="text-text-base mt-3 text-sm font-semibold">
+							{{ c.title }}
+						</h3>
+						<p class="text-text-gray-dark mt-2 text-xs leading-relaxed">
+							{{ c.description }}
+						</p>
+						<p class="text-text-gray-dark mt-3 flex items-start gap-2 text-xs">
+							<IconBulb
+								class="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary"
+								stroke-width="1.5"
+							/>
+							<span>{{ c.hint }}</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- How it works + audiences -->
+		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
+			<div class="border-primary-light mx-auto grid max-w-[1140px] gap-10 overflow-hidden rounded-2xl border bg-card p-8 lg:grid-cols-[minmax(0,1fr)_465px] lg:gap-14 lg:p-12">
+				<div>
+					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+						How It Works Together
+					</h2>
+					<p class="text-text-base mt-6 text-sm leading-relaxed lg:mt-8 lg:text-base">
+						AI Creative Studio generates ad creatives from your product feed and brand assets. Compliance AI scans every creative and campaign configuration for policy compliance before launch. Ad Launcher deploys compliant campaigns across all platforms and markets simultaneously.
+					</p>
+					<p class="text-text-base mt-4 text-sm leading-relaxed lg:text-base">
+						Automation monitors performance and automatically optimizes budgets, pauses underperformers, and scales winners. Performance data feeds back into AI Creative Studio to generate better-performing creative iterations.
+					</p>
+				</div>
+				<div class="flex flex-col gap-6">
+					<div
+						v-for="a in audienceCards"
+						:key="a.title"
+						class="rounded-2xl border border-border bg-muted/30 p-6"
+					>
+						<component
+							:is="a.icon"
+							class="h-8 w-8 text-primary"
+							stroke-width="1.5"
+						/>
+						<h3 class="text-text-base mt-4 text-lg font-medium">
+							{{ a.title }}
+						</h3>
+						<p class="text-text-gray-dark mt-3 text-sm leading-relaxed">
+							{{ a.body }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section class="bg-background px-5 py-16 lg:py-20">
+			<div class="mx-auto max-w-[800px] text-center">
+				<h2 class="text-text-base text-[32px] leading-[1.2] font-semibold lg:text-[40px]">
+					Ready to run tech that scales with you?<br><span class="text-foreground">Start on Rockads</span>
+				</h2>
+				<Button
+					as-child
+					size="lg"
+					class="mt-8 lg:mt-10"
+				>
+					<NuxtLink to="/sign-up">
+						Get Started in Minutes
+					</NuxtLink>
+				</Button>
+			</div>
+		</section>
+
+		<section class="tech-closing relative overflow-hidden px-5 py-20 lg:py-28">
+			<div
+				class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[260px] w-[300px] max-w-[calc(100%+2rem)] -translate-x-1/2 -translate-y-1/2 md:h-[350px] md:w-[400px] lg:h-[458px] lg:w-[536px]"
+				aria-hidden="true"
+			>
+				<div class="tech-closing-ellipse size-full rounded-full" />
+			</div>
+			<div class="relative z-10 mx-auto flex max-w-[492px] flex-col items-center gap-9 text-center">
+				<p class="text-sm leading-5 text-(--tech-closing-kicker) lg:text-base">
+					The only partner you'll ever need.
+				</p>
+				<h2 class="w-full max-w-[536px] text-white">
+					<p class="text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+						Stable.
+					</p>
+					<p class="text-[40px] leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+						<em class="tech-closing-enduring text-(--tech-closing-accent)">Enduring.</em>
+					</p>
+					<p class="text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+						Limitless.
+					</p>
+				</h2>
+				<p class="max-w-[372px] text-sm leading-5 text-(--tech-closing-description)">
+					When others come and go, we'll still be here. Join the infrastructure built to last.
+				</p>
+			</div>
+		</section>
+
+		<TheFooter />
+	</div>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from "vue";
+import {
+	IconBrush,
+	IconBulb,
+	IconBuildingStore,
+	IconPhoto,
+	IconPlayerPlay,
+	IconServer,
+	IconShoppingBag,
+	IconSparkles,
+} from "@tabler/icons-vue";
+import { Button } from "@/components/ui/button";
+
+useHead({
+	title: "Tech Services - Rockads",
+});
+
+const platformLogos = [
+	{ name: "Meta", src: "/images/partners/meta.svg", bgClass: "bg-[#f5f4f4]" },
+	{ name: "Google", src: "/images/partners/google.svg", bgClass: "bg-[#f5f4f4]" },
+	{ name: "TikTok", src: "/images/partners/tiktok.svg", bgClass: "bg-black" },
+	{ name: "X", src: "/images/partners/x-twitter.svg", bgClass: "bg-black" },
+	{ name: "Snapchat", src: "/images/partners/snapchat.svg", bgClass: "bg-[#fffc00]" },
+];
+
+const creativeTypes = [
+	{
+		title: "Ad Creatives",
+		description: "Meta Ads, Google Ads, LinkedIn Ads, CTA-focused creatives, carousel ads.",
+		hint: "Auto-size adaptation, balanced text areas.",
+		icon: IconBrush,
+	},
+	{
+		title: "Product Creatives",
+		description: "Product cutouts, collections, pricing highlights, product mockups.",
+		hint: "Visual alignment with brand identity.",
+		icon: IconPhoto,
+	},
+	{
+		title: "Video Creatives",
+		description: "Short videos (Reels, TikTok), animated product demos.",
+		hint: "Optional voice-over, dynamic CTA variations.",
+		icon: IconPlayerPlay,
+	},
+	{
+		title: "Stock & thematic visuals",
+		description: "Seasonal visuals, background images, themed banners.",
+		hint: "AI-powered stock suggestions.",
+		icon: IconSparkles,
+	},
+];
+
+const audienceCards = [
+	{
+		title: "E-Commerce Brands",
+		body: "A complete tech stack for brands scaling globally — from creative production to campaign deployment to automated optimization. No more stitching together five different tools.",
+		icon: IconBuildingStore,
+	},
+	{
+		title: "Digital Agencies",
+		body: "Manage more clients without growing your ops team. Unified tools for launching, monitoring, and optimizing campaigns across every client and every platform.",
+		icon: IconShoppingBag,
+	},
+	{
+		title: "Enterprise & performance teams",
+		body: "Enterprise-grade infrastructure with role-based access, approval workflows, audit trails, and compliance built into every layer. Scale without losing control.",
+		icon: IconServer,
+	},
+];
+
+// ── Dot grid (matches Core services hero) ─────────────────
+const dotCanvas = ref<HTMLCanvasElement | null>(null);
+
+interface Dot {
+	cx: number;
+	cy: number;
+	ox: number;
+	oy: number;
+	vx: number;
+	vy: number;
+}
+
+const DOT_SIZE = 2;
+const DOT_GAP = 22;
+const DOT_COLOR = "#c8cdd5";
+const DOT_ACTIVE = "#1F71EA";
+const PROXIMITY = 100;
+const SPEED_TRIGGER = 80;
+const SPRING = 0.135;
+const DAMPING = 0.15;
+const RETURN_THRESHOLD = 0.01;
+
+let dots: Dot[] = [];
+let dotRaf = 0;
+let gridW = 0;
+let gridH = 0;
+const pointer = { x: -9999, y: -9999, vx: 0, vy: 0, speed: 0, lastX: 0, lastY: 0, lastTime: 0 };
+
+function buildDots(canvas: HTMLCanvasElement) {
+	const wrap = canvas.parentElement;
+	if (!wrap) return;
+	const { width, height } = wrap.getBoundingClientRect();
+	gridW = width;
+	gridH = height;
+	const dpr = window.devicePixelRatio || 1;
+	canvas.width = width * dpr;
+	canvas.height = height * dpr;
+	canvas.style.width = `${width}px`;
+	canvas.style.height = `${height}px`;
+	const ctx = canvas.getContext("2d");
+	if (ctx) ctx.scale(dpr, dpr);
+
+	const cell = DOT_SIZE + DOT_GAP;
+	const cols = Math.floor((width + DOT_GAP) / cell);
+	const rows = Math.floor((height + DOT_GAP) / cell);
+	const startX = (width - (cell * cols - DOT_GAP)) / 2 + DOT_SIZE / 2;
+	const startY = (height - (cell * rows - DOT_GAP)) / 2 + DOT_SIZE / 2;
+
+	dots = [];
+	for (let r = 0; r < rows; r++) {
+		for (let c = 0; c < cols; c++) {
+			dots.push({ cx: startX + c * cell, cy: startY + r * cell, ox: 0, oy: 0, vx: 0, vy: 0 });
+		}
+	}
+}
+
+function hexToRgb(hex: string): [number, number, number] {
+	const m = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+	if (!m) return [0, 0, 0];
+	return [parseInt(m[1]!, 16), parseInt(m[2]!, 16), parseInt(m[3]!, 16)];
+}
+
+const baseRgb = hexToRgb(DOT_COLOR);
+const activeRgb = hexToRgb(DOT_ACTIVE);
+
+function drawDots() {
+	const canvas = dotCanvas.value;
+	if (!canvas) return;
+	const ctx = canvas.getContext("2d");
+	if (!ctx) return;
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+	const proxSq = PROXIMITY * PROXIMITY;
+
+	for (const dot of dots) {
+		if (dot.ox !== 0 || dot.oy !== 0 || dot.vx !== 0 || dot.vy !== 0) {
+			dot.vx += -dot.ox * SPRING;
+			dot.vy += -dot.oy * SPRING;
+			dot.vx *= DAMPING;
+			dot.vy *= DAMPING;
+			dot.ox += dot.vx;
+			dot.oy += dot.vy;
+			if (
+				Math.abs(dot.ox) < RETURN_THRESHOLD
+				&& Math.abs(dot.oy) < RETURN_THRESHOLD
+				&& Math.abs(dot.vx) < RETURN_THRESHOLD
+				&& Math.abs(dot.vy) < RETURN_THRESHOLD
+			) {
+				dot.ox = 0;
+				dot.oy = 0;
+				dot.vx = 0;
+				dot.vy = 0;
+			}
+		}
+
+		const px = dot.cx + dot.ox;
+		const py = dot.cy + dot.oy;
+		const dx = dot.cx - pointer.x;
+		const dy = dot.cy - pointer.y;
+		const dsq = dx * dx + dy * dy;
+
+		let r = baseRgb[0], g = baseRgb[1], b = baseRgb[2];
+		if (dsq <= proxSq) {
+			const t = 1 - Math.sqrt(dsq) / PROXIMITY;
+			r = Math.round(r + (activeRgb[0] - r) * t);
+			g = Math.round(g + (activeRgb[1] - g) * t);
+			b = Math.round(b + (activeRgb[2] - b) * t);
+		}
+
+		const diag = gridW + gridH;
+		const fromTopRight = (gridW - dot.cx) + dot.cy;
+		const baseAlpha = Math.max(0, 1 - fromTopRight / diag) * 0.55;
+
+		ctx.beginPath();
+		ctx.arc(px, py, DOT_SIZE / 2, 0, Math.PI * 2);
+		ctx.fillStyle = `rgba(${r},${g},${b},${baseAlpha})`;
+		ctx.fill();
+	}
+
+	dotRaf = requestAnimationFrame(drawDots);
+}
+
+let moveThrottleTime = 0;
+function onDotMove(e: MouseEvent) {
+	const now = performance.now();
+	if (now - moveThrottleTime < 30) return;
+	moveThrottleTime = now;
+
+	const canvas = dotCanvas.value;
+	if (!canvas) return;
+	const rect = canvas.getBoundingClientRect();
+	const dt = pointer.lastTime ? now - pointer.lastTime : 16;
+	const dx = e.clientX - pointer.lastX;
+	const dy = e.clientY - pointer.lastY;
+	let vx = (dx / dt) * 1000;
+	let vy = (dy / dt) * 1000;
+	let speed = Math.hypot(vx, vy);
+	const MAX_SPEED = 5000;
+	if (speed > MAX_SPEED) {
+		const s = MAX_SPEED / speed;
+		vx *= s;
+		vy *= s;
+		speed = MAX_SPEED;
+	}
+
+	pointer.lastTime = now;
+	pointer.lastX = e.clientX;
+	pointer.lastY = e.clientY;
+	pointer.vx = vx;
+	pointer.vy = vy;
+	pointer.speed = speed;
+	pointer.x = e.clientX - rect.left;
+	pointer.y = e.clientY - rect.top;
+
+	if (speed > SPEED_TRIGGER) {
+		for (const dot of dots) {
+			const dist = Math.hypot(dot.cx - pointer.x, dot.cy - pointer.y);
+			if (dist < PROXIMITY) {
+				const pushX = (dot.cx - pointer.x) + vx * 0.004;
+				const pushY = (dot.cy - pointer.y) + vy * 0.004;
+				const falloff = 1 - dist / PROXIMITY;
+				dot.vx += pushX * falloff * 0.8;
+				dot.vy += pushY * falloff * 0.8;
+			}
+		}
+	}
+}
+
+let dotRo: ResizeObserver | null = null;
+
+function initDotGrid() {
+	const canvas = dotCanvas.value;
+	if (!canvas) return;
+	buildDots(canvas);
+	dotRaf = requestAnimationFrame(drawDots);
+
+	dotRo = new ResizeObserver(() => {
+		const c = dotCanvas.value;
+		if (c) buildDots(c);
+	});
+	if (canvas.parentElement) dotRo.observe(canvas.parentElement);
+
+	window.addEventListener("mousemove", onDotMove, { passive: true });
+}
+
+function destroyDotGrid() {
+	cancelAnimationFrame(dotRaf);
+	if (dotRo) dotRo.disconnect();
+	window.removeEventListener("mousemove", onDotMove);
+}
+
+onMounted(() => {
+	initDotGrid();
+});
+onUnmounted(() => {
+	destroyDotGrid();
+});
+</script>
+
+<style scoped>
+.tech-automation-mock {
+	max-height: 420px;
+}
+
+.tech-closing {
+	--tech-closing-bg: #080b0f;
+	--tech-closing-kicker: #898fa5;
+	--tech-closing-accent: #f6ca9a;
+	--tech-closing-description: #9fa6bb;
+	background-color: var(--tech-closing-bg);
+}
+
+.tech-closing-enduring {
+	font-family: var(--font-fraunces);
+	font-style: italic;
+	font-weight: 700;
+	font-variation-settings: "SOFT" 0, "WONK" 1;
+}
+
+.tech-closing-ellipse {
+	background: radial-gradient(
+		ellipse 75% 72% at 50% 50%,
+		rgb(38 56 94 / 52%) 0%,
+		rgb(38 56 94 / 16%) 45%,
+		rgb(8 11 15 / 0%) 72%
+	);
+	filter: blur(40px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tech-closing-ellipse {
+		filter: blur(20px);
+		opacity: 0.9;
+	}
+}
+</style>
