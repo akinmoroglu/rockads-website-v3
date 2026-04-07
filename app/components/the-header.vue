@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Motion } from "motion-v";
-import logoSrc from "@/assets/images/logo-rockads.svg";
+import logoSrc from "@/assets/icons/logo-rockads.svg";
 import { Button } from "@/components/ui/button";
 
 type ServiceItem = {

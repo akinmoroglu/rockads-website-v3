@@ -7,12 +7,13 @@
  *   node scripts/svg-to-vue.mjs [options]
  *
  * Options:
- *   --input,  -i  <path>   Source directory or single SVG file (default: src/assets/icons)
- *   --output, -o  <path>   Output directory for Vue components (default: src/components/icons)
+ *   --input,  -i  <path>   Source directory or single SVG file (default: app/assets/icons)
+ *   --output, -o  <path>   Output directory for Vue components (default: app/components/icons)
  *   --prefix, -p  <name>   Component name prefix (default: Icon)
  *   --ts,     -t           Generate TypeScript components (default: true)
  *   --props               Inject size/color/class props (default: true)
- *   --brands             Convert only `src/assets/brands` into `src/components/icons/brands`
+ *   --brands             Convert only `app/assets/icons/brands` into `app/components/icons/brands`
+ *   --include-brands     Include `brands` when converting all icons (default: excluded)
  *   --preserve-colors     Keep hardcoded SVG fill/stroke colors (mode default depends on --brands)
  *   --no-preserve-colors  Normalize SVG colors to `currentColor` even under brands
  *   --force-index        Write/update index file even when output is a subdirectory
@@ -21,8 +22,8 @@
  *
  * Examples:
  *   node scripts/svg-to-vue.mjs
- *   node scripts/svg-to-vue.mjs -i src/assets/icons -o src/components/icons -p Icon
- *   node scripts/svg-to-vue.mjs -i src/assets/icons/arrow.svg -o src/components/icons
+ *   node scripts/svg-to-vue.mjs -i app/assets/icons -o app/components/icons -p Icon
+ *   node scripts/svg-to-vue.mjs -i app/assets/icons/arrow.svg -o app/components/icons
  *   node scripts/svg-to-vue.mjs --dry-run
  */
 
@@ -54,6 +55,7 @@ function getArg(flags, defaultValue) {
 const PREFIX = getArg(["--prefix", "-p"], "Icon");
 const USE_TS = !args.includes("--no-ts");
 const CONVERT_BRANDS = args.includes("--brands");
+const INCLUDE_BRANDS = args.includes("--include-brands");
 const INJECT_PROPS = !args.includes("--no-props");
 const FORCE_PRESERVE_COLORS = args.includes("--preserve-colors");
 const FORCE_NORMALIZE_COLORS = args.includes("--no-preserve-colors");
@@ -64,14 +66,18 @@ const SKIP_ESLINT_FIX = args.includes("--no-eslint");
 const PROPS_MODE = INJECT_PROPS ? (CONVERT_BRANDS ? "size" : "full") : "none";
 
 // When `--brands` is provided, script must only convert brand SVGs.
-const USER_INPUT = path.resolve(ROOT, getArg(["--input", "-i"], "src/assets/icons"));
-const USER_OUTPUT = path.resolve(ROOT, getArg(["--output", "-o"], "src/components/icons"));
+const USER_INPUT = path.resolve(ROOT, getArg(["--input", "-i"], "app/assets/icons"));
+const USER_OUTPUT = path.resolve(ROOT, getArg(["--output", "-o"], "app/components/icons"));
 
-const BRANDS_INPUT_DIR = path.resolve(ROOT, "src/assets/brands");
-const BRANDS_OUTPUT_DIR = path.resolve(ROOT, "src/components/icons/brands");
+const BRANDS_INPUT_DIR = path.resolve(ROOT, "app/assets/icons/brands");
+const BRANDS_OUTPUT_DIR = path.resolve(ROOT, "app/components/icons/brands");
 
-const INPUT = CONVERT_BRANDS ? getArg(["--input", "-i"], path.resolve(ROOT, "src/assets/brands")) : USER_INPUT;
-const OUTPUT = CONVERT_BRANDS ? getArg(["--output", "-o"], path.resolve(ROOT, "src/components/icons/brands")) : USER_OUTPUT;
+const INPUT = CONVERT_BRANDS
+	? getArg(["--input", "-i"], path.resolve(ROOT, "app/assets/icons/brands"))
+	: USER_INPUT;
+const OUTPUT = CONVERT_BRANDS
+	? getArg(["--output", "-o"], path.resolve(ROOT, "app/components/icons/brands"))
+	: USER_OUTPUT;
 
 if (CONVERT_BRANDS) {
 	const inputPath = path.resolve(ROOT, INPUT);
@@ -135,6 +141,27 @@ function toPascalCase(str) {
 	return str
 		.replace(/[-_\s]+(.)/g, (_, c) => c.toUpperCase())
 		.replace(/^(.)/, (_, c) => c.toUpperCase());
+}
+
+/**
+ * Builds stable component-name segments from path parts and removes adjacent
+ * duplicates to avoid names like `IconServeServeGlobe`.
+ */
+function buildComponentSegments(parts) {
+	const tokens = parts
+		.flatMap(part => part.split(/[-_\s]+/).filter(Boolean))
+		.map(token => toPascalCase(token));
+
+	/** @type {string[]} */
+	const deduped = [];
+	for (const token of tokens) {
+		if (deduped.at(-1) === token) {
+			continue;
+		}
+		deduped.push(token);
+	}
+
+	return deduped;
 }
 
 // Matches any hardcoded color value: hex (#abc, #aabbcc), rgb(), rgba(), hsl(), named colors
@@ -374,7 +401,7 @@ ${propsBlock}</script>
 }
 
 // ─── Index File Generator ─────────────────────────────────────────────────────
-const DEFAULT_OUTPUT = path.resolve(ROOT, "src/components/icons");
+const DEFAULT_OUTPUT = path.resolve(ROOT, "app/components/icons");
 
 function parseIndexExports(indexContent) {
 	const exportRe = /export\s+\{\s+default\s+as\s+([\w$]+)\s*\}\s+from\s+['"]([^'"]+)['"]\s*;?/g;
@@ -388,7 +415,7 @@ function parseIndexExports(indexContent) {
 	return map;
 }
 
-function generateMergedIndexFile(componentNames, indexFilePath, options) {
+function generateMergedIndexFile(componentExports, indexFilePath, options) {
 	const { filterBrandExports = false } = options ?? {};
 
 	const existingMap = fs.existsSync(indexFilePath)
@@ -397,10 +424,8 @@ function generateMergedIndexFile(componentNames, indexFilePath, options) {
 
 	const merged = new Map(existingMap);
 
-	for (const name of componentNames) {
-		// Index file entries always point to files under the OUTPUT folder.
-		// Example (root icons index): './IconAutomation.vue'
-		merged.set(name, `./${name}.vue`);
+	for (const entry of componentExports) {
+		merged.set(entry.name, entry.from);
 	}
 
 	const entries = [...merged.entries()]
@@ -438,10 +463,24 @@ function collectSvgFiles(inputPath) {
 	}
 
 	if (stat.isDirectory()) {
-		return fs
-			.readdirSync(inputPath)
-			.filter(f => f.endsWith(".svg"))
-			.map(f => path.join(inputPath, f));
+		/** @type {string[]} */
+		const results = [];
+
+		/** @param {string} dir */
+		const walk = (dir) => {
+			for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+				const fullPath = path.join(dir, entry.name);
+				if (entry.isDirectory()) {
+					walk(fullPath);
+				}
+				else if (entry.isFile() && entry.name.endsWith(".svg")) {
+					results.push(fullPath);
+				}
+			}
+		};
+
+		walk(inputPath);
+		return results;
 	}
 
 	log("red", "✖", `Input path does not exist: ${inputPath}`);
@@ -491,37 +530,54 @@ function convert() {
 	console.log();
 
 	const generatedNames = [];
+	/** @type {{ name: string, from: string }[]} */
+	const generatedExports = [];
 	const writtenFilesForLint = [];
 	let skipped = 0;
 
+	const inputStat = fs.statSync(INPUT);
+	const inputIsDir = inputStat.isDirectory();
+
 	for (const svgFile of svgFiles) {
 		const basename = path.basename(svgFile, ".svg");
-		const componentName = PREFIX + toPascalCase(basename);
-		const outputFile = path.join(OUTPUT, `${componentName}.vue`);
+		const relFromInput = inputIsDir ? path.relative(INPUT, svgFile) : path.basename(svgFile);
+		const relDirFromInput = inputIsDir ? path.dirname(relFromInput) : ".";
+		const relDirParts = relDirFromInput === "." ? [] : relDirFromInput.split(path.sep).filter(Boolean);
 
-		const isInBrandsDir = /[\\/]assets[\\/]brands[\\/]/.test(svgFile);
+		// Build a collision-resistant and readable name from folder segments + file name.
+		const componentName = PREFIX + buildComponentSegments([...relDirParts, basename]).join("");
+
+		const outputSubdir = path.join(OUTPUT, ...relDirParts);
+		const outputFile = path.join(outputSubdir, `${componentName}.vue`);
+
+		const isInBrandsDir = path.resolve(svgFile).startsWith(`${BRANDS_INPUT_DIR}${path.sep}`);
 		// Mode rule: `--brands` converts only brands. Otherwise convert only icons.
-		if (CONVERT_BRANDS ? !isInBrandsDir : isInBrandsDir) {
+		if (CONVERT_BRANDS ? !isInBrandsDir : (!INCLUDE_BRANDS && isInBrandsDir)) {
 			continue;
 		}
 
 		const raw = fs.readFileSync(svgFile, "utf-8");
 		const preserveColors = FORCE_NORMALIZE_COLORS
 			? false
-			: FORCE_PRESERVE_COLORS || CONVERT_BRANDS;
+			: FORCE_PRESERVE_COLORS || CONVERT_BRANDS || (INCLUDE_BRANDS && isInBrandsDir);
 		const { svg, viewBox, strokeDefaults } = processSvg(raw, PROPS_MODE, preserveColors);
 		const vueContent = generateVueComponent(svg, componentName, viewBox, USE_TS, strokeDefaults, PROPS_MODE);
 
 		if (DRY_RUN) {
-			log("cyan", "○", `[dry-run] ${path.relative(ROOT, svgFile)} → ${componentName}.vue`);
+			log("cyan", "○", `[dry-run] ${path.relative(ROOT, svgFile)} → ${path.relative(ROOT, outputFile)}`);
 		}
 		else {
+			if (!fs.existsSync(outputSubdir)) {
+				fs.mkdirSync(outputSubdir, { recursive: true });
+			}
 			fs.writeFileSync(outputFile, vueContent, "utf-8");
 			writtenFilesForLint.push(outputFile);
 			log("green", "✔", `${path.relative(ROOT, svgFile)} → ${path.relative(ROOT, outputFile)}`);
 		}
 
 		generatedNames.push(componentName);
+		const from = `./${path.relative(OUTPUT, outputFile).replaceAll(path.sep, "/")}`;
+		generatedExports.push({ name: componentName, from });
 	}
 
 	// Write barrel index file
@@ -543,7 +599,7 @@ function convert() {
 	}
 	else if (shouldWriteIndex) {
 		const filterBrandExports = OUTPUT === DEFAULT_OUTPUT && !CONVERT_BRANDS;
-		const indexContent = generateMergedIndexFile(generatedNames, indexFile, {
+		const indexContent = generateMergedIndexFile(generatedExports, indexFile, {
 			filterBrandExports,
 		});
 		fs.writeFileSync(indexFile, indexContent, "utf-8");
