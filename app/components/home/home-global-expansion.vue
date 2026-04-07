@@ -2,7 +2,16 @@
 import { Motion } from "motion-v";
 import HomeServeGlobeAnimated from "@/components/icons/animated/home-serve-globe-animated.vue";
 
-const whoWeServeCards = [
+type WhoServeCardVariant = "light" | "dark";
+
+type WhoServeCard = {
+	title: string;
+	description: string;
+	lineColor: string;
+	variant: WhoServeCardVariant;
+};
+
+const whoWeServeCards: WhoServeCard[] = [
 	{
 		title: "E-Commerce Brands",
 		description:
@@ -15,7 +24,7 @@ const whoWeServeCards = [
 		description:
 			"One dashboard. Unlimited clients. Automate the operational layer so your team can focus entirely on strategy.",
 		lineColor: "#E8D500",
-		variant: "dark",
+		variant: "light",
 	},
 	{
 		title: "Enterprise & Performance Teams",
@@ -24,7 +33,7 @@ const whoWeServeCards = [
 		lineColor: "#FF5A52",
 		variant: "light",
 	},
-] as const;
+];
 </script>
 
 <template>
@@ -56,29 +65,38 @@ const whoWeServeCards = [
 				<Motion
 					v-for="(card, index) in whoWeServeCards"
 					:key="card.title"
-					as="article"
-					class="rounded-2xl border p-8 lg:min-h-[308px] lg:p-12"
-					:class="card.variant === 'dark'
-						? 'border-white/20 bg-(--who-card-dark-bg) text-(--who-card-dark-text)'
-						: 'border-(--who-card-border) bg-(--who-card-bg) text-(--who-card-text)'"
-					:initial="{ opacity: 0, y: 20 }"
+					as="div"
+					class="h-full min-h-0"
+					:initial="{ opacity: 0, y: 32 }"
 					:while-in-view="{ opacity: 1, y: 0 }"
-					:in-view-options="{ once: false, amount: 0.35 }"
-					:transition="{ duration: 0.6, delay: index * 0.08, ease: 'easeOut' }"
+					:in-view-options="{ once: true, amount: 0.2 }"
+					:transition="{
+						duration: 0.7,
+						delay: index * 0.15,
+						ease: [0.16, 1, 0.3, 1],
+					}"
 				>
-					<div
-						class="h-[4px] w-9 rounded-full"
-						:style="{ backgroundColor: card.lineColor }"
-					/>
-					<h3 class="mt-10 text-[30px] leading-[1.2] font-medium lg:text-[32px]">
-						{{ card.title }}
-					</h3>
-					<p
-						class="mt-6 text-lg leading-[1.45]"
-						:class="card.variant === 'dark' ? 'text-(--who-card-dark-muted)' : 'text-(--who-card-muted)'"
+					<article
+						class="who-serve-card group flex h-full cursor-default flex-col rounded-2xl border p-8 lg:min-h-[308px] lg:p-12"
+						:class="card.variant === 'dark' ? 'who-serve-card--dark' : 'who-serve-card--light'"
 					>
-						{{ card.description }}
-					</p>
+						<div
+							class="who-serve-card-line h-[5px] w-[35px] shrink-0 rounded-full"
+							:style="{ backgroundColor: card.lineColor }"
+						/>
+						<h3
+							class="who-serve-card-title mt-10 text-[30px] leading-[1.2] font-medium lg:text-[32px]"
+							:class="card.variant === 'dark' ? 'text-(--who-card-dark-text)' : 'text-(--who-card-text)'"
+						>
+							{{ card.title }}
+						</h3>
+						<p
+							class="mt-6 text-lg leading-[1.45]"
+							:class="card.variant === 'dark' ? 'text-(--who-card-dark-muted)' : 'text-(--who-card-muted)'"
+						>
+							{{ card.description }}
+						</p>
+					</article>
 				</Motion>
 			</div>
 		</div>
@@ -99,5 +117,55 @@ const whoWeServeCards = [
 	--who-card-dark-bg: #10151e;
 	--who-card-dark-text: #ffffff;
 	--who-card-dark-muted: #9fa6bb;
+}
+
+/* Ported from legacy BuiltForTeams.vue — card hover + accent line */
+.who-serve-card {
+	transition:
+		background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+		border-color 0.45s ease,
+		transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+		box-shadow 0.35s ease;
+}
+
+.who-serve-card--light {
+	border-color: var(--who-card-border);
+	background-color: var(--who-card-bg);
+	color: var(--who-card-text);
+}
+
+.who-serve-card--light:hover {
+	background-color: var(--who-card-dark-bg);
+	border-color: rgba(255, 255, 255, 0.15);
+	transform: translateY(-6px);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.who-serve-card--dark {
+	border-color: rgba(255, 255, 255, 0.2);
+	background-color: var(--who-card-dark-bg);
+	color: var(--who-card-dark-text);
+}
+
+.who-serve-card--dark:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+	border-color: rgba(255, 255, 255, 0.3);
+}
+
+.who-serve-card-line {
+	transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.who-serve-card:hover .who-serve-card-line {
+	width: 100%;
+}
+
+.who-serve-card-title {
+	transition: color 0.4s ease;
+}
+
+.who-serve-card--light:hover .who-serve-card-title {
+	color: #ffffff;
 }
 </style>
