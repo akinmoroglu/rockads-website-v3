@@ -18,6 +18,7 @@ import techXPath from "@/assets/images/services/tech/x-twitter.svg?url";
 import techSnapchatPath from "@/assets/images/services/tech/snapchat.svg?url";
 import complianceAiPath from "@/assets/images/services/tech/compliance-ai.svg?url";
 import aiCreativeStudioPath from "@/assets/images/services/tech/ai-creative-studio.svg?url";
+import howItWorksDotsPath from "@/assets/images/services/tech/how-it-works.svg?url";
 
 useHead({
 	title: "Tech Services - Rockads",
@@ -286,16 +287,16 @@ onUnmounted(() => {
 				class="pointer-events-none absolute inset-0 h-full w-full"
 			/>
 			<div class="relative mx-auto max-w-[1066px] px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
-				<h1 class="text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]">
+				<h1 class="text-[40px] leading-[1.14] md:text-[48px] lg:text-[56px]">
 					<span class="text-primary">Tech</span> <span class="text-text-base">Services</span>
 				</h1>
-				<p class="text-text-gray-dark mt-4 text-base font-medium lg:mt-5 lg:text-lg">
+				<p class="mt-4 text-base text-foreground/50 lg:mt-5 lg:text-lg">
 					The Full Stack for Global Ad Operations
 				</p>
-				<p class="text-text-base mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base">
+				<p class="mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base">
 					From campaign creation to compliance, from automation to creative intelligence and more… Everything you need to run, scale, and protect your global operations.
 				</p>
-				<p class="text-text-base mt-4 max-w-[1066px] text-sm leading-relaxed lg:mt-5 lg:text-base">
+				<p class="mt-4 max-w-[1066px] text-sm leading-relaxed lg:mt-5 lg:text-base">
 					Running global ad operations across platforms, markets, and teams demands more than a collection of disconnected tools. It demands an integrated system where every action — from launching a campaign to checking compliance, from reallocating budget to generating creatives — flows through one intelligent layer. That's Rockads.
 				</p>
 				<Button
@@ -312,9 +313,9 @@ onUnmounted(() => {
 
 		<!-- Automation -->
 		<section class="bg-muted/80 px-5 py-12 lg:px-0 lg:py-16">
-			<div class="border-primary-light mx-auto grid max-w-[1140px] gap-10 overflow-hidden rounded-2xl border bg-surface-dark p-8 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12 lg:p-12">
-				<div class="flex flex-col">
-					<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
+			<div class="border-primary-light relative mx-auto grid h-120 max-w-[1140px] gap-10 overflow-hidden rounded-4xl border bg-surface-dark md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
+				<div class="flex flex-col p-12">
+					<h2 class="text-2xl leading-tight text-white lg:text-[32px]">
 						Automation
 					</h2>
 					<p class="mt-6 text-sm leading-relaxed text-white lg:text-base">
@@ -322,7 +323,7 @@ onUnmounted(() => {
 					</p>
 				</div>
 				<div
-					class="tech-automation-mock overflow-hidden shadow-lg"
+					class="tech-automation-mock absolute right-4 bottom-4 overflow-hidden rounded-2xl shadow-lg"
 					aria-hidden="true"
 				>
 					<img
@@ -337,10 +338,10 @@ onUnmounted(() => {
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-16">
 			<div class="mx-auto grid max-w-[1140px] gap-6 md:grid-cols-2 lg:gap-8">
 				<div class="border-primary-light flex flex-col rounded-4xl border bg-card p-8 lg:p-12">
-					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						Ad Launcher
 					</h2>
-					<p class="text-text-base mt-6 text-sm leading-relaxed lg:text-base">
+					<p class="mt-6 text-sm leading-relaxed lg:text-base">
 						One launch. Every platform. Every market. Build once, customize per market, and deploy across Meta, Google, TikTok, Snapchat, and X simultaneously. Unified campaign builder, market-specific customization, and instant multi-platform deployment.
 					</p>
 					<div class="mt-8 flex flex-wrap gap-3.5">
@@ -356,10 +357,10 @@ onUnmounted(() => {
 					</div>
 				</div>
 				<div class="border-primary-light flex flex-col rounded-4xl border bg-card p-8 lg:p-12">
-					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						Compliance AI
 					</h2>
-					<p class="text-text-base mt-6 text-sm leading-relaxed lg:text-base">
+					<p class="mt-6 text-sm leading-relaxed lg:text-base">
 						Stay compliant. Stay live. Stay ahead. Continuously monitor campaigns, creatives, and account health across every platform. Pre-publish policy scanning, real-time risk monitoring, and cross-border regulatory intelligence.
 					</p>
 					<div class="mt-10 flex justify-start">
@@ -376,10 +377,10 @@ onUnmounted(() => {
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
 			<div class="relative mx-auto max-w-[1140px] rounded-4xl bg-[#e5f1ff] px-8 pt-8 lg:px-12 lg:pt-12">
 				<div class="mx-auto max-w-[656px] text-center">
-					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						AI Creative Studio
 					</h2>
-					<p class="text-text-base mt-4 text-sm leading-relaxed lg:mt-6 lg:text-base">
+					<p class="mt-4 text-sm leading-relaxed lg:mt-6 lg:text-base">
 						Creatives that perform. At any scale. Generate, iterate, and optimize ad creatives with AI powered by real-time performance data. From product feeds to multi-format output, with automated localization and brand consistency.
 					</p>
 				</div>
@@ -395,23 +396,28 @@ onUnmounted(() => {
 		<!-- How it works + audiences (Figma: Automation frame — two columns, dot texture) -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
 			<div
-				class="border-primary-light relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl border bg-card"
+				class="border-primary-light relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl border bg-[#f7f9fb]"
 			>
-				<div
-					class="tech-together-dots pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[min(480px,52%)]"
+				<img
+					:src="howItWorksDotsPath"
+					alt=""
+					class="pointer-events-none absolute inset-x-0 bottom-0 z-0 block h-auto w-full max-w-none select-none"
+					decoding="async"
+					width="1140"
+					height="480"
 					aria-hidden="true"
-				/>
+				>
 				<div
 					class="relative z-10 grid gap-10 p-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,465px)] lg:gap-x-8 lg:gap-y-0 lg:p-12 xl:grid-cols-[447px_465px] xl:gap-x-[132px]"
 				>
 					<div class="max-w-none xl:max-w-[447px]">
-						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+						<h2 class="text-2xl leading-tight lg:text-[32px]">
 							How It Works Together
 						</h2>
-						<p class="text-text-base mt-6 text-base leading-relaxed">
+						<p class="mt-6 text-base leading-relaxed">
 							AI Creative Studio generates ad creatives from your product feed and brand assets. Compliance AI scans every creative and campaign configuration for policy compliance before launch. Ad Launcher deploys compliant campaigns across all platforms and markets simultaneously.
 						</p>
-						<p class="text-text-base mt-4 text-base leading-relaxed">
+						<p class="mt-4 text-base leading-relaxed">
 							Automation monitors performance and automatically optimizes budgets, pauses underperformers, and scales winners. Performance data feeds back into AI Creative Studio to generate better-performing creative iterations.
 						</p>
 					</div>
@@ -427,10 +433,10 @@ onUnmounted(() => {
 								stroke-width="1.5"
 							/>
 							<div class="flex flex-col gap-4">
-								<h3 class="text-text-base text-xl leading-7 font-medium">
+								<h3 class="text-xl leading-7">
 									{{ a.title }}
 								</h3>
-								<p class="text-text-gray-dark text-base leading-normal">
+								<p class="text-sm leading-normal text-foreground/50">
 									{{ a.body }}
 								</p>
 							</div>
@@ -443,7 +449,7 @@ onUnmounted(() => {
 		<!-- CTA -->
 		<section class="bg-background px-5 py-16 lg:py-20">
 			<div class="mx-auto max-w-[800px] text-center">
-				<h2 class="text-text-base text-[32px] leading-[1.2] font-semibold lg:text-[40px]">
+				<h2 class=" text-[32px] leading-[1.2] font-semibold lg:text-[40px]">
 					Ready to run tech that scales with you?<br><span class="text-foreground">Start on Rockads</span>
 				</h2>
 				<Button
@@ -525,14 +531,5 @@ onUnmounted(() => {
 		filter: blur(20px);
 		opacity: 0.9;
 	}
-}
-
-.tech-together-dots {
-	background-image: radial-gradient(circle, rgb(200 205 213) 1.25px, transparent 1.25px);
-	background-size: 22px 22px;
-	background-position: 0 0;
-	mask-image: linear-gradient(to top right, black 0%, transparent 58%);
-	-webkit-mask-image: linear-gradient(to top right, black 0%, transparent 58%);
-	opacity: 0.55;
 }
 </style>
