@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMouseInElement, usePreferredReducedMotion } from "@vueuse/core";
+import { useMediaQuery, useMouseInElement } from "@vueuse/core";
 import { Motion } from "motion-v";
 import { CalendarDays } from "lucide-vue-next";
 import {
@@ -15,14 +15,14 @@ import leftGlowAsset from "@/assets/images/home/hero/left-glow.svg?url";
 import rightGlowAsset from "@/assets/images/home/hero/right-glow.svg?url";
 
 const heroRef = ref<HTMLElement | null>(null);
-const reducedMotion = usePreferredReducedMotion();
+const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 const { elementX, elementY, elementWidth, elementHeight, isOutside } = useMouseInElement(heroRef);
 
 /** Max parallax shift in px when cursor is at hero edge */
 const PARALLAX_STRENGTH = 48;
 
 const glowMouseOffsets = computed(() => {
-	if (reducedMotion.value || isOutside.value) {
+	if (prefersReducedMotion.value || isOutside.value) {
 		return { left: { x: 0, y: 0 }, right: { x: 0, y: 0 } };
 	}
 	const w = elementWidth.value;
