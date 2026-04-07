@@ -74,7 +74,7 @@ const partnerIcons = [
 		<div class="relative z-10 mx-auto flex min-h-[860px] w-full max-w-[1440px] flex-col items-center px-5 pb-8 pt-[132px] lg:min-h-[900px] lg:px-12 lg:pt-[160px]">
 			<Motion
 				as="div"
-				class="rounded-full border border-[#37A4FF]/35 bg-[#0a75cb]/20 px-3 py-2 text-sm font-medium text-white/90"
+				class="rounded-full border border-[#37A4FF]/35 bg-[#0a75cb]/20 px-3 py-2 text-sm  text-white/90"
 				:initial="{ opacity: 0, y: 12 }"
 				:animate="{ opacity: 1, y: 0 }"
 				:transition="{ duration: 0.45, ease: 'easeOut' }"
@@ -123,7 +123,7 @@ const partnerIcons = [
 				<Button
 					as-child
 					size="lg"
-					class=" rounded-lg  text-base font-medium text-white shadow-[0_0_0_1px_rgba(255,255,255,0.06)]"
+					class=""
 				>
 					<NuxtLink to="/contact">
 						<CalendarDays class="size-5" />
@@ -133,7 +133,7 @@ const partnerIcons = [
 			</Motion>
 
 			<div class="mt-auto flex flex-col items-center gap-5 pb-4 pt-14">
-				<p class="text-center text-xs font-medium tracking-[0.02em] text-white/95">
+				<p class="text-center text-xs  tracking-[0.02em] text-white/95">
 					OFFICIAL PLATFORM PARTNERS
 				</p>
 				<div class="flex items-center gap-4">

@@ -137,7 +137,7 @@ watch(
 					class="hidden h-5 w-px bg-white/30 md:block"
 				/>
 				<span
-					class="hidden text-base font-medium text-white md:block"
+					class="hidden text-base text-white md:block"
 				>
 					Your Growth Partner
 				</span>
@@ -145,7 +145,7 @@ watch(
 
 			<nav class="hidden items-center gap-10 lg:flex">
 				<div
-					class="flex items-center gap-10 text-base font-medium text-white"
+					class="flex items-center gap-10 text-base text-white"
 				>
 					<div
 						class="relative"
@@ -192,7 +192,7 @@ watch(
 										@mouseenter="activeCategory = category.id"
 									>
 										<span
-											class="block text-sm leading-5 font-semibold"
+											class="block text-sm leading-5 font-medium"
 											:class="activeCategory === category.id ? 'text-primary' : 'text-foreground'"
 										>
 											{{ category.title }}
@@ -213,7 +213,7 @@ watch(
 										:animate="{ opacity: 1, y: 0 }"
 										:transition="{ duration: 0.14, ease: 'easeOut' }"
 									>
-										<span class="block text-sm leading-5 font-semibold text-foreground">
+										<span class="block text-sm leading-5 text-foreground">
 											{{ item.title }}
 										</span>
 										<span class="mt-0.5 block text-xs leading-4 text-muted-foreground">
@@ -225,20 +225,25 @@ watch(
 						</Motion>
 					</div>
 
-					<NuxtLink
+					<Button
 						v-for="link in desktopLinks"
 						:key="link.label"
-						:to="link.href"
-						class="transition-opacity hover:opacity-80"
+						as-child
+						variant="link"
+						class="text-white"
 					>
-						{{ link.label }}
-					</NuxtLink>
+						<NuxtLink
+
+							:to="link.href"
+						>
+							{{ link.label }}
+						</NuxtLink>
+					</Button>
 				</div>
 
 				<Button
 					type="button"
 					size="lg"
-					class="h-[48px] rounded-lg px-5 text-base font-medium"
 				>
 					Get Started
 				</Button>
@@ -320,7 +325,7 @@ watch(
 			<div class="flex flex-col gap-1 px-5 py-6">
 				<button
 					type="button"
-					class="flex w-full items-center justify-between py-3 text-base font-medium text-white"
+					class="flex w-full items-center justify-between py-3 text-base text-white"
 					:aria-expanded="mobileServicesOpen"
 					@click="mobileServicesOpen = !mobileServicesOpen"
 				>
@@ -352,7 +357,7 @@ watch(
 						:key="category.id"
 						class="flex flex-col gap-1"
 					>
-						<span class="text-sm font-semibold text-primary">{{ category.title }}</span>
+						<span class="text-sm text-primary">{{ category.title }}</span>
 						<div
 							v-for="item in category.items"
 							:key="item.title"
@@ -368,14 +373,14 @@ watch(
 					v-for="link in desktopLinks"
 					:key="`mobile-${link.label}`"
 					:to="link.href"
-					class="py-3 text-base font-medium text-white"
+					class="py-3 text-base text-white"
 				>
 					{{ link.label }}
 				</NuxtLink>
 				<Button
 					type="button"
 					size="lg"
-					class="mt-4 text-base font-medium"
+					class="mt-4 text-base"
 				>
 					Get Started
 				</Button>
