@@ -5,6 +5,13 @@ export default defineNuxtConfig({
 	modules: ["shadcn-nuxt"],
 	devtools: { enabled: true },
 	css: ["~/assets/css/tailwind.css"],
+
+	runtimeConfig: {
+		public: {
+			/** Full origin + API prefix for auth routes, e.g. https://api.example.com/v1 */
+			authApiBase: "",
+		},
+	},
 	alias: {
 		"@": new URL("./app", import.meta.url).pathname,
 	},
