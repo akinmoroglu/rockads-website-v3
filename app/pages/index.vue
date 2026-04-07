@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import GlossaryCloud from "@/components/legacy/GlossaryCloud.vue";
-import HomeHeroBanner from "@/components/home/home-hero-banner.vue";
+import HomeGlossaryCloud from "@/components/home/home-glossary-cloud.vue";
 import HomeGlobalExpansion from "@/components/home/home-global-expansion.vue";
+import HomeHeroBanner from "@/components/home/home-hero-banner.vue";
 import HomeNumbersStats from "@/components/home/home-numbers-stats.vue";
 import HomeOurPhilosophy from "@/components/home/home-our-philosophy.vue";
 import HomeThreePillars from "@/components/home/home-three-pillars.vue";
@@ -29,6 +29,6 @@ useHead({
 		<HomeOurPhilosophy />
 		<HomeGlobalExpansion />
 		<HomeNumbersStats />
-		<GlossaryCloud />
+		<HomeGlossaryCloud />
 	</main>
 </template>
