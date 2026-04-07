@@ -18,6 +18,7 @@ import techTikTokPath from "@/assets/images/services/tech/tiktok.svg?url";
 import techXPath from "@/assets/images/services/tech/x-twitter.svg?url";
 import techSnapchatPath from "@/assets/images/services/tech/snapchat.svg?url";
 import complianceAiPath from "@/assets/images/services/tech/compliance-ai.svg?url";
+import aiCreativeStudioPath from "@/assets/images/services/tech/ai-creative-studio.svg?url";
 
 useHead({
 	title: "Tech Services - Rockads",
@@ -280,7 +281,7 @@ onUnmounted(() => {
 		<TheHeader />
 
 		<!-- Hero -->
-		<section class="relative overflow-hidden bg-muted/80">
+		<section class="relative overflow-hidden bg-white">
 			<canvas
 				ref="dotCanvas"
 				class="pointer-events-none absolute inset-0 h-full w-full"
@@ -311,7 +312,7 @@ onUnmounted(() => {
 		</section>
 
 		<!-- Automation -->
-		<section class="bg-muted/80 px-5 pt-4 pb-12 lg:px-0 lg:pb-16">
+		<section class="bg-muted/80 px-5 py-12 lg:px-0 lg:py-16">
 			<div class="border-primary-light mx-auto grid max-w-[1140px] gap-10 overflow-hidden rounded-2xl border bg-surface-dark p-8 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12 lg:p-12">
 				<div class="flex flex-col">
 					<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
@@ -374,7 +375,7 @@ onUnmounted(() => {
 
 		<!-- AI Creative Studio -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
-			<div class="border-primary-light mx-auto max-w-[1140px] rounded-2xl border bg-card p-8 lg:p-12">
+			<div class="relative mx-auto max-w-[1140px] rounded-2xl bg-[#e5f1ff] px-8 pt-8 lg:px-12 lg:pt-12">
 				<div class="mx-auto max-w-[656px] text-center">
 					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 						AI Creative Studio
@@ -383,33 +384,11 @@ onUnmounted(() => {
 						Creatives that perform. At any scale. Generate, iterate, and optimize ad creatives with AI powered by real-time performance data. From product feeds to multi-format output, with automated localization and brand consistency.
 					</p>
 				</div>
-				<div class="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-					<div
-						v-for="c in creativeTypes"
-						:key="c.title"
-						class="rounded-xl border border-border bg-muted/40 p-4"
+				<div class="mt-10 grid place-items-center gap-4">
+					<img
+						:src="aiCreativeStudioPath"
+						alt="AI Creative Studio"
 					>
-						<div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-							<component
-								:is="c.icon"
-								class="h-5 w-5"
-								stroke-width="1.5"
-							/>
-						</div>
-						<h3 class="text-text-base mt-3 text-sm font-semibold">
-							{{ c.title }}
-						</h3>
-						<p class="text-text-gray-dark mt-2 text-xs leading-relaxed">
-							{{ c.description }}
-						</p>
-						<p class="text-text-gray-dark mt-3 flex items-start gap-2 text-xs">
-							<IconBulb
-								class="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary"
-								stroke-width="1.5"
-							/>
-							<span>{{ c.hint }}</span>
-						</p>
-					</div>
 				</div>
 			</div>
 		</section>
