@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMouseInElement, usePreferredReducedMotion } from "@vueuse/core";
 import { Motion } from "motion-v";
 import { CalendarDays } from "lucide-vue-next";
 import {
@@ -8,9 +9,48 @@ import {
 	IconBrandTiktok,
 	IconBrandX,
 } from "@tabler/icons-vue";
+import { computed, ref } from "vue";
 import { Button } from "@/components/ui/button";
 import leftGlowAsset from "@/assets/images/home/hero/left-glow.svg?url";
 import rightGlowAsset from "@/assets/images/home/hero/right-glow.svg?url";
+
+const heroRef = ref<HTMLElement | null>(null);
+const reducedMotion = usePreferredReducedMotion();
+const { elementX, elementY, elementWidth, elementHeight, isOutside } = useMouseInElement(heroRef);
+
+/** Max parallax shift in px when cursor is at hero edge */
+const PARALLAX_STRENGTH = 48;
+
+const glowMouseOffsets = computed(() => {
+	if (reducedMotion.value || isOutside.value) {
+		return { left: { x: 0, y: 0 }, right: { x: 0, y: 0 } };
+	}
+	const w = elementWidth.value;
+	const h = elementHeight.value;
+	if (w <= 0 || h <= 0) {
+		return { left: { x: 0, y: 0 }, right: { x: 0, y: 0 } };
+	}
+	const nx = (elementX.value / w) * 2 - 1;
+	const ny = (elementY.value / h) * 2 - 1;
+	return {
+		left: {
+			x: nx * PARALLAX_STRENGTH * 0.9,
+			y: ny * PARALLAX_STRENGTH * 0.55,
+		},
+		right: {
+			x: nx * PARALLAX_STRENGTH * -0.75,
+			y: ny * PARALLAX_STRENGTH * 0.5,
+		},
+	};
+});
+
+const leftGlowMouseStyle = computed(() => ({
+	transform: `translate3d(${glowMouseOffsets.value.left.x}px, ${glowMouseOffsets.value.left.y}px, 0)`,
+}));
+
+const rightGlowMouseStyle = computed(() => ({
+	transform: `translate3d(${glowMouseOffsets.value.right.x}px, ${glowMouseOffsets.value.right.y}px, 0)`,
+}));
 
 const partnerIcons = [
 	{ component: IconBrandX, label: "X partner" },
@@ -22,7 +62,10 @@ const partnerIcons = [
 </script>
 
 <template>
-	<section class="relative min-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e]">
+	<section
+		ref="heroRef"
+		class="relative min-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e]"
+	>
 		<div class="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.55)_1px,transparent_1px)] bg-size-[22px_22px] opacity-8" />
 
 		<Motion
@@ -39,12 +82,17 @@ const partnerIcons = [
 				:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, 6, 0], y: [10, -8, 10] }"
 				:transition="{ duration: 6.2, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
 			>
-				<img
-					:src="leftGlowAsset"
-					alt=""
-					aria-hidden="true"
-					class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+				<div
+					class="h-full w-full will-change-transform"
+					:style="leftGlowMouseStyle"
 				>
+					<img
+						:src="leftGlowAsset"
+						alt=""
+						aria-hidden="true"
+						class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+					>
+				</div>
 			</Motion>
 		</Motion>
 
@@ -62,12 +110,17 @@ const partnerIcons = [
 				:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, -6, 0], y: [-10, 8, -10] }"
 				:transition="{ duration: 6.6, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
 			>
-				<img
-					:src="rightGlowAsset"
-					alt=""
-					aria-hidden="true"
-					class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+				<div
+					class="h-full w-full will-change-transform"
+					:style="rightGlowMouseStyle"
 				>
+					<img
+						:src="rightGlowAsset"
+						alt=""
+						aria-hidden="true"
+						class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+					>
+				</div>
 			</Motion>
 		</Motion>
 
@@ -131,8 +184,10 @@ const partnerIcons = [
 					</NuxtLink>
 				</Button>
 			</Motion>
+		</div>
 
-			<div class="mt-auto flex flex-col items-center gap-5 pt-14 pb-4">
+		<div class="absolute right-0 bottom-0 left-0 py-8">
+			<div class="flex flex-col items-center gap-5 pt-14 pb-4">
 				<p class="text-center text-xs  tracking-[0.02em] text-white/95">
 					OFFICIAL PLATFORM PARTNERS
 				</p>

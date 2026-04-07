@@ -1,47 +1,47 @@
 <template>
 	<section
 		ref="heroRef"
-		class="relative min-h-screen bg-gradient-to-b from-black to-[#02123e] overflow-hidden"
+		class="relative min-h-screen overflow-hidden bg-gradient-to-b from-black to-[#02123e]"
 		@mousemove="onMouseMove"
 	>
 		<!-- Left decorative glass element -->
 		<div
-			class="hidden lg:flex absolute left-[-38.5%] top-[1%] w-[63vw] h-[111%] items-center justify-center will-change-transform"
+			class="absolute top-[1%] left-[-38.5%] hidden h-[111%] w-[63vw] items-center justify-center will-change-transform lg:flex"
 			:style="glassLeftStyle"
 		>
 			<div class="rotate-[38.62deg]">
 				<img
 					:src="heroGlassSrc"
 					alt=""
-					class="w-[43vw] aspect-[622/667] object-cover pointer-events-none"
+					class="pointer-events-none aspect-[622/667] w-[43vw] object-cover"
 				>
 			</div>
 		</div>
 
 		<!-- Right decorative glass element -->
 		<div
-			class="hidden lg:flex absolute right-[-22%] top-[11%] w-[44vw] h-[73%] items-center justify-center will-change-transform"
+			class="absolute top-[11%] right-[-22%] hidden h-[73%] w-[44vw] items-center justify-center will-change-transform lg:flex"
 			:style="glassRightStyle"
 		>
 			<div class="shrink-0 -scale-y-100 rotate-[98.45deg]">
 				<img
 					:src="heroGlassSrc"
 					alt=""
-					class="w-[36vw] aspect-[521/558] object-cover pointer-events-none"
+					class="pointer-events-none aspect-[521/558] w-[36vw] object-cover"
 				>
 			</div>
 		</div>
 
 		<!-- Hero content -->
-		<div class="relative z-10 flex flex-col items-center justify-center min-h-screen pt-24 lg:pt-[100px] pb-28 lg:pb-[133px] px-6 lg:px-0">
-			<div class="flex flex-col items-center gap-8 lg:gap-10 max-w-[761px] text-center">
+		<div class="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 pt-24 pb-28 lg:px-0 lg:pt-[100px] lg:pb-[133px]">
+			<div class="flex max-w-[761px] flex-col items-center gap-8 text-center lg:gap-10">
 				<div class="flex flex-col items-center gap-6">
 					<!-- Badge -->
 					<div
-						class="hero-fade bg-[rgba(0,124,225,0.24)] px-3 py-2 rounded-rounded"
+						class="hero-fade rounded-rounded bg-[rgba(0,124,225,0.24)] px-3 py-2"
 						style="--d:0ms"
 					>
-						<span class="text-white text-sm">
+						<span class="text-sm text-white">
 							Stable. <em class="italic">Enduring</em>. Limitless.
 						</span>
 					</div>
@@ -49,14 +49,14 @@
 					<!-- Main heading -->
 					<div class="flex flex-col items-center gap-4">
 						<h1
-							class="hero-fade text-[40px] md:text-[56px] lg:text-[80px] font-extrabold leading-[1.14] text-primary-200"
+							class="hero-fade text-primary-200 text-[40px] leading-[1.14] font-extrabold md:text-[56px] lg:text-[80px]"
 							style="--d:120ms"
 						>
 							Grow without limits.
 						</h1>
 						<div class="max-w-[709px]">
 							<p
-								class="hero-fade text-white text-base lg:text-xl font-medium leading-[26px] lg:leading-[28px]"
+								class="hero-fade text-base leading-[26px] font-medium text-white lg:text-xl lg:leading-[28px]"
 								style="--d:240ms"
 							>
 								Rockads is a cross-border business accelerator; the stable, intelligent, scalable
@@ -64,7 +64,7 @@
 								build their global operations.
 							</p>
 							<p
-								class="hero-fade text-text-gray-dark text-base lg:text-xl font-medium leading-[26px] lg:leading-[28px] mt-4"
+								class="hero-fade text-text-gray-dark mt-4 text-base leading-[26px] font-medium lg:text-xl lg:leading-[28px]"
 								style="--d:360ms"
 							>
 								A global growth partner and a next-generation full-stack platform.
@@ -75,13 +75,13 @@
 
 				<!-- CTA Button -->
 				<button
-					class="hero-fade flex items-center justify-center gap-2 bg-primary text-white font-medium text-base px-4 py-4 rounded-lg w-[200px] h-[56px] hover:bg-primary-600 transition-colors"
+					class="hero-fade hover:bg-primary-600 flex h-[56px] w-[200px] items-center justify-center gap-2 rounded-lg bg-primary px-4 py-4 text-base font-medium text-white transition-colors"
 					style="--d:480ms"
 				>
 					<img
 						:src="calendarIcon"
 						alt=""
-						class="w-5 h-5"
+						class="h-5 w-5"
 					>
 					Book a Call
 				</button>
@@ -89,10 +89,10 @@
 		</div>
 
 		<!-- Platform partners -->
-		<div class="absolute bottom-0 left-0 right-0 py-8">
+		<div class="absolute right-0 bottom-0 left-0 py-8">
 			<div class="flex flex-col items-center gap-[21px]">
 				<span
-					class="hero-fade text-white text-xs font-medium tracking-[2.24px]"
+					class="hero-fade text-xs font-medium tracking-[2.24px] text-white"
 					style="--d:600ms"
 				>OFFICIAL PLATFORM PARTNERS</span>
 				<div class="flex items-center gap-6">
@@ -101,7 +101,7 @@
 						:key="partner.name"
 						:src="partner.src"
 						:alt="partner.name"
-						class="hero-fade w-8 h-8"
+						class="hero-fade h-8 w-8"
 						:style="{ '--d': (700 + i * 80) + 'ms' }"
 					>
 				</div>
