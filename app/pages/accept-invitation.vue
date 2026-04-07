@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
-import { AlertCircle } from "lucide-vue-next";
+import { AlertCircle, CheckCircle2 } from "lucide-vue-next";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,47 +21,55 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
-import { signUpFormSchema } from "@/lib/auth-form-schemas";
+import { acceptInvitationFormSchema } from "@/lib/auth-form-schemas";
 
 definePageMeta({
 	layout: "auth",
 });
 
 useHead({
-	title: "Sign Up - Rockads",
+	title: "Accept Invitation - Rockads",
 });
 
 const authApi = useAuthApi();
+const route = useRoute();
 
-const formSchema = toTypedSchema(signUpFormSchema);
+const formSchema = toTypedSchema(acceptInvitationFormSchema);
+
+const token = computed(() => {
+	const raw = route.query.token;
+	return typeof raw === "string" ? raw.trim() : "";
+});
 
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
+const success = ref(false);
 
 async function onSubmit(values: {
-	name: string;
-	email: string;
+	name?: string;
 	password: string;
 	password_confirmation: string;
 }) {
 	apiError.value = null;
+	if (!token.value) {
+		apiError.value = "This invitation link is invalid or expired. Ask your administrator to send a new invite.";
+		return;
+	}
 	isSubmitting.value = true;
 	try {
-		await authApi.signUp({
-			name: values.name.trim(),
-			email: values.email.trim(),
+		const nameTrimmed = values.name?.trim();
+		await authApi.acceptInvitation({
+			token: token.value,
 			password: values.password,
 			password_confirmation: values.password_confirmation,
+			...(nameTrimmed ? { name: nameTrimmed } : {}),
 		});
-		await navigateTo({
-			path: "/verify-email",
-			query: { email: values.email.trim() },
-		});
+		success.value = true;
 	}
 	catch (error: unknown) {
 		apiError.value = error instanceof Error
 			? error.message
-			: "Could not create your account.";
+			: "Could not accept the invitation.";
 	}
 	finally {
 		isSubmitting.value = false;
@@ -73,23 +81,43 @@ async function onSubmit(values: {
 	<Card class="w-full">
 		<CardHeader class="space-y-1">
 			<CardTitle class="text-2xl">
-				Create your account
+				Accept your invitation
 			</CardTitle>
 			<CardDescription>
-				Start with Rockads and scale with confidence.
+				Set a password to join the workspace. Add your name if it is not already on the invite.
 			</CardDescription>
 		</CardHeader>
 		<CardContent class="space-y-4">
+			<Alert
+				v-if="!token"
+				variant="destructive"
+			>
+				<AlertCircle class="size-4" />
+				<AlertTitle>Invalid link</AlertTitle>
+				<AlertDescription>
+					Open the invitation link from your email. If it expired, request a new invitation from your team admin.
+				</AlertDescription>
+			</Alert>
+
+			<Alert v-if="success">
+				<CheckCircle2 class="size-4 text-primary" />
+				<AlertTitle>You are in</AlertTitle>
+				<AlertDescription>
+					Your account is ready. Sign in with your email and the password you just created.
+				</AlertDescription>
+			</Alert>
+
 			<Alert
 				v-if="apiError"
 				variant="destructive"
 			>
 				<AlertCircle class="size-4" />
-				<AlertTitle>Could not sign up</AlertTitle>
+				<AlertTitle>Could not complete invitation</AlertTitle>
 				<AlertDescription>{{ apiError }}</AlertDescription>
 			</Alert>
 
 			<Form
+				v-if="token && !success"
 				:validation-schema="formSchema"
 				class="space-y-4"
 				@submit="onSubmit"
@@ -99,30 +127,12 @@ async function onSubmit(values: {
 					name="name"
 				>
 					<FormItem>
-						<FormLabel>Full name</FormLabel>
+						<FormLabel>Your name (optional)</FormLabel>
 						<FormControl>
 							<Input
 								type="text"
 								autocomplete="name"
 								placeholder="Jane Doe"
-								v-bind="componentField"
-							/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				</FormField>
-
-				<FormField
-					v-slot="{ componentField }"
-					name="email"
-				>
-					<FormItem>
-						<FormLabel>Email</FormLabel>
-						<FormControl>
-							<Input
-								type="email"
-								autocomplete="email"
-								placeholder="you@company.com"
 								v-bind="componentField"
 							/>
 						</FormControl>
@@ -175,17 +185,24 @@ async function onSubmit(values: {
 						v-if="isSubmitting"
 						class="mr-2"
 					/>
-					Create Account
+					Accept invitation
 				</Button>
 			</Form>
 		</CardContent>
 		<CardFooter class="justify-center text-sm text-muted-foreground">
-			Already have an account?
 			<NuxtLink
+				v-if="success"
 				to="/sign-in"
-				class="ml-1 font-medium text-primary hover:underline"
+				class="font-medium text-primary hover:underline"
 			>
-				Sign in
+				Go to sign in
+			</NuxtLink>
+			<NuxtLink
+				v-else
+				to="/sign-in"
+				class="font-medium text-primary hover:underline"
+			>
+				Back to sign in
 			</NuxtLink>
 		</CardFooter>
 	</Card>

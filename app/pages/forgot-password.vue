@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
-import { AlertCircle } from "lucide-vue-next";
+import { AlertCircle, CheckCircle2 } from "lucide-vue-next";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,41 +21,37 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
-import { signInFormSchema } from "@/lib/auth-form-schemas";
+import { forgotPasswordFormSchema } from "@/lib/auth-form-schemas";
 
 definePageMeta({
 	layout: "auth",
 });
 
 useHead({
-	title: "Sign In - Rockads",
+	title: "Forgot Password - Rockads",
 });
 
 const authApi = useAuthApi();
-const route = useRoute();
 
-const formSchema = toTypedSchema(signInFormSchema);
+const formSchema = toTypedSchema(forgotPasswordFormSchema);
 
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
+const emailSent = ref(false);
+const submittedEmail = ref("");
 
-async function onSubmit(values: { email: string; password: string }) {
+async function onSubmit(values: { email: string }) {
 	apiError.value = null;
 	isSubmitting.value = true;
 	try {
-		await authApi.signIn({
-			email: values.email.trim(),
-			password: values.password,
-		});
-		const redirect = typeof route.query.redirect === "string"
-			? route.query.redirect
-			: "/";
-		await navigateTo(redirect);
+		await authApi.forgotPassword({ email: values.email.trim() });
+		submittedEmail.value = values.email.trim();
+		emailSent.value = true;
 	}
 	catch (error: unknown) {
 		apiError.value = error instanceof Error
 			? error.message
-			: "Sign in failed.";
+			: "Could not send reset instructions.";
 	}
 	finally {
 		isSubmitting.value = false;
@@ -67,23 +63,34 @@ async function onSubmit(values: { email: string; password: string }) {
 	<Card class="w-full">
 		<CardHeader class="space-y-1">
 			<CardTitle class="text-2xl">
-				Welcome back
+				Reset your password
 			</CardTitle>
 			<CardDescription>
-				Sign in to continue managing your campaigns.
+				Enter your account email and we will send you a link to choose a new password.
 			</CardDescription>
 		</CardHeader>
 		<CardContent class="space-y-4">
+			<Alert v-if="emailSent">
+				<CheckCircle2 class="size-4 text-primary" />
+				<AlertTitle>Check your email</AlertTitle>
+				<AlertDescription>
+					If an account exists for
+					<strong>{{ submittedEmail }}</strong>
+					, you will receive password reset instructions shortly.
+				</AlertDescription>
+			</Alert>
+
 			<Alert
 				v-if="apiError"
 				variant="destructive"
 			>
 				<AlertCircle class="size-4" />
-				<AlertTitle>Could not sign in</AlertTitle>
+				<AlertTitle>Request failed</AlertTitle>
 				<AlertDescription>{{ apiError }}</AlertDescription>
 			</Alert>
 
 			<Form
+				v-if="!emailSent"
 				:validation-schema="formSchema"
 				class="space-y-4"
 				@submit="onSubmit"
@@ -106,32 +113,6 @@ async function onSubmit(values: { email: string; password: string }) {
 					</FormItem>
 				</FormField>
 
-				<FormField
-					v-slot="{ componentField }"
-					name="password"
-				>
-					<FormItem>
-						<div class="flex items-center justify-between gap-2">
-							<FormLabel>Password</FormLabel>
-							<NuxtLink
-								to="/forgot-password"
-								class="text-xs font-medium text-primary hover:underline"
-							>
-								Forgot password?
-							</NuxtLink>
-						</div>
-						<FormControl>
-							<Input
-								type="password"
-								autocomplete="current-password"
-								placeholder="Enter your password"
-								v-bind="componentField"
-							/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				</FormField>
-
 				<Button
 					type="submit"
 					class="w-full"
@@ -141,17 +122,16 @@ async function onSubmit(values: { email: string; password: string }) {
 						v-if="isSubmitting"
 						class="mr-2"
 					/>
-					Sign In
+					Send reset link
 				</Button>
 			</Form>
 		</CardContent>
 		<CardFooter class="justify-center text-sm text-muted-foreground">
-			No account yet?
 			<NuxtLink
-				to="/sign-up"
-				class="ml-1 font-medium text-primary hover:underline"
+				to="/sign-in"
+				class="font-medium text-primary hover:underline"
 			>
-				Create one
+				Back to sign in
 			</NuxtLink>
 		</CardFooter>
 	</Card>
