@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import logoSrc from "@/assets/images/logo-rockads.svg";
+import { Button } from "./ui/button";
 </script>
 
 <template>
 	<header
-		class="shrink-0 border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80"
+		class="shrink-0 border-b border-(--header-border) bg-(--header-background) backdrop-blur"
 	>
 		<div
 			class="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-5"
@@ -22,12 +23,16 @@ import logoSrc from "@/assets/images/logo-rockads.svg";
 				>
 				<span class="sr-only">Rockads home</span>
 			</NuxtLink>
-			<NuxtLink
-				to="/"
-				class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+			<Button
+				as-child
+				variant="link"
 			>
-				Back to website
-			</NuxtLink>
+				<NuxtLink
+					to="/"
+				>
+					Back to website
+				</NuxtLink>
+			</Button>
 		</div>
 	</header>
 </template>

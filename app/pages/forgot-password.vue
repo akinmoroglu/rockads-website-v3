@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
+import type { SubmissionHandler } from "vee-validate";
+import type { z } from "zod";
 import { AlertCircle, CheckCircle2 } from "lucide-vue-next";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -35,12 +37,14 @@ const authApi = useAuthApi();
 
 const formSchema = toTypedSchema(forgotPasswordFormSchema);
 
+type ForgotPasswordFormValues = z.infer<typeof forgotPasswordFormSchema>;
+
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const emailSent = ref(false);
 const submittedEmail = ref("");
 
-async function onSubmit(values: { email: string }) {
+async function onSubmit(values: ForgotPasswordFormValues) {
 	apiError.value = null;
 	isSubmitting.value = true;
 	try {
@@ -57,6 +61,10 @@ async function onSubmit(values: { email: string }) {
 		isSubmitting.value = false;
 	}
 }
+
+const onFormSubmit: SubmissionHandler = (values) => {
+	return onSubmit(values as ForgotPasswordFormValues);
+};
 </script>
 
 <template>
@@ -93,7 +101,7 @@ async function onSubmit(values: { email: string }) {
 				v-if="!emailSent"
 				:validation-schema="formSchema"
 				class="space-y-4"
-				@submit="onSubmit"
+				@submit="onFormSubmit"
 			>
 				<FormField
 					v-slot="{ componentField }"

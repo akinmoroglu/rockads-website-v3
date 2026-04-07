@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
+import type { z } from "zod";
 import { AlertCircle, CheckCircle2 } from "lucide-vue-next";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -47,6 +48,9 @@ function persistTokenFromResponse(data: unknown) {
 const verifySchema = toTypedSchema(verifyEmailTokenFormSchema);
 const resendSchema = toTypedSchema(resendVerificationFormSchema);
 
+type ManualVerifyFormValues = z.infer<typeof verifyEmailTokenFormSchema>;
+type ResendVerificationFormValues = z.infer<typeof resendVerificationFormSchema>;
+
 const initialEmail = computed(() => {
 	const raw = route.query.email;
 	return typeof raw === "string" ? raw : "";
@@ -88,7 +92,7 @@ onMounted(async () => {
 	}
 });
 
-async function onManualVerify(values: { token: string }) {
+async function onManualVerify(values: ManualVerifyFormValues) {
 	manualError.value = null;
 	manualSubmitting.value = true;
 	try {
@@ -106,7 +110,11 @@ async function onManualVerify(values: { token: string }) {
 	}
 }
 
-async function onResend(values: { email: string }) {
+function onManualVerifyFormSubmit(values: Record<string, unknown>) {
+	return onManualVerify(values as ManualVerifyFormValues);
+}
+
+async function onResend(values: ResendVerificationFormValues) {
 	resendError.value = null;
 	resendSubmitting.value = true;
 	try {
@@ -121,6 +129,10 @@ async function onResend(values: { email: string }) {
 	finally {
 		resendSubmitting.value = false;
 	}
+}
+
+function onResendFormSubmit(values: Record<string, unknown>) {
+	return onResend(values as ResendVerificationFormValues);
 }
 </script>
 
@@ -194,7 +206,7 @@ async function onResend(values: { email: string }) {
 					v-if="!manualSuccess"
 					:validation-schema="verifySchema"
 					class="space-y-4"
-					@submit="onManualVerify"
+					@submit="onManualVerifyFormSubmit"
 				>
 					<FormField
 						v-slot="{ componentField }"
@@ -255,7 +267,7 @@ async function onResend(values: { email: string }) {
 					:validation-schema="resendSchema"
 					:initial-values="{ email: initialEmail }"
 					class="space-y-4"
-					@submit="onResend"
+					@submit="onResendFormSubmit"
 				>
 					<FormField
 						v-slot="{ componentField }"

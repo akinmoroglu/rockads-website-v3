@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
+import type { SubmissionHandler } from "vee-validate";
+import type { z } from "zod";
 import { AlertCircle, CheckCircle2 } from "lucide-vue-next";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -38,6 +40,8 @@ const route = useRoute();
 
 const formSchema = toTypedSchema(resetPasswordFormSchema);
 
+type ResetPasswordFormValues = z.infer<typeof resetPasswordFormSchema>;
+
 const token = computed(() => {
 	const raw = route.query.token;
 	return typeof raw === "string" ? raw.trim() : "";
@@ -47,10 +51,7 @@ const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const success = ref(false);
 
-async function onSubmit(values: {
-	password: string;
-	password_confirmation: string;
-}) {
+async function onSubmit(values: ResetPasswordFormValues) {
 	apiError.value = null;
 	if (!token.value) {
 		apiError.value = "This reset link is invalid or expired. Request a new one from the forgot password page.";
@@ -76,6 +77,10 @@ async function onSubmit(values: {
 		isSubmitting.value = false;
 	}
 }
+
+const onFormSubmit: SubmissionHandler = (values) => {
+	return onSubmit(values as ResetPasswordFormValues);
+};
 </script>
 
 <template>
@@ -128,7 +133,7 @@ async function onSubmit(values: {
 				v-if="token && !success"
 				:validation-schema="formSchema"
 				class="space-y-4"
-				@submit="onSubmit"
+				@submit="onFormSubmit"
 			>
 				<FormField
 					v-slot="{ componentField }"

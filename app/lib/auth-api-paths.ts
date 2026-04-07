@@ -3,7 +3,7 @@
  * Expected JSON POST bodies (adjust to match your API):
  *
  * - `signIn`: `{ email, password }`
- * - `signUp`: `{ name, email, password, password_confirmation }`
+ * - `signUp`: `{ name, email, company, phone?, password, password_confirmation, terms_accepted }`
  * - `verifyEmail`: `{ token }` (magic link token from email)
  * - `resendVerification`: `{ email }`
  * - `forgotPassword`: `{ email }`

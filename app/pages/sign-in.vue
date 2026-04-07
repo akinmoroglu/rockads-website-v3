@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
+import type { SubmissionHandler } from "vee-validate";
+import type { z } from "zod";
 import { AlertCircle } from "lucide-vue-next";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -38,10 +40,12 @@ const route = useRoute();
 
 const formSchema = toTypedSchema(signInFormSchema);
 
+type SignInFormValues = z.infer<typeof signInFormSchema>;
+
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 
-async function onSubmit(values: { email: string; password: string }) {
+async function onSubmit(values: SignInFormValues) {
 	apiError.value = null;
 	isSubmitting.value = true;
 	try {
@@ -70,6 +74,10 @@ async function onSubmit(values: { email: string; password: string }) {
 		isSubmitting.value = false;
 	}
 }
+
+const onFormSubmit: SubmissionHandler = (values) => {
+	return onSubmit(values as SignInFormValues);
+};
 </script>
 
 <template>
@@ -95,7 +103,7 @@ async function onSubmit(values: { email: string; password: string }) {
 			<Form
 				:validation-schema="formSchema"
 				class="space-y-4"
-				@submit="onSubmit"
+				@submit="onFormSubmit"
 			>
 				<FormField
 					v-slot="{ componentField }"

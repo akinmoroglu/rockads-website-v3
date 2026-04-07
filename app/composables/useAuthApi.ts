@@ -9,8 +9,12 @@ export type SignInBody = {
 export type SignUpBody = {
 	name: string;
 	email: string;
+	company: string;
+	phone?: string;
 	password: string;
 	password_confirmation: string;
+	/** Set when the user accepts legal policies (your API may require this field). */
+	terms_accepted: boolean;
 };
 
 export type VerifyEmailBody = {

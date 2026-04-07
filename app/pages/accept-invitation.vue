@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
+import type { SubmissionHandler } from "vee-validate";
+import type { z } from "zod";
 import { AlertCircle, CheckCircle2 } from "lucide-vue-next";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -38,6 +40,8 @@ const route = useRoute();
 
 const formSchema = toTypedSchema(acceptInvitationFormSchema);
 
+type AcceptInvitationFormValues = z.infer<typeof acceptInvitationFormSchema>;
+
 const token = computed(() => {
 	const raw = route.query.token;
 	return typeof raw === "string" ? raw.trim() : "";
@@ -47,11 +51,7 @@ const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const success = ref(false);
 
-async function onSubmit(values: {
-	name?: string;
-	password: string;
-	password_confirmation: string;
-}) {
+async function onSubmit(values: AcceptInvitationFormValues) {
 	apiError.value = null;
 	if (!token.value) {
 		apiError.value = "This invitation link is invalid or expired. Ask your administrator to send a new invite.";
@@ -79,6 +79,10 @@ async function onSubmit(values: {
 		isSubmitting.value = false;
 	}
 }
+
+const onFormSubmit: SubmissionHandler = (values) => {
+	return onSubmit(values as AcceptInvitationFormValues);
+};
 </script>
 
 <template>
@@ -124,7 +128,7 @@ async function onSubmit(values: {
 				v-if="token && !success"
 				:validation-schema="formSchema"
 				class="space-y-4"
-				@submit="onSubmit"
+				@submit="onFormSubmit"
 			>
 				<FormField
 					v-slot="{ componentField }"
