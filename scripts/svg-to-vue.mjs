@@ -316,7 +316,6 @@ function processSvg(raw, propsMode, preserveColors) {
 				":stroke-width=\"strokeWidth\"",
 				":stroke-linecap=\"strokeLinecap\"",
 				":stroke-linejoin=\"strokeLinejoin\"",
-				"v-bind=\"{ style: color ? `color: ${color}` : undefined }\"",
 			);
 		}
 
