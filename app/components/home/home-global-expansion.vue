@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Motion } from "motion-v";
-import HomeServeGlobeAnimated from "@/components/home/home-serve-globe-animated.vue";
+import HomeServeGlobeAnimated from "@/components/icons/animated/home-serve-globe-animated.vue";
 
 const whoWeServeCards = [
 	{
