@@ -9,8 +9,8 @@ import {
 	IconBrandX,
 } from "@tabler/icons-vue";
 import { Button } from "@/components/ui/button";
-import leftGlowAsset from "@/assets/icons/home/hero/left-glow.svg?url";
-import rightGlowAsset from "@/assets/icons/home/hero/right-glow.svg?url";
+import leftGlowAsset from "@/assets/images/home/hero/left-glow.svg?url";
+import rightGlowAsset from "@/assets/images/home/hero/right-glow.svg?url";
 
 const partnerIcons = [
 	{ component: IconBrandX, label: "X partner" },

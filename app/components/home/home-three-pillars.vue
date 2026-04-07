@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Bolt } from "lucide-vue-next";
 import { Motion } from "motion-v";
-import pillarsLineAsset from "@/assets/icons/home/pillars/line.svg?url";
+import pillarsLineAsset from "@/assets/images/home/pillars/line.svg?url";
 </script>
 
 <template>
