@@ -24,11 +24,11 @@ useHead({
 });
 
 const platformLogos = [
-	{ name: "Meta", src: techMetaPath, bgClass: "bg-[#f5f4f4]" },
-	{ name: "Google", src: techGooglePath, bgClass: "bg-[#f5f4f4]" },
-	{ name: "TikTok", src: techTikTokPath, bgClass: "bg-black" },
-	{ name: "X", src: techXPath, bgClass: "bg-black" },
-	{ name: "Snapchat", src: techSnapchatPath, bgClass: "bg-[#fffc00]" },
+	{ name: "Meta", src: techMetaPath },
+	{ name: "Google", src: techGooglePath },
+	{ name: "TikTok", src: techTikTokPath },
+	{ name: "X", src: techXPath },
+	{ name: "Snapchat", src: techSnapchatPath },
 ];
 
 const creativeTypes = [
