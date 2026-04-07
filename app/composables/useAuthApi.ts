@@ -38,37 +38,22 @@ export type AcceptInvitationBody = {
 	password_confirmation: string;
 };
 
-async function authFetch<T>(
-	baseURL: string,
-	path: string,
-	options: {
-		method?: "GET" | "POST";
-		body?: Record<string, unknown>;
-	},
-): Promise<T> {
-	try {
-		return await $fetch<T>(path, {
-			baseURL,
-			method: options.method ?? "POST",
-			body: options.body,
-			credentials: "include",
-		});
-	}
-	catch (error: unknown) {
-		throw new Error(extractAuthErrorMessage(error));
-	}
+function isTruthyPublicFlag(value: unknown): boolean {
+	return value === true || value === "true" || value === "1";
 }
 
-/**
- * Typed client for your auth backend. Set `NUXT_PUBLIC_AUTH_API_BASE` (no trailing slash).
- * Uses cookie sessions (`credentials: "include"`). Add Bearer tokens in this composable if you switch to JWT headers.
- */
 export function useAuthApi() {
 	const config = useRuntimeConfig();
+	const session = useAuthSession();
+
 	const baseURL = (config.public.authApiBase as string | undefined)?.replace(
 		/\/$/,
 		"",
 	) ?? "";
+
+	const credentials = isTruthyPublicFlag(config.public.authWithCredentials)
+		? ("include" as const)
+		: ("omit" as const);
 
 	function requireBase(): string {
 		if (!baseURL) {
@@ -79,47 +64,99 @@ export function useAuthApi() {
 		return baseURL;
 	}
 
+	async function request<T>(
+		path: string,
+		options: {
+			method?: "GET" | "POST";
+			body?: Record<string, unknown>;
+			bearer?: boolean;
+		},
+	): Promise<T> {
+		const root = requireBase();
+		const headers: Record<string, string> = {};
+
+		if (options.bearer) {
+			const token = session.accessToken.value;
+			if (!token) {
+				throw new Error("Not authenticated.");
+			}
+			headers.Authorization = `Bearer ${token}`;
+		}
+
+		const method = options.method ?? "POST";
+
+		try {
+			return await $fetch<T>(path, {
+				baseURL: root,
+				method,
+				...(method === "GET" ? {} : { body: options.body }),
+				headers,
+				credentials,
+			});
+		}
+		catch (error: unknown) {
+			throw new Error(extractAuthErrorMessage(error));
+		}
+	}
+
 	const root = () => requireBase();
 
 	return {
 		baseURL,
 
+		/**
+		 * Authenticated `$fetch` against `authApiBase`. Sends `Authorization: Bearer <jwt>`.
+		 * Use for non-auth app endpoints (e.g. `/me`, `/projects`).
+		 */
+		fetchWithBearer<T>(
+			path: string,
+			options: {
+				method?: "GET" | "POST";
+				body?: Record<string, unknown>;
+			} = {},
+		) {
+			return request<T>(path, {
+				method: options.method ?? "GET",
+				body: options.body,
+				bearer: true,
+			});
+		},
+
 		signIn(body: SignInBody) {
-			return authFetch<unknown>(root(), AUTH_API_PATHS.signIn, { body });
+			return request<unknown>(AUTH_API_PATHS.signIn, { body });
 		},
 
 		signUp(body: SignUpBody) {
-			return authFetch<unknown>(root(), AUTH_API_PATHS.signUp, { body });
+			return request<unknown>(AUTH_API_PATHS.signUp, { body });
 		},
 
 		verifyEmail(body: VerifyEmailBody) {
-			return authFetch<unknown>(root(), AUTH_API_PATHS.verifyEmail, {
+			return request<unknown>(AUTH_API_PATHS.verifyEmail, {
 				body,
 			});
 		},
 
 		resendVerification(body: ResendVerificationBody) {
-			return authFetch<unknown>(
-				root(),
+			return request<unknown>(
 				AUTH_API_PATHS.resendVerification,
 				{ body },
 			);
 		},
 
 		forgotPassword(body: ForgotPasswordBody) {
-			return authFetch<unknown>(root(), AUTH_API_PATHS.forgotPassword, {
+			return request<unknown>(AUTH_API_PATHS.forgotPassword, {
 				body,
 			});
 		},
 
 		resetPassword(body: ResetPasswordBody) {
-			return authFetch<unknown>(root(), AUTH_API_PATHS.resetPassword, {
+			return request<unknown>(AUTH_API_PATHS.resetPassword, {
 				body,
 			});
 		},
 
 		acceptInvitation(body: AcceptInvitationBody) {
-			return authFetch<unknown>(root(), AUTH_API_PATHS.acceptInvitation, {
+			return request<unknown>(AUTH_API_PATHS.acceptInvitation, {
 				body,
 			});
 		},

@@ -10,7 +10,9 @@
  * - `resetPassword`: `{ token, password, password_confirmation }` (`token` from email query link → `/reset-password?token=`)
  * - `acceptInvitation`: `{ token, password, password_confirmation, name? }` (`token` from invite link → `/accept-invitation?token=`)
  *
- * All requests use `credentials: "include"` for cookie-based sessions. Switch `useAuthApi` if you use Bearer tokens instead.
+ * **JWT:** After sign-in (and optionally verify / reset / invite), the API should return a token in JSON as `access_token`, `accessToken`, or `token` (or the same under a `data` object). The app stores it and sends `Authorization: Bearer …` on `useAuthApi().fetchWithBearer()`.
+ *
+ * **Cookies:** Set `runtimeConfig.public.authWithCredentials` / `NUXT_PUBLIC_AUTH_WITH_CREDENTIALS` if the API also relies on cookies (e.g. refresh token).
  */
 export const AUTH_API_PATHS = {
 	signIn: "/auth/sign-in",

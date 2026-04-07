@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { signInFormSchema } from "@/lib/auth-form-schemas";
+import { extractAccessToken } from "@/utils/auth-token";
 
 definePageMeta({
 	layout: "auth",
@@ -32,6 +33,7 @@ useHead({
 });
 
 const authApi = useAuthApi();
+const session = useAuthSession();
 const route = useRoute();
 
 const formSchema = toTypedSchema(signInFormSchema);
@@ -43,10 +45,17 @@ async function onSubmit(values: { email: string; password: string }) {
 	apiError.value = null;
 	isSubmitting.value = true;
 	try {
-		await authApi.signIn({
+		const data = await authApi.signIn({
 			email: values.email.trim(),
 			password: values.password,
 		});
+		const token = extractAccessToken(data);
+		if (!token) {
+			apiError.value =
+				"Sign-in succeeded but no access token was returned. Expected `access_token`, `accessToken`, or `token` in the JSON body.";
+			return;
+		}
+		session.setAccessToken(token);
 		const redirect = typeof route.query.redirect === "string"
 			? route.query.redirect
 			: "/";
