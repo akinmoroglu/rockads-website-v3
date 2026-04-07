@@ -79,7 +79,7 @@ const activeItems = computed(() => {
 });
 
 const headerClasses = computed(() => {
-	const baseClasses = "sticky transition-colors duration-200";
+	const baseClasses = "transition-colors duration-200";
 
 	if (isHeaderTransparent.value) {
 		return [baseClasses, "border-b border-transparent bg-transparent backdrop-blur-0"];
@@ -120,7 +120,7 @@ watch(
 <template>
 	<header
 		ref="headerRef"
-		class="left-0 right-0 top-0 z-50 h-[72px] lg:h-[100px]"
+		class="sticky top-0 z-50 w-full shrink-0 h-(--marketing-header-height) lg:h-(--marketing-header-height-lg)"
 		:class="headerClasses"
 	>
 		<div class="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between px-5 lg:px-12">

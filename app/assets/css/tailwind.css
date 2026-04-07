@@ -82,6 +82,8 @@
 	--header-background: oklch(0.0672 0 0);
 	--header-border: oklch(0.2178 0 0);
 	--surface-cream: oklch(0.9744 0.0203 74.66);
+	--marketing-header-height: 4.5rem;
+	--marketing-header-height-lg: 6.25rem;
 }
 
 .dark {
@@ -124,6 +126,14 @@
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
+	}
+	html {
+		scroll-padding-top: var(--marketing-header-height);
+	}
+	@media (width >= 1024px) {
+		html {
+			scroll-padding-top: var(--marketing-header-height-lg);
+		}
 	}
 	body {
 		@apply bg-background text-foreground;
