@@ -59,6 +59,16 @@ const partnerIcons = [
 	{ component: IconBrandGoogle, label: "Google partner" },
 	{ component: IconBrandMeta, label: "Meta partner" },
 ];
+
+const { setHeaderTransparent } = useMarketingHeaderAppearance();
+
+onMounted(() => {
+	setHeaderTransparent(true);
+});
+
+onUnmounted(() => {
+	setHeaderTransparent(false);
+});
 </script>
 
 <template>
