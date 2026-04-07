@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { useMediaQuery } from "@vueuse/core";
+import { useEventListener, useMediaQuery, onKeyStroke } from "@vueuse/core";
+import type { ComponentPublicInstance } from "vue";
 import { Motion } from "motion-v";
 import glossaryGlobeSrc from "@/assets/images/home/glossary/globe.svg?url";
-import HoverCard from "@/components/ui/hover-card/HoverCard.vue";
-import HoverCardContent from "@/components/ui/hover-card/HoverCardContent.vue";
-import HoverCardTrigger from "@/components/ui/hover-card/HoverCardTrigger.vue";
-import { cn } from "@/lib/utils";
 
 type RawTag = {
 	text: string;
@@ -78,12 +75,99 @@ const tags: Tag[] = rawTags.map((t) => {
 	};
 });
 
-/** One HoverCard per tag; only the open row mounts portal content (Presence). */
-const tagOpen = reactive(tags.map(() => false));
+/** Single open tooltip index — avoids N× HoverCard roots re-rendering each lens frame. */
+const openIndex = ref<number | null>(null);
+const anyTagOpen = computed(() => openIndex.value !== null);
+const activeTagIndex = computed(() => openIndex.value);
 
-const activeTagIndex = computed(() => {
-	const idx = tagOpen.findIndex(open => open);
-	return idx === -1 ? null : idx;
+const tagTriggers = shallowRef(new Map<number, HTMLElement>());
+const popoverRef = ref<HTMLElement | null>(null);
+const popoverStyle = ref<Record<string, string>>({});
+
+let closeTimer: ReturnType<typeof setTimeout> | undefined;
+
+function clearCloseTimer() {
+	if (closeTimer !== undefined) {
+		clearTimeout(closeTimer);
+		closeTimer = undefined;
+	}
+}
+
+function setTagTriggerEl(index: number, el: Element | ComponentPublicInstance | null) {
+	const node = el && typeof el === "object" && "$el" in el
+		? (el as ComponentPublicInstance).$el
+		: el;
+	if (node instanceof HTMLElement) {
+		if (tagTriggers.value.get(index) === node) return;
+		const next = new Map(tagTriggers.value);
+		next.set(index, node);
+		tagTriggers.value = next;
+		return;
+	}
+	if (!tagTriggers.value.has(index)) return;
+	const next = new Map(tagTriggers.value);
+	next.delete(index);
+	tagTriggers.value = next;
+}
+
+function positionPopover() {
+	const idx = openIndex.value;
+	const panel = popoverRef.value;
+	if (idx === null || !panel || !import.meta.client) return;
+	const trigger = tagTriggers.value.get(idx);
+	if (!trigger) return;
+
+	requestAnimationFrame(() => {
+		requestAnimationFrame(() => {
+			const t = trigger.getBoundingClientRect();
+			const p = panel.getBoundingClientRect();
+			const margin = 8;
+			const gap = 12;
+			let left = t.left + t.width / 2 - p.width / 2;
+			let top = t.bottom + gap;
+			left = Math.max(margin, Math.min(left, window.innerWidth - p.width - margin));
+			top = Math.max(margin, Math.min(top, window.innerHeight - p.height - margin));
+			popoverStyle.value = { left: `${left}px`, top: `${top}px` };
+		});
+	});
+}
+
+function onTagPointerEnter(index: number) {
+	clearCloseTimer();
+	openIndex.value = index;
+	void nextTick(() => positionPopover());
+}
+
+function onTagPointerLeave() {
+	closeTimer = window.setTimeout(() => {
+		openIndex.value = null;
+	}, 120);
+}
+
+function onPanelPointerEnter() {
+	clearCloseTimer();
+}
+
+function onPanelPointerLeave() {
+	closeTimer = window.setTimeout(() => {
+		openIndex.value = null;
+	}, 120);
+}
+
+watch(openIndex, (idx, _prev, onCleanup) => {
+	if (!import.meta.client || idx === null) return;
+	const reposition = () => positionPopover();
+	reposition();
+	const stopScroll = useEventListener(window, "scroll", reposition, { capture: true });
+	const stopResize = useEventListener(window, "resize", reposition);
+	onCleanup(() => {
+		stopScroll();
+		stopResize();
+	});
+});
+
+onKeyStroke("Escape", () => {
+	if (openIndex.value !== null) openIndex.value = null;
 });
 
 const allTagsMobile = [
@@ -96,6 +180,29 @@ let pendingX = 0;
 let pendingY = 0;
 let rafPending = false;
 
+const cloudW = ref(0);
+const cloudH = ref(0);
+
+function syncCloudSize() {
+	const el = cloudRef.value;
+	if (!el) return;
+	cloudW.value = el.offsetWidth;
+	cloudH.value = el.offsetHeight;
+}
+
+onMounted(() => {
+	syncCloudSize();
+	if (!import.meta.client) return;
+	const el = cloudRef.value;
+	if (!el) return;
+	const ro = new ResizeObserver(() => syncCloudSize());
+	ro.observe(el);
+	onBeforeUnmount(() => {
+		ro.disconnect();
+		clearCloseTimer();
+	});
+});
+
 function onTagClick(index: number) {
 	if (!import.meta.client) return;
 	const tag = tags[index];
@@ -105,6 +212,8 @@ function onTagClick(index: number) {
 }
 
 function onMouseMove(e: MouseEvent) {
+	/* Lens drives full cloud re-renders; freeze while a tooltip is open. */
+	if (anyTagOpen.value) return;
 	if (!cloudRef.value) return;
 	const rect = cloudRef.value.getBoundingClientRect();
 	pendingX = e.clientX - rect.left;
@@ -115,6 +224,8 @@ function onMouseMove(e: MouseEvent) {
 			mouseX.value = pendingX;
 			mouseY.value = pendingY;
 			mouseInside.value = true;
+			cloudW.value = rect.width;
+			cloudH.value = rect.height;
 			rafPending = false;
 		});
 	}
@@ -124,15 +235,9 @@ function onMouseLeave() {
 	mouseInside.value = false;
 }
 
-type TagStyleOptions = {
-	/** When true, paints the label above the glossary card (duplicate of the hovered hit target). */
-	overlay?: boolean;
-};
-
-function getTagStyle(index: number, options?: TagStyleOptions): Record<string, string | number> {
-	const overlay = options?.overlay === true;
+function computeTagStyle(index: number, overlay: boolean): Record<string, string | number> {
 	const tag = tags[index]!;
-	const isHovered = tagOpen[index] === true;
+	const isHovered = openIndex.value === index;
 	const reduceMotion = prefersReducedMotion.value;
 
 	let scale = 1;
@@ -141,12 +246,11 @@ function getTagStyle(index: number, options?: TagStyleOptions): Record<string, s
 	let originX = 50;
 	let originY = 50;
 
-	const tooltipOpen = tagOpen.some(open => open);
+	const tooltipOpen = anyTagOpen.value;
+	const cw = cloudW.value;
+	const ch = cloudH.value;
 
-	if (cloudRef.value) {
-		const cw = cloudRef.value.offsetWidth;
-		const ch = cloudRef.value.offsetHeight;
-
+	if (cw > 0 && ch > 0) {
 		const cursorX = mouseInside.value ? mouseX.value : cw / 2;
 		const cursorY = mouseInside.value ? mouseY.value : ch / 2;
 
@@ -203,16 +307,19 @@ function getTagStyle(index: number, options?: TagStyleOptions): Record<string, s
 	};
 }
 
+/** Single computed pass: one subscription batch per lens frame instead of N× getTagStyle calls. */
+const tagStyles = computed((): Record<string, string | number>[] =>
+	tags.map((_, i) => computeTagStyle(i, false)),
+);
+
 const hoveredTagOverlayStyle = computed((): Record<string, string | number> => {
 	const i = activeTagIndex.value;
 	if (i === null) return {};
-	return getTagStyle(i, { overlay: true });
+	return computeTagStyle(i, true);
 });
 
-const hoverCardContentClass = computed(() =>
-	prefersReducedMotion.value
-		? "z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,330px)] max-w-[330px] overflow-y-auto rounded-sm border-0 bg-surface-dark p-0 shadow-none outline-none [&[data-state=closed]]:animate-none [&[data-state=open]]:animate-none"
-		: "z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,330px)] max-w-[330px] overflow-y-auto rounded-sm border-0 bg-surface-dark p-0 shadow-none outline-none",
+const popoverEnterClass = computed(() =>
+	prefersReducedMotion.value ? "" : "animate-in fade-in-0 zoom-in-95 duration-150",
 );
 
 const motionTransition = computed(() => ({
@@ -287,45 +394,41 @@ const motionTransitionDelayed = computed(() => ({
 					/>
 
 					<div class="absolute inset-0 z-10 hidden md:block">
-						<HoverCard
+						<span
 							v-for="(tag, i) in tags"
 							:key="tag.text + '-' + i"
-							v-model:open="tagOpen[i]"
-							:open-delay="0"
-							:close-delay="120"
+							:ref="(el) => setTagTriggerEl(i, el)"
+							class="absolute cursor-pointer whitespace-nowrap will-change-transform select-none"
+							:style="tagStyles[i]"
+							@pointerenter="onTagPointerEnter(i)"
+							@pointerleave="onTagPointerLeave"
+							@click="onTagClick(i)"
 						>
-							<HoverCardTrigger as-child>
-								<span
-									class="absolute cursor-pointer whitespace-nowrap select-none"
-									:style="getTagStyle(i)"
-									@click="onTagClick(i)"
-								>
-									{{ tag.text }}
-								</span>
-							</HoverCardTrigger>
-							<HoverCardContent
-								side="bottom"
-								align="center"
-								:side-offset="12"
-								:class="cn(hoverCardContentClass)"
-							>
-								<div
-									class="glossary-tooltip flex flex-col gap-4 rounded-sm p-4"
-								>
-									<h3
-										class="min-w-0 text-[32px] leading-normal text-white italic"
-									>
-										{{ tag.text }}
-									</h3>
-									<p
-										class="max-w-[266px] text-sm leading-5 text-balance text-white"
-									>
-										{{ tag.desc }}
-									</p>
-								</div>
-							</HoverCardContent>
-						</HoverCard>
+							{{ tag.text }}
+						</span>
 					</div>
+
+					<Teleport to="body">
+						<div
+							v-if="openIndex !== null && tags[openIndex]"
+							ref="popoverRef"
+							class="glossary-hover-panel glossary-tooltip pointer-events-auto fixed z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,330px)] max-w-[330px] overflow-y-auto rounded-sm border-0 p-0 shadow-none outline-none"
+							:class="popoverEnterClass"
+							:style="popoverStyle"
+							role="tooltip"
+							@pointerenter="onPanelPointerEnter"
+							@pointerleave="onPanelPointerLeave"
+						>
+							<div class="flex flex-col gap-4 rounded-sm p-4">
+								<h3 class="min-w-0 text-[32px] leading-normal text-white italic">
+									{{ tags[openIndex]!.text }}
+								</h3>
+								<p class="max-w-[266px] text-sm leading-5 text-balance text-white">
+									{{ tags[openIndex]!.desc }}
+								</p>
+							</div>
+						</div>
+					</Teleport>
 
 					<div class="flex flex-wrap items-center justify-center gap-3 pt-4 md:hidden">
 						<span
