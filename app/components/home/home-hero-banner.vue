@@ -76,12 +76,12 @@ onUnmounted(() => {
 		ref="heroRef"
 		class="relative min-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e]"
 	>
-		<div class="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.55)_1px,transparent_1px)] bg-size-[22px_22px] opacity-8" />
+		<div class="absolute inset-0 bg-size-[22px_22px] opacity-8" />
 
 		<Motion
 			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute top-[8px] left-[-380px] z-1 hidden h-[970px] w-[920px] lg:block"
+			class="pointer-events-none absolute top-[clamp(0.25rem,1.2vh,0.5rem)] left-[clamp(-26rem,-30vw,-10rem)] z-1 hidden h-[min(970px,92vh)] w-[min(920px,92vw)] lg:block"
 			:initial="{ opacity: 0, x: -180 }"
 			:animate="{ opacity: 1, x: 0 }"
 			:transition="{ duration: 1.1, ease: 'easeOut' }"
@@ -109,7 +109,7 @@ onUnmounted(() => {
 		<Motion
 			as="div"
 			aria-hidden="true"
-			class="pointer-events-none absolute top-[-106px] right-[-398px] z-1 hidden h-[970px] w-[920px] lg:block"
+			class="pointer-events-none absolute top-[clamp(-6.625rem,-9vh,-2.5rem)] right-[clamp(-26rem,-30vw,-10rem)] z-1 hidden h-[min(970px,92vh)] w-[min(920px,92vw)] lg:block"
 			:initial="{ opacity: 0, x: 180 }"
 			:animate="{ opacity: 1, x: 0 }"
 			:transition="{ duration: 1.1, ease: 'easeOut' }"
