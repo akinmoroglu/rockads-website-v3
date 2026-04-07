@@ -1,38 +1,186 @@
 <script setup lang="ts">
-const legalLinks = [
-	{ label: "Privacy", href: "/privacy" },
-	{ label: "Terms", href: "/terms" },
-	{ label: "Contact", href: "/contact" },
+type FooterLink = {
+	label: string;
+	href: string;
+	/** Opens in a new tab when true (matches rockads.com behavior for docs and social). */
+	external?: boolean;
+};
+
+const marketingSiteBase = "https://www.rockads.com";
+
+const supportLinks: FooterLink[] = [
+	{ label: "Documentation", href: "https://docs.rockads.com/", external: true },
+	{ label: "Blog", href: "https://blog.rockads.com/" },
+	{ label: "FAQ", href: "https://rockads.faq.desk360.com/" },
+	{
+		label: "Contact Us",
+		href: `${marketingSiteBase}/en/contact-us/`,
+	},
 ];
+
+const featureLinks: FooterLink[] = [
+	{
+		label: "Ad Automation",
+		href: `${marketingSiteBase}/en/tools-and-tech/#ad-automation`,
+	},
+	{
+		label: "Segmented Wallets",
+		href: `${marketingSiteBase}/en/tools-and-tech/#segmented-wallets`,
+	},
+	{
+		label: "Customizable Dashboard",
+		href: `${marketingSiteBase}/en/tools-and-tech/#dashboard`,
+	},
+	{
+		label: "Grow with REST API",
+		href: `${marketingSiteBase}/en/tools-and-tech/#api`,
+	},
+	{
+		label: "Access Management",
+		href: `${marketingSiteBase}/en/tools-and-tech/#access-management`,
+	},
+];
+
+const legalLinks: FooterLink[] = [
+	{
+		label: "Service Agreement",
+		href: `${marketingSiteBase}/en/terms-of-service-of-rockads/`,
+	},
+	{
+		label: "Purchase Policy",
+		href: `${marketingSiteBase}/en/purchase-policy/`,
+	},
+	{
+		label: "Privacy Notice",
+		href: `${marketingSiteBase}/en/privacy-notice/`,
+	},
+	{
+		label: "Cookie Policy",
+		href: `${marketingSiteBase}/en/cookie-policy/`,
+	},
+];
+
+const socialLinks: FooterLink[] = [
+	{ label: "Facebook", href: "https://www.facebook.com/rockadscom/", external: true },
+	{ label: "X", href: "https://twitter.com/rockadscom", external: true },
+	{
+		label: "Instagram",
+		href: "https://www.instagram.com/rockadscom/",
+		external: true,
+	},
+	{
+		label: "LinkedIn",
+		href: "https://www.linkedin.com/company/rockads/",
+		external: true,
+	},
+	{ label: "TikTok", href: "https://www.tiktok.com/@rockadscom", external: true },
+];
+
+function linkAttrs(link: FooterLink) {
+	return link.external
+		? { target: "_blank" as const, rel: "noopener noreferrer" as const }
+		: {};
+}
 </script>
 
 <template>
-	<footer class="footer-shell  text-white">
+	<footer class="footer-shell text-white">
 		<div class="border-t border-(--footer-border-color)">
-			<div class="mx-auto flex w-full max-w-(--footer-max-width) flex-col gap-4 px-5 py-7 text-base text-(--footer-link-color) md:flex-row md:items-center md:justify-between lg:px-12">
-				<div class="flex items-center gap-5">
-					<template
-						v-for="(link, index) in legalLinks"
-						:key="link.label"
-					>
-						<NuxtLink
-							:to="link.href"
-							class="transition-colors hover:text-(--footer-link-hover-color)"
+			<div
+				class="mx-auto w-full max-w-(--footer-max-width) px-5 py-10 text-base lg:px-12"
+			>
+				<div
+					class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12"
+				>
+					<div>
+						<h2
+							class="mb-4 text-sm font-semibold tracking-wide text-(--footer-link-hover-color)"
 						>
-							{{ link.label }}
-						</NuxtLink>
-						<span
-							v-if="index < legalLinks.length - 1"
-							class="text-(--footer-separator-color)"
+							Support
+						</h2>
+						<ul class="flex flex-col gap-2">
+							<li
+								v-for="link in supportLinks"
+								:key="link.label"
+							>
+								<NuxtLink
+									:to="link.href"
+									v-bind="linkAttrs(link)"
+									class="text-sm leading-5 font-normal text-(--footer-link-color) transition-colors hover:text-(--footer-link-hover-color)"
+								>
+									{{ link.label }}
+								</NuxtLink>
+							</li>
+						</ul>
+					</div>
+
+					<div>
+						<h2
+							class="mb-4 text-sm font-semibold tracking-wide text-(--footer-link-hover-color)"
 						>
-							|
-						</span>
-					</template>
+							Features
+						</h2>
+						<ul class="flex flex-col gap-2">
+							<li
+								v-for="link in featureLinks"
+								:key="link.label"
+							>
+								<NuxtLink
+									:to="link.href"
+									v-bind="linkAttrs(link)"
+									class="text-sm leading-5 font-normal text-(--footer-link-color) transition-colors hover:text-(--footer-link-hover-color)"
+								>
+									{{ link.label }}
+								</NuxtLink>
+							</li>
+						</ul>
+					</div>
+
+					<div>
+						<h2
+							class="mb-4 text-sm font-semibold tracking-wide text-(--footer-link-hover-color)"
+						>
+							Terms
+						</h2>
+						<ul class="flex flex-col gap-2">
+							<li
+								v-for="link in legalLinks"
+								:key="link.label"
+							>
+								<NuxtLink
+									:to="link.href"
+									v-bind="linkAttrs(link)"
+									class="text-sm leading-5 font-normal text-(--footer-link-color) transition-colors hover:text-(--footer-link-hover-color)"
+								>
+									{{ link.label }}
+								</NuxtLink>
+							</li>
+						</ul>
+					</div>
 				</div>
 
-				<p class="text-(--footer-copyright-color)">
-					© 2026 Rockads. All rights reserved.
-				</p>
+				<div
+					class="mt-10 flex flex-col gap-6 border-t border-(--footer-border-color) pt-8 md:flex-row md:items-center md:justify-between"
+				>
+					<ul class="flex flex-wrap gap-x-5 gap-y-2">
+						<li
+							v-for="link in socialLinks"
+							:key="link.label"
+						>
+							<NuxtLink
+								:to="link.href"
+								v-bind="linkAttrs(link)"
+								class="text-sm text-(--footer-link-color) transition-colors hover:text-(--footer-link-hover-color)"
+							>
+								{{ link.label }}
+							</NuxtLink>
+						</li>
+					</ul>
+
+					<p class="text-sm text-(--footer-copyright-color)">
+						© 2026 Rockads. All rights reserved.
+					</p>
+				</div>
 			</div>
 		</div>
 	</footer>
