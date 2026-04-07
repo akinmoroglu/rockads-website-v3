@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import GlossaryCloud from "@/components/legacy/GlossaryCloud.vue";
 import HomeHeroBanner from "@/components/home/home-hero-banner.vue";
 import HomeGlobalExpansion from "@/components/home/home-global-expansion.vue";
 import HomeNumbersStats from "@/components/home/home-numbers-stats.vue";
@@ -28,5 +29,6 @@ useHead({
 		<HomeOurPhilosophy />
 		<HomeGlobalExpansion />
 		<HomeNumbersStats />
+		<GlossaryCloud />
 	</main>
 </template>
