@@ -1,7 +1,13 @@
 <template>
-	<div class="min-h-screen bg-background text-foreground">
-		<main class="mx-auto flex min-h-screen w-full max-w-md items-center px-5 py-10">
-			<slot />
+	<div class="flex min-h-screen flex-col bg-background text-foreground">
+		<AuthHeader />
+		<main
+			class="flex flex-1 flex-col justify-center px-5 py-10"
+		>
+			<div class="mx-auto w-full max-w-md">
+				<slot />
+			</div>
 		</main>
+		<AuthFooter />
 	</div>
 </template>
