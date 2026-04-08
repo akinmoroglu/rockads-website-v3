@@ -36,6 +36,12 @@ export default createConfigForNuxt({
 			"vue/require-default-prop": "off",
 			// ESLint-only class sorting (Prettier plugin alternative); allow design tokens / shadcn patterns
 			"tailwindcss/no-custom-classname": "off",
+			"padding-line-between-statements": [
+				"error",
+				{ blankLine: "always", prev: "*", next: "return" },
+				{ blankLine: "always", prev: ["const", "let", "var"], next: "*" },
+				{ blankLine: "any", prev: ["const", "let", "var"], next: ["const", "let", "var"] },
+			],
 		},
 	},
 );
