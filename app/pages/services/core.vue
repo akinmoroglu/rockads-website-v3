@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import financialSvg from "@/assets/images/services/core/financial.svg?url";
 import growthSvg from "@/assets/images/services/core/growth.svg?url";
 import operationSvg from "@/assets/images/services/core/operation.svg?url";
 import strategicSvg from "@/assets/images/services/core/strategic.svg?url";
@@ -338,11 +337,7 @@ const dashboardBullets = [
 							Our financial infrastructure gives partners more room to operate, greater stability, and the flexibility to move fast. Versatile payment models, flexible settlement structures, compliance-first account foundations, and credit-backed continuity, engineered so your most ambitious moves are never constrained by cash mechanics.
 						</p>
 						<div class="mt-6 flex flex-1 items-end justify-center pb-2">
-							<img
-								:src="financialSvg"
-								alt=""
-								class="w-full max-w-[429px]"
-							>
+							<ServicesCoreFinancialSvg />
 						</div>
 					</div>
 
