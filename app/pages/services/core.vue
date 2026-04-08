@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted, watch } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
+import financialSvg from "@/assets/images/services/core/financial.svg?url";
+import growthSvg from "@/assets/images/services/core/growth.svg?url";
+import operationSvg from "@/assets/images/services/core/operation.svg?url";
+import strategicSvg from "@/assets/images/services/core/strategic.svg?url";
+import ecosystemSvg from "@/assets/images/services/core/ecosystem.svg?url";
+import integritySvg from "@/assets/images/services/core/integrity.svg?url";
+import dashboardSvg from "@/assets/images/services/core/dashboardh.svg?url";
+import HomeCta from "@/components/home/home-cta.vue";
 
 useHead({
 	title: "Core Services - Rockads",
@@ -238,89 +246,11 @@ function destroyDotGrid() {
 	window.removeEventListener("click", onDotClick);
 }
 
-const MAGNET_PADDING = 10;
-const MAGNET_STRENGTH = 9.5;
-
-const fiBadges = [
-	{ label: "Payment", pos: { "top": "45px", "left": "8px", "--fx": "-3px", "--fy": "4px", "--fd": "0s" }, centerY: false, icon: "<rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M2 10h20\"/>" },
-	{ label: "Speed", pos: { "top": "22px", "right": "28px", "--fx": "3px", "--fy": "-4px", "--fd": "0.6s" }, centerY: false, icon: "<path d=\"M13 2L3 14h9l-1 8 10-12h-9l1-8z\"/>" },
-	{ label: "Settlement", pos: { "top": "55%", "left": "0", "--fx": "-4px", "--fy": "3px", "--fd": "1.2s" }, centerY: true, icon: "<path d=\"M23 4v6h-6\"/><path d=\"M1 20v-6h6\"/><path d=\"M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15\"/>" },
-	{ label: "Compliance", pos: { "top": "50%", "right": "0", "--fx": "4px", "--fy": "-3px", "--fd": "1.8s" }, centerY: true, icon: "<path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/><path d=\"M9 12l2 2 4-4\"/>" },
-	{ label: "Stability", pos: { "bottom": "0", "left": "42px", "--fx": "3px", "--fy": "3px", "--fd": "2.4s" }, centerY: false, icon: "<rect x=\"6\" y=\"2\" width=\"4\" height=\"20\" rx=\"1\"/><rect x=\"14\" y=\"8\" width=\"4\" height=\"14\" rx=\"1\"/><rect x=\"2\" y=\"14\" width=\"2\" height=\"8\" rx=\"0.5\"/><rect x=\"20\" y=\"10\" width=\"2\" height=\"12\" rx=\"0.5\"/>" },
-	{ label: "Credit", pos: { "bottom": "0", "right": "42px", "--fx": "-3px", "--fy": "-4px", "--fd": "3s" }, centerY: false, icon: "<rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M2 8h2m16 0h2M2 16h2m16 0h2\"/>" },
-];
-
-const badgeEls = reactive<(HTMLElement | null)[]>(Array(fiBadges.length).fill(null));
-const badgeMagnet = reactive<boolean[]>(Array(fiBadges.length).fill(false));
-const badgeEngaging = reactive<boolean[]>(Array(fiBadges.length).fill(false));
-const badgeReleasing = reactive<boolean[]>(Array(fiBadges.length).fill(false));
-const badgeOffset = reactive<{ x: number; y: number }[]>(fiBadges.map(() => ({ x: 0, y: 0 })));
-const releaseTimers: (ReturnType<typeof setTimeout> | null)[] = Array(fiBadges.length).fill(null);
-const engageTimers: (ReturnType<typeof setTimeout> | null)[] = Array(fiBadges.length).fill(null);
-
-let magnetRaf = 0;
-
-function onMagnetMove(e: MouseEvent) {
-	if (magnetRaf) return;
-	magnetRaf = requestAnimationFrame(() => {
-		magnetRaf = 0;
-		for (let i = 0; i < fiBadges.length; i++) {
-			const el = badgeEls[i];
-
-			if (!el) continue;
-			const rect = el.getBoundingClientRect();
-			const cx = rect.left + rect.width / 2;
-			const cy = rect.top + rect.height / 2;
-			const dx = Math.abs(cx - e.clientX);
-			const dy = Math.abs(cy - e.clientY);
-			const off = badgeOffset[i];
-
-			if (!off) continue;
-			if (dx < rect.width / 2 + MAGNET_PADDING && dy < rect.height / 2 + MAGNET_PADDING) {
-				if (releaseTimers[i]) {
-					clearTimeout(releaseTimers[i]!);
-					releaseTimers[i] = null;
-				}
-				if (!badgeMagnet[i]) {
-					badgeEngaging[i] = true;
-					if (engageTimers[i]) clearTimeout(engageTimers[i]!);
-					engageTimers[i] = setTimeout(() => {
-						badgeEngaging[i] = false;
-					}, 400);
-				}
-				badgeMagnet[i] = true;
-				badgeReleasing[i] = false;
-				off.x = (e.clientX - cx) / MAGNET_STRENGTH;
-				off.y = (e.clientY - cy) / MAGNET_STRENGTH;
-			}
-			else if (badgeMagnet[i]) {
-				badgeMagnet[i] = false;
-				badgeReleasing[i] = true;
-				off.x = 0;
-				off.y = 0;
-				releaseTimers[i] = setTimeout(() => {
-					badgeReleasing[i] = false;
-				}, 500);
-			}
-		}
-	});
-}
-
 onMounted(() => {
 	initDotGrid();
-	window.addEventListener("mousemove", onMagnetMove);
 });
 onUnmounted(() => {
 	destroyDotGrid();
-	window.removeEventListener("mousemove", onMagnetMove);
-	releaseTimers.forEach((t) => {
-		if (t)
-			clearTimeout(t);
-	});
-	engageTimers.forEach((t) => {
-		if (t)
-			clearTimeout(t);
-	});
 });
 
 const opContinuityBullets = [
@@ -357,15 +287,6 @@ const dashboardBullets = [
 	"Financial overview with live balance tracking, payment history, and credit utilization.",
 	"Consolidated reporting across platforms, accounts, and markets.",
 	"Direct operational controls for top-ups, budget allocations, and account configurations.",
-];
-
-const ecosystemLogos = [
-	{ name: "Meta", src: "/images/partners/meta.svg" },
-	{ name: "TikTok", src: "/images/partners/tiktok.svg" },
-	{ name: "Rockads", src: "/images/logo-rockads.svg" },
-	{ name: "Google", src: "/images/partners/google.svg" },
-	{ name: "Snapchat", src: "/images/partners/snapchat.svg" },
-	{ name: "X", src: "/images/partners/x-twitter.svg" },
 ];
 </script>
 
@@ -418,63 +339,11 @@ const ecosystemLogos = [
 							Our financial infrastructure gives partners more room to operate, greater stability, and the flexibility to move fast. Versatile payment models, flexible settlement structures, compliance-first account foundations, and credit-backed continuity, engineered so your most ambitious moves are never constrained by cash mechanics.
 						</p>
 						<div class="mt-6 flex flex-1 items-end justify-center pb-2">
-							<div class="fi-illustration">
-								<!-- Outer white circle with blue border -->
-								<div class="fi-ring fi-ring--outer" />
-								<!-- Soft blue glow -->
-								<div class="fi-ring fi-ring--glow" />
-								<!-- Inner white circle -->
-								<div class="fi-ring fi-ring--inner" />
-								<!-- Center blue circle with dot pattern + Rockads arrow -->
-								<div class="absolute inset-0 z-10 flex items-center justify-center">
-									<div class="fi-center-circle">
-										<div class="fi-center-dots" />
-										<svg
-											class="relative z-10 h-[56px] w-[56px]"
-											viewBox="-1 -1 24.3 28.5"
-											fill="white"
-											style="margin-left: -5px;"
-										>
-											<path d="M19.7131 0.30642C20.4457 -0.222917 21.4598 -0.0493404 21.9777 0.695092C22.2092 1.02753 22.3007 1.41765 22.2678 1.7947L22.0519 25.3699H22.05C22.0379 26.2798 21.3036 27.0093 20.4074 26.9998C19.856 26.9937 19.3726 26.7086 19.0832 26.2791V26.2879L11.0187 15.1365C10.8706 14.9312 11.1105 14.668 11.3225 14.8035L16.3498 18.0203C16.895 18.4036 17.6398 18.4219 18.2131 18.0076C18.6856 17.666 18.9238 17.1148 18.8957 16.5672L18.9728 8.11599H18.9719C18.9864 7.76377 18.8923 7.40408 18.6769 7.09451C18.1681 6.36361 17.1814 6.18459 16.4523 6.68044V6.67849L16.425 6.69802C16.4206 6.70125 16.4073 6.71074 16.4035 6.71365L2.56268 16.6287C1.83014 17.1581 0.81617 16.984 0.298036 16.24C-0.219718 15.4956 -0.0457162 14.4627 0.686708 13.9334L0.687684 13.9324L19.6398 0.365014C19.664 0.345307 19.6876 0.324989 19.7131 0.30642Z" />
-										</svg>
-									</div>
-								</div>
-								<!-- Badges with magnet effect -->
-								<div
-									v-for="(b, i) in fiBadges"
-									:key="b.label"
-									:ref="el => { if (el) badgeEls[i] = el as HTMLElement }"
-									class="fi-badge"
-									:class="{
-										'fi-float': !badgeMagnet[i] && !badgeReleasing[i],
-										'fi-float--y': b.centerY && !badgeMagnet[i] && !badgeReleasing[i],
-									}"
-									:style="[b.pos, (badgeMagnet[i] || badgeReleasing[i])
-										? { transform: b.centerY
-												? `translateY(-50%) translate3d(${badgeOffset[i]?.x ?? 0}px,${badgeOffset[i]?.y ?? 0}px,0)`
-												: `translate3d(${badgeOffset[i]?.x ?? 0}px,${badgeOffset[i]?.y ?? 0}px,0)`,
-											transition: badgeEngaging[i]
-												? 'transform 0.4s cubic-bezier(0.25,1,0.5,1)'
-												: badgeMagnet[i]
-													? 'transform 0.2s ease-out'
-													: 'transform 0.5s cubic-bezier(0.25,1,0.5,1)',
-											willChange: 'transform' }
-										: {},
-									]"
-								>
-									<svg
-										class="fi-badge-icon"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										v-html="b.icon"
-									/>
-									<span>{{ b.label }}</span>
-								</div>
-							</div>
+							<img
+								:src="financialSvg"
+								alt=""
+								class="w-full max-w-[429px]"
+							>
 						</div>
 					</div>
 
@@ -821,7 +690,7 @@ const ecosystemLogos = [
 									</g>
 								</svg>
 								<!-- Badge pills -->
-								<div class="gc-badges">
+								<!-- <div class="gc-badges">
 									<div class="gc-pill">
 										<img
 											src="/images/icons/cash-banknote-chart.svg"
@@ -852,7 +721,7 @@ const ecosystemLogos = [
 										>
 										<span>New markets</span>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -1227,25 +1096,7 @@ const ecosystemLogos = [
 			</div>
 		</section>
 
-		<!-- Stable. Enduring. Limitless. -->
-		<section class="bg-surface-darker relative overflow-hidden px-5 py-20 lg:py-28">
-			<div class="pointer-events-none absolute inset-0 flex items-center justify-center">
-				<div class="h-[400px] w-[600px] rounded-full bg-white/3 blur-[120px]" />
-			</div>
-			<div class="relative mx-auto max-w-[800px] text-center">
-				<p class="text-text-gray text-sm font-semibold tracking-[4.8px] uppercase lg:text-base">
-					THE ONLY PARTNER YOU'LL EVER NEED.
-				</p>
-				<h2 class="mt-8 text-[48px] leading-[1.06] font-normal lg:mt-10 lg:text-[68px]">
-					<span class="text-white">Stable.</span><br>
-					<span class="text-accent-orange font-display italic">Enduring.</span><br>
-					<span class="text-white">Limitless.</span>
-				</h2>
-				<p class="text-text-gray-light mx-auto mt-6 max-w-[272px] text-sm leading-relaxed lg:mt-8">
-					When others come and go, we'll still be here. Join the infrastructure built to last.
-				</p>
-			</div>
-		</section>
+		<HomeCta />
 
 		<TheFooter />
 	</div>
