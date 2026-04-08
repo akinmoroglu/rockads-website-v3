@@ -106,6 +106,7 @@ function handleAutoLogin(token: string) {
 async function onSubmit(values: SignUpFormValues) {
 	if (!values.accept_terms) {
 		showTermsRequiredError.value = true;
+
 		return;
 	}
 
@@ -127,6 +128,7 @@ async function onSubmit(values: SignUpFormValues) {
 
 		if (response.token) {
 			handleAutoLogin(response.token);
+
 			return;
 		}
 

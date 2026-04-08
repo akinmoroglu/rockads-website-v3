@@ -1,4 +1,4 @@
-import { type CreateLeadParams, type CreateLeadPayload } from "~/models/lead";
+import type { CreateLeadParams, CreateLeadPayload } from "~/models/lead";
 
 const DUMMY_CAPTCHA_TOKEN = "XXXX.DUMMY.TOKEN.XXXX";
 
@@ -16,7 +16,7 @@ function buildAdPlatforms(
 	adPlatforms: string[] = [],
 	otherAdPlatforms = "",
 ): string {
-	const filtered = adPlatforms.filter((p) => p !== "others");
+	const filtered = adPlatforms.filter(p => p !== "others");
 
 	return otherAdPlatforms
 		? `${filtered.join(", ")},${otherAdPlatforms}`

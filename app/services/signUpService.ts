@@ -1,8 +1,8 @@
-import {
-	type OAuthSignInPayload,
-	type OAuthSignInResponse,
-	type SignUpPayload,
-	type SignUpResponse,
+import type {
+	OAuthSignInPayload,
+	OAuthSignInResponse,
+	SignUpPayload,
+	SignUpResponse,
 } from "~/models/signup";
 
 export async function signUp(

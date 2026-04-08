@@ -3,7 +3,7 @@ import metaIconSrc from "@/assets/icons/brands/meta.svg?url";
 import googleIconSrc from "@/assets/icons/brands/google.svg?url";
 import shopifyIconSrc from "@/assets/icons/brands/shopify.svg?url";
 import { oauthSignIn } from "@/services/signUpService";
-import { type OAuthProvider } from "@/models/signup";
+import type { OAuthProvider } from "@/models/signup";
 import { getCookie } from "@/utils/cookie";
 
 const props = defineProps<{
@@ -64,6 +64,7 @@ async function handleProviderClick(provider: OAuthProvider) {
 	if (props.requiresAgreement && !props.agreement) {
 		pendingProvider.value = provider;
 		emit("requireAgreement");
+
 		return;
 	}
 
@@ -99,7 +100,7 @@ async function doRedirect(provider: OAuthProvider) {
 			type="button"
 			:disabled="isRedirecting"
 			:class="[
-				'flex w-full items-center justify-center gap-3 rounded-md border px-4 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed',
+				'flex w-full items-center justify-center gap-3 rounded-md border px-4 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60',
 				provider.class,
 			]"
 			@click="handleProviderClick(provider.id)"

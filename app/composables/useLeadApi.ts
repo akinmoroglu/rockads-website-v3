@@ -1,5 +1,5 @@
 import { createLead } from "~/services/leadService";
-import { type CreateLeadParams } from "~/models/lead";
+import type { CreateLeadParams } from "~/models/lead";
 
 export function useLeadApi() {
 	const config = useRuntimeConfig();

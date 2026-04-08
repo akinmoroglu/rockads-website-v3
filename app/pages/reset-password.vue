@@ -34,7 +34,6 @@ useHead({
 });
 
 const config = useRuntimeConfig();
-const router = useRouter();
 const route = useRoute();
 
 const formSchema = toTypedSchema(resetPasswordFormSchema);
@@ -57,12 +56,6 @@ const email = computed(() => {
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const success = ref(false);
-
-onMounted(() => {
-	if (!token.value) {
-		router.push("/");
-	}
-});
 
 async function onSubmit(values: ResetPasswordFormValues) {
 	apiError.value = null;
@@ -200,18 +193,29 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				</Button>
 			</Form>
 		</CardContent>
-		<CardFooter class="flex flex-col gap-2 text-muted-foreground sm:flex-row sm:justify-center sm:text-sm">
-			<NuxtLink
+		<CardFooter class="flex flex-col gap-2 sm:flex-row sm:justify-center">
+			<Button
 				v-if="success"
-				to="/sign-in"
-				class="font-medium text-primary hover:underline"
+				test-id="reset-password-sign-in-btn"
+				as-child
 			>
-				Go to sign in
-			</NuxtLink>
+				<NuxtLink to="/sign-in">
+					Go to sign in
+				</NuxtLink>
+			</Button>
+			<Button
+				v-else-if="!token"
+				test-id="reset-password-request-new-link-btn"
+				as-child
+			>
+				<NuxtLink to="/forgot-password">
+					Request a new link
+				</NuxtLink>
+			</Button>
 			<NuxtLink
 				v-else
 				to="/sign-in"
-				class="font-medium text-primary hover:underline"
+				class="text-sm font-medium text-muted-foreground hover:text-primary hover:underline"
 			>
 				Back to sign in
 			</NuxtLink>
