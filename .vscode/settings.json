@@ -1,7 +1,8 @@
 {
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "always",
-		"source.organizeImports.eslint": "always"
+		"source.organizeImports.eslint": "always",
+		"source.sortImports.eslint": "always",
 	},
 	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
 	"[markdown]": {
