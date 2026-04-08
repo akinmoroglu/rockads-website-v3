@@ -137,7 +137,7 @@ const plans: PricingPlan[] = [
 		</section>
 
 		<!-- Rockads Plans Section -->
-		<section class="mx-auto w-full max-w-[1440px] px-[150px] py-16">
+		<section class="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 lg:px-12 lg:py-16 xl:px-[150px]">
 			<!-- Section header -->
 			<div class="mb-10 flex flex-col items-center gap-3 text-center">
 				<Badge
@@ -146,7 +146,7 @@ const plans: PricingPlan[] = [
 				>
 					Plans
 				</Badge>
-				<h2 class="text-4xl font-semibold text-foreground">
+				<h2 class="text-3xl font-semibold text-foreground lg:text-4xl">
 					Rockads Plans
 				</h2>
 				<p class="max-w-xl text-sm text-muted-foreground">
@@ -154,11 +154,11 @@ const plans: PricingPlan[] = [
 				</p>
 			</div>
 
-			<div class="grid grid-cols-2 gap-6">
+			<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
 				<!-- Rockads Free Card -->
-				<div class="flex flex-col gap-8 rounded-2xl border border-[#b8e8d4] bg-[#f0fcf8] p-8">
+				<div class="flex flex-col gap-8 rounded-2xl border border-[#b8e8d4] bg-[#f0fcf8] p-6 lg:p-8">
 					<div class="flex flex-col gap-1">
-						<h2 class="text-3xl font-bold text-[#05cc85]">
+						<h2 class="text-2xl font-bold text-[#05cc85] lg:text-3xl">
 							Rockads Free
 						</h2>
 						<p class="text-sm text-muted-foreground">
@@ -200,7 +200,7 @@ const plans: PricingPlan[] = [
 									<p class="text-sm text-foreground">
 										Unlimited access to ad assets on all major platforms.
 									</p>
-									<div class="flex items-center gap-4">
+									<div class="flex flex-wrap items-center gap-3">
 										<img
 											:src="imgTiktokUrl"
 											alt="TikTok"
@@ -258,16 +258,20 @@ const plans: PricingPlan[] = [
 						<div class="inline-flex w-fit items-center rounded-full bg-[#ccf2e7] px-5 py-1.5">
 							<span class="text-base font-bold text-foreground">Free</span>
 						</div>
-						<button class="flex h-12 w-full items-center justify-center rounded-xl bg-[#00c088] text-sm font-semibold text-white transition-all hover:bg-[#00a876] active:scale-[0.98]">
+						<button
+							test-id="pricing-rockads-free-contact-button"
+							type="button"
+							class="flex h-12 w-full items-center justify-center rounded-xl bg-[#00c088] text-sm font-semibold text-white transition-all hover:bg-[#00a876] active:scale-[0.98]"
+						>
 							Contact Us
 						</button>
 					</div>
 				</div>
 
 				<!-- Rockads Partner Card -->
-				<div class="flex flex-col gap-8 rounded-2xl border border-[#e2d89a] bg-[#fffce7] p-8">
+				<div class="flex flex-col gap-8 rounded-2xl border border-[#e2d89a] bg-[#fffce7] p-6 lg:p-8">
 					<div class="flex flex-col gap-1">
-						<h2 class="text-3xl font-bold text-[#c2a441]">
+						<h2 class="text-2xl font-bold text-[#c2a441] lg:text-3xl">
 							Rockads Partner
 						</h2>
 						<p class="text-sm text-muted-foreground">
@@ -304,7 +308,11 @@ const plans: PricingPlan[] = [
 						</div>
 					</div>
 
-					<button class="flex h-12 w-full items-center justify-center rounded-xl bg-[#c2a441] text-sm font-semibold text-white transition-all hover:bg-[#a88c36] active:scale-[0.98]">
+					<button
+						test-id="pricing-rockads-partner-contact-button"
+						type="button"
+						class="flex h-12 w-full items-center justify-center rounded-xl bg-[#c2a441] text-sm font-semibold text-white transition-all hover:bg-[#a88c36] active:scale-[0.98]"
+					>
 						Contact Us
 					</button>
 				</div>
@@ -312,7 +320,7 @@ const plans: PricingPlan[] = [
 		</section>
 
 		<!-- Pricing Cards Section -->
-		<section class="bg-muted/40 px-[150px] py-20">
+		<section class="bg-muted/40 px-4 py-14 sm:px-6 lg:px-12 lg:py-20 xl:px-[150px]">
 			<div class="mb-14 flex flex-col items-center gap-3 text-center">
 				<Badge
 					variant="secondary"
@@ -320,7 +328,7 @@ const plans: PricingPlan[] = [
 				>
 					Pricing
 				</Badge>
-				<h2 class="text-5xl font-semibold text-foreground">
+				<h2 class="text-3xl font-semibold text-foreground md:text-4xl lg:text-5xl">
 					Simple, transparent pricing
 				</h2>
 				<p class="max-w-lg text-base text-muted-foreground">
@@ -328,7 +336,7 @@ const plans: PricingPlan[] = [
 				</p>
 			</div>
 
-			<div class="relative grid grid-cols-4 items-start gap-4">
+			<div class="relative grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-4">
 				<template
 					v-for="plan in plans"
 					:key="plan.id"
@@ -466,6 +474,8 @@ const plans: PricingPlan[] = [
 
 						<!-- CTA Button -->
 						<button
+							:test-id="`pricing-plan-${plan.id}-cta-button`"
+							type="button"
 							class="mt-auto flex h-11 w-full items-center justify-center rounded-xl text-sm font-semibold transition-all active:scale-[0.98]"
 							:class="{
 								'bg-foreground text-background hover:bg-foreground/90': !plan.highlighted,
