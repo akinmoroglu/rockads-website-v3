@@ -167,6 +167,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 
 				<NuxtTurnstile
 					v-model="captchaToken"
+					class="w-full"
 					:options="{ size: 'flexible' }"
 				/>
 

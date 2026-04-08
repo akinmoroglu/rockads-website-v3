@@ -370,6 +370,7 @@ function handleRequireAgreement() {
 
 				<NuxtTurnstile
 					v-model="captchaToken"
+					class="w-full"
 					:options="{ size: 'flexible' }"
 				/>
 
