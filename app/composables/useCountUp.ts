@@ -26,11 +26,14 @@ export function useCountUp(options: CountUpOptions) {
 
 	function getDecimalPlaces(num: number): number {
 		const str = num.toString();
+
 		if (str.includes(".")) {
 			const decimals = str.split(".")[1];
+
 			if (decimals && parseInt(decimals) !== 0)
 				return decimals.length;
 		}
+
 		return 0;
 	}
 
@@ -44,6 +47,7 @@ export function useCountUp(options: CountUpOptions) {
 		};
 		const formatted = Intl.NumberFormat("en-US", opts).format(value);
 		const result = separator ? formatted.replace(/,/g, separator) : formatted;
+
 		return result + suffix;
 	}
 
@@ -68,10 +72,12 @@ export function useCountUp(options: CountUpOptions) {
 			if (lastTime === null) {
 				lastTime = timestamp;
 				animationFrame = requestAnimationFrame(step);
+
 				return;
 			}
 
 			const dt = Math.min((timestamp - lastTime) / 1000, 0.064);
+
 			lastTime = timestamp;
 
 			const displacement = currentValue - endValue;
@@ -85,6 +91,7 @@ export function useCountUp(options: CountUpOptions) {
 
 			if (Math.abs(velocity) < 0.01 && Math.abs(currentValue - endValue) < 0.5) {
 				displayValue.value = formatNumber(endValue);
+
 				return;
 			}
 

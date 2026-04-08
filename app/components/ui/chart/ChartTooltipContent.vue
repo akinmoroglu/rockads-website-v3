@@ -48,6 +48,7 @@ const tooltipLabel = computed(() => {
 	if (props.labelFormatter && props.x !== undefined) {
 		return props.labelFormatter(props.x);
 	}
+
 	return props.labelKey
 		? props.config[props.labelKey]?.label || props.payload[props.labelKey]
 		: props.x;
@@ -57,7 +58,7 @@ const tooltipLabel = computed(() => {
 <template>
 	<div
 		:class="cn(
-			'border-border/50 bg-background grid min-w-[8rem] items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl',
+			'grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl',
 			props.class,
 		)"
 	>
@@ -73,7 +74,7 @@ const tooltipLabel = computed(() => {
 					v-for="{ value, itemConfig, indicatorColor, key } in payload"
 					:key="key"
 					:class="
-						cn('[&>svg]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5',
+						cn('flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground',
 							indicator === 'dot' && 'items-center')"
 				>
 					<component
@@ -113,7 +114,7 @@ const tooltipLabel = computed(() => {
 						</div>
 						<span
 							v-if="value"
-							class="text-foreground font-mono font-medium tabular-nums"
+							class="font-mono font-medium text-foreground tabular-nums"
 						>
 							{{ value.toLocaleString() }}
 						</span>

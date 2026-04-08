@@ -57,6 +57,7 @@ async function onSubmit(values: SignUpFormValues) {
 	apiError.value = null;
 	isSubmitting.value = true;
 	const phoneTrimmed = values.phone.trim();
+
 	try {
 		await authApi.signUp({
 			name: values.name.trim(),

@@ -7,8 +7,10 @@ const UNSET = Symbol("lazyRefUnset");
  */
 export function useLazyRef<T>(factory: () => T): Ref<T> {
 	const ref = shallowRef<T | typeof UNSET>(UNSET);
+
 	if (ref.value === UNSET) {
 		ref.value = factory();
 	}
+
 	return ref as Ref<T>;
 }

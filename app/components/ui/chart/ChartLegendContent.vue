@@ -29,6 +29,7 @@ const payload = computed(() =>
 );
 
 const containerSelector = ref("");
+
 onMounted(() => {
 	containerSelector.value = `[data-chart="chart-${id}"]>[data-vis-xy-container]`;
 });
@@ -47,7 +48,7 @@ onMounted(() => {
 			v-for="{ key, itemConfig } in payload"
 			:key="key"
 			:class="cn(
-				'[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3',
+				'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground',
 			)"
 		>
 			<component

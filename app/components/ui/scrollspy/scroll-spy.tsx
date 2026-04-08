@@ -41,6 +41,7 @@ const SCROLL_SPY_CONTEXT = Symbol("SCROLL_SPY_CONTEXT") as InjectionKey<ScrollSp
 
 function useScrollSpyContext(name: string) {
 	const context = inject(SCROLL_SPY_CONTEXT, null);
+
 	if (!context) {
 		throw new Error(`\`${name}\` must be used within \`ScrollSpy\``);
 	}
@@ -118,12 +119,14 @@ export const ScrollSpy = defineComponent({
 
 		const registerSection = (id: string, element: HTMLElement) => {
 			const next = new Map(sections.value);
+
 			next.set(id, element);
 			sections.value = next;
 		};
 
 		const unregisterSection = (id: string) => {
 			const next = new Map(sections.value);
+
 			next.delete(id);
 			sections.value = next;
 		};
@@ -131,6 +134,7 @@ export const ScrollSpy = defineComponent({
 		const scrollToSection = (sectionId: string) => {
 			if (!import.meta.client) {
 				setValue(sectionId);
+
 				return;
 			}
 
@@ -140,6 +144,7 @@ export const ScrollSpy = defineComponent({
 
 			if (!section) {
 				setValue(sectionId);
+
 				return;
 			}
 
@@ -151,6 +156,7 @@ export const ScrollSpy = defineComponent({
 				const sectionRect = section.getBoundingClientRect();
 				const scrollTop = scrollContainer.value.scrollTop;
 				const top = sectionRect.top - containerRect.top + scrollTop - offset.value;
+
 				scrollContainer.value.scrollTo({
 					top,
 					behavior: scrollBehavior.value,
@@ -158,6 +164,7 @@ export const ScrollSpy = defineComponent({
 			}
 			else {
 				const top = section.getBoundingClientRect().top + window.scrollY - offset.value;
+
 				window.scrollTo({
 					top,
 					behavior: scrollBehavior.value,
@@ -181,6 +188,7 @@ export const ScrollSpy = defineComponent({
 
 			const rootMargin = props.rootMargin ?? `${-offset.value}px 0px -70% 0px`;
 			const observerRoot = scrollContainer.value instanceof HTMLElement ? scrollContainer.value : null;
+
 			observer = new IntersectionObserver(
 				(entries) => {
 					if (isProgrammaticScroll.value) {
@@ -193,6 +201,7 @@ export const ScrollSpy = defineComponent({
 
 					rafId = requestAnimationFrame(() => {
 						const intersecting = entries.filter(entry => entry.isIntersecting);
+
 						if (intersecting.length === 0) {
 							return;
 						}
@@ -201,6 +210,7 @@ export const ScrollSpy = defineComponent({
 							return current.boundingClientRect.top < previous.boundingClientRect.top ? current : previous;
 						});
 						const id = (topmost.target as HTMLElement).id;
+
 						if (id && sections.value.has(id)) {
 							setValue(id);
 						}
@@ -282,6 +292,7 @@ export const ScrollSpyNav = defineComponent({
 	inheritAttrs: false,
 	setup(_, { attrs, slots }) {
 		const context = useScrollSpyContext("ScrollSpyNav");
+
 		return () =>
 			h(
 				"nav",
@@ -329,7 +340,7 @@ export const ScrollSpyLink = defineComponent({
 					"data-state": isActive.value ? "active" : "inactive",
 					"href": `#${props.value}`,
 					"class": cn(
-						"rounded px-3 py-1.5 font-medium text-muted-foreground text-sm transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground",
+						"rounded px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground",
 						attrs.class as string,
 					),
 					"onClick": onClick,
@@ -344,6 +355,7 @@ export const ScrollSpyViewport = defineComponent({
 	inheritAttrs: false,
 	setup(_, { attrs, slots }) {
 		const context = useScrollSpyContext("ScrollSpyViewport");
+
 		return () =>
 			h(
 				"div",

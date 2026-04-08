@@ -65,6 +65,7 @@ export function useAuthApi() {
 				"Auth API is not configured. Set NUXT_PUBLIC_AUTH_API_BASE in your environment.",
 			);
 		}
+
 		return baseURL;
 	}
 
@@ -81,6 +82,7 @@ export function useAuthApi() {
 
 		if (options.bearer) {
 			const token = session.accessToken.value;
+
 			if (!token) {
 				throw new Error("Not authenticated.");
 			}

@@ -68,6 +68,7 @@ const rawTags: RawTag[] = [
 const tags: Tag[] = rawTags.map((t) => {
 	const dist = Math.sqrt((t.x - CENTER_X) ** 2 + (t.y - CENTER_Y) ** 2);
 	const factor = Math.max(0, 1 - dist / MAX_DIST);
+
 	return {
 		...t,
 		baseSize: Math.round(MIN_SIZE + factor * (MAX_SIZE - MIN_SIZE)),
@@ -97,15 +98,19 @@ function setTagTriggerEl(index: number, el: Element | ComponentPublicInstance | 
 	const node = el && typeof el === "object" && "$el" in el
 		? (el as ComponentPublicInstance).$el
 		: el;
+
 	if (node instanceof HTMLElement) {
 		if (tagTriggers.value.get(index) === node) return;
 		const next = new Map(tagTriggers.value);
+
 		next.set(index, node);
 		tagTriggers.value = next;
+
 		return;
 	}
 	if (!tagTriggers.value.has(index)) return;
 	const next = new Map(tagTriggers.value);
+
 	next.delete(index);
 	tagTriggers.value = next;
 }
@@ -113,8 +118,10 @@ function setTagTriggerEl(index: number, el: Element | ComponentPublicInstance | 
 function positionPopover() {
 	const idx = openIndex.value;
 	const panel = popoverRef.value;
+
 	if (idx === null || !panel || !import.meta.client) return;
 	const trigger = tagTriggers.value.get(idx);
+
 	if (!trigger) return;
 
 	requestAnimationFrame(() => {
@@ -125,6 +132,7 @@ function positionPopover() {
 			const gap = 12;
 			let left = t.left + t.width / 2 - p.width / 2;
 			let top = t.bottom + gap;
+
 			left = Math.max(margin, Math.min(left, window.innerWidth - p.width - margin));
 			top = Math.max(margin, Math.min(top, window.innerHeight - p.height - margin));
 			popoverStyle.value = { left: `${left}px`, top: `${top}px` };
@@ -157,9 +165,11 @@ function onPanelPointerLeave() {
 watch(openIndex, (idx, _prev, onCleanup) => {
 	if (!import.meta.client || idx === null) return;
 	const reposition = () => positionPopover();
+
 	reposition();
 	const stopScroll = useEventListener(window, "scroll", reposition, { capture: true });
 	const stopResize = useEventListener(window, "resize", reposition);
+
 	onCleanup(() => {
 		stopScroll();
 		stopResize();
@@ -185,6 +195,7 @@ const cloudH = ref(0);
 
 function syncCloudSize() {
 	const el = cloudRef.value;
+
 	if (!el) return;
 	cloudW.value = el.offsetWidth;
 	cloudH.value = el.offsetHeight;
@@ -194,8 +205,10 @@ onMounted(() => {
 	syncCloudSize();
 	if (!import.meta.client) return;
 	const el = cloudRef.value;
+
 	if (!el) return;
 	const ro = new ResizeObserver(() => syncCloudSize());
+
 	ro.observe(el);
 	onBeforeUnmount(() => {
 		ro.disconnect();
@@ -206,6 +219,7 @@ onMounted(() => {
 function onTagClick(index: number) {
 	if (!import.meta.client) return;
 	const tag = tags[index];
+
 	if (tag?.url) {
 		window.open(tag.url, "_blank", "noopener,noreferrer");
 	}
@@ -216,6 +230,7 @@ function onMouseMove(e: MouseEvent) {
 	if (anyTagOpen.value) return;
 	if (!cloudRef.value) return;
 	const rect = cloudRef.value.getBoundingClientRect();
+
 	pendingX = e.clientX - rect.left;
 	pendingY = e.clientY - rect.top;
 	if (!rafPending) {
@@ -262,6 +277,7 @@ function computeTagStyle(index: number, overlay: boolean): Record<string, string
 
 		if (DIRECTIONAL_ORIGIN && distance > 0) {
 			const angle = Math.atan2(dy, dx);
+
 			originX = 50 - Math.cos(angle) * 50;
 			originY = 50 - Math.sin(angle) * 50;
 		}
@@ -314,7 +330,9 @@ const tagStyles = computed((): Record<string, string | number>[] =>
 
 const hoveredTagOverlayStyle = computed((): Record<string, string | number> => {
 	const i = activeTagIndex.value;
+
 	if (i === null) return {};
+
 	return computeTagStyle(i, true);
 });
 

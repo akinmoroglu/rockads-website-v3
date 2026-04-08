@@ -40,8 +40,10 @@ function checkDesktop() {
 function calcScrollHeight() {
 	if (!scrollWrapper.value || !isDesktop.value) return;
 	const sectionEl = scrollWrapper.value.querySelector("section");
+
 	if (!sectionEl) return;
 	const sectionH = sectionEl.offsetHeight;
+
 	scrollHeight.value = sectionH + SCROLL_PER_ITEM * pillars.length;
 }
 
@@ -53,7 +55,9 @@ function onScroll() {
 
 	if (scrolled < 0) {
 		const first = pillars[0];
+
 		if (first) activeId.value = first.id;
+
 		return;
 	}
 
@@ -62,6 +66,7 @@ function onScroll() {
 		pillars.length - 1,
 	);
 	const current = pillars[idx];
+
 	if (current) activeId.value = current.id;
 }
 

@@ -40,6 +40,7 @@ const getScrollElement = (): HTMLElement | null => {
 	}
 
 	let baseElement: HTMLElement | null = null;
+
 	if (props.target === document || !props.target) {
 		baseElement = document.documentElement;
 	}
@@ -52,6 +53,7 @@ const getScrollElement = (): HTMLElement | null => {
 	}
 
 	const viewport = baseElement.querySelector("[data-slot=\"scroll-area-viewport\"]");
+
 	return viewport instanceof HTMLElement ? viewport : baseElement;
 };
 
@@ -62,6 +64,7 @@ const setActiveSection = (sectionId: string | null, force = false) => {
 
 	for (const anchor of anchorElements.value) {
 		const id = anchor.getAttribute(`data-${props.dataAttribute}-anchor`);
+
 		if (id === sectionId) {
 			anchor.setAttribute("data-active", "true");
 		}
@@ -83,6 +86,7 @@ const handleScroll = () => {
 	}
 
 	const scrollElement = getScrollElement();
+
 	if (!scrollElement) {
 		return;
 	}
@@ -96,22 +100,26 @@ const handleScroll = () => {
 
 	anchorElements.value.forEach((anchor, index) => {
 		const sectionId = anchor.getAttribute(`data-${props.dataAttribute}-anchor`);
+
 		if (!sectionId) {
 			return;
 		}
 
 		const sectionElement = document.getElementById(sectionId);
+
 		if (!sectionElement) {
 			return;
 		}
 
 		let customOffset = props.offset;
 		const dataOffset = anchor.getAttribute(`data-${props.dataAttribute}-offset`);
+
 		if (dataOffset) {
 			customOffset = Number.parseInt(dataOffset, 10);
 		}
 
 		const delta = Math.abs(sectionElement.offsetTop - customOffset - scrollTop);
+
 		if (sectionElement.offsetTop - customOffset <= scrollTop && delta < minDelta) {
 			minDelta = delta;
 			activeIndex = index;
@@ -121,14 +129,18 @@ const handleScroll = () => {
 	const scrollHeight = scrollElement.scrollHeight;
 	const clientHeight = scrollElement.clientHeight;
 	const nearBottom = scrollTop + clientHeight >= scrollHeight - 2;
+
 	if (nearBottom) {
 		const lastAnchor = anchorElements.value.at(-1);
 		const lastSectionId = lastAnchor?.getAttribute(`data-${props.dataAttribute}-anchor`);
+
 		if (lastSectionId) {
 			const lastSection = document.getElementById(lastSectionId);
+
 			if (lastSection) {
 				let lastOffset = props.offset;
 				const dataOffset = lastAnchor?.getAttribute(`data-${props.dataAttribute}-offset`);
+
 				if (dataOffset) {
 					lastOffset = Number.parseInt(dataOffset, 10);
 				}
@@ -143,6 +155,7 @@ const handleScroll = () => {
 
 	const activeAnchor = anchorElements.value[activeIndex];
 	const sectionId = activeAnchor?.getAttribute(`data-${props.dataAttribute}-anchor`) ?? null;
+
 	setActiveSection(sectionId);
 };
 
@@ -154,21 +167,25 @@ const scrollToAnchor = (anchor: HTMLElement) => (event?: Event) => {
 	event?.preventDefault();
 	const rawSectionId = anchor.getAttribute(`data-${props.dataAttribute}-anchor`);
 	const sectionId = rawSectionId?.replace("#", "") ?? null;
+
 	if (!sectionId) {
 		return;
 	}
 
 	const sectionElement = document.getElementById(sectionId);
+
 	if (!sectionElement) {
 		return;
 	}
 
 	let scrollTarget: HTMLElement | Window | null = null;
+
 	if (props.target === document || !props.target) {
 		scrollTarget = window;
 	}
 	else if (props.target instanceof HTMLElement) {
 		const viewport = props.target.querySelector("[data-slot=\"scroll-area-viewport\"]");
+
 		scrollTarget = viewport instanceof HTMLElement ? viewport : props.target;
 	}
 
@@ -178,11 +195,13 @@ const scrollToAnchor = (anchor: HTMLElement) => (event?: Event) => {
 
 	let customOffset = props.offset;
 	const dataOffset = anchor.getAttribute(`data-${props.dataAttribute}-offset`);
+
 	if (dataOffset) {
 		customOffset = Number.parseInt(dataOffset, 10);
 	}
 
 	const targetTop = sectionElement.offsetTop - customOffset;
+
 	scrollTarget.scrollTo({
 		top: targetTop,
 		left: 0,
@@ -198,6 +217,7 @@ const scrollToHashSection = () => {
 	}
 
 	const hash = window.location.hash.replace("#", "");
+
 	if (!hash) {
 		return;
 	}
@@ -206,6 +226,7 @@ const scrollToHashSection = () => {
 	const anchor = selfRef.value?.querySelector(
 		`[data-${props.dataAttribute}-anchor="${escapedHash}"]`,
 	) as HTMLElement | null;
+
 	if (!anchor) {
 		return;
 	}
@@ -216,6 +237,7 @@ const scrollToHashSection = () => {
 const resolveAnchors = () => {
 	if (!selfRef.value) {
 		anchorElements.value = [];
+
 		return;
 	}
 
@@ -227,12 +249,15 @@ const resolveAnchors = () => {
 const throttledScroll = (() => {
 	let lastRun = 0;
 	let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
 	return () => {
 		const now = Date.now();
 		const remaining = props.throttleTime - (now - lastRun);
+
 		if (remaining <= 0) {
 			lastRun = now;
 			handleScroll();
+
 			return;
 		}
 
@@ -255,6 +280,7 @@ const onScrollEvent = (event: Event) => {
 	}
 
 	const scrollElement = props.target === document || !props.target ? window : props.target;
+
 	if (!scrollElement) {
 		return;
 	}
@@ -270,6 +296,7 @@ const onScrollEvent = (event: Event) => {
 const bindAnchorListeners = () => {
 	for (const anchor of anchorElements.value) {
 		const handler = scrollToAnchor(anchor);
+
 		clickHandlers.set(anchor, handler);
 		anchor.addEventListener("click", handler);
 	}

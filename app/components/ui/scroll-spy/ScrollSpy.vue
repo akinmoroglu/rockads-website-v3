@@ -43,6 +43,7 @@ function getDefaultScrollBehavior(): ScrollBehavior {
 	if (!import.meta.client) {
 		return "smooth";
 	}
+
 	return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 }
 
@@ -69,12 +70,14 @@ function commitValue(next: string) {
 
 function onSectionRegister(id: string, element: Element) {
 	const next = new Map(sectionMap.value);
+
 	next.set(id, element);
 	sectionMap.value = next;
 }
 
 function onSectionUnregister(id: string) {
 	const next = new Map(sectionMap.value);
+
 	next.delete(id);
 	sectionMap.value = next;
 }
@@ -86,6 +89,7 @@ function onScrollToSection(sectionId: string) {
 
 	const scrollContainer = props.scrollContainer ?? null;
 	let section: Element | null = null;
+
 	try {
 		section = scrollContainer
 			? scrollContainer.querySelector(`#${CSS.escape(sectionId)}`)
@@ -99,6 +103,7 @@ function onScrollToSection(sectionId: string) {
 
 	if (!section || !(section instanceof HTMLElement)) {
 		commitValue(sectionId);
+
 		return;
 	}
 
@@ -113,11 +118,13 @@ function onScrollToSection(sectionId: string) {
 		const sectionRect = section.getBoundingClientRect();
 		const scrollTop = scrollContainer.scrollTop;
 		const offsetPosition = sectionRect.top - containerRect.top + scrollTop - offset;
+
 		scrollContainer.scrollTo({ top: offsetPosition, behavior });
 	}
 	else {
 		const sectionPosition = section.getBoundingClientRect().top;
 		const offsetPosition = sectionPosition + window.scrollY - offset;
+
 		window.scrollTo({ top: offsetPosition, behavior });
 	}
 
@@ -137,6 +144,7 @@ useIsomorphicLayoutEffect(
 		}
 
 		const currentValue = props.value ?? props.defaultValue;
+
 		if (currentValue === undefined || currentValue === "") {
 			return undefined;
 		}
@@ -144,6 +152,7 @@ useIsomorphicLayoutEffect(
 		if (!isHydratedRef.value) {
 			isHydratedRef.value = true;
 			commitValue(currentValue);
+
 			return undefined;
 		}
 
@@ -175,6 +184,7 @@ watch(
 		observerCleanup = undefined;
 
 		const map = sectionMap.value;
+
 		if (map.size === 0) {
 			return;
 		}
@@ -193,6 +203,7 @@ watch(
 
 				rafIdRef.value = requestAnimationFrame(() => {
 					const intersecting = entries.filter(entry => entry.isIntersecting);
+
 					if (intersecting.length === 0) {
 						return;
 					}
@@ -202,6 +213,7 @@ watch(
 					});
 
 					const id = topmost.target.id;
+
 					if (id && sectionMap.value.has(id)) {
 						commitValue(id);
 					}
@@ -216,6 +228,7 @@ watch(
 
 		for (const node of map.values()) {
 			const element = resolveDomElement(node);
+
 			if (element) {
 				observer.observe(element);
 			}

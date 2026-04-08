@@ -44,6 +44,7 @@ type AcceptInvitationFormValues = z.infer<typeof acceptInvitationFormSchema>;
 
 const token = computed(() => {
 	const raw = route.query.token;
+
 	return typeof raw === "string" ? raw.trim() : "";
 });
 
@@ -55,6 +56,7 @@ async function onSubmit(values: AcceptInvitationFormValues) {
 	apiError.value = null;
 	if (!token.value) {
 		apiError.value = "This invitation link is invalid or expired. Ask your administrator to send a new invite.";
+
 		return;
 	}
 	isSubmitting.value = true;
@@ -67,6 +69,7 @@ async function onSubmit(values: AcceptInvitationFormValues) {
 			...(nameTrimmed ? { name: nameTrimmed } : {}),
 		});
 		const accessToken = extractAccessToken(data);
+
 		if (accessToken) session.setAccessToken(accessToken);
 		success.value = true;
 	}

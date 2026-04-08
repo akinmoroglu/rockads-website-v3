@@ -21,6 +21,7 @@ defineOptions({
 const attrs = useAttrs();
 
 const context = inject(SCROLL_SPY_CONTEXT_KEY, null);
+
 if (context === null) {
 	throw new Error(`\`${SECTION_NAME}\` must be used within \`ScrollSpy\``);
 }
@@ -33,8 +34,10 @@ const composedRef = useComposedRefs(
 
 const passthroughAttrs = computed(() => {
 	const raw = { ...attrs } as Record<string, unknown>;
+
 	delete raw.ref;
 	delete raw.class;
+
 	return raw;
 });
 
@@ -42,10 +45,12 @@ watch(
 	() => [sectionRef.value, props.value] as const,
 	([raw, value], old) => {
 		const prevVal = (old?.[1] ?? "") as string;
+
 		if (prevVal) {
 			context.onSectionUnregister(prevVal);
 		}
 		const dom = resolveDomElement(raw);
+
 		if (dom && value) {
 			context.onSectionRegister(value, dom);
 		}

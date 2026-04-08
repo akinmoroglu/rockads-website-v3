@@ -27,11 +27,13 @@ const glowMouseOffsets = computed(() => {
 	}
 	const w = elementWidth.value;
 	const h = elementHeight.value;
+
 	if (w <= 0 || h <= 0) {
 		return { left: { x: 0, y: 0 }, right: { x: 0, y: 0 } };
 	}
 	const nx = (elementX.value / w) * 2 - 1;
 	const ny = (elementY.value / h) * 2 - 1;
+
 	return {
 		left: {
 			x: nx * PARALLAX_STRENGTH * 0.9,

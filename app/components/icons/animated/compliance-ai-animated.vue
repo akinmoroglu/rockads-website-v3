@@ -151,6 +151,7 @@ useIntersectionObserver(
 	rootEl,
 	(entries) => {
 		const e = entries[0];
+
 		if (e?.isIntersecting) inView.value = true;
 	},
 	{ threshold: 0.2 },
@@ -170,6 +171,7 @@ function pathTransition(delay: number) {
 	if (prefersReducedMotion.value) {
 		return { duration: 0 };
 	}
+
 	return {
 		duration: 0.65,
 		delay,

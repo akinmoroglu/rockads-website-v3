@@ -44,6 +44,7 @@ type ResetPasswordFormValues = z.infer<typeof resetPasswordFormSchema>;
 
 const token = computed(() => {
 	const raw = route.query.token;
+
 	return typeof raw === "string" ? raw.trim() : "";
 });
 
@@ -55,6 +56,7 @@ async function onSubmit(values: ResetPasswordFormValues) {
 	apiError.value = null;
 	if (!token.value) {
 		apiError.value = "This reset link is invalid or expired. Request a new one from the forgot password page.";
+
 		return;
 	}
 	isSubmitting.value = true;
@@ -65,6 +67,7 @@ async function onSubmit(values: ResetPasswordFormValues) {
 			password_confirmation: values.password_confirmation,
 		});
 		const accessToken = extractAccessToken(data);
+
 		if (accessToken) session.setAccessToken(accessToken);
 		success.value = true;
 	}

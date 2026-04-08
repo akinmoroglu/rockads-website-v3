@@ -44,9 +44,11 @@ function checkDesktop() {
 function calcScrollHeight() {
 	if (!import.meta.client || !scrollWrapper.value || !isDesktop.value) {
 		scrollHeight.value = 0;
+
 		return;
 	}
 	const sectionEl = scrollWrapper.value.querySelector("section");
+
 	if (!sectionEl) return;
 	scrollHeight.value = sectionEl.offsetHeight + SCROLL_PER_ITEM * items.length;
 }
@@ -55,8 +57,10 @@ function onScroll() {
 	if (!import.meta.client || !scrollWrapper.value || !isDesktop.value) return;
 	const rect = scrollWrapper.value.getBoundingClientRect();
 	const scrolled = -rect.top;
+
 	if (scrolled < 0) {
 		activeIndex.value = 0;
+
 		return;
 	}
 	activeIndex.value = Math.min(

@@ -9,6 +9,7 @@ export function useAuthSession() {
 
 	function setAccessToken(token: string | null) {
 		const next = token?.trim() || null;
+
 		accessToken.value = next;
 		if (import.meta.client) {
 			if (next) {

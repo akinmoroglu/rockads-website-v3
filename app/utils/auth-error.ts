@@ -11,12 +11,14 @@ export function extractAuthErrorMessage(error: unknown): string {
 		};
 
 		const data = maybe.data;
+
 		if (data && typeof data === "object") {
 			const body = data as {
 				message?: unknown;
 				error?: unknown;
 				errors?: Record<string, string[] | string>;
 			};
+
 			if (typeof body.message === "string" && body.message.length > 0) {
 				return body.message;
 			}
@@ -26,6 +28,7 @@ export function extractAuthErrorMessage(error: unknown): string {
 			if (body.errors && typeof body.errors === "object") {
 				const firstKey = Object.keys(body.errors)[0];
 				const val = firstKey ? body.errors[firstKey] : undefined;
+
 				if (Array.isArray(val) && val[0]) return String(val[0]);
 				if (typeof val === "string") return val;
 			}

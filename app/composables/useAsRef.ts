@@ -5,6 +5,7 @@ import { shallowRef, toValue, watch, type MaybeRefOrGetter } from "vue";
  */
 export function useAsRef<T>(source: MaybeRefOrGetter<T>) {
 	const ref = shallowRef(toValue(source));
+
 	watch(
 		() => toValue(source),
 		(v) => {
@@ -12,5 +13,6 @@ export function useAsRef<T>(source: MaybeRefOrGetter<T>) {
 		},
 		{ flush: "sync" },
 	);
+
 	return ref;
 }

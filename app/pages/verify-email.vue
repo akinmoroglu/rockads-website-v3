@@ -42,6 +42,7 @@ const route = useRoute();
 
 function persistTokenFromResponse(data: unknown) {
 	const t = extractAccessToken(data);
+
 	if (t) session.setAccessToken(t);
 }
 
@@ -53,11 +54,13 @@ type ResendVerificationFormValues = z.infer<typeof resendVerificationFormSchema>
 
 const initialEmail = computed(() => {
 	const raw = route.query.email;
+
 	return typeof raw === "string" ? raw : "";
 });
 
 const linkToken = computed(() => {
 	const raw = route.query.token;
+
 	return typeof raw === "string" ? raw.trim() : "";
 });
 
@@ -75,12 +78,14 @@ const resendSuccess = ref(false);
 onMounted(async () => {
 	if (!import.meta.client || !linkToken.value) {
 		autoVerifyState.value = "idle";
+
 		return;
 	}
 	autoVerifyState.value = "pending";
 	autoVerifyMessage.value = "";
 	try {
 		const data = await authApi.verifyEmail({ token: linkToken.value });
+
 		persistTokenFromResponse(data);
 		autoVerifyState.value = "success";
 	}
@@ -97,6 +102,7 @@ async function onManualVerify(values: ManualVerifyFormValues) {
 	manualSubmitting.value = true;
 	try {
 		const data = await authApi.verifyEmail({ token: values.token.trim() });
+
 		persistTokenFromResponse(data);
 		manualSuccess.value = true;
 	}

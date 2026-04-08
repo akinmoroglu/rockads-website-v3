@@ -15,6 +15,7 @@ const content = computed(() => {
 		...new Map(
 			props.errors.filter(Boolean).map((error) => {
 				const message = typeof error === "string" ? error : error?.message;
+
 				return [message, error];
 			}),
 		).values(),
@@ -37,7 +38,7 @@ const content = computed(() => {
 		v-if="$slots.default || content"
 		role="alert"
 		data-slot="field-error"
-		:class="cn('text-destructive text-sm font-normal', props.class)"
+		:class="cn('text-sm font-normal text-destructive', props.class)"
 	>
 		<slot v-if="$slots.default" />
 

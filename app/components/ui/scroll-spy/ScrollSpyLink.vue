@@ -21,13 +21,16 @@ const attrs = useAttrs();
 
 const passthroughAttrs = computed(() => {
 	const raw = { ...attrs } as Record<string, unknown>;
+
 	delete raw.onClick;
 	delete raw.class;
 	delete raw.ref;
+
 	return raw;
 });
 
 const context = inject(SCROLL_SPY_CONTEXT_KEY, null);
+
 if (context === null) {
 	throw new Error(`\`${LINK_NAME}\` must be used within \`ScrollSpy\``);
 }
@@ -37,6 +40,7 @@ const isActive = computed(() => context.activeId.value === props.value);
 function onLinkClick(event: MouseEvent) {
 	event.preventDefault();
 	const userClick = attrs.onClick as ((e: MouseEvent) => void) | undefined;
+
 	if (typeof userClick === "function") {
 		userClick(event);
 	}
@@ -54,7 +58,7 @@ function onLinkClick(event: MouseEvent) {
 		:href="props.asChild ? undefined : `#${props.value}`"
 		:class="
 			cn(
-				'rounded px-3 py-1.5 font-medium text-muted-foreground text-sm transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground',
+				'rounded px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground',
 				props.class,
 			)
 		"

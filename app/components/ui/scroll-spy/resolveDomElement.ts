@@ -12,6 +12,7 @@ export function resolveDomElement(target: unknown): Element | null {
 	}
 	if (typeof target === "object" && target !== null && "$el" in target) {
 		const raw = (target as ComponentPublicInstance).$el;
+
 		if (raw instanceof Element) {
 			return raw;
 		}
@@ -19,5 +20,6 @@ export function resolveDomElement(target: unknown): Element | null {
 			return raw.parentElement;
 		}
 	}
+
 	return null;
 }

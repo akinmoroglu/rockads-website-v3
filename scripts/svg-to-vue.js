@@ -41,6 +41,7 @@ const args = process.argv.slice(2);
 function getArg(flags, defaultValue) {
 	for (const flag of flags) {
 		const idx = args.indexOf(flag);
+
 		if (idx !== -1 && args[idx + 1] && !args[idx + 1].startsWith("-")) {
 			return args[idx + 1];
 		}
@@ -48,6 +49,7 @@ function getArg(flags, defaultValue) {
 			return true;
 		}
 	}
+
 	return defaultValue;
 }
 
@@ -162,6 +164,7 @@ function normalizeColors(svg) {
 		if (HARDCODED_COLOR_RE.test(value)) {
 			return `${attr}="currentColor"`;
 		}
+
 		return match;
 	});
 }
@@ -189,6 +192,7 @@ function hoistStrokeAttrs(svg) {
 	for (const attr of HOISTABLE_STROKE_ATTRS) {
 		const re = new RegExp(`\\b${attr}=["']([^"']+)["']`, "g");
 		const first = re.exec(svg);
+
 		if (first) {
 			defaults[attr] = first[1];
 		}
@@ -196,8 +200,10 @@ function hoistStrokeAttrs(svg) {
 
 	// Strip these attrs from every element (we'll re-add them dynamically on <svg>)
 	let cleaned = svg;
+
 	for (const attr of HOISTABLE_STROKE_ATTRS) {
 		const re = new RegExp(`\\s+${attr}=["'][^"']*["']`, "g");
+
 		cleaned = cleaned.replace(re, "");
 	}
 
@@ -211,6 +217,7 @@ function hoistStrokeAttrs(svg) {
 function extractRootSvgGlobalAttrs(svg) {
 	const openRe = /^<svg(\s[^>]*)>/i;
 	const m = svg.match(openRe);
+
 	if (!m) {
 		return { svg, prefix: "" };
 	}
@@ -260,6 +267,7 @@ function processSvg(raw, propsMode, preserveColors) {
 
 	// Hoist stroke presentation attrs from child elements up to <svg>
 	const { svg: hoisted, strokeDefaults } = hoistStrokeAttrs(svg);
+
 	svg = hoisted;
 
 	// Extract existing viewBox
@@ -296,8 +304,10 @@ function processSvg(raw, propsMode, preserveColors) {
 		const dynamicAttrsStr = dynamicAttrs.join(" ");
 
 		const { svg: withoutGlobal, prefix: globalAttrPrefix } = extractRootSvgGlobalAttrs(svg);
+
 		svg = withoutGlobal;
 		const prefix = globalAttrPrefix ? `${globalAttrPrefix} ` : "";
+
 		svg = svg.replace("<svg", `<svg ${prefix}${dynamicAttrsStr}`);
 	}
 
@@ -382,6 +392,7 @@ function parseIndexExports(indexContent) {
 
 	for (const match of indexContent.matchAll(exportRe)) {
 		const [, name, from] = match;
+
 		map.set(name, from);
 	}
 
@@ -434,6 +445,7 @@ function collectSvgFiles(inputPath) {
 			log("red", "✖", `Not an SVG file: ${inputPath}`);
 			process.exit(1);
 		}
+
 		return [inputPath];
 	}
 
@@ -500,6 +512,7 @@ function convert() {
 		const outputFile = path.join(OUTPUT, `${componentName}.vue`);
 
 		const isInBrandsDir = /[\\/]assets[\\/]brands[\\/]/.test(svgFile);
+
 		// Mode rule: `--brands` converts only brands. Otherwise convert only icons.
 		if (CONVERT_BRANDS ? !isInBrandsDir : isInBrandsDir) {
 			continue;
@@ -546,6 +559,7 @@ function convert() {
 		const indexContent = generateMergedIndexFile(generatedNames, indexFile, {
 			filterBrandExports,
 		});
+
 		fs.writeFileSync(indexFile, indexContent, "utf-8");
 		writtenFilesForLint.push(indexFile);
 		log("green", "✔", `Index file → ${path.relative(ROOT, indexFile)}`);

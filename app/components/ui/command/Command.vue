@@ -39,6 +39,7 @@ const filterState = reactive({
 function filterItems() {
 	if (!filterState.search) {
 		filterState.filtered.count = allItems.value.size;
+
 		// Do nothing, each item will know to show itself because search is empty
 		return;
 	}
@@ -50,6 +51,7 @@ function filterItems() {
 	// Check which items should be included
 	for (const [id, value] of allItems.value) {
 		const score = contains(value, filterState.search);
+
 		filterState.filtered.items.set(id, score ? 1 : 0);
 		if (score) itemCount++;
 	}
@@ -85,7 +87,7 @@ provideCommandContext({
 	<ListboxRoot
 		data-slot="command"
 		v-bind="forwarded"
-		:class="cn('bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md', props.class)"
+		:class="cn('flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground', props.class)"
 	>
 		<slot />
 	</ListboxRoot>

@@ -13,6 +13,7 @@ const props = defineProps<{
 }>();
 
 const context = inject(SCROLL_SPY_CONTEXT_KEY, null);
+
 if (context === null) {
 	throw new Error(`\`${VIEWPORT_NAME}\` must be used within \`ScrollSpy\``);
 }

@@ -54,15 +54,18 @@ async function onSubmit(values: SignInFormValues) {
 			password: values.password,
 		});
 		const token = extractAccessToken(data);
+
 		if (!token) {
 			apiError.value
 				= "Sign-in succeeded but no access token was returned. Expected `access_token`, `accessToken`, or `token` in the JSON body.";
+
 			return;
 		}
 		session.setAccessToken(token);
 		const redirect = typeof route.query.redirect === "string"
 			? route.query.redirect
 			: "/";
+
 		await navigateTo(redirect);
 	}
 	catch (error: unknown) {
