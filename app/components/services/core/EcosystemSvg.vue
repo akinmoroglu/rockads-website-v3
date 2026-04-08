@@ -240,24 +240,28 @@ import metaLogoSrc from "@/assets/icons/brands/meta.svg?url";
 
 		<!-- decorative dots -->
 		<circle
+			class="dot dot-1"
 			cx="110"
 			cy="141"
 			r="5"
 			fill="#FFF9D7"
 		/>
 		<circle
+			class="dot dot-2"
 			cx="271"
 			cy="65"
 			r="3"
 			fill="#CAE0FF"
 		/>
 		<circle
+			class="dot dot-3"
 			cx="316"
 			cy="202"
 			r="5"
 			fill="#C0F9C1"
 		/>
 		<rect
+			class="dot dot-4"
 			x="413"
 			y="136"
 			width="6"
@@ -266,6 +270,7 @@ import metaLogoSrc from "@/assets/icons/brands/meta.svg?url";
 			fill="#E8E5E5"
 		/>
 		<rect
+			class="dot dot-5"
 			x="167"
 			y="253"
 			width="6"
@@ -359,6 +364,19 @@ import metaLogoSrc from "@/assets/icons/brands/meta.svg?url";
 	animation: eco-orbit-ccw 45s linear infinite;
 }
 
+/* decorative dot pulse */
+.dot {
+	transform-box: fill-box;
+	transform-origin: center;
+	animation: eco-dot-pulse 3s ease-in-out infinite;
+}
+
+.dot-1 { animation-delay: 0s; }
+.dot-2 { animation-delay: 0.6s; }
+.dot-3 { animation-delay: 1.2s; }
+.dot-4 { animation-delay: 1.8s; }
+.dot-5 { animation-delay: 2.4s; }
+
 @keyframes eco-orbit-cw {
 	from { transform: rotate(0deg); }
 	to { transform: rotate(360deg); }
@@ -369,13 +387,19 @@ import metaLogoSrc from "@/assets/icons/brands/meta.svg?url";
 	to { transform: rotate(-360deg); }
 }
 
+@keyframes eco-dot-pulse {
+	0%, 100% { opacity: 1; transform: scale(1); }
+	50% { opacity: 0.4; transform: scale(0.55); }
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.orbit-ring,
 	.logo-meta,
 	.logo-google,
 	.logo-tiktok,
 	.logo-x,
-	.logo-snapchat {
+	.logo-snapchat,
+	.dot {
 		animation: none;
 	}
 }
