@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import HomeCta from "@/components/home/home-cta.vue";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import imgTiktokUrl from "@/assets/images/services/tech/tiktok.svg?url";
+import imgMetaUrl from "@/assets/images/services/tech/meta.svg?url";
+import imgGoogleUrl from "@/assets/images/services/tech/google.svg?url";
 
 useHead({
 	title: "Pricing - Rockads",
@@ -8,11 +13,6 @@ useHead({
 definePageMeta({
 	layout: "marketing",
 });
-
-const imgTiktok = "https://www.figma.com/api/mcp/asset/c4523e71-4d34-4bec-b012-79517d3548f8";
-const imgMeta = "https://www.figma.com/api/mcp/asset/456b7e0e-c209-4952-9f90-d515280bc3c0";
-const imgGoogleAdsIcon = "https://www.figma.com/api/mcp/asset/f6a10e0b-e3ca-47dc-92d8-be478f4491d2";
-const imgGoogleAdsText = "https://www.figma.com/api/mcp/asset/36b44baa-a14b-4508-9be8-e4371af83e45";
 
 interface PricingFeature {
 	label: string;
@@ -111,37 +111,74 @@ const plans: PricingPlan[] = [
 
 <template>
 	<main>
-		<!-- Rockads Plans Section -->
-		<section class="plans-section mx-auto w-full max-w-[1440px] px-[150px] py-[88px]">
-			<div class="mb-8 flex flex-col items-center gap-4 text-center">
-				<h1 class="text-[48px] leading-[56px] font-semibold text-[#151b26]">
-					Rockads Plans
+		<!-- Hero -->
+		<section class="relative overflow-hidden bg-white">
+			<TechServicesDotGridCanvas />
+			<div class="relative mx-auto max-w-[1066px] px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
+				<h1 class="text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]">
+					<span class="text-primary">Rockads</span> <span class="text-foreground">Pricing</span>
 				</h1>
-				<p class="text-[16px] text-[#151b26]">
+				<p class="mt-4 text-base font-medium text-foreground lg:mt-5 lg:text-lg">
+					The Plan for Every Stage of Growth
+				</p>
+				<p class="mx-auto mt-6 max-w-[780px] text-sm leading-relaxed text-muted-foreground lg:mt-8 lg:text-base">
+					From your first campaign to enterprise scale — Rockads gives you the tools, the infrastructure, and the partner support to grow without friction. Choose the plan that fits where you are today, and upgrade as you accelerate.
+				</p>
+				<Button
+					as-child
+					size="lg"
+					class="mt-8 lg:mt-10"
+				>
+					<NuxtLink to="/sign-up">
+						Get Started Free
+					</NuxtLink>
+				</Button>
+			</div>
+		</section>
+
+		<!-- Rockads Plans Section -->
+		<section class="mx-auto w-full max-w-[1440px] px-[150px] py-16">
+			<!-- Section header -->
+			<div class="mb-10 flex flex-col items-center gap-3 text-center">
+				<Badge
+					variant="secondary"
+					class="px-3 py-1 text-xs font-semibold tracking-widest uppercase"
+				>
+					Plans
+				</Badge>
+				<h2 class="text-4xl font-semibold text-foreground">
+					Rockads Plans
+				</h2>
+				<p class="max-w-xl text-sm text-muted-foreground">
 					Boost your advertising strategy with Rockads. Choose the plan that suits your needs and manage your campaigns efficiently.
 				</p>
 			</div>
 
-			<div class="flex gap-8">
+			<div class="grid grid-cols-2 gap-6">
 				<!-- Rockads Free Card -->
-				<div class="flex flex-1 flex-col gap-8 rounded-2xl bg-[#f0fcf8] p-8">
-					<h2 class="text-[32px] leading-[40px] font-bold text-[#05cc85]">
-						Rockads Free
-					</h2>
+				<div class="flex flex-col gap-8 rounded-2xl border border-[#b8e8d4] bg-[#f0fcf8] p-8">
+					<div class="flex flex-col gap-1">
+						<h2 class="text-3xl font-bold text-[#05cc85]">
+							Rockads Free
+						</h2>
+						<p class="text-sm text-muted-foreground">
+							Everything you need to get started
+						</p>
+					</div>
 
-					<div class="flex flex-col gap-8">
+					<div class="flex flex-col gap-6">
 						<div class="flex flex-col gap-3">
-							<h3 class="text-[20px] leading-[28px] font-bold text-[#151b26]">
+							<h3 class="text-base font-semibold text-foreground">
 								What's Included
 							</h3>
 							<hr class="border-[#c2e8d8]">
 						</div>
 
-						<div class="flex flex-col gap-7">
+						<ul class="flex flex-col gap-5">
 							<!-- Platform access feature -->
-							<div class="flex items-start gap-2">
+							<li class="flex items-start gap-3">
 								<svg
-									class="mt-1 size-4 shrink-0 text-[#05cc85]"
+									class="mt-0.5 size-4 shrink-0 text-[#05cc85]"
 									viewBox="0 0 16 16"
 									fill="none"
 								>
@@ -160,37 +197,39 @@ const plans: PricingPlan[] = [
 									/>
 								</svg>
 								<div class="flex flex-col gap-2">
-									<p class="text-[16px] text-[#151b26]">
-										Get unlimited access to ad assets on these platforms based on your needs.
+									<p class="text-sm text-foreground">
+										Unlimited access to ad assets on all major platforms.
 									</p>
 									<div class="flex items-center gap-4">
 										<img
-											:src="imgTiktok"
+											:src="imgTiktokUrl"
 											alt="TikTok"
-											class="h-[20px]"
+											class="h-5 opacity-80"
 										>
 										<img
-											:src="imgMeta"
+											:src="imgMetaUrl"
 											alt="Meta"
-											class="h-[20px]"
+											class="h-5 opacity-80"
 										>
-										<div class="flex items-center gap-1">
-											<img
-												:src="imgGoogleAdsIcon"
-												alt=""
-												class="h-[16px]"
-											>
-											<img
-												:src="imgGoogleAdsText"
-												alt="Google Ads"
-												class="h-[19px]"
-											>
-										</div>
+										<img
+											:src="imgGoogleUrl"
+											alt="Google Ads"
+											class="h-5 opacity-80"
+										>
 									</div>
 								</div>
-							</div>
+							</li>
 
-							<div class="flex items-center gap-2">
+							<li
+								v-for="item in [
+									'Creditline & Financial Solutions',
+									'Rockads CRM unlimited access',
+									'Strategic insights',
+									'24/7 email support',
+								]"
+								:key="item"
+								class="flex items-center gap-3"
+							>
 								<svg
 									class="size-4 shrink-0 text-[#05cc85]"
 									viewBox="0 0 16 16"
@@ -210,133 +249,62 @@ const plans: PricingPlan[] = [
 										stroke-linejoin="round"
 									/>
 								</svg>
-								<p class="text-[16px] text-[#151b26]">
-									Creditline &amp; Financial Solutions
-								</p>
-							</div>
+								<span class="text-sm text-foreground">{{ item }}</span>
+							</li>
+						</ul>
+					</div>
 
-							<div class="flex items-center gap-2">
-								<svg
-									class="size-4 shrink-0 text-[#05cc85]"
-									viewBox="0 0 16 16"
-									fill="none"
-								>
-									<circle
-										cx="8"
-										cy="8"
-										r="7.5"
-										stroke="currentColor"
-									/>
-									<path
-										d="M5 8.5L7 10.5L11 6"
-										stroke="currentColor"
-										stroke-width="1.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-								<p class="text-[16px] text-[#151b26]">
-									<strong>Rockads CRM</strong> unlimited access
-								</p>
-							</div>
-
-							<div class="flex items-center gap-2">
-								<svg
-									class="size-4 shrink-0 text-[#05cc85]"
-									viewBox="0 0 16 16"
-									fill="none"
-								>
-									<circle
-										cx="8"
-										cy="8"
-										r="7.5"
-										stroke="currentColor"
-									/>
-									<path
-										d="M5 8.5L7 10.5L11 6"
-										stroke="currentColor"
-										stroke-width="1.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-								<p class="text-[16px] text-[#151b26]">
-									Strategic insights
-								</p>
-							</div>
-
-							<div class="flex items-center gap-2">
-								<svg
-									class="size-4 shrink-0 text-[#05cc85]"
-									viewBox="0 0 16 16"
-									fill="none"
-								>
-									<circle
-										cx="8"
-										cy="8"
-										r="7.5"
-										stroke="currentColor"
-									/>
-									<path
-										d="M5 8.5L7 10.5L11 6"
-										stroke="currentColor"
-										stroke-width="1.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-								<p class="text-[16px] text-[#151b26]">
-									24/7 email support
-								</p>
-							</div>
+					<div class="mt-auto flex flex-col gap-4">
+						<div class="inline-flex w-fit items-center rounded-full bg-[#ccf2e7] px-5 py-1.5">
+							<span class="text-base font-bold text-foreground">Free</span>
 						</div>
+						<button class="flex h-12 w-full items-center justify-center rounded-xl bg-[#00c088] text-sm font-semibold text-white transition-all hover:bg-[#00a876] active:scale-[0.98]">
+							Contact Us
+						</button>
 					</div>
-
-					<div class="flex items-center justify-center self-start rounded-full bg-[#ccf2e7] px-7 py-2">
-						<span class="text-[20px] leading-[28px] font-bold text-[#151b26]">Free</span>
-					</div>
-
-					<button class="flex h-14 w-full items-center justify-center rounded-lg bg-[#00c088] text-[16px] font-medium text-white transition-opacity hover:opacity-90">
-						Contact Us
-					</button>
 				</div>
 
 				<!-- Rockads Partner Card -->
-				<div class="flex flex-1 flex-col justify-between rounded-2xl bg-[#fffce7] p-8">
-					<div class="flex flex-col gap-8">
-						<h2 class="text-[32px] leading-[40px] font-bold text-[#c2a441]">
+				<div class="flex flex-col gap-8 rounded-2xl border border-[#e2d89a] bg-[#fffce7] p-8">
+					<div class="flex flex-col gap-1">
+						<h2 class="text-3xl font-bold text-[#c2a441]">
 							Rockads Partner
 						</h2>
+						<p class="text-sm text-muted-foreground">
+							Strategic growth for your business
+						</p>
+					</div>
 
-						<div class="flex flex-col gap-3">
-							<h3 class="text-[20px] leading-[28px] font-bold text-[#151b26]">
-								Options
-							</h3>
-							<hr class="border-[#e2d89a]">
-						</div>
+					<div class="flex flex-col gap-3">
+						<h3 class="text-base font-semibold text-foreground">
+							Options
+						</h3>
+						<hr class="border-[#e2d89a]">
+					</div>
 
-						<div class="flex flex-col gap-4 rounded-2xl">
-							<p class="text-[16px] font-bold text-black">
+					<div class="flex flex-1 flex-col gap-6">
+						<div class="flex flex-col gap-2">
+							<p class="text-sm font-semibold text-foreground">
 								Sales Strategy
 							</p>
-							<p class="text-[16px] text-black">
-								Strategic growth planning, budget management, and media support for your business — <strong>360-degree</strong> support to increase profitability.
+							<p class="text-sm leading-relaxed text-muted-foreground">
+								Strategic growth planning, budget management, and media support for your business — <strong class="text-foreground">360-degree</strong> support to increase profitability.
 							</p>
 						</div>
 
 						<hr class="border-[#e2d89a]">
 
-						<div class="flex flex-col gap-4 rounded-2xl">
-							<p class="text-[16px] font-bold text-black">
+						<div class="flex flex-col gap-2">
+							<p class="text-sm font-semibold text-foreground">
 								Sales Partnership
 							</p>
-							<p class="text-[16px] text-black">
+							<p class="text-sm leading-relaxed text-muted-foreground">
 								Create a sales platform for your services, define sales strategies, and design revenue-sharing partnerships including payment solutions.
 							</p>
 						</div>
 					</div>
 
-					<button class="mt-8 flex h-14 w-full items-center justify-center rounded-lg bg-[#c2a441] text-[16px] font-medium text-white transition-opacity hover:opacity-90">
+					<button class="flex h-12 w-full items-center justify-center rounded-xl bg-[#c2a441] text-sm font-semibold text-white transition-all hover:bg-[#a88c36] active:scale-[0.98]">
 						Contact Us
 					</button>
 				</div>
@@ -344,117 +312,164 @@ const plans: PricingPlan[] = [
 		</section>
 
 		<!-- Pricing Cards Section -->
-		<section class="relative bg-white px-[150px] py-16">
-			<h2 class="mb-[115px] text-center text-[48px] leading-[56px] font-medium text-[#151b26]">
-				Pricing
-			</h2>
+		<section class="bg-muted/40 px-[150px] py-20">
+			<div class="mb-14 flex flex-col items-center gap-3 text-center">
+				<Badge
+					variant="secondary"
+					class="px-3 py-1 text-xs font-semibold tracking-widest uppercase"
+				>
+					Pricing
+				</Badge>
+				<h2 class="text-5xl font-semibold text-foreground">
+					Simple, transparent pricing
+				</h2>
+				<p class="max-w-lg text-base text-muted-foreground">
+					Start for free. Scale as you grow. No hidden fees.
+				</p>
+			</div>
 
-			<div class="relative flex items-start gap-3">
-				<!-- Most Popular Badge -->
-				<div class="absolute top-[-52px] left-[calc(50%+12px)] flex w-[148px] -translate-x-1/2 items-center justify-center rounded-[40px] bg-[#1f71ea] px-[10px] py-[10px]">
-					<span class="text-[14px] leading-[20px] font-medium text-white">MOST POPULAR</span>
-				</div>
-
+			<div class="relative grid grid-cols-4 items-start gap-4">
 				<template
 					v-for="plan in plans"
 					:key="plan.id"
 				>
 					<div
-						class="flex flex-1 flex-col gap-6 rounded-2xl p-6"
+						class="relative flex flex-col gap-6 rounded-2xl p-6 transition-shadow"
 						:class="{
-							'bg-[#f7f9fb]': !plan.highlighted,
-							'border-2 border-[#007ce1] bg-[#e8f4ff]': plan.highlighted,
+							'bg-card shadow-sm ring-1 ring-border/60': !plan.highlighted,
+							'bg-[#007ce1] shadow-xl ring-1 ring-[#007ce1]/20': plan.highlighted,
 						}"
 					>
-						<!-- Plan Header -->
-						<div class="flex flex-col gap-6">
-							<h3 class="text-[24px] leading-[32px] font-semibold text-[#151b26]">
-								{{ plan.name }}
-							</h3>
+						<!-- Most Popular Badge -->
+						<div
+							v-if="plan.highlighted"
+							class="absolute -top-3.5 left-1/2 -translate-x-1/2"
+						>
+							<span class="inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold tracking-wide text-[#007ce1] shadow-sm">
+								MOST POPULAR
+							</span>
+						</div>
 
-							<div class="flex items-baseline gap-2">
+						<!-- Plan Header -->
+						<div class="flex flex-col gap-4 pt-2">
+							<div class="flex flex-col gap-1">
+								<h3
+									class="text-lg font-semibold"
+									:class="plan.highlighted ? 'text-white' : 'text-foreground'"
+								>
+									{{ plan.name }}
+								</h3>
+								<p
+									class="text-xs leading-relaxed"
+									:class="plan.highlighted ? 'text-white/70' : 'text-muted-foreground'"
+								>
+									{{ plan.description }}
+								</p>
+							</div>
+
+							<div class="flex items-baseline gap-1.5">
 								<span
-									class="font-bold text-[#151b26]"
-									:class="plan.id === 'enterprise' ? 'text-[32px] leading-[40px]' : 'text-[40px] leading-[48px]'"
+									class="leading-none font-bold"
+									:class="[
+										plan.id === 'enterprise' ? 'text-2xl' : 'text-4xl',
+										plan.highlighted ? 'text-white' : 'text-foreground',
+									]"
 								>
 									{{ plan.price }}
 								</span>
 								<span
 									v-if="plan.period"
-									class="text-[16px] font-medium text-[#898fa5]"
+									class="text-sm font-medium"
+									:class="plan.highlighted ? 'text-white/70' : 'text-muted-foreground'"
 								>{{ plan.period }}</span>
 							</div>
+						</div>
 
-							<p class="text-[16px] leading-normal font-medium text-[#898fa5]">
-								{{ plan.description }}
-							</p>
+						<!-- Divider -->
+						<hr :class="plan.highlighted ? 'border-white/20' : 'border-border'">
 
-							<div class="flex flex-col gap-4">
-								<div
-									v-for="feature in plan.features"
-									:key="feature.label"
-									class="flex items-center gap-1.5"
-								>
-									<!-- Checkmark icon -->
-									<template v-if="feature.included">
-										<svg
-											class="size-5 shrink-0 text-[#007ce1]"
-											viewBox="0 0 20 20"
-											fill="none"
-										>
-											<path
-												d="M5 10.5L8.5 14L15 7"
-												stroke="currentColor"
-												stroke-width="1.5"
-												stroke-linecap="round"
-												stroke-linejoin="round"
-											/>
-										</svg>
-									</template>
-									<!-- X icon -->
-									<template v-else>
-										<svg
-											class="size-5 shrink-0 text-[#e53e3e]"
-											viewBox="0 0 20 20"
-											fill="none"
-										>
-											<path
-												d="M6 6L14 14M14 6L6 14"
-												stroke="currentColor"
-												stroke-width="1.5"
-												stroke-linecap="round"
-											/>
-										</svg>
-									</template>
-									<span class="text-[14px] leading-[20px] font-medium text-[#151b26]">{{ feature.label }}</span>
-								</div>
+						<!-- Features -->
+						<div class="flex flex-col gap-3">
+							<div
+								v-for="feature in plan.features"
+								:key="feature.label"
+								class="flex items-center gap-2"
+							>
+								<template v-if="feature.included">
+									<svg
+										class="size-4 shrink-0"
+										:class="plan.highlighted ? 'text-white' : 'text-[#007ce1]'"
+										viewBox="0 0 16 16"
+										fill="none"
+									>
+										<path
+											d="M3.5 8.5L6.5 11.5L12.5 5.5"
+											stroke="currentColor"
+											stroke-width="1.5"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</template>
+								<template v-else>
+									<svg
+										class="size-4 shrink-0"
+										:class="plan.highlighted ? 'text-white/40' : 'text-muted-foreground/50'"
+										viewBox="0 0 16 16"
+										fill="none"
+									>
+										<path
+											d="M5 5L11 11M11 5L5 11"
+											stroke="currentColor"
+											stroke-width="1.5"
+											stroke-linecap="round"
+										/>
+									</svg>
+								</template>
+								<span
+									class="text-sm font-medium"
+									:class="[
+										!feature.included && 'line-through opacity-50',
+										plan.highlighted ? 'text-white' : 'text-foreground',
+									]"
+								>{{ feature.label }}</span>
 							</div>
 						</div>
 
 						<!-- Ad Spend Fee Box -->
 						<div
 							v-if="plan.adSpendFee.free"
-							class="rounded-lg bg-white p-4"
+							class="rounded-xl p-3.5"
+							:class="plan.highlighted ? 'bg-white/10' : 'bg-muted/60'"
 						>
-							<p class="mb-2 text-[12px] leading-[16px] font-medium tracking-wide text-[#898fa5] uppercase">
-								AD SPEND FEE
+							<p
+								class="mb-1.5 text-[10px] font-semibold tracking-widest uppercase"
+								:class="plan.highlighted ? 'text-white/60' : 'text-muted-foreground'"
+							>
+								Ad Spend Fee
 							</p>
-							<div class="flex flex-col gap-1">
-								<p class="text-[14px] font-medium text-[#151b26]">
+							<div class="flex flex-col gap-0.5">
+								<p
+									class="text-xs font-medium"
+									:class="plan.highlighted ? 'text-white/80' : 'text-foreground'"
+								>
 									First <strong>{{ plan.adSpendFee.free }}</strong> managed free
 								</p>
-								<p class="text-[14px] font-medium text-[#151b26]">
-									After: <strong class="text-[#007ce1]">{{ plan.adSpendFee.after }}</strong>
+								<p
+									class="text-xs font-medium"
+									:class="plan.highlighted ? 'text-white/80' : 'text-foreground'"
+								>
+									After: <strong :class="plan.highlighted ? 'text-white' : 'text-[#007ce1]'">{{ plan.adSpendFee.after }}</strong>
 								</p>
 							</div>
 						</div>
 
 						<!-- CTA Button -->
 						<button
-							class="flex h-14 w-full items-center justify-center rounded-lg text-[16px] font-medium transition-opacity hover:opacity-90"
+							class="mt-auto flex h-11 w-full items-center justify-center rounded-xl text-sm font-semibold transition-all active:scale-[0.98]"
 							:class="{
-								'border border-[#e5e9ef] bg-white text-[#151b26]': !plan.highlighted,
-								'bg-[#007ce1] text-white': plan.highlighted,
+								'bg-foreground text-background hover:bg-foreground/90': !plan.highlighted,
+								'bg-white text-[#007ce1] hover:bg-white/90': plan.highlighted,
 							}"
 						>
 							{{ plan.ctaLabel }}
