@@ -6,6 +6,7 @@ import strategicSvg from "@/assets/images/services/core/strategic.svg?url";
 import ecosystemSvg from "@/assets/images/services/core/ecosystem.svg?url";
 import integritySvg from "@/assets/images/services/core/integrity.svg?url";
 import dashboardSvg from "@/assets/images/services/core/dashboardh.svg?url";
+import { Button } from "@/components/ui/button";
 
 useHead({
 	title: "Core Services - Rockads",
@@ -311,7 +312,7 @@ const dashboardBullets = [
 				<p class="text-text-base mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base">
 					True global scale isn't just built on technology. It's built on a foundation of operational excellence. Rockads Core is the operational backbone for advertisers who refuse to slow down. We remove every obstacle that stands between you and sustainable global growth: financial friction, operational gaps, compliance risks, and platform complexity. What remains is a clear, stable path to scale, backed by infrastructure, not promises.
 				</p>
-				<button class="bg-primary-600 mt-8 rounded-lg px-6 py-3 text-base font-medium text-white transition-colors hover:bg-primary lg:mt-10">
+				<Button>
 					Get Started in Minutes
 				</button>
 			</div>
