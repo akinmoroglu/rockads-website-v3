@@ -110,8 +110,8 @@ const audienceCards = [
 
 		<!-- Automation -->
 		<section class="bg-muted/80 px-5 py-12 lg:px-0 lg:py-16">
-			<div class="border-primary-light relative mx-auto grid h-112 max-w-[1140px] gap-10 overflow-hidden rounded-4xl border bg-surface-dark md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
-				<div class="flex flex-col p-12">
+			<div class="border-primary-light relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-4xl border bg-surface-dark md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
+				<div class="flex min-w-0 flex-col p-6 sm:p-8 lg:p-12">
 					<h2 class="text-2xl leading-tight text-white lg:text-[32px]">
 						Automation
 					</h2>
@@ -120,12 +120,13 @@ const audienceCards = [
 					</p>
 				</div>
 				<div
-					class="tech-automation-mock absolute right-3 bottom-3 overflow-hidden rounded-2xl shadow-lg"
+					class="tech-automation-mock relative mx-6 mb-6 overflow-hidden rounded-2xl shadow-lg md:absolute md:right-3 md:bottom-3 md:mx-0 md:mb-0"
 					aria-hidden="true"
 				>
 					<img
 						:src="techAutomationPath"
 						alt=""
+						class="h-auto w-full max-w-full object-contain"
 					>
 				</div>
 			</div>
@@ -134,7 +135,7 @@ const audienceCards = [
 		<!-- Ad Launcher + Compliance AI -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-16">
 			<div class="mx-auto grid max-w-[1140px] gap-6 md:grid-cols-2 lg:gap-8">
-				<div class="border-primary-light flex flex-col rounded-4xl border bg-card p-8 lg:p-12">
+				<div class="border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12">
 					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						Ad Launcher
 					</h2>
@@ -153,14 +154,14 @@ const audienceCards = [
 						</div>
 					</div>
 				</div>
-				<div class="border-primary-light flex flex-col rounded-4xl border bg-card p-8 lg:p-12">
+				<div class="border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12">
 					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						Compliance AI
 					</h2>
 					<p class="mt-6 text-sm leading-relaxed lg:text-base">
 						Stay compliant. Stay live. Stay ahead. Continuously monitor campaigns, creatives, and account health across every platform. Pre-publish policy scanning, real-time risk monitoring, and cross-border regulatory intelligence.
 					</p>
-					<div class="mt-10 flex justify-start">
+					<div class="mt-10 flex w-full justify-start overflow-hidden">
 						<ComplianceAiAnimated />
 					</div>
 				</div>
@@ -169,7 +170,7 @@ const audienceCards = [
 
 		<!-- AI Creative Studio -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
-			<div class="relative mx-auto max-w-[1140px] rounded-4xl bg-[#e5f1ff] px-8 pt-8 lg:px-12 lg:pt-12">
+			<div class="relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl bg-[#e5f1ff] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12">
 				<div class="mx-auto max-w-[656px] text-center">
 					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						AI Creative Studio
@@ -182,6 +183,7 @@ const audienceCards = [
 					<img
 						:src="aiCreativeStudioPath"
 						alt="AI Creative Studio"
+						class="h-auto w-full max-w-full"
 					>
 				</div>
 			</div>

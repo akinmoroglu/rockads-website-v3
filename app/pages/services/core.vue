@@ -87,7 +87,7 @@ const dashboardBullets = [
 				<div class="grid gap-6 md:grid-cols-2 lg:gap-8">
 					<!-- Financial Infrastructure -->
 					<div
-						class="flex flex-col rounded-4xl bg-card p-8 lg:p-12"
+						class="flex min-w-0 flex-col overflow-hidden rounded-4xl bg-card p-8 lg:p-12"
 					>
 						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
 							Financial Infrastructure
@@ -98,14 +98,14 @@ const dashboardBullets = [
 						<p class="mt-5 text-sm leading-relaxed lg:text-base">
 							Our financial infrastructure gives partners more room to operate, greater stability, and the flexibility to move fast. Versatile payment models, flexible settlement structures, compliance-first account foundations, and credit-backed continuity, engineered so your most ambitious moves are never constrained by cash mechanics.
 						</p>
-						<div class="mt-6 flex flex-1 items-end justify-center pb-2">
+						<div class="mt-6 flex w-full flex-1 items-end justify-center overflow-hidden pb-2">
 							<ServicesCoreFinancialSvg />
 						</div>
 					</div>
 
 					<!-- Growth Capacity -->
 					<div
-						class="border-primary-light flex flex-col overflow-hidden rounded-4xl p-8 lg:p-12"
+						class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-4xl p-8 lg:p-12"
 						style="background-color:#e8f4ff;"
 					>
 						<!-- <BlurText
@@ -121,15 +121,15 @@ const dashboardBullets = [
 						<p class="mt-5 text-sm leading-relaxed lg:text-base">
 							An operating environment designed to absorb expansion without bottlenecks. New markets, increased spend, new accounts. Core's infrastructure scales with you, never against you. There are no artificial limits on where or how fast you can grow.
 						</p>
-						<div class="mt-6 flex flex-1 items-end justify-center">
+						<div class="mt-6 flex w-full flex-1 items-end justify-center overflow-hidden">
 							<GrowthSvg />
 						</div>
 					</div>
 				</div>
 
 				<!-- Row 2: Operational Continuity (full width, dark) -->
-				<div class="grid gap-8 rounded-2xl border border-white/10 bg-surface-dark px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12">
-					<div class="flex flex-col pb-8 lg:pb-12">
+				<div class="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12">
+					<div class="flex min-w-0 flex-col pb-8 lg:pb-12">
 						<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
 							Operational Continuity
 						</h2>
@@ -158,17 +158,17 @@ const dashboardBullets = [
 							</li>
 						</ul>
 					</div>
-					<div class="flex items-center justify-center">
+					<div class="flex min-w-0 items-center justify-center overflow-hidden">
 						<OperationSvg />
 					</div>
 				</div>
 
 				<!-- Row 3: Strategic Support (dark, reversed layout) -->
-				<div class="grid gap-8 rounded-2xl border border-white/10 bg-surface-dark p-8 md:grid-cols-2 lg:gap-12 lg:p-12">
-					<div class="order-2 flex items-center justify-center md:order-1">
+				<div class="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark p-8 md:grid-cols-2 lg:gap-12 lg:p-12">
+					<div class="order-2 flex min-w-0 items-center justify-center overflow-hidden md:order-1">
 						<StrategicSvg />
 					</div>
-					<div class="order-1 flex flex-col md:order-2">
+					<div class="order-1 flex min-w-0 flex-col md:order-2">
 						<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
 							Strategic Support
 						</h2>
@@ -202,7 +202,7 @@ const dashboardBullets = [
 				<!-- Row 4: Ecosystem Alignment + Integrity Framework -->
 				<div class="grid gap-6 md:grid-cols-2 lg:gap-8">
 					<!-- Ecosystem Alignment -->
-					<div class="border-primary-light flex flex-col rounded-2xl border bg-white p-8 lg:p-12">
+					<div class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12">
 						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 							Ecosystem Alignment
 						</h2>
@@ -230,13 +230,13 @@ const dashboardBullets = [
 								<span class="text-text-gray-dark text-sm lg:text-base">{{ item }}</span>
 							</li>
 						</ul>
-						<div class="mt-8 flex flex-1 items-end">
+						<div class="mt-8 flex w-full flex-1 items-end overflow-hidden">
 							<EcosystemSvg />
 						</div>
 					</div>
 
 					<!-- Integrity Framework -->
-					<div class="border-primary-light flex flex-col rounded-2xl border bg-white p-8 lg:p-12">
+					<div class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12">
 						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 							Integrity Framework
 						</h2>
@@ -264,7 +264,7 @@ const dashboardBullets = [
 								<span class="text-text-gray-dark text-sm lg:text-base">{{ item }}</span>
 							</li>
 						</ul>
-						<div class="mt-8 flex flex-1 items-end justify-center">
+						<div class="mt-8 flex w-full flex-1 items-end justify-center overflow-hidden">
 							<IntegritySvg />
 						</div>
 					</div>
