@@ -5,23 +5,32 @@ import { computed } from "vue";
 import { ORBIT_DIRECTION } from ".";
 
 const props = withDefaults(defineProps<Props>(), {
-  direction: () => ORBIT_DIRECTION.Clockwise,
-  duration: 20,
-  delay: 10,
-  radius: 50,
-  path: false,
+	direction: () => ORBIT_DIRECTION.Clockwise,
+	duration: 20,
+	delay: 10,
+	radius: 50,
+	path: false,
 });
 
 const negativeDelay = computed(() => -props.delay);
 </script>
 
 <template>
-  <svg v-if="path" class="pointer-events-none absolute inset-0 size-full">
-    <circle class="stroke-foreground/20 stroke-1" cx="50%" cy="50%" :r="radius" fill="none" />
-  </svg>
-  <div :class="cn(`animate-orbit absolute flex size-full transform-gpu`, props.class)">
-    <slot />
-  </div>
+	<svg
+		v-if="path"
+		class="pointer-events-none absolute inset-0 size-full"
+	>
+		<circle
+			class="stroke-foreground/20 stroke-1"
+			cx="50%"
+			cy="50%"
+			:r="radius"
+			fill="none"
+		/>
+	</svg>
+	<div :class="cn(`animate-orbit absolute flex size-full transform-gpu`, props.class)">
+		<slot />
+	</div>
 </template>
 
 <style scoped>
