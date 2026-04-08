@@ -26,48 +26,34 @@ function handleMouseLeave() {
 	targetPY = 0;
 }
 
-// ── Per-card configuration ─────────────────────────────────
-const CARD_CFG = [
-	{ depth: 0.025, amp: 5, period: 3.2, phase: 0 },
-	{ depth: 0.02, amp: 4, period: 3.8, phase: 0.9 },
-	{ depth: 0.03, amp: 6, period: 3.5, phase: 0.5 },
-	{ depth: 0.022, amp: 4.5, period: 4.0, phase: 1.4 },
-	{ depth: 0.028, amp: 5.5, period: 3.3, phase: 0.3 },
-	{ depth: 0.018, amp: 3.5, period: 3.7, phase: 1.1 },
+// Per-card parallax: independent dx/dy so each card reacts differently
+const CARD_PARALLAX = [
+	{ dx: 0.05, dy: 0.03 },
+	{ dx: -0.03, dy: 0.06 },
+	{ dx: 0.07, dy: -0.04 },
+	{ dx: -0.05, dy: -0.03 },
+	{ dx: 0.04, dy: 0.07 },
+	{ dx: -0.06, dy: 0.04 },
 ];
 
-// Float offsets per card, updated every rAF frame
-const floatOffsets = ref<number[]>(new Array(6).fill(0) as number[]);
-
-// Combined translate style for each card
 const cardStyles = computed(() =>
-	CARD_CFG.map((cfg, i) => ({
-		transform: `translate(${(pointerX.value * cfg.depth).toFixed(2)}px, ${((pointerY.value * cfg.depth) + (floatOffsets.value[i] ?? 0)).toFixed(2)}px)`,
+	CARD_PARALLAX.map(({ dx, dy }) => ({
+		transform: `translate(${(pointerX.value * dx).toFixed(2)}px, ${(pointerY.value * dy).toFixed(2)}px)`,
 	})),
 );
 
-// ── Animation loop (float + mouse spring) ──────────────────
+// ── Spring smoothing loop ───────────────────────────────────
 let rafId = 0;
-const loopStart = { t: 0 };
 
 function tick() {
-	// Spring-smooth mouse offset (stiffness ~0.12)
 	pointerX.value += (targetPX - pointerX.value) * 0.12;
 	pointerY.value += (targetPY - pointerY.value) * 0.12;
-
-	// Sine-wave float per card
-	const elapsed = (performance.now() - loopStart.t) / 1000;
-
-	floatOffsets.value = CARD_CFG.map(cfg =>
-		Math.sin((2 * Math.PI / cfg.period) * elapsed + cfg.phase) * cfg.amp,
-	);
 	rafId = requestAnimationFrame(tick);
 }
 
 onMounted(() => {
 	if (!import.meta.client) return;
 
-	loopStart.t = performance.now();
 	rafId = requestAnimationFrame(tick);
 });
 
