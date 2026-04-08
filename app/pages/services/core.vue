@@ -125,8 +125,8 @@ const dashboardBullets = [
 				</div>
 
 				<!-- Row 2: Operational Continuity (full width, dark) -->
-				<div class="grid gap-8 rounded-2xl border border-white/10 bg-surface-dark p-8 md:grid-cols-2 lg:gap-12 lg:p-12">
-					<div class="flex flex-col">
+				<div class="grid gap-8 rounded-2xl border border-white/10 bg-surface-dark px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12">
+					<div class="flex flex-col pb-8 lg:pb-12">
 						<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
 							Operational Continuity
 						</h2>
@@ -316,7 +316,7 @@ const dashboardBullets = [
 						<img
 							:src="dashboardSvg"
 							alt=""
-							class="w-full max-w-[656px] rounded-xl"
+							class="w-full rounded-xl"
 						>
 					</div>
 				</div>
