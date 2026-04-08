@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="font-display min-h-screen pt-[140px]">
 		<TheHeader />
 		<main>
 			<section>
