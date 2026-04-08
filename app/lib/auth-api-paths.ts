@@ -22,4 +22,8 @@ export const AUTH_API_PATHS = {
 	forgotPassword: "/auth/forgot-password",
 	resetPassword: "/auth/reset-password",
 	acceptInvitation: "/auth/accept-invitation",
+	/** OAuth redirect initiation paths — browser navigates to these URLs */
+	socialMeta: "/auth/social/meta",
+	socialGoogle: "/auth/social/google",
+	socialShopify: "/auth/social/shopify",
 } as const;

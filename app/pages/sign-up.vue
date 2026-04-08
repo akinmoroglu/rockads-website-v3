@@ -52,6 +52,7 @@ const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const showPassword = ref(false);
 const showPasswordConfirm = ref(false);
+const captchaToken = ref<string>("");
 
 async function onSubmit(values: SignUpFormValues) {
 	apiError.value = null;
@@ -67,6 +68,7 @@ async function onSubmit(values: SignUpFormValues) {
 			password: values.password,
 			password_confirmation: values.password_confirmation,
 			terms_accepted: values.accept_terms,
+			...(captchaToken.value ? { captcha_token: captchaToken.value } : {}),
 		});
 		await navigateTo({
 			path: "/verify-email",
@@ -77,6 +79,7 @@ async function onSubmit(values: SignUpFormValues) {
 		apiError.value = error instanceof Error
 			? error.message
 			: "Could not create your account.";
+		captchaToken.value = "";
 	}
 	finally {
 		isSubmitting.value = false;
@@ -108,6 +111,14 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				<AlertDescription>{{ apiError }}</AlertDescription>
 			</Alert>
 
+			<AuthSocialLoginButtons />
+
+			<div class="relative flex items-center gap-3">
+				<div class="h-px flex-1 bg-border" />
+				<span class="text-xs text-muted-foreground">or</span>
+				<div class="h-px flex-1 bg-border" />
+			</div>
+
 			<Form
 				:validation-schema="formSchema"
 				:initial-values="{ accept_terms: false }"
@@ -122,6 +133,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						<FormLabel>Name and surname</FormLabel>
 						<FormControl>
 							<Input
+								test-id="sign-up-name-input"
 								type="text"
 								autocomplete="name"
 								placeholder="Name and surname"
@@ -140,6 +152,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						<FormLabel>Company or organization</FormLabel>
 						<FormControl>
 							<Input
+								test-id="sign-up-company-input"
 								type="text"
 								autocomplete="organization"
 								placeholder="Your company name"
@@ -158,6 +171,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						<FormLabel>Email</FormLabel>
 						<FormControl>
 							<Input
+								test-id="sign-up-email-input"
 								type="email"
 								autocomplete="email"
 								placeholder="Enter a valid e-mail"
@@ -179,6 +193,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						</FormLabel>
 						<FormControl>
 							<Input
+								test-id="sign-up-phone-input"
 								type="tel"
 								autocomplete="tel"
 								placeholder="Work phone"
@@ -198,6 +213,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						<FormControl>
 							<div class="relative">
 								<Input
+									test-id="sign-up-password-input"
 									:type="showPassword ? 'text' : 'password'"
 									autocomplete="new-password"
 									class="pr-10"
@@ -237,6 +253,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						<FormControl>
 							<div class="relative">
 								<Input
+									test-id="sign-up-password-confirm-input"
 									:type="showPasswordConfirm ? 'text' : 'password'"
 									autocomplete="new-password"
 									class="pr-10"
@@ -275,6 +292,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						<div class="flex gap-3">
 							<FormControl>
 								<Checkbox
+									test-id="sign-up-terms-checkbox"
 									:model-value="value === true"
 									class="mt-0.5"
 									@update:model-value="
@@ -310,7 +328,13 @@ const onFormSubmit: SubmissionHandler = (values) => {
 					</FormItem>
 				</FormField>
 
+				<NuxtTurnstile
+					v-model="captchaToken"
+					class="flex justify-center"
+				/>
+
 				<Button
+					test-id="sign-up-submit-btn"
 					type="submit"
 					class="w-full"
 					:disabled="isSubmitting"

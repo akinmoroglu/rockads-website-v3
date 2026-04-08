@@ -44,6 +44,7 @@ type SignInFormValues = z.infer<typeof signInFormSchema>;
 
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
+const captchaToken = ref<string>("");
 
 async function onSubmit(values: SignInFormValues) {
 	apiError.value = null;
@@ -52,6 +53,7 @@ async function onSubmit(values: SignInFormValues) {
 		const data = await authApi.signIn({
 			email: values.email.trim(),
 			password: values.password,
+			...(captchaToken.value ? { captcha_token: captchaToken.value } : {}),
 		});
 		const token = extractAccessToken(data);
 
@@ -72,6 +74,7 @@ async function onSubmit(values: SignInFormValues) {
 		apiError.value = error instanceof Error
 			? error.message
 			: "Sign in failed.";
+		captchaToken.value = "";
 	}
 	finally {
 		isSubmitting.value = false;
@@ -103,6 +106,14 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				<AlertDescription>{{ apiError }}</AlertDescription>
 			</Alert>
 
+			<AuthSocialLoginButtons />
+
+			<div class="relative flex items-center gap-3">
+				<div class="h-px flex-1 bg-border" />
+				<span class="text-xs text-muted-foreground">or</span>
+				<div class="h-px flex-1 bg-border" />
+			</div>
+
 			<Form
 				:validation-schema="formSchema"
 				class="space-y-4"
@@ -116,6 +127,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						<FormLabel>Email</FormLabel>
 						<FormControl>
 							<Input
+								test-id="sign-in-email-input"
 								type="email"
 								autocomplete="email"
 								placeholder="you@company.com"
@@ -142,6 +154,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						</div>
 						<FormControl>
 							<Input
+								test-id="sign-in-password-input"
 								type="password"
 								autocomplete="current-password"
 								placeholder="Enter your password"
@@ -152,7 +165,13 @@ const onFormSubmit: SubmissionHandler = (values) => {
 					</FormItem>
 				</FormField>
 
+				<NuxtTurnstile
+					v-model="captchaToken"
+					class="flex justify-center"
+				/>
+
 				<Button
+					test-id="sign-in-submit-btn"
 					type="submit"
 					class="w-full"
 					:disabled="isSubmitting"

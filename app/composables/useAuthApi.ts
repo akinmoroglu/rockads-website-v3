@@ -4,6 +4,8 @@ import { extractAuthErrorMessage } from "@/utils/auth-error";
 export type SignInBody = {
 	email: string;
 	password: string;
+	/** Cloudflare Turnstile token for bot protection. */
+	captcha_token?: string;
 };
 
 export type SignUpBody = {
@@ -15,6 +17,8 @@ export type SignUpBody = {
 	password_confirmation: string;
 	/** Set when the user accepts legal policies (your API may require this field). */
 	terms_accepted: boolean;
+	/** Cloudflare Turnstile token for bot protection. */
+	captcha_token?: string;
 };
 
 export type VerifyEmailBody = {
@@ -105,8 +109,21 @@ export function useAuthApi() {
 		}
 	}
 
+	/**
+	 * Build the full redirect URL for an OAuth social login path.
+	 * The browser navigates to this URL to start the OAuth flow.
+	 */
+	function socialRedirectUrl(path: string): string {
+		const root = requireBase();
+		const origin = import.meta.client ? window.location.origin : "";
+
+		return `${root}${path}?redirect_uri=${encodeURIComponent(origin)}`;
+	}
+
 	return {
 		baseURL,
+
+		socialRedirectUrl,
 
 		/**
 		 * Authenticated `$fetch` against `authApiBase`. Sends `Authorization: Bearer <jwt>`.

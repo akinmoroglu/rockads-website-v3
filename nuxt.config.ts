@@ -2,7 +2,7 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-	modules: ["shadcn-nuxt"],
+	modules: ["shadcn-nuxt", "@nuxtjs/turnstile"],
 	devtools: {
 		enabled: true,
 
@@ -17,10 +17,16 @@ export default defineNuxtConfig({
 			/** Full origin + API prefix for auth routes, e.g. https://api.example.com/v1 */
 			authApiBase: "",
 			/**
-													* Send cookies on auth API calls (e.g. httpOnly refresh cookie next to JWT).
-													* Env: `NUXT_PUBLIC_AUTH_WITH_CREDENTIALS` (`true` / `1`).
-													*/
+			 * Send cookies on auth API calls (e.g. httpOnly refresh cookie next to JWT).
+			 * Env: `NUXT_PUBLIC_AUTH_WITH_CREDENTIALS` (`true` / `1`).
+			 */
 			authWithCredentials: false,
+			goApiURL: process.env.GO_API_URL || "https://api-stage.rockads.com/",
+			appURL: process.env.APP_URL || "https://stage.rockads.com/",
+			panelAutoLoginUrl: process.env.PANEL_AUTO_LOGIN_URL || "https://stage-panel.rockads.com/login",
+			gtm: {
+				id: process.env.GTM_KEY || "GTM-XXXXXX",
+			},
 		},
 	},
 	alias: {
@@ -44,5 +50,8 @@ export default defineNuxtConfig({
 									* @default "@/components/ui"
 									*/
 		componentDir: "@/components/ui",
+	},
+	turnstile: {
+		siteKey: process.env.TURNSTILE_SITE_KEY || "1x00000000000000000000AA",
 	},
 });
