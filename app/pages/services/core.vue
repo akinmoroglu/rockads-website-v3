@@ -2,7 +2,7 @@
 import GrowthSvg from "@/components/services/core/GrowthSvg.vue";
 import HeroDots from "@/components/services/core/HeroDots.vue";
 import OperationSvg from "@/components/services/core/OperationSvg.vue";
-import strategicSvg from "@/assets/images/services/core/strategic.svg?url";
+import StrategicSvg from "@/components/services/core/StrategicSvg.vue";
 import ecosystemSvg from "@/assets/images/services/core/ecosystem.svg?url";
 import integritySvg from "@/assets/images/services/core/integrity.svg?url";
 import dashboardSvg from "@/assets/images/services/core/dashboardh.svg?url";
@@ -163,11 +163,7 @@ const dashboardBullets = [
 				<!-- Row 3: Strategic Support (dark, reversed layout) -->
 				<div class="grid gap-8 rounded-2xl border border-white/10 bg-surface-dark p-8 md:grid-cols-2 lg:gap-12 lg:p-12">
 					<div class="order-2 flex items-center justify-center md:order-1">
-						<img
-							:src="strategicSvg"
-							alt=""
-							class="w-full max-w-[340px]"
-						>
+						<StrategicSvg />
 					</div>
 					<div class="order-1 flex flex-col md:order-2">
 						<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
