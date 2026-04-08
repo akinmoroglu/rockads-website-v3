@@ -25,6 +25,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { signUpFormSchema } from "@/lib/auth-form-schemas";
+import { signUp } from "@/services/signUpService";
+import { getCookie, getReferralCode, setCookie, clearReferrer } from "@/utils/cookie";
+
+declare global {
+	interface Window {
+		dataLayer?: Record<string, unknown>[];
+		fbq?: (...args: unknown[]) => void;
+	}
+}
 
 definePageMeta({
 	layout: "auth",
@@ -42,7 +51,11 @@ const legal = {
 	cookies: `${marketingSiteBase}/en/cookie-policy/`,
 } as const;
 
-const authApi = useAuthApi();
+const config = useRuntimeConfig();
+const route = useRoute();
+
+const baseURL = (config.public.goApiURL as string).replace(/\/$/, "");
+const panelAutoLoginUrl = config.public.panelAutoLoginUrl as string;
 
 const formSchema = toTypedSchema(signUpFormSchema);
 
@@ -53,32 +66,80 @@ const isSubmitting = ref(false);
 const showPassword = ref(false);
 const showPasswordConfirm = ref(false);
 const captchaToken = ref<string>("");
+const agreement = ref<boolean | null>(null);
+const showTermsRequiredError = ref(false);
+
+// Pre-fill email from query param (e.g. from invite link)
+const initialEmail = typeof route.query.email === "string" ? route.query.email : "";
+
+// Capture UTM codes and referral code on mount
+onMounted(() => {
+	setCookie(route.query as Record<string, string | string[] | undefined>);
+});
+
+function pushDataLayerEvents() {
+	if (!import.meta.client) return;
+
+	window.dataLayer = window.dataLayer ?? [];
+	window.dataLayer.push({
+		event: "GAEvent",
+		eventCategory: "Register",
+		eventAction: "Success",
+		eventLabel: "register_frontend",
+	});
+	window.dataLayer.push({
+		event: "register",
+		status: "success",
+		platform: "register_register_frontend",
+	});
+
+	if (window.fbq) {
+		window.fbq("trackCustom", "customRegister", { status: "success_frontend" });
+	}
+}
+
+function handleAutoLogin(token: string) {
+	clearReferrer();
+	window.location.href = `${panelAutoLoginUrl}?token=${token}`;
+}
 
 async function onSubmit(values: SignUpFormValues) {
+	if (!values.accept_terms) {
+		showTermsRequiredError.value = true;
+		return;
+	}
+
 	apiError.value = null;
 	isSubmitting.value = true;
-	const phoneTrimmed = values.phone.trim();
 
 	try {
-		await authApi.signUp({
+		const response = await signUp(baseURL, {
 			name: values.name.trim(),
 			email: values.email.trim(),
-			company: values.company.trim(),
-			...(phoneTrimmed ? { phone: phoneTrimmed } : {}),
 			password: values.password,
-			password_confirmation: values.password_confirmation,
-			terms_accepted: values.accept_terms,
-			...(captchaToken.value ? { captcha_token: captchaToken.value } : {}),
+			captcha_response: captchaToken.value || undefined,
+			utm_sources: getCookie("utm_codes"),
+			referral_customer_id: getReferralCode(),
+			agreement: values.accept_terms,
 		});
+
+		pushDataLayerEvents();
+
+		if (response.token) {
+			handleAutoLogin(response.token);
+			return;
+		}
+
 		await navigateTo({
 			path: "/verify-email",
 			query: { email: values.email.trim() },
 		});
 	}
 	catch (error: unknown) {
-		apiError.value = error instanceof Error
-			? error.message
-			: "Could not create your account.";
+		const errorData = (error as { data?: { message?: string } })?.data;
+
+		apiError.value = errorData?.message
+			?? (error instanceof Error ? error.message : "Could not create your account.");
 		captchaToken.value = "";
 	}
 	finally {
@@ -89,6 +150,15 @@ async function onSubmit(values: SignUpFormValues) {
 const onFormSubmit: SubmissionHandler = (values) => {
 	return onSubmit(values as SignUpFormValues);
 };
+
+function handleAgreementChange(checked: boolean) {
+	agreement.value = checked;
+	showTermsRequiredError.value = false;
+}
+
+function handleRequireAgreement() {
+	showTermsRequiredError.value = true;
+}
 </script>
 
 <template>
@@ -111,7 +181,11 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				<AlertDescription>{{ apiError }}</AlertDescription>
 			</Alert>
 
-			<AuthSocialLoginButtons />
+			<AuthSocialLoginButtons
+				requires-agreement
+				:agreement="agreement"
+				@require-agreement="handleRequireAgreement"
+			/>
 
 			<div class="relative flex items-center gap-3">
 				<div class="h-px flex-1 bg-border" />
@@ -121,7 +195,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 
 			<Form
 				:validation-schema="formSchema"
-				:initial-values="{ accept_terms: false }"
+				:initial-values="{ accept_terms: false, email: initialEmail }"
 				class="space-y-4"
 				@submit="onFormSubmit"
 			>
@@ -137,25 +211,6 @@ const onFormSubmit: SubmissionHandler = (values) => {
 								type="text"
 								autocomplete="name"
 								placeholder="Name and surname"
-								v-bind="componentField"
-							/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				</FormField>
-
-				<FormField
-					v-slot="{ componentField }"
-					name="company"
-				>
-					<FormItem>
-						<FormLabel>Company or organization</FormLabel>
-						<FormControl>
-							<Input
-								test-id="sign-up-company-input"
-								type="text"
-								autocomplete="organization"
-								placeholder="Your company name"
 								v-bind="componentField"
 							/>
 						</FormControl>
@@ -184,28 +239,6 @@ const onFormSubmit: SubmissionHandler = (values) => {
 
 				<FormField
 					v-slot="{ componentField }"
-					name="phone"
-				>
-					<FormItem>
-						<FormLabel>
-							Phone
-							<span class="font-normal text-muted-foreground"> (optional)</span>
-						</FormLabel>
-						<FormControl>
-							<Input
-								test-id="sign-up-phone-input"
-								type="tel"
-								autocomplete="tel"
-								placeholder="Work phone"
-								v-bind="componentField"
-							/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				</FormField>
-
-				<FormField
-					v-slot="{ componentField }"
 					name="password"
 				>
 					<FormItem>
@@ -217,7 +250,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 									:type="showPassword ? 'text' : 'password'"
 									autocomplete="new-password"
 									class="pr-10"
-									placeholder="Enter password"
+									placeholder="Min. 8 chars with uppercase, lowercase & number"
 									v-bind="componentField"
 								/>
 								<Button
@@ -295,9 +328,10 @@ const onFormSubmit: SubmissionHandler = (values) => {
 									test-id="sign-up-terms-checkbox"
 									:model-value="value === true"
 									class="mt-0.5"
-									@update:model-value="
-										(v) => setValue(v === true)
-									"
+									@update:model-value="(v) => {
+										setValue(v === true);
+										handleAgreementChange(v === true);
+									}"
 								/>
 							</FormControl>
 							<div class="min-w-0 flex-1 space-y-1">
@@ -325,12 +359,18 @@ const onFormSubmit: SubmissionHandler = (values) => {
 								<FormMessage />
 							</div>
 						</div>
+						<p
+							v-if="showTermsRequiredError"
+							class="text-sm font-medium text-destructive"
+						>
+							Please accept the terms before continuing.
+						</p>
 					</FormItem>
 				</FormField>
 
 				<NuxtTurnstile
 					v-model="captchaToken"
-					class="flex justify-center"
+					:options="{ size: 'flexible' }"
 				/>
 
 				<Button

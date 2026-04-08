@@ -7,16 +7,19 @@ export const signInFormSchema = z.object({
 
 export const signUpFormSchema = z
 	.object({
-		name: z.string().min(1, "Name and surname are required").max(120),
+		name: z
+			.string()
+			.min(3, "Name must be at least 3 characters")
+			.max(128, "Name is too long"),
 		email: z.string().email("Enter a valid email address"),
-		company: z
+		password: z
 			.string()
-			.min(1, "Company or organization is required")
-			.max(200),
-		phone: z
-			.string()
-			.max(40, "Phone number is too long"),
-		password: z.string().min(8, "Use at least 8 characters"),
+			.min(8, "Use at least 8 characters")
+			.max(128, "Password is too long")
+			.regex(
+				/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/,
+				"Password must contain at least one uppercase letter, one lowercase letter, and one number",
+			),
 		password_confirmation: z.string().min(1, "Confirm your password"),
 		accept_terms: z.boolean().refine(val => val === true, {
 			message:

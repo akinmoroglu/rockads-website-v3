@@ -40,6 +40,7 @@
 	"devDependencies": {
 		"@nuxt/eslint-config": "^1.15.2",
 		"@tailwindcss/vite": "^4.2.2",
+		"@types/node": "^25.5.2",
 		"eslint": "^9.39.4",
 		"eslint-plugin-oxlint": "^1.58.0",
 		"eslint-plugin-tailwindcss": "4.0.0-beta.0",
