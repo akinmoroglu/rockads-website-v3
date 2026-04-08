@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import GrowthSvg from "@/components/services/core/GrowthSvg.vue";
-import operationSvg from "@/assets/images/services/core/operation.svg?url";
+import OperationSvg from "@/components/services/core/OperationSvg.vue";
 import strategicSvg from "@/assets/images/services/core/strategic.svg?url";
 import ecosystemSvg from "@/assets/images/services/core/ecosystem.svg?url";
 import integritySvg from "@/assets/images/services/core/integrity.svg?url";
@@ -406,11 +406,7 @@ const dashboardBullets = [
 						</ul>
 					</div>
 					<div class="flex items-center justify-center">
-						<img
-							:src="operationSvg"
-							alt=""
-							class="w-full max-w-[380px]"
-						>
+						<OperationSvg />
 					</div>
 				</div>
 
