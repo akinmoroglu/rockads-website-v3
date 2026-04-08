@@ -65,7 +65,7 @@ const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const showPassword = ref(false);
 const showPasswordConfirm = ref(false);
-const captchaToken = ref<string>("");
+const { token: captchaToken, isDummyToken, resetToken } = useTurnstileToken();
 const agreement = ref<boolean | null>(null);
 const showTermsRequiredError = ref(false);
 
@@ -142,7 +142,7 @@ async function onSubmit(values: SignUpFormValues) {
 
 		apiError.value = errorData?.message
 			?? (error instanceof Error ? error.message : "Could not create your account.");
-		captchaToken.value = "";
+		resetToken();
 	}
 	finally {
 		isSubmitting.value = false;
@@ -370,11 +370,12 @@ function handleRequireAgreement() {
 					</FormItem>
 				</FormField>
 
-				<NuxtTurnstile
-					v-model="captchaToken"
-					class="w-full"
-					:options="{ size: 'flexible' }"
-				/>
+			<NuxtTurnstile
+				v-if="!isDummyToken"
+				v-model="captchaToken"
+				class="w-full"
+				:options="{ size: 'flexible' }"
+			/>
 
 				<Button
 					test-id="sign-up-submit-btn"

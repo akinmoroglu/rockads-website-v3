@@ -39,8 +39,7 @@ const formSchema = toTypedSchema(forgotPasswordFormSchema);
 
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordFormSchema>;
 
-const turnstile = ref<{ reset: () => void } | null>(null);
-const captchaResponse = ref("");
+const { token: captchaResponse, isDummyToken, widgetRef: turnstile, resetToken } = useTurnstileToken();
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const emailSent = ref(false);
@@ -71,7 +70,7 @@ async function onSubmit(values: ForgotPasswordFormValues) {
 	}
 	finally {
 		isSubmitting.value = false;
-		turnstile.value?.reset();
+		resetToken();
 	}
 }
 
@@ -134,12 +133,13 @@ const onFormSubmit: SubmissionHandler = (values) => {
 					</FormItem>
 				</FormField>
 
-				<NuxtTurnstile
-					ref="turnstile"
-					v-model="captchaResponse"
-					class="w-full"
-					:options="{ size: 'flexible' }"
-				/>
+			<NuxtTurnstile
+				v-if="!isDummyToken"
+				ref="turnstile"
+				v-model="captchaResponse"
+				class="w-full"
+				:options="{ size: 'flexible' }"
+			/>
 
 				<Button
 					type="submit"

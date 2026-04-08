@@ -21,6 +21,14 @@ export default defineNuxtConfig({
 			 * Env: `NUXT_PUBLIC_AUTH_WITH_CREDENTIALS` (`true` / `1`).
 			 */
 			authWithCredentials: false,
+			/**
+			 * When set, this token is sent as the captcha value on all auth forms
+			 * instead of a real Turnstile token. The Turnstile widget is also hidden.
+			 * Use only on staging/test environments where the backend accepts a fixed
+			 * dummy token (e.g. `XXXX.DUMMY.TOKEN.XXXX`).
+			 * Env: `NUXT_PUBLIC_CAPTCHA_DUMMY_TOKEN`
+			 */
+			captchaDummyToken: process.env.NUXT_PUBLIC_CAPTCHA_DUMMY_TOKEN || "",
 			goApiURL: process.env.GO_API_URL || "https://api-stage.rockads.com/",
 			appURL: process.env.APP_URL || "https://stage.rockads.com/",
 			panelAutoLoginUrl: process.env.PANEL_AUTO_LOGIN_URL || "https://stage-panel.rockads.com/login",

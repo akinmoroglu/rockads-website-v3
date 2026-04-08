@@ -46,7 +46,7 @@ const token = computed(() => {
 	return typeof raw === "string" ? raw.trim() : "";
 });
 
-const captchaResponse = ref("");
+const { token: captchaResponse, isDummyToken } = useTurnstileToken();
 const apiError = ref<string | null>(null);
 const fetchError = ref<string | null>(null);
 const isSubmitting = ref(false);
@@ -244,11 +244,12 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						</FormItem>
 					</FormField>
 
-					<NuxtTurnstile
-						v-model="captchaResponse"
-						class="w-full"
-						:options="{ size: 'flexible' }"
-					/>
+				<NuxtTurnstile
+					v-if="!isDummyToken"
+					v-model="captchaResponse"
+					class="w-full"
+					:options="{ size: 'flexible' }"
+				/>
 
 					<Button
 						type="submit"

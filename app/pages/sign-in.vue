@@ -44,7 +44,7 @@ type SignInFormValues = z.infer<typeof signInFormSchema>;
 
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
-const captchaToken = ref<string>("");
+const { token: captchaToken, isDummyToken, resetToken } = useTurnstileToken();
 
 async function onSubmit(values: SignInFormValues) {
 	apiError.value = null;
@@ -74,7 +74,7 @@ async function onSubmit(values: SignInFormValues) {
 		apiError.value = error instanceof Error
 			? error.message
 			: "Sign in failed.";
-		captchaToken.value = "";
+		resetToken();
 	}
 	finally {
 		isSubmitting.value = false;
@@ -166,6 +166,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				</FormField>
 
 				<NuxtTurnstile
+					v-if="!isDummyToken"
 					v-model="captchaToken"
 					class="w-full"
 					:options="{ size: 'flexible' }"
