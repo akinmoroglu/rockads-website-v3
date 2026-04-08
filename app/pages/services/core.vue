@@ -7,7 +7,6 @@ import strategicSvg from "@/assets/images/services/core/strategic.svg?url";
 import ecosystemSvg from "@/assets/images/services/core/ecosystem.svg?url";
 import integritySvg from "@/assets/images/services/core/integrity.svg?url";
 import dashboardSvg from "@/assets/images/services/core/dashboardh.svg?url";
-import HomeCta from "@/components/home/home-cta.vue";
 
 useHead({
 	title: "Core Services - Rockads",
