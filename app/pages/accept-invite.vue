@@ -34,7 +34,6 @@ useHead({
 });
 
 const config = useRuntimeConfig();
-const router = useRouter();
 const route = useRoute();
 
 const formSchema = toTypedSchema(acceptInvitationFormSchema);
@@ -49,8 +48,9 @@ const token = computed(() => {
 
 const captchaResponse = ref("");
 const apiError = ref<string | null>(null);
+const fetchError = ref<string | null>(null);
 const isSubmitting = ref(false);
-const isLoadingInvitation = ref(true);
+const isLoadingInvitation = ref(false);
 const success = ref(false);
 const organizationName = ref("");
 const organizationId = ref("");
@@ -75,23 +75,19 @@ async function getInvitation() {
 		accepted.value = data.accepted_at !== null;
 		expired.value = data.status === "expired";
 	}
-	catch (error) {
-		console.error(error);
-		router.push("/");
+	catch {
+		fetchError.value = "This invitation link is invalid or has expired. Ask your administrator to send a new invite.";
 	}
 	finally {
 		isLoadingInvitation.value = false;
 	}
 }
 
-onMounted(() => {
-	if (!token.value) {
-		router.push("/");
-	}
-	else {
+watch(token, (value) => {
+	if (value) {
 		getInvitation();
 	}
-});
+}, { immediate: true });
 
 async function onSubmit(values: AcceptInvitationFormValues) {
 	apiError.value = null;
@@ -162,6 +158,15 @@ const onFormSubmit: SubmissionHandler = (values) => {
 					</AlertDescription>
 				</Alert>
 
+				<Alert
+					v-if="fetchError"
+					variant="destructive"
+				>
+					<AlertCircle class="size-4" />
+					<AlertTitle>Invitation not found</AlertTitle>
+					<AlertDescription>{{ fetchError }}</AlertDescription>
+				</Alert>
+
 				<Alert v-if="success">
 					<CheckCircle2 class="size-4 text-primary" />
 					<AlertTitle>You are in</AlertTitle>
@@ -180,7 +185,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				</Alert>
 
 				<Form
-					v-if="token && !success"
+					v-if="token && !success && !fetchError"
 					:validation-schema="formSchema"
 					class="space-y-4"
 					@submit="onFormSubmit"
@@ -259,18 +264,30 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				</Form>
 			</template>
 		</CardContent>
-		<CardFooter class="justify-center text-sm text-muted-foreground">
-			<NuxtLink
+		<CardFooter class="flex flex-col gap-2 sm:flex-row sm:justify-center">
+			<Button
 				v-if="success"
-				to="/sign-in"
-				class="font-medium text-primary hover:underline"
+				test-id="accept-invite-sign-in-btn"
+				as-child
 			>
-				Go to sign in
-			</NuxtLink>
+				<NuxtLink to="/sign-in">
+					Go to sign in
+				</NuxtLink>
+			</Button>
+			<Button
+				v-else-if="!token || fetchError"
+				test-id="accept-invite-contact-admin-btn"
+				variant="outline"
+				as-child
+			>
+				<NuxtLink to="/sign-in">
+					Back to sign in
+				</NuxtLink>
+			</Button>
 			<NuxtLink
 				v-else
 				to="/sign-in"
-				class="font-medium text-primary hover:underline"
+				class="text-sm font-medium text-muted-foreground hover:text-primary hover:underline"
 			>
 				Back to sign in
 			</NuxtLink>
