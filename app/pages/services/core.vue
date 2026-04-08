@@ -86,16 +86,16 @@ const dashboardBullets = [
 				<div class="grid gap-6 md:grid-cols-2 lg:gap-8">
 					<!-- Financial Infrastructure -->
 					<div
-						class="border-primary-light flex flex-col rounded-2xl border p-8 lg:p-12"
-						style="background-color: #F8F9FB;"
+						class="border-primary-light flex flex-col rounded-4xl p-8 lg:p-12"
+						style="background-color: #F7F9FB;"
 					>
-						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
 							Financial Infrastructure
 						</h2>
-						<p class="text-text-gray-dark mt-3 text-base font-medium lg:text-lg">
+						<p class="mt-3 text-base text-[#747a8e] lg:text-lg">
 							Resilient foundations. Zero friction.
 						</p>
-						<p class="text-text-base mt-5 text-sm leading-relaxed lg:text-base">
+						<p class="mt-5 text-sm leading-relaxed lg:text-base">
 							Our financial infrastructure gives partners more room to operate, greater stability, and the flexibility to move fast. Versatile payment models, flexible settlement structures, compliance-first account foundations, and credit-backed continuity, engineered so your most ambitious moves are never constrained by cash mechanics.
 						</p>
 						<div class="mt-6 flex flex-1 items-end justify-center pb-2">
@@ -105,17 +105,20 @@ const dashboardBullets = [
 
 					<!-- Growth Capacity -->
 					<div
-						class="border-primary-light flex flex-col overflow-hidden rounded-2xl border p-8 lg:p-12"
-						style="background-color:#F8F9FB;"
+						class="border-primary-light flex flex-col overflow-hidden rounded-4xl p-8 lg:p-12"
+						style="background-color:#e8f4ff;"
 					>
-						<BlurText
+						<!-- <BlurText
 							text="Growth Capacity"
 							class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]"
-						/>
-						<p class="text-text-gray-dark mt-3 text-base font-medium lg:text-lg">
+						/> -->
+						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
+							Growth Capacity
+						</h2>
+						<p class="mt-3 text-base text-[#747a8e] lg:text-lg">
 							Scale without ceilings.
 						</p>
-						<p class="text-text-base mt-5 text-sm leading-relaxed lg:text-base">
+						<p class="mt-5 text-sm leading-relaxed lg:text-base">
 							An operating environment designed to absorb expansion without bottlenecks. New markets, increased spend, new accounts. Core's infrastructure scales with you, never against you. There are no artificial limits on where or how fast you can grow.
 						</p>
 						<div class="mt-6 flex flex-1 items-end justify-center">
