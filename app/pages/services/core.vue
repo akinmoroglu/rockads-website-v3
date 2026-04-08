@@ -1230,7 +1230,7 @@ const ecosystemLogos = [
 		<!-- Stable. Enduring. Limitless. -->
 		<section class="bg-surface-darker relative overflow-hidden px-5 py-20 lg:py-28">
 			<div class="pointer-events-none absolute inset-0 flex items-center justify-center">
-				<div class="h-[400px] w-[600px] rounded-full bg-white/[0.03] blur-[120px]" />
+				<div class="h-[400px] w-[600px] rounded-full bg-white/3 blur-[120px]" />
 			</div>
 			<div class="relative mx-auto max-w-[800px] text-center">
 				<p class="text-text-gray text-sm font-semibold tracking-[4.8px] uppercase lg:text-base">
