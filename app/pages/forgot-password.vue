@@ -134,9 +134,11 @@ const onFormSubmit: SubmissionHandler = (values) => {
 					</FormItem>
 				</FormField>
 
-			<NuxtTurnstile
+				<NuxtTurnstile
 					ref="turnstile"
 					v-model="captchaResponse"
+					class="w-full"
+					:options="{ size: 'flexible' }"
 				/>
 
 				<Button
