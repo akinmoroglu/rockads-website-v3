@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import EcosystemSvg from "@/components/services/core/EcosystemSvg.vue";
 import GrowthSvg from "@/components/services/core/GrowthSvg.vue";
 import HeroDots from "@/components/services/core/HeroDots.vue";
 import OperationSvg from "@/components/services/core/OperationSvg.vue";
 import StrategicSvg from "@/components/services/core/StrategicSvg.vue";
-import ecosystemSvg from "@/assets/images/services/core/ecosystem.svg?url";
 import integritySvg from "@/assets/images/services/core/integrity.svg?url";
 import dashboardSvg from "@/assets/images/services/core/dashboardh.svg?url";
 import { Button } from "@/components/ui/button";
@@ -228,11 +228,7 @@ const dashboardBullets = [
 							</li>
 						</ul>
 						<div class="mt-8 flex flex-1 items-end">
-							<img
-								:src="ecosystemSvg"
-								alt=""
-								class="w-full max-w-[522px]"
-							>
+							<EcosystemSvg />
 						</div>
 					</div>
 
