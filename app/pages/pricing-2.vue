@@ -137,17 +137,17 @@ const plans: PricingPlan[] = [
 		</section>
 
 		<!-- Rockads Plans Section -->
-		<section class="w-full bg-slate-50 py-16">
-			<div class="mx-auto w-full max-w-[1440px] px-6 lg:px-[150px]">
+		<section class="w-full bg-slate-50 py-12 sm:py-16">
+			<div class="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-[150px]">
 				<!-- Section header -->
-				<div class="mb-10 flex flex-col items-center gap-3 text-center">
+				<div class="mb-8 flex flex-col items-center gap-3 text-center sm:mb-10">
 					<Badge
 						variant="secondary"
 						class="bg-slate-200 px-3 py-1 text-xs font-semibold tracking-widest text-slate-700 uppercase"
 					>
 						Plans
 					</Badge>
-					<h2 class="text-4xl font-semibold text-foreground">
+					<h2 class="text-3xl font-semibold text-foreground sm:text-4xl">
 						Rockads Plans
 					</h2>
 					<p class="max-w-xl text-sm text-muted-foreground">
@@ -155,11 +155,11 @@ const plans: PricingPlan[] = [
 					</p>
 				</div>
 
-				<div class="grid grid-cols-2 gap-6">
+				<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
 					<!-- Rockads Free Card -->
-					<div class="flex flex-col gap-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+					<div class="flex flex-col gap-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
 						<div class="flex flex-col gap-1">
-							<h2 class="text-3xl font-bold text-foreground">
+							<h2 class="text-2xl font-bold text-foreground sm:text-3xl">
 								Rockads Free
 							</h2>
 							<p class="text-sm text-muted-foreground">
@@ -270,9 +270,9 @@ const plans: PricingPlan[] = [
 					</div>
 
 					<!-- Rockads Partner Card -->
-					<div class="flex flex-col gap-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+					<div class="flex flex-col gap-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
 						<div class="flex flex-col gap-1">
-							<h2 class="text-3xl font-bold text-foreground">
+							<h2 class="text-2xl font-bold text-foreground sm:text-3xl">
 								Rockads Partner
 							</h2>
 							<p class="text-sm text-muted-foreground">
@@ -322,23 +322,23 @@ const plans: PricingPlan[] = [
 		</section>
 
 		<!-- Pricing Cards Section -->
-		<section class="bg-slate-900 px-[150px] py-20">
-			<div class="mb-14 flex flex-col items-center gap-3 text-center">
+		<section class="bg-slate-900 px-4 py-14 sm:px-6 sm:py-16 lg:px-[150px] lg:py-20">
+			<div class="mb-10 flex flex-col items-center gap-3 text-center sm:mb-14">
 				<Badge
 					variant="secondary"
 					class="bg-slate-800 px-3 py-1 text-xs font-semibold tracking-widest text-slate-200 uppercase"
 				>
 					Pricing
 				</Badge>
-				<h2 class="text-5xl font-semibold text-white">
+				<h2 class="text-3xl font-semibold text-white sm:text-4xl lg:text-5xl">
 					Simple, transparent pricing
 				</h2>
-				<p class="max-w-lg text-base text-slate-300">
+				<p class="max-w-lg text-sm text-slate-300 sm:text-base">
 					Start for free. Scale as you grow. No hidden fees.
 				</p>
 			</div>
 
-			<div class="relative grid grid-cols-4 items-start gap-4">
+			<div class="relative grid grid-cols-1 items-start gap-4 sm:grid-cols-2 xl:grid-cols-4">
 				<template
 					v-for="plan in plans"
 					:key="plan.id"
@@ -379,7 +379,7 @@ const plans: PricingPlan[] = [
 
 							<div class="flex items-baseline gap-1.5">
 								<span
-									class="leading-none font-bold"
+									class="leading-none font-bold wrap-break-word"
 									:class="[
 										plan.id === 'enterprise' ? 'text-2xl' : 'text-4xl',
 										plan.highlighted ? 'text-white' : 'text-slate-100',
