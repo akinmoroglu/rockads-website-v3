@@ -335,7 +335,7 @@ function handleRequireAgreement() {
 								/>
 							</FormControl>
 							<div class="min-w-0 flex-1 space-y-1">
-								<FormLabel class="text-sm leading-snug font-normal text-muted-foreground">
+								<FormLabel class="block text-sm leading-snug font-normal text-muted-foreground">
 									I accept the
 									<a
 										:href="legal.terms"
