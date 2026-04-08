@@ -302,18 +302,25 @@ const dashboardBullets = [
 				ref="dotCanvas"
 				class="pointer-events-none absolute inset-0 h-full w-full"
 			/>
-			<div class="relative mx-auto max-w-[1066px] px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
+			<div class="relative mx-auto max-w-[1066px] space-y-8 px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
 				<h1 class="text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]">
 					<span class="text-primary">Core</span> <span class="text-text-base">Services</span>
 				</h1>
-				<p class="text-text-gray-dark mt-4 text-base font-medium lg:mt-5 lg:text-lg">
-					The Structure Behind Serious Expansion
-				</p>
-				<p class="text-text-base mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base">
-					True global scale isn't just built on technology. It's built on a foundation of operational excellence. Rockads Core is the operational backbone for advertisers who refuse to slow down. We remove every obstacle that stands between you and sustainable global growth: financial friction, operational gaps, compliance risks, and platform complexity. What remains is a clear, stable path to scale, backed by infrastructure, not promises.
-				</p>
-				<Button>
-					Get Started in Minutes
+				<div class="space-y-4">
+					<p class="font-medium lg:text-lg">
+						The Structure Behind Serious Expansion
+					</p>
+					<p class="max-w-[1066px] text-sm leading-relaxed lg:text-base">
+						True global scale isn't just built on technology. It's built on a foundation of operational excellence. Rockads Core is the operational backbone for advertisers who refuse to slow down. We remove every obstacle that stands between you and sustainable global growth: financial friction, operational gaps, compliance risks, and platform complexity. What remains is a clear, stable path to scale, backed by infrastructure, not promises.
+					</p>
+				</div>
+				<Button
+					size="lg"
+					as-child
+				>
+					<NuxtLink to="/sign-up">
+						Get Started in Minutes
+					</NuxtLink>
 				</button>
 			</div>
 		</section>
