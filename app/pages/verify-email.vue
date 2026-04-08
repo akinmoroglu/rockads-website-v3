@@ -26,7 +26,6 @@ import {
 	resendVerificationFormSchema,
 	verifyEmailTokenFormSchema,
 } from "@/lib/auth-form-schemas";
-import { extractAccessToken } from "@/utils/auth-token";
 
 definePageMeta({
 	layout: "auth",
@@ -36,15 +35,8 @@ useHead({
 	title: "Verify Email - Rockads",
 });
 
-const authApi = useAuthApi();
-const session = useAuthSession();
+const config = useRuntimeConfig();
 const route = useRoute();
-
-function persistTokenFromResponse(data: unknown) {
-	const t = extractAccessToken(data);
-
-	if (t) session.setAccessToken(t);
-}
 
 const verifySchema = toTypedSchema(verifyEmailTokenFormSchema);
 const resendSchema = toTypedSchema(resendVerificationFormSchema);
@@ -84,9 +76,11 @@ onMounted(async () => {
 	autoVerifyState.value = "pending";
 	autoVerifyMessage.value = "";
 	try {
-		const data = await authApi.verifyEmail({ token: linkToken.value });
-
-		persistTokenFromResponse(data);
+		await $fetch("verify-email", {
+			baseURL: config.public.goApiURL as string,
+			method: "POST",
+			body: { token: linkToken.value },
+		});
 		autoVerifyState.value = "success";
 	}
 	catch (error: unknown) {
@@ -101,9 +95,11 @@ async function onManualVerify(values: ManualVerifyFormValues) {
 	manualError.value = null;
 	manualSubmitting.value = true;
 	try {
-		const data = await authApi.verifyEmail({ token: values.token.trim() });
-
-		persistTokenFromResponse(data);
+		await $fetch("verify-email", {
+			baseURL: config.public.goApiURL as string,
+			method: "POST",
+			body: { token: values.token.trim() },
+		});
 		manualSuccess.value = true;
 	}
 	catch (error: unknown) {
@@ -124,7 +120,11 @@ async function onResend(values: ResendVerificationFormValues) {
 	resendError.value = null;
 	resendSubmitting.value = true;
 	try {
-		await authApi.resendVerification({ email: values.email.trim() });
+		await $fetch("resend-verification", {
+			baseURL: config.public.goApiURL as string,
+			method: "POST",
+			body: { email: values.email.trim() },
+		});
 		resendSuccess.value = true;
 	}
 	catch (error: unknown) {
