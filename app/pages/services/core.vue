@@ -5,6 +5,7 @@ import HeroDots from "@/components/services/core/HeroDots.vue";
 import IntegritySvg from "@/components/services/core/IntegritySvg.vue";
 import OperationSvg from "@/components/services/core/OperationSvg.vue";
 import StrategicSvg from "@/components/services/core/StrategicSvg.vue";
+import SafariMockup from "@/components/ui/safari-mockup/SafariMockup.vue";
 import dashboardSvg from "@/assets/images/services/core/dashboardh.svg?url";
 import { Button } from "@/components/ui/button";
 
@@ -303,11 +304,11 @@ const dashboardBullets = [
 						</li>
 					</ul>
 					<div class="flex items-start justify-center">
-						<img
-							:src="dashboardSvg"
-							alt=""
-							class="w-full rounded-xl"
-						>
+						<SafariMockup
+							url="console.rockads.com/"
+							:image-src="dashboardSvg"
+							class="w-full"
+						/>
 					</div>
 				</div>
 			</div>
