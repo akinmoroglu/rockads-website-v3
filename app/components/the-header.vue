@@ -28,7 +28,6 @@ const SCROLL_PIN_THRESHOLD_PX = 100;
 const mobileMenuOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const servicesOpen = ref(false);
-const activeCategory = ref("core");
 
 const desktopLinks = [
 	{ label: "Solutions", href: "/solutions" },
@@ -75,6 +74,20 @@ const serviceCategories: ServiceCategory[] = [
 		],
 	},
 ];
+
+const isServicesActive = computed(() => route.path.startsWith("/services"));
+
+const activeCategoryFromRoute = computed(() => {
+	const match = serviceCategories.find(cat => route.path.startsWith(cat.href));
+
+	return match?.id ?? "core";
+});
+
+const activeCategory = ref(activeCategoryFromRoute.value);
+
+watch(activeCategoryFromRoute, (val) => {
+	activeCategory.value = val;
+});
 
 const activeItems = computed(() => {
 	return (
@@ -202,6 +215,7 @@ watch(
 					>
 						<button
 							class="flex items-center gap-1.5 transition-opacity hover:opacity-80"
+							:class="isServicesActive ? 'opacity-100 underline underline-offset-4' : ''"
 							type="button"
 							aria-haspopup="menu"
 							:aria-expanded="servicesOpen"
@@ -281,8 +295,8 @@ watch(
 						class="text-white"
 					>
 						<NuxtLink
-
 							:to="link.href"
+							active-class="underline underline-offset-4"
 						>
 							{{ link.label }}
 						</NuxtLink>
