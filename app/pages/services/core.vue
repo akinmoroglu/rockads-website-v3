@@ -86,8 +86,7 @@ const dashboardBullets = [
 				<div class="grid gap-6 md:grid-cols-2 lg:gap-8">
 					<!-- Financial Infrastructure -->
 					<div
-						class="border-primary-light flex flex-col rounded-4xl p-8 lg:p-12"
-						style="background-color: #F7F9FB;"
+						class="flex flex-col rounded-4xl bg-card p-8 lg:p-12"
 					>
 						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
 							Financial Infrastructure
