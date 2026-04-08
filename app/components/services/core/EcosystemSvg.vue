@@ -368,6 +368,8 @@ import metaLogoSrc from "@/assets/icons/brands/meta.svg?url";
 .dot {
 	transform-box: fill-box;
 	transform-origin: center;
+	will-change: transform, opacity;
+	backface-visibility: hidden;
 	animation: eco-dot-pulse 3s ease-in-out infinite;
 }
 
