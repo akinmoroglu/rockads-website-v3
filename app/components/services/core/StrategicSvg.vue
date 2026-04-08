@@ -36,7 +36,6 @@ const handleMouseLeave = () => {
 		height="465"
 		viewBox="0 0 570 465"
 		fill="none"
-		class="w-full max-w-[340px]"
 		:initial="{ opacity: 0 }"
 		:animate="{ opacity: 1 }"
 		:transition="{ duration: 0.5, ease: [0.42, 0, 0.58, 1] }"

@@ -66,7 +66,6 @@ onUnmounted(() => {
 		height="402"
 		viewBox="0 0 522 402"
 		fill="none"
-		class="w-full max-w-[380px]"
 		@mousemove="handleMouseMove"
 		@mouseleave="handleMouseLeave"
 	>
