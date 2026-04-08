@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import growthSvg from "@/assets/images/services/core/growth.svg?url";
+import GrowthSvg from "@/components/services/core/GrowthSvg.vue";
 import operationSvg from "@/assets/images/services/core/operation.svg?url";
 import strategicSvg from "@/assets/images/services/core/strategic.svg?url";
 import ecosystemSvg from "@/assets/images/services/core/ecosystem.svg?url";
@@ -89,10 +89,14 @@ const activeRgb = hexToRgb(DOT_ACTIVE);
 function drawDots() {
 	const canvas = dotCanvas.value;
 
-	if (!canvas) return;
+	if (!canvas)
+		return;
+
 	const ctx = canvas.getContext("2d");
 
-	if (!ctx) return;
+	if (!ctx)
+		return;
+
 	const dpr = window.devicePixelRatio || 1;
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -365,11 +369,7 @@ const dashboardBullets = [
 							An operating environment designed to absorb expansion without bottlenecks. New markets, increased spend, new accounts. Core's infrastructure scales with you, never against you. There are no artificial limits on where or how fast you can grow.
 						</p>
 						<div class="mt-6 flex flex-1 items-end justify-center">
-							<img
-								:src="growthSvg"
-								alt=""
-								class="w-full max-w-[522px]"
-							>
+							<GrowthSvg />
 						</div>
 					</div>
 				</div>

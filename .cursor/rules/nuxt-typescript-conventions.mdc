@@ -1,0 +1,56 @@
+---
+description: TypeScript usage, naming conventions, and Vue SFC structure standards
+alwaysApply: true
+---
+
+# TypeScript & Vue SFC Conventions
+
+## TypeScript
+
+- Use `type` over `interface` for all type definitions.
+- Avoid enums; use `const` objects with `as const` instead.
+- Use inline type imports: `import { type Foo } from './foo'`.
+- Prefer `type` assertions only when narrowing is not possible.
+
+```ts
+// ❌ BAD
+interface User { id: string }
+enum Status { Active = 'active' }
+
+// ✅ GOOD
+type User = { id: string }
+const STATUS = { Active: 'active', Paused: 'paused' } as const
+type Status = typeof STATUS[keyof typeof STATUS]
+```
+
+## Naming Conventions
+
+- Directories: `lowercase-with-dashes` (e.g., `auth-wizard/`)
+- Components: `PascalCase.vue` (e.g., `AuthWizard.vue`)
+- Composables: `camelCase.ts` prefixed with `use` (e.g., `useAuthState.ts`)
+- Event handlers: prefix with `handle` (e.g., `handleClick`, `handleKeyDown`)
+- Boolean variables: auxiliary verb prefix (e.g., `isLoading`, `hasError`, `canSubmit`)
+
+## Vue SFC Structure
+
+Block order is always: `<script>` → `<template>` → `<style>`. Add a blank line between blocks.
+
+```vue
+<script setup lang="ts">
+// logic here
+</script>
+
+<template>
+  <!-- markup here -->
+</template>
+
+<style scoped>
+/* only when Tailwind is not sufficient */
+</style>
+```
+
+- Always use `<script setup lang="ts">`.
+- Use arrow functions for methods and computed properties.
+- Prefer early returns to reduce nesting.
+- Delete unused variables, functions, and imports in every file you touch.
+- Nuxt auto-imports Vue primitives (`ref`, `computed`, `watch`) — do not import them manually.

@@ -1,0 +1,61 @@
+---
+description: test-id attributes, button types, and form name conventions for Vue components
+globs: app/**/*.vue
+alwaysApply: false
+---
+
+# Element ID & Name Standards
+
+## test-id
+
+Every interactive or form element **must** have a unique `test-id` attribute.
+
+- Format: `kebab-case`, scoped to the feature (e.g., `campaign-name-input`, `submit-button`)
+- Never reuse the same `test-id` on two elements within the same page/view
+- `test-id` is a GLOBAL attribute — place it before other non-structural attributes per `vue/attributes-order`
+
+```vue
+<!-- ✅ CORRECT -->
+<input
+  test-id="campaign-name-input"
+  name="campaignName"
+  type="text"
+/>
+
+<button test-id="campaign-submit-btn" type="submit">Save</button>
+
+<!-- ❌ WRONG — missing test-id -->
+<button type="submit">Save</button>
+```
+
+## Button Type
+
+Every `<button>` **must** have an explicit `type` attribute (`button`, `submit`, or `reset`). ESLint rule `vue/html-button-has-type` enforces this.
+
+```vue
+<!-- ✅ CORRECT -->
+<button type="button" @click="handleCancel">Cancel</button>
+<button type="submit">Save</button>
+
+<!-- ❌ WRONG — implicit type -->
+<button @click="handleCancel">Cancel</button>
+```
+
+## Form Field Names
+
+Form inputs inside a `<form>` **must** also have a `name` attribute matching the field key sent to the backend.
+
+```vue
+<form @submit.prevent="handleSubmit">
+  <input
+    test-id="email-input"
+    name="email"
+    type="email"
+  />
+</form>
+```
+
+## Accessibility
+
+- `<a>` tags used as buttons need `tabindex="0"`, `role="button"`, `aria-label`, and keyboard handlers.
+- Use semantic HTML first; avoid ARIA overrides when native elements suffice.

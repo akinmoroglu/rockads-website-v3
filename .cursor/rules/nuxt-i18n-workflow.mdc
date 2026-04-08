@@ -1,0 +1,50 @@
+---
+description: i18n translation workflow — always update all supported locales together
+alwaysApply: true
+---
+
+# i18n Translation Workflow
+
+## Rule: All Locales Together
+
+When adding or translating UI text, **always update all supported locales in one task**. Never add a key to one locale and leave others missing or with placeholder values.
+
+Supported locales are defined in `app/i18n/index.ts`. Keep all locale files structurally aligned.
+
+## Locale Files
+
+```
+app/
+  i18n/
+    index.ts       ← locale list and config
+    locales/
+      en.ts
+      tr.ts
+      es.ts
+```
+
+New keys must be added to `en.ts`, `tr.ts`, and `es.ts` in the same commit.
+
+## Translation Quality
+
+- Provide actual translated strings — no machine-like literal phrasing.
+- Use the target language's natural orthography and punctuation:
+  - `tr`: use `ç, ğ, ı, İ, ö, ş, ü` — do not ASCII-normalize.
+  - `es`: use `á, é, í, ó, ú, ñ` — do not ASCII-normalize.
+- Follow casing conventions per language (e.g., sentence case vs. title case differ by locale).
+
+## Usage in Components
+
+Use Nuxt's `@nuxtjs/i18n` auto-imported `useI18n()`:
+
+```vue
+<script setup lang="ts">
+const { t } = useI18n();
+</script>
+
+<template>
+  <p>{{ t('campaign.emptyState') }}</p>
+</template>
+```
+
+Never hardcode user-facing strings directly in templates or scripts — always go through `t()`.

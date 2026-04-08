@@ -1,0 +1,51 @@
+---
+description: ESLint + Oxlint formatting rules — actual config for this Nuxt project
+alwaysApply: true
+---
+
+# Linting & Formatting
+
+This project uses **ESLint + Oxlint** only. No Prettier.
+
+## Tooling
+
+- Config: `eslint.config.mjs` using `@nuxt/eslint-config` + `eslint-plugin-oxlint` + `eslint-plugin-tailwindcss`.
+- Formatting is handled entirely via `@stylistic/eslint-plugin` (bundled in `@nuxt/eslint-config`).
+- Run: `pnpm lint` to check, `pnpm lint:fix` to auto-fix.
+
+## Style Rules (enforced by ESLint)
+
+| Rule | Value |
+|---|---|
+| Indent | **tabs** |
+| Quotes | **double** |
+| Semicolons | **required** |
+| Line endings | LF |
+
+```ts
+// ✅ CORRECT
+const message = "Hello world";
+
+// ❌ WRONG (single quotes, no semi, spaces)
+const message = 'Hello world'
+```
+
+## Padding Lines
+
+ESLint enforces blank lines between variable declarations and other statements:
+
+```ts
+const userId = route.params.id;
+const userData = await fetchUser(userId);
+
+// blank line required before return
+return userData;
+```
+
+## Pre-commit
+
+`lint-staged` via Husky runs on every commit. Never commit code that fails `pnpm lint`.
+
+## Tailwind Class Sorting
+
+Tailwind class linting is enabled via `eslint-plugin-tailwindcss`. Custom design tokens and shadcn patterns are allowed (`tailwindcss/no-custom-classname` is off). Always use `cn()` for conditional class merging.

@@ -1,0 +1,75 @@
+---
+description: Pinia detailCache pattern for list+detail stores to avoid duplicate network calls
+globs: app/stores/**/*.ts
+alwaysApply: false
+---
+
+# Pinia Detail Cache Pattern
+
+Use this pattern for any store that renders item details by `id` (list page + detail dialog/page).
+
+## Required Shape
+
+```ts
+// app/stores/campaignStore.ts
+import { defineStore } from "pinia";
+import { type Campaign } from "~/models/campaign";
+import { fetchCampaigns, fetchCampaignById } from "~/services/campaignService";
+
+export const useCampaignStore = defineStore("campaign", () => {
+  const list = ref<Campaign[]>([]);
+  const detailCache = reactive<Map<string, Campaign>>(new Map());
+  const isLoading = ref(false);
+  const isDetailLoading = ref(false);
+  const error = ref<Error | null>(null);
+
+  const fetchList = async (force = false) => {
+    if (!force && list.value.length > 0) return;
+    isLoading.value = true;
+    if (force) detailCache.clear();
+    try {
+      list.value = await fetchCampaigns();
+      list.value.forEach((item) => detailCache.set(item.id, item));
+    } catch (err) {
+      error.value = err as Error;
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  const fetchById = async (id: string, force = false): Promise<Campaign | null> => {
+    if (!force && detailCache.has(id)) return detailCache.get(id)!;
+    isDetailLoading.value = true;
+    try {
+      const item = await fetchCampaignById(id);
+      detailCache.set(id, item);
+      return item;
+    } catch (err) {
+      error.value = err as Error;
+      return null;
+    } finally {
+      isDetailLoading.value = false;
+    }
+  };
+
+  const getFromCache = (id: string) => detailCache.get(id);
+
+  const invalidateDetail = (id: string) => { detailCache.delete(id); };
+
+  const invalidate = () => {
+    list.value = [];
+    detailCache.clear();
+  };
+
+  return { list, isLoading, isDetailLoading, error, fetchList, fetchById, getFromCache, invalidateDetail, invalidate };
+});
+```
+
+## Rules
+
+- `fetchList` populates `detailCache` for every loaded item.
+- `fetchById` checks cache first; skips network when `force = false` and item exists.
+- `update` and `delete` actions must update or call `invalidateDetail` for the affected entry.
+- If no `getById` endpoint exists, `fetchById` may call `fetchList(true)` and read from cache.
+- Never let parameterized/filtered detail calls overwrite an unfiltered cached detail.
+- Always set `isDetailLoading` in a `try/finally` block.

@@ -1,0 +1,70 @@
+---
+description: Unit testing conventions using Vitest, happy-dom, and @vue/test-utils
+globs: "**/__tests__/**/*.{test,spec}.ts"
+alwaysApply: false
+---
+
+# Testing Conventions
+
+## Stack
+
+- **Runner**: Vitest with `environment: 'happy-dom'`
+- **Mount**: `@vue/test-utils` for Vue components
+- **Location**: `__tests__/` folder next to the source file
+
+```
+app/composables/useAuthSession.ts
+app/composables/__tests__/useAuthSession.test.ts
+```
+
+## File Naming
+
+- `*.test.ts` or `*.spec.ts`
+- Mirror the source file name: `useFeature.ts` → `useFeature.test.ts`
+
+## Composable Tests
+
+Test composables directly without mounting a component when possible:
+
+```ts
+import { describe, it, expect, beforeEach } from "vitest";
+import { useAuthSession } from "../useAuthSession";
+
+describe("useAuthSession", () => {
+  beforeEach(() => {
+    // reset reactive state here
+  });
+
+  it("returns null when no session exists", () => {
+    const { session } = useAuthSession();
+    expect(session.value).toBeNull();
+  });
+});
+```
+
+## Component Tests
+
+```ts
+import { mount } from "@vue/test-utils";
+import MyComponent from "../MyComponent.vue";
+
+it("renders the title", () => {
+  const wrapper = mount(MyComponent, { props: { title: "Hello" } });
+  expect(wrapper.text()).toContain("Hello");
+});
+```
+
+## Commands
+
+```bash
+pnpm test          # single run
+pnpm test:watch    # watch mode
+pnpm test:coverage # coverage report
+```
+
+## Rules
+
+- Group related assertions with `describe`; use `beforeEach` to reset state.
+- Test composables directly (no component mount) whenever possible.
+- Tests must pass before deploy — do not skip or mock core business logic.
+- Update or add minimal tests when behavior changes.

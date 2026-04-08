@@ -1,0 +1,55 @@
+---
+description: SOLID principles adapted for Nuxt 3 — composables, services, and page structure
+alwaysApply: true
+---
+
+# SOLID Architecture for Nuxt
+
+Apply SOLID pragmatically: keep pages thin, logic testable, and dependencies explicit.
+
+## Single Responsibility
+
+One composable or module per concern. Avoid thousand-line SFC scripts.
+
+- Data fetching → `app/composables/useXxx.ts`
+- HTTP transport → `app/services/xxxService.ts`
+- Pure formatting/mapping → `app/utils/xxxHelpers.ts` or `app/lib/xxxHelpers.ts`
+- Page orchestration → one `use<Feature>Page` composable per route
+
+## Open/Closed
+
+Extend via new composables, factory functions, or strategy callbacks instead of editing a large central switch.
+
+## Liskov Substitution
+
+Keep composable return shapes and prop types consistent so callers can swap implementations without changes.
+
+## Interface Segregation
+
+Pass small option objects or focused `ref`s into composables. Never pass the entire page state when only a subset is needed.
+
+## Dependency Inversion
+
+UI and composables depend on abstractions (typed service functions, injectable refs). Call `app/services/` for HTTP — avoid embedding `$fetch` or transport details in presentation helpers.
+
+## Page / Component Structure
+
+```
+app/
+  pages/
+    feature/
+      index.vue          ← thin wiring: one composable + template
+      components/        ← presentational sub-components (props in, emit out)
+        FeatureCard.vue
+  composables/
+    useFeaturePage.ts    ← orchestrates data, state, and handlers
+  services/
+    featureService.ts    ← all $fetch / useFetch calls for this feature
+  models/
+    feature.ts           ← request/response types
+```
+
+- Route `index.vue` files should be wiring only: one orchestrator composable and thin SFCs.
+- Extract pure formatting/mapping to `*.ts` helpers.
+- Extract reactive orchestration to `useXxx` composables.
+- Presentational components under `pages/<feature>/components/` receive props and emit events only.

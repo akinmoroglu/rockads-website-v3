@@ -1,0 +1,56 @@
+---
+description: Backend request conventions — services/ for HTTP calls, models/ for types
+alwaysApply: true
+---
+
+# Backend Requests
+
+## Structure
+
+```
+app/
+  services/
+    campaignService.ts   ← one file per feature/page
+  models/
+    campaign.ts          ← request/response types for that service
+```
+
+- One `*Service.ts` file per feature or page.
+- One `*.ts` model file per service — define all request/response types there.
+- Never embed `$fetch` or transport details in components or composables directly.
+
+## Service Pattern
+
+Use Nuxt's `$fetch` (auto-imported) for all HTTP calls inside services:
+
+```ts
+// app/services/campaignService.ts
+import { type Campaign, type CreateCampaignPayload } from "~/models/campaign";
+
+export const fetchCampaigns = () =>
+  $fetch<Campaign[]>("/api/campaigns");
+
+export const createCampaign = (payload: CreateCampaignPayload) =>
+  $fetch<Campaign>("/api/campaigns", { method: "POST", body: payload });
+```
+
+## Composable / Page Usage
+
+Call services from composables, not directly from `<script setup>` in page files:
+
+```ts
+// app/composables/useCampaignPage.ts
+import { fetchCampaigns } from "~/services/campaignService";
+
+export const useCampaignPage = () => {
+  const { data: campaigns, status } = useAsyncData("campaigns", fetchCampaigns);
+
+  return { campaigns, isLoading: computed(() => status.value === "pending") };
+};
+```
+
+## SSR Safety
+
+- Prefer `useAsyncData` / `useFetch` over raw `$fetch` in composables to get SSR hydration for free.
+- Use raw `$fetch` only for mutations (POST/PUT/DELETE) or client-only calls.
+- Gate browser-only side effects with `import.meta.client`.
