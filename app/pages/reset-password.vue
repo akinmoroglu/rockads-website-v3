@@ -24,7 +24,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { resetPasswordFormSchema } from "@/lib/auth-form-schemas";
-import { extractAccessToken } from "@/utils/auth-token";
 
 definePageMeta({
 	layout: "auth",
@@ -34,8 +33,8 @@ useHead({
 	title: "Reset Password - Rockads",
 });
 
-const authApi = useAuthApi();
-const session = useAuthSession();
+const config = useRuntimeConfig();
+const router = useRouter();
 const route = useRoute();
 
 const formSchema = toTypedSchema(resetPasswordFormSchema);
@@ -48,9 +47,22 @@ const token = computed(() => {
 	return typeof raw === "string" ? raw.trim() : "";
 });
 
+// Email links sometimes encode '+' as a space — restore it before sending.
+const email = computed(() => {
+	const raw = route.query.mail;
+
+	return typeof raw === "string" ? raw.replace(/\s/g, "+") : "";
+});
+
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const success = ref(false);
+
+onMounted(() => {
+	if (!token.value) {
+		router.push("/");
+	}
+});
 
 async function onSubmit(values: ResetPasswordFormValues) {
 	apiError.value = null;
@@ -61,14 +73,15 @@ async function onSubmit(values: ResetPasswordFormValues) {
 	}
 	isSubmitting.value = true;
 	try {
-		const data = await authApi.resetPassword({
-			token: token.value,
-			password: values.password,
-			password_confirmation: values.password_confirmation,
+		await $fetch("reset-password", {
+			baseURL: config.public.goApiURL as string,
+			method: "POST",
+			body: {
+				email: email.value,
+				token: token.value,
+				new_password: values.password,
+			},
 		});
-		const accessToken = extractAccessToken(data);
-
-		if (accessToken) session.setAccessToken(accessToken);
 		success.value = true;
 	}
 	catch (error: unknown) {

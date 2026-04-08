@@ -33,12 +33,14 @@ useHead({
 	title: "Forgot Password - Rockads",
 });
 
-const authApi = useAuthApi();
+const config = useRuntimeConfig();
 
 const formSchema = toTypedSchema(forgotPasswordFormSchema);
 
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordFormSchema>;
 
+const turnstile = ref<{ reset: () => void } | null>(null);
+const captchaResponse = ref("");
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const emailSent = ref(false);
@@ -48,8 +50,18 @@ async function onSubmit(values: ForgotPasswordFormValues) {
 	apiError.value = null;
 	isSubmitting.value = true;
 	try {
-		await authApi.forgotPassword({ email: values.email.trim() });
-		submittedEmail.value = values.email.trim();
+		const emailTrimmed = values.email.trim();
+
+		await $fetch("forgot-password", {
+			baseURL: config.public.goApiURL as string,
+			method: "POST",
+			body: {
+				email: emailTrimmed,
+				captcha_response: captchaResponse.value,
+				reset_url: `${window.location.origin}/reset-password`,
+			},
+		});
+		submittedEmail.value = emailTrimmed;
 		emailSent.value = true;
 	}
 	catch (error: unknown) {
@@ -59,6 +71,7 @@ async function onSubmit(values: ForgotPasswordFormValues) {
 	}
 	finally {
 		isSubmitting.value = false;
+		turnstile.value?.reset();
 	}
 }
 
@@ -120,6 +133,11 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						<FormMessage />
 					</FormItem>
 				</FormField>
+
+			<NuxtTurnstile
+					ref="turnstile"
+					v-model="captchaResponse"
+				/>
 
 				<Button
 					type="submit"
