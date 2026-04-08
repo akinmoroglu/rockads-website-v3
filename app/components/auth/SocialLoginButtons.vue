@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import metaIconSrc from "@/assets/icons/brands/meta.svg?url";
+import facebookIconSrc from "@/assets/icons/brands/facebook.svg?url";
 import googleIconSrc from "@/assets/icons/brands/google.svg?url";
 import shopifyIconSrc from "@/assets/icons/brands/shopify.svg?url";
 import { oauthSignIn } from "@/services/signUpService";
@@ -40,7 +40,7 @@ const providers: { id: OAuthProvider; label: string; iconSrc: string; iconAlt: s
 	{
 		id: "facebook",
 		label: "Continue with Facebook",
-		iconSrc: metaIconSrc,
+		iconSrc: facebookIconSrc,
 		iconAlt: "Facebook",
 		class: "bg-[#1877F2] hover:bg-[#166FE5] text-white border-transparent",
 	},
