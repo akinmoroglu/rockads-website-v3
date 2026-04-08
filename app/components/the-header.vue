@@ -443,8 +443,11 @@ watch(
 					type="button"
 					size="lg"
 					class="mt-4 text-base"
+					as-child
 				>
-					Get Started
+					<NuxtLink to="/sign-up">
+						Get Started
+					</NuxtLink>
 				</Button>
 			</div>
 		</Motion>
