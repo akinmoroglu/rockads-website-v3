@@ -3,7 +3,13 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
 	modules: ["shadcn-nuxt"],
-	devtools: { enabled: true },
+	devtools: {
+		enabled: true,
+
+		timeline: {
+			enabled: true,
+		},
+	},
 	css: ["~/assets/css/tailwind.css"],
 
 	runtimeConfig: {
@@ -11,9 +17,9 @@ export default defineNuxtConfig({
 			/** Full origin + API prefix for auth routes, e.g. https://api.example.com/v1 */
 			authApiBase: "",
 			/**
-			 * Send cookies on auth API calls (e.g. httpOnly refresh cookie next to JWT).
-			 * Env: `NUXT_PUBLIC_AUTH_WITH_CREDENTIALS` (`true` / `1`).
-			 */
+													* Send cookies on auth API calls (e.g. httpOnly refresh cookie next to JWT).
+													* Env: `NUXT_PUBLIC_AUTH_WITH_CREDENTIALS` (`true` / `1`).
+													*/
 			authWithCredentials: false,
 		},
 	},
@@ -27,16 +33,16 @@ export default defineNuxtConfig({
 	},
 	shadcn: {
 		/**
-		 * Prefix for all the imported component.
-		 * @default "Ui"
-		 */
+									* Prefix for all the imported component.
+									* @default "Ui"
+									*/
 		prefix: "",
 		/**
-		 * Directory that the component lives in.
-		 * Will respect the Nuxt aliases.
-		 * @link https://nuxt.com/docs/api/nuxt-config#alias
-		 * @default "@/components/ui"
-		 */
+									* Directory that the component lives in.
+									* Will respect the Nuxt aliases.
+									* @link https://nuxt.com/docs/api/nuxt-config#alias
+									* @default "@/components/ui"
+									*/
 		componentDir: "@/components/ui",
 	},
 });
