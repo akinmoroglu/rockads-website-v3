@@ -440,9 +440,8 @@ watch(
 					{{ link.label }}
 				</NuxtLink>
 				<Button
-					type="button"
 					size="lg"
-					class="mt-4 text-base"
+					class="text-base"
 					as-child
 				>
 					<NuxtLink to="/sign-up">
