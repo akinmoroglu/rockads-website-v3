@@ -147,7 +147,7 @@ function onTagPointerEnter(index: number) {
 }
 
 function onTagPointerLeave() {
-	closeTimer = window.setTimeout(() => {
+	closeTimer = setTimeout(() => {
 		openIndex.value = null;
 	}, 120);
 }
@@ -157,7 +157,7 @@ function onPanelPointerEnter() {
 }
 
 function onPanelPointerLeave() {
-	closeTimer = window.setTimeout(() => {
+	closeTimer = setTimeout(() => {
 		openIndex.value = null;
 	}, 120);
 }
@@ -430,7 +430,7 @@ const motionTransitionDelayed = computed(() => ({
 						<div
 							v-if="openIndex !== null && tags[openIndex]"
 							ref="popoverRef"
-							class="glossary-hover-panel glossary-tooltip pointer-events-auto fixed z-[70] max-h-[min(70vh,420px)] w-[min(100vw-2rem,330px)] max-w-[330px] overflow-y-auto rounded-sm border-0 p-0 shadow-none outline-none"
+							class="glossary-hover-panel glossary-tooltip pointer-events-auto fixed z-70 max-h-[min(70vh,420px)] w-[min(100vw-2rem,330px)] max-w-[330px] overflow-y-auto rounded-sm border-0 p-0 shadow-none outline-none"
 							:class="popoverEnterClass"
 							:style="popoverStyle"
 							role="tooltip"
