@@ -2,9 +2,9 @@
 import EcosystemSvg from "@/components/services/core/EcosystemSvg.vue";
 import GrowthSvg from "@/components/services/core/GrowthSvg.vue";
 import HeroDots from "@/components/services/core/HeroDots.vue";
+import IntegritySvg from "@/components/services/core/IntegritySvg.vue";
 import OperationSvg from "@/components/services/core/OperationSvg.vue";
 import StrategicSvg from "@/components/services/core/StrategicSvg.vue";
-import integritySvg from "@/assets/images/services/core/integrity.svg?url";
 import dashboardSvg from "@/assets/images/services/core/dashboardh.svg?url";
 import { Button } from "@/components/ui/button";
 
@@ -75,7 +75,7 @@ const dashboardBullets = [
 					<NuxtLink to="/sign-up">
 						Get Started in Minutes
 					</NuxtLink>
-				</button>
+				</Button>
 			</div>
 		</section>
 
@@ -262,11 +262,7 @@ const dashboardBullets = [
 							</li>
 						</ul>
 						<div class="mt-8 flex flex-1 items-end justify-center">
-							<img
-								:src="integritySvg"
-								alt=""
-								class="w-full max-w-[300px]"
-							>
+							<IntegritySvg />
 						</div>
 					</div>
 				</div>
@@ -317,13 +313,18 @@ const dashboardBullets = [
 
 		<!-- CTA -->
 		<section class="bg-white px-5 py-16 lg:py-20">
-			<div class="mx-auto max-w-[800px] text-center">
-				<h2 class="text-text-base text-[32px] leading-[1.2] font-semibold lg:text-[40px]">
-					Built for growth that holds.<br>Discuss Your Growth Plan
+			<div class="mx-auto max-w-[800px] space-y-10 text-center">
+				<h2 class="text-text-base text-[32px] leading-[1.2] font-medium lg:text-[40px]">
+					Built for growth that holds.<br> Discuss Your Growth Plan
 				</h2>
-				<button class="bg-primary-600 mt-8 rounded-lg px-6 py-3 text-base font-medium text-white transition-colors hover:bg-primary lg:mt-10">
-					Get Started in Minutes
-				</button>
+				<Button
+					size="lg"
+					as-child
+				>
+					<NuxtLink to="/sign-up">
+						Get Started in Minutes
+					</NuxtLink>
+				</Button>
 			</div>
 		</section>
 
