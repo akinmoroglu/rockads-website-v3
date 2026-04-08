@@ -423,7 +423,7 @@ const dashboardBullets = [
 						<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
 							Strategic Support
 						</h2>
-						<p class="text-text-gray-light mt-3 text-base font-medium lg:text-lg">
+						<p class="mt-3 text-base font-medium text-white lg:text-lg">
 							Partnership in practice.
 						</p>
 						<p class="mt-5 text-sm leading-relaxed text-white/80 lg:text-base">
@@ -444,7 +444,7 @@ const dashboardBullets = [
 									d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
 									clip-rule="evenodd"
 								/></svg>
-								<span class="text-text-gray-light text-sm lg:text-base">{{ item }}</span>
+								<span class="text-sm text-white lg:text-base">{{ item }}</span>
 							</li>
 						</ul>
 					</div>
