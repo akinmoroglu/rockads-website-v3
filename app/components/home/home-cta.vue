@@ -6,7 +6,7 @@ import { TextReveal } from "@/components/ui/text-reveal";
 
 <template>
 	<section class="footer-shell">
-		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-16 text-center lg:px-12">
+		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-12 text-center sm:py-16 lg:px-12">
 			<!-- <p class="mb-12 text-base tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
 				The only partner you'll ever need.
 			</p> -->
@@ -14,35 +14,36 @@ import { TextReveal } from "@/components/ui/text-reveal";
 				text="The only partner you'll ever need."
 				encrypted-class="text-neutral-500"
 				revealed-class="text-(--footer-kicker-color)"
-				class="mb-12 text-base tracking-(--footer-kicker-tracking) uppercase"
+				class="mb-8 text-sm tracking-(--footer-kicker-tracking) uppercase sm:mb-12 sm:text-base"
 				:reveal-delay-ms="50"
 			/>
 
 			<div class="relative flex min-h-[233px] w-full max-w-[492px] flex-col items-center gap-9">
 				<div
-					class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[260px] w-[300px] max-w-[calc(100%+2rem)] -translate-x-1/2 -translate-y-1/2 md:h-[350px] md:w-[400px] lg:h-[458px] lg:w-[536px]"
+					class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[200px] w-[240px] max-w-[calc(100%+2rem)] -translate-x-1/2 -translate-y-1/2 sm:h-[260px] sm:w-[300px] md:h-[350px] md:w-[400px] lg:h-[458px] lg:w-[536px]"
 					aria-hidden="true"
 				>
 					<div class="footer-hero-ellipse size-full rounded-full" />
 				</div>
 
 				<div
+					<div
 					class="relative z-10 w-full max-w-(--footer-headline-max-width)"
 				>
 					<TextReveal>
 						<LineShadowText
-							class="text-[40px] leading-[48px] font-normal text-white italic md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+							class="text-[32px] leading-[40px] font-normal text-white italic sm:text-[40px] sm:leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
 							shadow-color="white"
 						>
 							Stable.
 						</LineShadowText>
 
-						<p class="text-[40px] leading-[50px] md:text-[52px] md:leading-[65px] lg:text-[68px] lg:leading-[88px]">
+						<p class="text-[32px] leading-[42px] sm:text-[40px] sm:leading-[50px] md:text-[52px] md:leading-[65px] lg:text-[68px] lg:leading-[88px]">
 							<em class="footer-enduring text-(--footer-accent-color)">Enduring.</em>
 						</p>
 
 						<LineShadowText
-							class="text-[40px] leading-[48px] font-normal text-white italic md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+							class="text-[32px] leading-[40px] font-normal text-white italic sm:text-[40px] sm:leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
 							shadow-color="white"
 						>
 							Limitless.
@@ -50,7 +51,7 @@ import { TextReveal } from "@/components/ui/text-reveal";
 					</TextReveal>
 				</div>
 
-				<p class="relative z-10 max-w-(--footer-description-max-width) text-sm leading-5 text-(--footer-description-color)">
+				<p class="relative z-10 max-w-(--footer-description-max-width) px-4 text-sm leading-5 text-(--footer-description-color) sm:px-0">
 					When others come and go, we'll still be here. Join the infrastructure built to last.
 				</p>
 			</div>
@@ -71,12 +72,30 @@ import { TextReveal } from "@/components/ui/text-reveal";
 	--footer-copyright-color: #4b5061;
 
 	--footer-max-width: 1440px;
-	--footer-hero-min-height: 686px;
+	--footer-hero-min-height: 420px;
 	--footer-headline-max-width: 536px;
 	--footer-description-max-width: 372px;
 	--footer-kicker-tracking: 0.3em;
 
 	background-color: var(--footer-bg-color);
+}
+
+@media (min-width: 640px) {
+	.footer-shell {
+		--footer-hero-min-height: 520px;
+	}
+}
+
+@media (min-width: 768px) {
+	.footer-shell {
+		--footer-hero-min-height: 580px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.footer-shell {
+		--footer-hero-min-height: 686px;
+	}
 }
 
 /* Fraunces italic bold — matches Figma footer headline accent (SOFT / WONK axes) */
