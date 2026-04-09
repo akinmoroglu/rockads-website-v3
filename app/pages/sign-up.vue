@@ -370,12 +370,12 @@ function handleRequireAgreement() {
 					</FormItem>
 				</FormField>
 
-			<NuxtTurnstile
-				v-if="!isDummyToken"
-				v-model="captchaToken"
-				class="w-full"
-				:options="{ size: 'flexible' }"
-			/>
+				<NuxtTurnstile
+					v-if="!isDummyToken"
+					v-model="captchaToken"
+					class="w-full"
+					:options="{ size: 'flexible' }"
+				/>
 
 				<Button
 					test-id="sign-up-submit-btn"
