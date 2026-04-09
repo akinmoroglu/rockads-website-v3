@@ -86,71 +86,72 @@ onUnmounted(() => {
 	>
 		<div class="absolute inset-0 bg-size-[22px_22px] opacity-8" />
 
-		<!-- Glow container: anchored to the same 1440px content column so x-position
-		     stays consistent at every viewport width (1024 → 1440 → 2560 → …) -->
+		<!-- Left glow: section-relative so the offset is always from the viewport edge,
+		     keeping the same partially-off-screen look at every resolution.
+		     At 2xl (1536px+) the glow grows wider to fill the larger side margins. -->
 		<div
 			aria-hidden="true"
-			class="pointer-events-none absolute inset-y-0 right-0 left-0 z-1 mx-auto max-w-[1440px]"
+			class="pointer-events-none absolute inset-y-0 left-[-26rem] z-1 hidden w-[min(920px,92vw)] items-center lg:flex 2xl:w-[min(1200px,50vw)]"
 		>
-			<!-- Left glow -->
-			<div class="absolute inset-y-0 left-[-26rem] hidden w-[min(920px,92vw)] items-center lg:flex">
+			<Motion
+				as="div"
+				class="h-[min(970px,92vh)] w-full 2xl:h-[min(1200px,92vh)]"
+				:initial="{ opacity: 0, x: -180 }"
+				:animate="{ opacity: 1, x: 0 }"
+				:transition="{ duration: 1.1, ease: 'easeOut' }"
+			>
 				<Motion
 					as="div"
-					class="h-[min(970px,92vh)] w-full"
-					:initial="{ opacity: 0, x: -180 }"
-					:animate="{ opacity: 1, x: 0 }"
-					:transition="{ duration: 1.1, ease: 'easeOut' }"
+					class="h-full w-full"
+					:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, 6, 0], y: [10, -8, 10] }"
+					:transition="{ duration: 6.2, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
 				>
-					<Motion
-						as="div"
-						class="h-full w-full"
-						:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, 6, 0], y: [10, -8, 10] }"
-						:transition="{ duration: 6.2, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
+					<div
+						class="h-full w-full will-change-transform"
+						:style="leftGlowMouseStyle"
 					>
-						<div
-							class="h-full w-full will-change-transform"
-							:style="leftGlowMouseStyle"
+						<img
+							:src="leftGlowAsset"
+							alt=""
+							aria-hidden="true"
+							class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
 						>
-							<img
-								:src="leftGlowAsset"
-								alt=""
-								aria-hidden="true"
-								class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
-							>
-						</div>
-					</Motion>
+					</div>
 				</Motion>
-			</div>
+			</Motion>
+		</div>
 
-			<!-- Right glow -->
-			<div class="absolute inset-y-0 right-[-26rem] hidden w-[min(920px,92vw)] items-center lg:flex">
+		<!-- Right glow: same approach, mirrored -->
+		<div
+			aria-hidden="true"
+			class="pointer-events-none absolute inset-y-0 right-[-26rem] z-1 hidden w-[min(920px,92vw)] items-center lg:flex 2xl:w-[min(1200px,50vw)]"
+		>
+			<Motion
+				as="div"
+				class="h-[min(970px,92vh)] w-full 2xl:h-[min(1200px,92vh)]"
+				:initial="{ opacity: 0, x: 180 }"
+				:animate="{ opacity: 1, x: 0 }"
+				:transition="{ duration: 1.1, ease: 'easeOut' }"
+			>
 				<Motion
 					as="div"
-					class="h-[min(970px,92vh)] w-full"
-					:initial="{ opacity: 0, x: 180 }"
-					:animate="{ opacity: 1, x: 0 }"
-					:transition="{ duration: 1.1, ease: 'easeOut' }"
+					class="h-full w-full"
+					:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, -6, 0], y: [-10, 8, -10] }"
+					:transition="{ duration: 6.6, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
 				>
-					<Motion
-						as="div"
-						class="h-full w-full"
-						:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, -6, 0], y: [-10, 8, -10] }"
-						:transition="{ duration: 6.6, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
+					<div
+						class="h-full w-full will-change-transform"
+						:style="rightGlowMouseStyle"
 					>
-						<div
-							class="h-full w-full will-change-transform"
-							:style="rightGlowMouseStyle"
+						<img
+							:src="rightGlowAsset"
+							alt=""
+							aria-hidden="true"
+							class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
 						>
-							<img
-								:src="rightGlowAsset"
-								alt=""
-								aria-hidden="true"
-								class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
-							>
-						</div>
-					</Motion>
+					</div>
 				</Motion>
-			</div>
+			</Motion>
 		</div>
 
 		<div class="relative z-10 mx-auto flex min-h-[560px] w-full max-w-[1440px] flex-col items-center px-5 pt-[108px] sm:min-h-[800px] sm:pt-[132px] lg:min-h-[900px] lg:px-12 lg:pt-[160px] lg:pb-8">
