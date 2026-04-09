@@ -76,7 +76,7 @@ onUnmounted(() => {
 <template>
 	<section
 		ref="heroRef"
-		class="relative min-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e]"
+		class="relative h-full max-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e]"
 	>
 		<div class="absolute inset-0 bg-size-[22px_22px] opacity-8" />
 
@@ -217,7 +217,7 @@ onUnmounted(() => {
 					>
 						<component
 							:is="icon.component"
-							class="size-[18px] text-white"
+							class="size-4.5 text-white"
 							aria-hidden="true"
 							stroke-width="1.8"
 						/>
