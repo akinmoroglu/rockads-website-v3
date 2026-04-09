@@ -28,14 +28,6 @@ import { TextReveal } from "@/components/ui/text-reveal";
 
 				<div class="relative z-10 w-full max-w-(--footer-headline-max-width)">
 					<h2 class="text-white">
-						<!-- <span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Stable.</span>
-						<span class="block text-5xl leading-[1.18] text-(--footer-accent-color) md:text-6xl md:leading-[1.2]">Enduring.</span>
-						<span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Limitless.</span> -->
-
-						<!-- <p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
-							Stable.
-						</p> -->
-
 						<TextReveal>
 							<LineShadowText
 								class="text-[40px] leading-[48px] font-normal text-white italic md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
@@ -55,10 +47,6 @@ import { TextReveal } from "@/components/ui/text-reveal";
 								Limitless.
 							</LineShadowText>
 						</TextReveal>
-
-						<!-- <p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
-							Limitless.
-						</p> -->
 					</h2>
 				</div>
 
