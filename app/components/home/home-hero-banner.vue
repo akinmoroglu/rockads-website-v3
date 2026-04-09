@@ -187,10 +187,11 @@ onUnmounted(() => {
 			>
 				<Button
 					as-child
-					size="lg"
-					class=""
 				>
-					<NuxtLink to="/contact-us">
+					<NuxtLink
+						to="/contact-us"
+						class="px-10! py-6"
+					>
 						<CalendarDays class="size-5" />
 						Book a Call
 					</NuxtLink>
