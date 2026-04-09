@@ -87,8 +87,9 @@ onUnmounted(() => {
 		<div class="absolute inset-0 bg-size-[22px_22px] opacity-8" />
 
 		<!-- Left glow: section-relative so the offset is always from the viewport edge,
-		     keeping the same partially-off-screen look at every resolution.
-		     At 2xl (1536px+) the glow grows wider to fill the larger side margins. -->
+     keeping the same partially-off-screen look at every resolution.
+     At 2xl (1536px+) the glow grows wider to fill the larger side margins.
+     -->
 		<div
 			aria-hidden="true"
 			class="pointer-events-none absolute inset-y-0 left-[-26rem] z-1 hidden w-[min(920px,92vw)] items-center lg:flex 2xl:w-[min(1200px,50vw)]"
