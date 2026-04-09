@@ -107,7 +107,7 @@ onUnmounted(() => {
 				>
 			</div>
 
-			<div class="relative mx-auto max-w-[1440px] px-5 py-16 md:px-10 lg:px-[160px] lg:py-[117px]">
+			<div class="relative mx-auto max-w-[1440px] px-5 py-16 md:px-10 lg:px-12 lg:py-20 xl:px-[160px] xl:py-[117px]">
 				<div class="flex flex-col gap-8 md:flex-row md:items-start md:gap-[30px] lg:gap-[42px]">
 					<!-- Left column -->
 					<div class="flex shrink-0 flex-col gap-6 md:w-[220px] md:gap-8 lg:w-[447px]">

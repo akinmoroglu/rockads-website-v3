@@ -195,10 +195,10 @@ watch(
 					class="h-[27px] w-[142px]"
 				>
 				<div
-					class="hidden h-5 w-px bg-white/30 lg:block"
+					class="hidden h-5 w-px bg-white/30 xl:block"
 				/>
 				<span
-					class="hidden text-base text-white lg:block"
+					class="hidden text-base text-white xl:block"
 				>
 					Your Growth Partner
 				</span>
