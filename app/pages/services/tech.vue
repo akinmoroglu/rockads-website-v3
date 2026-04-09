@@ -87,49 +87,19 @@ const audienceCards = [
 		<section class="relative overflow-hidden bg-white">
 			<TechServicesDotGridCanvas />
 			<div class="relative mx-auto max-w-[1066px] px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
-				<Motion
-					as="h1"
-					class="text-[40px] leading-[1.14] md:text-[48px] lg:text-[56px]"
-					:initial="{ opacity: 0, y: 28 }"
-					:animate="{ opacity: 1, y: 0 }"
-					:transition="{ duration: 0.65, ease }"
-				>
+				<h1 class="hero-anim hero-anim-1 text-[40px] leading-[1.14] md:text-[48px] lg:text-[56px]">
 					<span class="text-primary">Tech</span> <span class="text-text-base">Services</span>
-				</Motion>
-				<Motion
-					as="p"
-					class="mt-4 text-base font-medium text-foreground lg:mt-5 lg:text-lg"
-					:initial="{ opacity: 0, y: 20 }"
-					:animate="{ opacity: 1, y: 0 }"
-					:transition="{ duration: 0.55, delay: 0.1, ease }"
-				>
+				</h1>
+				<p class="hero-anim hero-anim-2 mt-4 text-base font-medium text-foreground lg:mt-5 lg:text-lg">
 					The Full Stack for Global Ad Operations
-				</Motion>
-				<Motion
-					as="p"
-					class="mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base"
-					:initial="{ opacity: 0, y: 20 }"
-					:animate="{ opacity: 1, y: 0 }"
-					:transition="{ duration: 0.55, delay: 0.18, ease }"
-				>
+				</p>
+				<p class="hero-anim hero-anim-3 mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base">
 					From campaign creation to compliance, from automation to creative intelligence and more… Everything you need to run, scale, and protect your global operations.
-				</Motion>
-				<Motion
-					as="p"
-					class="mt-4 max-w-[1066px] text-sm leading-relaxed lg:mt-5 lg:text-base"
-					:initial="{ opacity: 0, y: 20 }"
-					:animate="{ opacity: 1, y: 0 }"
-					:transition="{ duration: 0.55, delay: 0.24, ease }"
-				>
+				</p>
+				<p class="hero-anim hero-anim-4 mt-4 max-w-[1066px] text-sm leading-relaxed lg:mt-5 lg:text-base">
 					Running global ad operations across platforms, markets, and teams demands more than a collection of disconnected tools. It demands an integrated system where every action — from launching a campaign to checking compliance, from reallocating budget to generating creatives — flows through one intelligent layer. That's Rockads.
-				</Motion>
-				<Motion
-					as="div"
-					class="mt-8 lg:mt-10"
-					:initial="{ opacity: 0, y: 16 }"
-					:animate="{ opacity: 1, y: 0 }"
-					:transition="{ duration: 0.5, delay: 0.32, ease }"
-				>
+				</p>
+				<div class="hero-anim hero-anim-5 mt-8 lg:mt-10">
 					<Button
 						as-child
 					>
@@ -140,7 +110,7 @@ const audienceCards = [
 							Get Started in Minutes
 						</NuxtLink>
 					</Button>
-				</Motion>
+				</div>
 			</div>
 		</section>
 
@@ -412,6 +382,53 @@ const audienceCards = [
 </template>
 
 <style scoped>
+@keyframes hero-enter {
+	from {
+		opacity: 0;
+		transform: translateY(var(--hero-y, 20px));
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.hero-anim {
+	animation: hero-enter cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-anim-1 {
+	animation-duration: 0.65s;
+	--hero-y: 28px;
+}
+
+.hero-anim-2 {
+	animation-duration: 0.55s;
+	animation-delay: 0.1s;
+}
+
+.hero-anim-3 {
+	animation-duration: 0.55s;
+	animation-delay: 0.18s;
+}
+
+.hero-anim-4 {
+	animation-duration: 0.55s;
+	animation-delay: 0.24s;
+}
+
+.hero-anim-5 {
+	animation-duration: 0.5s;
+	animation-delay: 0.32s;
+	--hero-y: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.hero-anim {
+		animation: none;
+	}
+}
+
 .tech-automation-mock {
 	max-height: 420px;
 }

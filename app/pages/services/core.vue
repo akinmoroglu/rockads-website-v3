@@ -61,35 +61,18 @@ const dashboardBullets = [
 		<section class="relative overflow-hidden bg-[#f7f9fb]">
 			<HeroDots />
 			<div class="relative mx-auto max-w-[1066px] space-y-8 px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
-				<Motion
-					as="h1"
-					class="text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]"
-					:initial="{ opacity: 0, y: 28 }"
-					:animate="{ opacity: 1, y: 0 }"
-					:transition="{ duration: 0.65, ease }"
-				>
+				<h1 class="hero-anim hero-anim-1 text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]">
 					<span class="text-primary">Core</span> <span class="text-text-base">Services</span>
-				</Motion>
-				<Motion
-					as="div"
-					class="space-y-4"
-					:initial="{ opacity: 0, y: 20 }"
-					:animate="{ opacity: 1, y: 0 }"
-					:transition="{ duration: 0.55, delay: 0.12, ease }"
-				>
+				</h1>
+				<div class="hero-anim hero-anim-2 space-y-4">
 					<p class="font-medium lg:text-lg">
 						The Structure Behind Serious Expansion
 					</p>
 					<p class="max-w-[1066px] text-sm leading-relaxed lg:text-base">
 						True global scale isn't just built on technology. It's built on a foundation of operational excellence. Rockads Core is the operational backbone for advertisers who refuse to slow down. We remove every obstacle that stands between you and sustainable global growth: financial friction, operational gaps, compliance risks, and platform complexity. What remains is a clear, stable path to scale, backed by infrastructure, not promises.
 					</p>
-				</Motion>
-				<Motion
-					as="div"
-					:initial="{ opacity: 0, y: 16 }"
-					:animate="{ opacity: 1, y: 0 }"
-					:transition="{ duration: 0.5, delay: 0.25, ease }"
-				>
+				</div>
+				<div class="hero-anim hero-anim-3">
 					<Button
 						as-child
 					>
@@ -100,7 +83,7 @@ const dashboardBullets = [
 							Get Started in Minutes
 						</NuxtLink>
 					</Button>
-				</Motion>
+				</div>
 			</div>
 		</section>
 
@@ -410,3 +393,42 @@ const dashboardBullets = [
 		<TheFooter />
 	</div>
 </template>
+
+<style scoped>
+@keyframes hero-enter {
+	from {
+		opacity: 0;
+		transform: translateY(var(--hero-y, 20px));
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.hero-anim {
+	animation: hero-enter cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-anim-1 {
+	animation-duration: 0.65s;
+	--hero-y: 28px;
+}
+
+.hero-anim-2 {
+	animation-duration: 0.55s;
+	animation-delay: 0.12s;
+}
+
+.hero-anim-3 {
+	animation-duration: 0.5s;
+	animation-delay: 0.25s;
+	--hero-y: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.hero-anim {
+		animation: none;
+	}
+}
+</style>
