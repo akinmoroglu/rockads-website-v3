@@ -1,0 +1,41 @@
+{
+  "format_on_save": "on",
+  "tab_size": 2,
+  "languages": {
+    "TypeScript": {
+      "formatter": "none",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+        "source.organizeImports.eslint": true,
+        "source.sortImports.eslint": true,
+      },
+    },
+    "TSX": {
+      "formatter": "none",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+        "source.organizeImports.eslint": true,
+        "source.sortImports.eslint": true,
+      },
+    },
+    "JavaScript": {
+      "formatter": "none",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+        "source.organizeImports.eslint": true,
+        "source.sortImports.eslint": true,
+      },
+    },
+    "Vue.js": {
+      "formatter": "none",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+        "source.organizeImports.eslint": true,
+        "source.sortImports.eslint": true,
+      },
+    },
+    "Markdown": {
+      "formatter": "language_server",
+    },
+  },
+}

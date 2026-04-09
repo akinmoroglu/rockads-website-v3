@@ -244,12 +244,12 @@ const onFormSubmit: SubmissionHandler = (values) => {
 						</FormItem>
 					</FormField>
 
-				<NuxtTurnstile
-					v-if="!isDummyToken"
-					v-model="captchaResponse"
-					class="w-full"
-					:options="{ size: 'flexible' }"
-				/>
+					<NuxtTurnstile
+						v-if="!isDummyToken"
+						v-model="captchaResponse"
+						class="w-full"
+						:options="{ size: 'flexible' }"
+					/>
 
 					<Button
 						type="submit"
