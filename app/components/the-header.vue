@@ -424,7 +424,12 @@ watch(
 						:key="category.id"
 						class="flex flex-col gap-1"
 					>
-						<span class="text-sm text-primary">{{ category.title }}</span>
+						<NuxtLink
+							:to="category.href"
+							class="text-sm font-medium text-primary underline-offset-4 hover:underline"
+						>
+							{{ category.title }}
+						</NuxtLink>
 						<div
 							v-for="item in category.items"
 							:key="item.title"
