@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Motion } from "motion-v";
 import {
 	IconBrush,
 	IconBuildingStore,
@@ -22,8 +21,6 @@ import aiCreativeStudioPath from "@/assets/images/services/tech/ai-creative-stud
 useHead({
 	title: "Tech Services - Rockads",
 });
-
-const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const platformLogos = [
 	{ name: "Meta", src: techMetaPath },
@@ -118,26 +115,20 @@ const audienceCards = [
 		<section class="bg-muted/80 px-5 py-12 lg:px-0 lg:py-16">
 			<div class="border-primary-light relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-4xl border bg-surface-dark md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
 				<div class="flex min-w-0 flex-col p-6 sm:p-8 lg:p-12">
-					<Motion
-						as="h2"
-						class="text-2xl leading-tight text-white lg:text-[32px]"
-						:initial="{ opacity: 0, y: 20 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.3 }"
-						:transition="{ duration: 0.55, ease }"
+					<h2
+						v-reveal="{ amount: 0.3 }"
+						class="reveal text-2xl leading-tight text-white lg:text-[32px]"
+						style="--rv-y: 20px; --rv-dur: 0.55s"
 					>
 						Automation
-					</Motion>
-					<Motion
-						as="p"
-						class="mt-6 text-sm leading-relaxed text-white lg:text-base"
-						:initial="{ opacity: 0, y: 16 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.3 }"
-						:transition="{ duration: 0.55, delay: 0.1, ease }"
+					</h2>
+					<p
+						v-reveal="{ amount: 0.3 }"
+						class="reveal mt-6 text-sm leading-relaxed text-white lg:text-base"
+						style="--rv-y: 16px; --rv-dur: 0.55s; --rv-delay: 0.1s"
 					>
 						Your operations, on autopilot. Eliminate manual bottlenecks across campaign management, budget allocation, and performance optimization. Rule-based actions, smart budget redistribution, and scheduled operations — all running across every platform.
-					</Motion>
+					</p>
 				</div>
 				<div
 					class="tech-automation-mock relative mx-6 mb-6 overflow-hidden rounded-2xl shadow-lg md:absolute md:right-3 md:bottom-3 md:mx-0 md:mb-0"
@@ -155,13 +146,9 @@ const audienceCards = [
 		<!-- Ad Launcher + Compliance AI -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-16">
 			<div class="mx-auto grid max-w-[1140px] gap-6 md:grid-cols-2 lg:gap-8">
-				<Motion
-					as="div"
-					class="border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12"
-					:initial="{ opacity: 0, y: 28 }"
-					:while-in-view="{ opacity: 1, y: 0 }"
-					:in-view-options="{ once: true, amount: 0.15 }"
-					:transition="{ duration: 0.6, ease }"
+				<div
+					v-reveal="{ amount: 0.15 }"
+					class="reveal border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12"
 				>
 					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						Ad Launcher
@@ -180,14 +167,11 @@ const audienceCards = [
 							>
 						</div>
 					</div>
-				</Motion>
-				<Motion
-					as="div"
-					class="border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12"
-					:initial="{ opacity: 0, y: 28 }"
-					:while-in-view="{ opacity: 1, y: 0 }"
-					:in-view-options="{ once: true, amount: 0.15 }"
-					:transition="{ duration: 0.6, delay: 0.12, ease }"
+				</div>
+				<div
+					v-reveal="{ amount: 0.15 }"
+					class="reveal border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12"
+					style="--rv-delay: 0.12s"
 				>
 					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						Compliance AI
@@ -198,19 +182,16 @@ const audienceCards = [
 					<div class="mt-10 flex w-full justify-start overflow-hidden">
 						<ComplianceAiAnimated />
 					</div>
-				</Motion>
+				</div>
 			</div>
 		</section>
 
 		<!-- AI Creative Studio -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
-			<Motion
-				as="div"
-				class="relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl bg-[#e5f1ff] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12"
-				:initial="{ opacity: 0, y: 32 }"
-				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: true, amount: 0.15 }"
-				:transition="{ duration: 0.65, ease }"
+			<div
+				v-reveal="{ amount: 0.15 }"
+				class="reveal relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl bg-[#e5f1ff] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12"
+				style="--rv-y: 32px; --rv-dur: 0.65s"
 			>
 				<div class="mx-auto max-w-[656px] text-center">
 					<h2 class="text-2xl leading-tight lg:text-[32px]">
@@ -227,7 +208,7 @@ const audienceCards = [
 						class="h-auto w-full max-w-full"
 					>
 				</div>
-			</Motion>
+			</div>
 		</section>
 
 		<!-- How it works + audiences -->
@@ -239,13 +220,10 @@ const audienceCards = [
 				<div
 					class="relative z-10 grid gap-10 p-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,465px)] lg:gap-x-8 lg:gap-y-0 lg:p-12 xl:grid-cols-[447px_465px] xl:gap-x-[132px]"
 				>
-					<Motion
-						as="div"
-						class="max-w-none xl:max-w-[447px]"
-						:initial="{ opacity: 0, y: 24 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.2 }"
-						:transition="{ duration: 0.6, ease }"
+					<div
+						v-reveal="{ amount: 0.2 }"
+						class="reveal max-w-none xl:max-w-[447px]"
+						style="--rv-y: 24px"
 					>
 						<h2 class="text-2xl leading-tight lg:text-[32px]">
 							How It Works Together
@@ -256,17 +234,14 @@ const audienceCards = [
 						<p class="mt-4 text-base leading-relaxed">
 							Automation monitors performance and automatically optimizes budgets, pauses underperformers, and scales winners. Performance data feeds back into AI Creative Studio to generate better-performing creative iterations.
 						</p>
-					</Motion>
+					</div>
 					<div class="flex flex-col gap-6">
-						<Motion
+						<div
 							v-for="(a, index) in audienceCards"
 							:key="a.title"
-							as="div"
-							class="flex flex-col gap-6 rounded-2xl bg-card p-6 shadow-sm"
-							:initial="{ opacity: 0, y: 24 }"
-							:while-in-view="{ opacity: 1, y: 0 }"
-							:in-view-options="{ once: true, amount: 0.1 }"
-							:transition="{ duration: 0.55, delay: index * 0.1, ease }"
+							v-reveal="{ amount: 0.1 }"
+							class="reveal flex flex-col gap-6 rounded-2xl bg-card p-6 shadow-sm"
+							:style="{ '--rv-y': '24px', '--rv-dur': '0.55s', '--rv-delay': `${index * 0.1}s` }"
 						>
 							<component
 								:is="a.icon"
@@ -281,7 +256,7 @@ const audienceCards = [
 									{{ a.body }}
 								</p>
 							</div>
-						</Motion>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -289,13 +264,10 @@ const audienceCards = [
 
 		<!-- CTA -->
 		<section class="bg-background px-5 py-16 lg:py-20">
-			<Motion
-				as="div"
-				class="mx-auto max-w-[800px] text-center"
-				:initial="{ opacity: 0, y: 24 }"
-				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: true, amount: 0.3 }"
-				:transition="{ duration: 0.6, ease }"
+			<div
+				v-reveal="{ amount: 0.3 }"
+				class="reveal mx-auto max-w-[800px] text-center"
+				style="--rv-y: 24px"
 			>
 				<h2 class=" text-[32px] leading-[1.2] font-semibold lg:text-[40px]">
 					Ready to run tech that scales with you?<br><span class="text-foreground">Start on Rockads</span>
@@ -311,7 +283,7 @@ const audienceCards = [
 						Get Started in Minutes
 					</NuxtLink>
 				</Button>
-			</Motion>
+			</div>
 		</section>
 
 		<section class="tech-closing relative overflow-hidden px-5 py-20 lg:py-28">
@@ -322,58 +294,43 @@ const audienceCards = [
 				<div class="tech-closing-ellipse size-full rounded-full" />
 			</div>
 			<div class="relative z-10 mx-auto flex max-w-[492px] flex-col items-center gap-9 text-center">
-				<Motion
-					as="p"
-					class="text-sm leading-5 text-(--tech-closing-kicker) lg:text-base"
-					:initial="{ opacity: 0, y: 16 }"
-					:while-in-view="{ opacity: 1, y: 0 }"
-					:in-view-options="{ once: true, amount: 0.3 }"
-					:transition="{ duration: 0.5, ease }"
+				<p
+					v-reveal="{ amount: 0.3 }"
+					class="reveal text-sm leading-5 text-(--tech-closing-kicker) lg:text-base"
+					style="--rv-y: 16px; --rv-dur: 0.5s"
 				>
 					The only partner you'll ever need.
-				</Motion>
+				</p>
 				<h2 class="w-full max-w-[536px] text-white">
-					<Motion
-						as="p"
-						class="text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-						:initial="{ opacity: 0, y: 24 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.2 }"
-						:transition="{ duration: 0.6, ease }"
+					<p
+						v-reveal="{ amount: 0.2 }"
+						class="reveal text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+						style="--rv-y: 24px"
 					>
 						Stable.
-					</Motion>
-					<Motion
-						as="p"
-						class="text-[40px] leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-						:initial="{ opacity: 0, y: 24 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.2 }"
-						:transition="{ duration: 0.6, delay: 0.1, ease }"
+					</p>
+					<p
+						v-reveal="{ amount: 0.2 }"
+						class="reveal text-[40px] leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+						style="--rv-y: 24px; --rv-delay: 0.1s"
 					>
 						<em class="tech-closing-enduring text-(--tech-closing-accent)">Enduring.</em>
-					</Motion>
-					<Motion
-						as="p"
-						class="text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-						:initial="{ opacity: 0, y: 24 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.2 }"
-						:transition="{ duration: 0.6, delay: 0.2, ease }"
+					</p>
+					<p
+						v-reveal="{ amount: 0.2 }"
+						class="reveal text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+						style="--rv-y: 24px; --rv-delay: 0.2s"
 					>
 						Limitless.
-					</Motion>
+					</p>
 				</h2>
-				<Motion
-					as="p"
-					class="max-w-[372px] text-sm leading-5 text-(--tech-closing-description)"
-					:initial="{ opacity: 0, y: 16 }"
-					:while-in-view="{ opacity: 1, y: 0 }"
-					:in-view-options="{ once: true, amount: 0.3 }"
-					:transition="{ duration: 0.5, delay: 0.3, ease }"
+				<p
+					v-reveal="{ amount: 0.3 }"
+					class="reveal max-w-[372px] text-sm leading-5 text-(--tech-closing-description)"
+					style="--rv-y: 16px; --rv-dur: 0.5s; --rv-delay: 0.3s"
 				>
 					When others come and go, we'll still be here. Join the infrastructure built to last.
-				</Motion>
+				</p>
 			</div>
 		</section>
 
@@ -382,6 +339,7 @@ const audienceCards = [
 </template>
 
 <style scoped>
+/* ── Hero enter animations ───────────────────────────────── */
 @keyframes hero-enter {
 	from {
 		opacity: 0;
@@ -423,12 +381,33 @@ const audienceCards = [
 	--hero-y: 16px;
 }
 
+/* ── Scroll reveal ───────────────────────────────────────── */
+.reveal {
+	opacity: 0;
+	transform: translateY(var(--rv-y, 28px));
+	transition:
+		opacity var(--rv-dur, 0.6s) cubic-bezier(0.16, 1, 0.3, 1) var(--rv-delay, 0s),
+		transform var(--rv-dur, 0.6s) cubic-bezier(0.16, 1, 0.3, 1) var(--rv-delay, 0s);
+}
+
+.reveal.in-view {
+	opacity: 1;
+	transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.hero-anim {
 		animation: none;
 	}
+
+	.reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
 }
 
+/* ── Section styles ──────────────────────────────────────── */
 .tech-automation-mock {
 	max-height: 420px;
 }

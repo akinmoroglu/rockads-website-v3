@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Motion } from "motion-v";
 import EcosystemSvg from "@/components/services/core/EcosystemSvg.vue";
 import GrowthSvg from "@/components/services/core/GrowthSvg.vue";
 import HeroDots from "@/components/services/core/HeroDots.vue";
@@ -13,8 +12,6 @@ import { Button } from "@/components/ui/button";
 useHead({
 	title: "Core Services - Rockads",
 });
-
-const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const opContinuityBullets = [
 	"Instant 24/7 top-up availability for uninterrupted delivery.",
@@ -93,13 +90,9 @@ const dashboardBullets = [
 				<!-- Row 1: Financial Infrastructure + Growth Capacity -->
 				<div class="grid gap-6 md:grid-cols-2 lg:gap-8">
 					<!-- Financial Infrastructure -->
-					<Motion
-						as="div"
-						class="flex min-w-0 flex-col overflow-hidden rounded-4xl bg-card p-8 lg:p-12"
-						:initial="{ opacity: 0, y: 28 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.15 }"
-						:transition="{ duration: 0.6, ease }"
+					<div
+						v-reveal="{ amount: 0.15 }"
+						class="reveal flex min-w-0 flex-col overflow-hidden rounded-4xl bg-card p-8 lg:p-12"
 					>
 						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
 							Financial Infrastructure
@@ -113,17 +106,13 @@ const dashboardBullets = [
 						<div class="mt-6 flex w-full flex-1 items-end justify-center overflow-hidden pb-2">
 							<ServicesCoreFinancialSvg />
 						</div>
-					</Motion>
+					</div>
 
 					<!-- Growth Capacity -->
-					<Motion
-						as="div"
-						class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-4xl p-8 lg:p-12"
-						style="background-color:#e8f4ff;"
-						:initial="{ opacity: 0, y: 28 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.15 }"
-						:transition="{ duration: 0.6, delay: 0.12, ease }"
+					<div
+						v-reveal="{ amount: 0.15 }"
+						class="reveal border-primary-light flex min-w-0 flex-col overflow-hidden rounded-4xl p-8 lg:p-12"
+						:style="{ 'backgroundColor': '#e8f4ff', '--rv-delay': '0.12s' }"
 					>
 						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
 							Growth Capacity
@@ -137,17 +126,14 @@ const dashboardBullets = [
 						<div class="mt-6 flex w-full flex-1 items-end justify-center overflow-hidden">
 							<GrowthSvg />
 						</div>
-					</Motion>
+					</div>
 				</div>
 
 				<!-- Row 2: Operational Continuity (full width, dark) -->
-				<Motion
-					as="div"
-					class="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12"
-					:initial="{ opacity: 0, y: 32 }"
-					:while-in-view="{ opacity: 1, y: 0 }"
-					:in-view-options="{ once: true, amount: 0.1 }"
-					:transition="{ duration: 0.65, ease }"
+				<div
+					v-reveal="{ amount: 0.1 }"
+					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12"
+					style="--rv-y: 32px; --rv-dur: 0.65s"
 				>
 					<div class="flex min-w-0 flex-col pb-8 lg:pb-12">
 						<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
@@ -181,16 +167,13 @@ const dashboardBullets = [
 					<div class="flex min-w-0 items-center justify-center overflow-hidden">
 						<OperationSvg />
 					</div>
-				</Motion>
+				</div>
 
 				<!-- Row 3: Strategic Support (dark, reversed layout) -->
-				<Motion
-					as="div"
-					class="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark p-8 md:grid-cols-2 lg:gap-12 lg:p-12"
-					:initial="{ opacity: 0, y: 32 }"
-					:while-in-view="{ opacity: 1, y: 0 }"
-					:in-view-options="{ once: true, amount: 0.1 }"
-					:transition="{ duration: 0.65, ease }"
+				<div
+					v-reveal="{ amount: 0.1 }"
+					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark p-8 md:grid-cols-2 lg:gap-12 lg:p-12"
+					style="--rv-y: 32px; --rv-dur: 0.65s"
 				>
 					<div class="order-2 flex min-w-0 items-center justify-center overflow-hidden md:order-1">
 						<StrategicSvg />
@@ -224,18 +207,14 @@ const dashboardBullets = [
 							</li>
 						</ul>
 					</div>
-				</Motion>
+				</div>
 
 				<!-- Row 4: Ecosystem Alignment + Integrity Framework -->
 				<div class="grid gap-6 md:grid-cols-2 lg:gap-8">
 					<!-- Ecosystem Alignment -->
-					<Motion
-						as="div"
-						class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12"
-						:initial="{ opacity: 0, y: 28 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.15 }"
-						:transition="{ duration: 0.6, ease }"
+					<div
+						v-reveal="{ amount: 0.15 }"
+						class="reveal border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12"
 					>
 						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 							Ecosystem Alignment
@@ -267,16 +246,13 @@ const dashboardBullets = [
 						<div class="mt-8 flex w-full flex-1 items-end overflow-hidden">
 							<EcosystemSvg />
 						</div>
-					</Motion>
+					</div>
 
 					<!-- Integrity Framework -->
-					<Motion
-						as="div"
-						class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12"
-						:initial="{ opacity: 0, y: 28 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.15 }"
-						:transition="{ duration: 0.6, delay: 0.12, ease }"
+					<div
+						v-reveal="{ amount: 0.15 }"
+						class="reveal border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12"
+						style="--rv-delay: 0.12s"
 					>
 						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 							Integrity Framework
@@ -308,20 +284,17 @@ const dashboardBullets = [
 						<div class="mt-8 flex w-full flex-1 items-end justify-center overflow-hidden">
 							<IntegritySvg />
 						</div>
-					</Motion>
+					</div>
 				</div>
 			</div>
 		</section>
 
 		<!-- Dashboard -->
 		<section class="bg-[#f7f9fb] px-5 pt-12 pb-12 lg:px-0 lg:pt-20 lg:pb-20">
-			<Motion
-				as="div"
-				class="border-primary-light mx-auto grid max-w-[1140px] gap-8 rounded-2xl border bg-white pt-8 pl-8 md:grid-cols-[380px_1fr] lg:gap-12 lg:pt-12 lg:pl-12"
-				:initial="{ opacity: 0, y: 32 }"
-				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: true, amount: 0.1 }"
-				:transition="{ duration: 0.65, ease }"
+			<div
+				v-reveal="{ amount: 0.1 }"
+				class="reveal border-primary-light mx-auto grid max-w-[1140px] gap-8 rounded-2xl border bg-white pt-8 pl-8 md:grid-cols-[380px_1fr] lg:gap-12 lg:pt-12 lg:pl-12"
+				style="--rv-y: 32px; --rv-dur: 0.65s"
 			>
 				<div class="flex flex-col pb-8 lg:pb-12">
 					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
@@ -358,18 +331,15 @@ const dashboardBullets = [
 						:image-src="dashboardSvg"
 					/>
 				</div>
-			</Motion>
+			</div>
 		</section>
 
 		<!-- CTA -->
 		<section class="bg-white px-5 py-16 lg:py-20">
-			<Motion
-				as="div"
-				class="mx-auto max-w-[800px] space-y-10 text-center"
-				:initial="{ opacity: 0, y: 24 }"
-				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: true, amount: 0.3 }"
-				:transition="{ duration: 0.6, ease }"
+			<div
+				v-reveal="{ amount: 0.3 }"
+				class="reveal mx-auto max-w-[800px] space-y-10 text-center"
+				style="--rv-y: 24px"
 			>
 				<h2 class="text-text-base text-[32px] leading-[1.2] font-medium lg:text-[40px]">
 					Built for growth that holds.<br> Discuss Your Growth Plan
@@ -384,7 +354,7 @@ const dashboardBullets = [
 						Get Started in Minutes
 					</NuxtLink>
 				</Button>
-			</Motion>
+			</div>
 		</section>
 
 		<HomeCta />
@@ -425,9 +395,29 @@ const dashboardBullets = [
 	--hero-y: 16px;
 }
 
+/* ── Scroll reveal ───────────────────────────────────────── */
+.reveal {
+	opacity: 0;
+	transform: translateY(var(--rv-y, 28px));
+	transition:
+		opacity var(--rv-dur, 0.6s) cubic-bezier(0.16, 1, 0.3, 1) var(--rv-delay, 0s),
+		transform var(--rv-dur, 0.6s) cubic-bezier(0.16, 1, 0.3, 1) var(--rv-delay, 0s);
+}
+
+.reveal.in-view {
+	opacity: 1;
+	transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.hero-anim {
 		animation: none;
+	}
+
+	.reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
 	}
 }
 </style>
