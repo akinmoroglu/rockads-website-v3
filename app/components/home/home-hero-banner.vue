@@ -145,11 +145,15 @@ onUnmounted(() => {
 		<div class="relative z-10 mx-auto flex min-h-[860px] w-full max-w-[1440px] flex-col items-center px-5 pt-[132px] pb-8 lg:min-h-[900px] lg:px-12 lg:pt-[160px]">
 			<Motion
 				as="div"
-				class="rounded-full border border-[#37A4FF]/35 bg-[#0a75cb]/20 px-3 py-2 text-sm  text-white/90"
+				class="relative overflow-hidden rounded-full border border-[#37A4FF]/35 bg-[#0a75cb]/20 px-3 py-2 text-sm  text-white/90"
 				:initial="{ opacity: 0, y: 12 }"
 				:animate="{ opacity: 1, y: 0 }"
 				:transition="{ duration: 0.45, ease: 'easeOut' }"
 			>
+				<span
+					class="badge-beam"
+					aria-hidden="true"
+				/>
 				Stable. <span class="italic">Enduring.</span> Limitless.
 			</Motion>
 
@@ -234,3 +238,46 @@ onUnmounted(() => {
 		</div>
 	</section>
 </template>
+
+<style scoped>
+/*
+ * Border-beam: a rotating conic-gradient "light" clipped by the pill's
+ * overflow:hidden, so only the thin edge area glows as it sweeps around.
+ */
+.badge-beam {
+	pointer-events: none;
+	position: absolute;
+	border-radius: 50%;
+	aspect-ratio: 1;
+	/* Bigger than the container so the glow reaches all corners of the pill */
+	width: 160%;
+	/* Centre on the pill */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(0deg);
+	/* A tight bright arc (~10 % of the circle) fading in & out */
+	background: conic-gradient(
+		from 0deg,
+		transparent 0%,
+		transparent 82%,
+		rgba(55, 164, 255, 0.35) 87%,
+		rgba(147, 197, 253, 0.9) 92%,
+		rgba(55, 164, 255, 0.3) 96%,
+		transparent 100%
+	);
+	animation: badge-beam-spin 3.5s linear infinite;
+	will-change: transform;
+}
+
+@keyframes badge-beam-spin {
+	to {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.badge-beam {
+		animation: none;
+	}
+}
+</style>
