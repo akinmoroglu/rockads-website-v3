@@ -323,7 +323,7 @@ const dashboardBullets = [
 				:in-view-options="{ once: true, amount: 0.1 }"
 				:transition="{ duration: 0.65, ease }"
 			>
-				<div class="flex flex-col">
+				<div class="flex flex-col pb-8 lg:pb-12">
 					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 						Rockads Dashboard
 					</h2>
