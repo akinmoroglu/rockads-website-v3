@@ -2,7 +2,15 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import HomeCta from "@/components/home/home-cta.vue";
 import { Motion } from "motion-v";
 
@@ -33,7 +41,6 @@ const isSubmitting = ref(false);
 const isSubmitted = ref(false);
 
 const inquiryTypes = [
-	{ value: "", label: "Select an inquiry type" },
 	{ value: "general", label: "General Inquiry" },
 	{ value: "sales", label: "Sales & Partnerships" },
 	{ value: "support", label: "Technical Support" },
@@ -215,12 +222,9 @@ const socialLinks = [
 						<div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
 							<!-- Full Name -->
 							<div class="flex flex-col gap-1.5">
-								<label
-									for="contact-name"
-									class="text-sm font-medium text-foreground"
-								>
+								<Label for="contact-name">
 									Full Name <span class="text-destructive">*</span>
-								</label>
+								</Label>
 								<Input
 									id="contact-name"
 									v-model="form.name"
@@ -232,12 +236,9 @@ const socialLinks = [
 
 							<!-- Email -->
 							<div class="flex flex-col gap-1.5">
-								<label
-									for="contact-email"
-									class="text-sm font-medium text-foreground"
-								>
+								<Label for="contact-email">
 									Email Address <span class="text-destructive">*</span>
-								</label>
+								</Label>
 								<Input
 									id="contact-email"
 									v-model="form.email"
@@ -250,12 +251,9 @@ const socialLinks = [
 
 							<!-- Company -->
 							<div class="flex flex-col gap-1.5">
-								<label
-									for="contact-company"
-									class="text-sm font-medium text-foreground"
-								>
+								<Label for="contact-company">
 									Company Name
-								</label>
+								</Label>
 								<Input
 									id="contact-company"
 									v-model="form.company"
@@ -266,38 +264,37 @@ const socialLinks = [
 
 							<!-- Inquiry Type -->
 							<div class="flex flex-col gap-1.5">
-								<label
-									for="contact-inquiry"
-									class="text-sm font-medium text-foreground"
-								>
+								<Label for="contact-inquiry">
 									Inquiry Type <span class="text-destructive">*</span>
-								</label>
-								<select
-									id="contact-inquiry"
+								</Label>
+								<Select
 									v-model="form.inquiryType"
 									required
-									class="h-11 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm text-foreground shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:bg-input/30"
 								>
-									<option
-										v-for="type in inquiryTypes"
-										:key="type.value"
-										:value="type.value"
-										:disabled="type.value === ''"
+									<SelectTrigger
+										id="contact-inquiry"
+										class="h-11 w-full"
 									>
-										{{ type.label }}
-									</option>
-								</select>
+										<SelectValue placeholder="Select an inquiry type" />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectItem
+											v-for="type in inquiryTypes"
+											:key="type.value"
+											:value="type.value"
+										>
+											{{ type.label }}
+										</SelectItem>
+									</SelectContent>
+								</Select>
 							</div>
 						</div>
 
 						<!-- Message -->
 						<div class="flex flex-col gap-1.5">
-							<label
-								for="contact-message"
-								class="text-sm font-medium text-foreground"
-							>
+							<Label for="contact-message">
 								Message <span class="text-destructive">*</span>
-							</label>
+							</Label>
 							<Textarea
 								id="contact-message"
 								v-model="form.message"
@@ -500,16 +497,22 @@ const socialLinks = [
 							Follow Us
 						</h3>
 						<div class="flex flex-wrap gap-2">
-							<a
+							<Button
 								v-for="social in socialLinks"
 								:key="social.label"
-								:href="social.href"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground transition-all hover:border-primary/40 hover:text-primary"
+								variant="outline"
+								size="sm"
+								as-child
+								class="rounded-full text-xs text-muted-foreground hover:border-primary/40 hover:text-primary"
 							>
-								{{ social.label }}
-							</a>
+								<a
+									:href="social.href"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{{ social.label }}
+								</a>
+							</Button>
 						</div>
 					</Motion>
 				</div>
