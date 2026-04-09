@@ -2,6 +2,14 @@
 import { LineShadowText } from "@/components/ui/line-shadow-text";
 import EncryptedText from "@/components/ui/encrypted-text/EncryptedText.vue";
 import { TextReveal } from "@/components/ui/text-reveal";
+import { motion } from "motion-v";
+import { onMounted, ref } from "vue";
+
+const isReveal = ref(false);
+
+onMounted(() => {
+	isReveal.value = true;
+});
 </script>
 
 <template>
@@ -26,28 +34,29 @@ import { TextReveal } from "@/components/ui/text-reveal";
 					<div class="footer-hero-ellipse size-full rounded-full" />
 				</div>
 
-				<div class="relative z-10 w-full max-w-(--footer-headline-max-width)">
-					<h2 class="text-white">
-						<TextReveal>
-							<LineShadowText
-								class="text-[40px] leading-[48px] font-normal text-white italic md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-								shadow-color="white"
-							>
-								Stable.
-							</LineShadowText>
+				<div
+					v-if="isReveal"
+					class="relative z-10 w-full max-w-(--footer-headline-max-width)"
+				>
+					<TextReveal>
+						<LineShadowText
+							class="text-[40px] leading-[48px] font-normal text-white italic md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+							shadow-color="white"
+						>
+							Stable.
+						</LineShadowText>
 
-							<p class="text-[40px] leading-[50px] md:text-[52px] md:leading-[65px] lg:text-[68px] lg:leading-[88px]">
-								<em class="footer-enduring text-(--footer-accent-color)">Enduring.</em>
-							</p>
+						<p class="text-[40px] leading-[50px] md:text-[52px] md:leading-[65px] lg:text-[68px] lg:leading-[88px]">
+							<em class="footer-enduring text-(--footer-accent-color)">Enduring.</em>
+						</p>
 
-							<LineShadowText
-								class="text-[40px] leading-[48px] font-normal text-white italic md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-								shadow-color="white"
-							>
-								Limitless.
-							</LineShadowText>
-						</TextReveal>
-					</h2>
+						<LineShadowText
+							class="text-[40px] leading-[48px] font-normal text-white italic md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+							shadow-color="white"
+						>
+							Limitless.
+						</LineShadowText>
+					</TextReveal>
 				</div>
 
 				<p class="relative z-10 max-w-(--footer-description-max-width) text-sm leading-5 text-(--footer-description-color)">
