@@ -293,10 +293,10 @@ const dashboardBullets = [
 		<section class="bg-[#f7f9fb] px-5 pt-12 pb-12 lg:px-0 lg:pt-20 lg:pb-20">
 			<div
 				v-reveal="{ amount: 0.1 }"
-				class="reveal border-primary-light mx-auto grid max-w-[1140px] gap-8 rounded-2xl border bg-white pt-8 pl-8 md:grid-cols-[380px_1fr] lg:gap-12 lg:pt-12 lg:pl-12"
+				class="reveal border-primary-light mx-auto grid max-w-[1140px] gap-8 rounded-2xl border bg-white p-4 md:grid-cols-[380px_1fr] lg:gap-12 lg:p-4"
 				style="--rv-y: 32px; --rv-dur: 0.65s"
 			>
-				<div class="flex flex-col pb-8 lg:pb-12">
+				<div class="flex flex-col p-4 lg:p-8">
 					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 						Rockads Dashboard
 					</h2>
