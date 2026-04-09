@@ -230,7 +230,6 @@ const socialLinks = [
 									v-model="form.name"
 									placeholder="Jane Smith"
 									required
-									class="h-11"
 								/>
 							</div>
 
@@ -245,7 +244,6 @@ const socialLinks = [
 									type="email"
 									placeholder="jane@company.com"
 									required
-									class="h-11"
 								/>
 							</div>
 
@@ -258,7 +256,6 @@ const socialLinks = [
 									id="contact-company"
 									v-model="form.company"
 									placeholder="Your company"
-									class="h-11"
 								/>
 							</div>
 
@@ -273,7 +270,7 @@ const socialLinks = [
 								>
 									<SelectTrigger
 										id="contact-inquiry"
-										class="h-11 w-full"
+										class="w-full"
 									>
 										<SelectValue placeholder="Select an inquiry type" />
 									</SelectTrigger>
