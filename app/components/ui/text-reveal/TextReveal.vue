@@ -23,8 +23,9 @@ gsap.registerPlugin(SplitText);
 
 const textContainer = ref<HTMLElement | null>(null);
 let split: gsap.core.Tween;
+let observer: IntersectionObserver | null = null;
 
-onMounted(() => {
+function playAnimation() {
 	if (!textContainer.value) return;
 
 	gsap.set(textContainer.value, { opacity: 1 });
@@ -45,10 +46,28 @@ onMounted(() => {
 			});
 		},
 	});
+}
+
+onMounted(() => {
+	if (!textContainer.value) return;
+
+	observer = new IntersectionObserver(
+		([entry]) => {
+			if (entry.isIntersecting) {
+				playAnimation();
+				observer?.disconnect();
+				observer = null;
+			}
+		},
+		{ threshold: 0.2 },
+	);
+
+	observer.observe(textContainer.value);
 });
 
 onUnmounted(() => {
 	split?.kill();
+	observer?.disconnect();
 });
 </script>
 

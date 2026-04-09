@@ -2,14 +2,6 @@
 import { LineShadowText } from "@/components/ui/line-shadow-text";
 import EncryptedText from "@/components/ui/encrypted-text/EncryptedText.vue";
 import { TextReveal } from "@/components/ui/text-reveal";
-import { motion } from "motion-v";
-import { onMounted, ref } from "vue";
-
-const isReveal = ref(false);
-
-onMounted(() => {
-	isReveal.value = true;
-});
 </script>
 
 <template>
@@ -26,7 +18,7 @@ onMounted(() => {
 				:reveal-delay-ms="50"
 			/>
 
-			<div class="relative flex w-full max-w-[492px] flex-col items-center gap-9">
+			<div class="relative flex min-h-[233px] w-full max-w-[492px] flex-col items-center gap-9">
 				<div
 					class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[260px] w-[300px] max-w-[calc(100%+2rem)] -translate-x-1/2 -translate-y-1/2 md:h-[350px] md:w-[400px] lg:h-[458px] lg:w-[536px]"
 					aria-hidden="true"
@@ -35,7 +27,6 @@ onMounted(() => {
 				</div>
 
 				<div
-					v-if="isReveal"
 					class="relative z-10 w-full max-w-(--footer-headline-max-width)"
 				>
 					<TextReveal>
