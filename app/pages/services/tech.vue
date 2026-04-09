@@ -98,10 +98,12 @@ const audienceCards = [
 				</p>
 				<Button
 					as-child
-					size="lg"
 					class="mt-8 lg:mt-10"
 				>
-					<NuxtLink to="/sign-up">
+					<NuxtLink
+						to="/sign-up"
+						class="px-10! py-6"
+					>
 						Get Started in Minutes
 					</NuxtLink>
 				</Button>
@@ -242,10 +244,12 @@ const audienceCards = [
 				</h2>
 				<Button
 					as-child
-					size="lg"
 					class="mt-8 lg:mt-10"
 				>
-					<NuxtLink to="/sign-up">
+					<NuxtLink
+						to="/sign-up"
+						class="px-10! py-6"
+					>
 						Get Started in Minutes
 					</NuxtLink>
 				</Button>

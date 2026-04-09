@@ -70,10 +70,12 @@ const dashboardBullets = [
 					</p>
 				</div>
 				<Button
-					size="lg"
 					as-child
 				>
-					<NuxtLink to="/sign-up">
+					<NuxtLink
+						to="/sign-up"
+						class="px-10! py-6"
+					>
 						Get Started in Minutes
 					</NuxtLink>
 				</Button>
@@ -321,10 +323,12 @@ const dashboardBullets = [
 					Built for growth that holds.<br> Discuss Your Growth Plan
 				</h2>
 				<Button
-					size="lg"
 					as-child
 				>
-					<NuxtLink to="/sign-up">
+					<NuxtLink
+						to="/sign-up"
+						class="px-10! py-6"
+					>
 						Get Started in Minutes
 					</NuxtLink>
 				</Button>
