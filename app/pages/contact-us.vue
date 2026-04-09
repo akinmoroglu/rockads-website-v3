@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import HomeCta from "@/components/home/home-cta.vue";
 import { Motion } from "motion-v";
+import { IconFileDescriptionFilled, IconHeadset, IconMail } from "@tabler/icons-vue";
 
 definePageMeta({
 	layout: "marketing",
@@ -40,6 +41,8 @@ const form = reactive({
 const isSubmitting = ref(false);
 const isSubmitted = ref(false);
 
+const mounted = ref(false);
+
 const inquiryTypes = [
 	{ value: "general", label: "General Inquiry" },
 	{ value: "sales", label: "Sales & Partnerships" },
@@ -59,7 +62,7 @@ async function handleSubmit() {
 
 const contactCards = [
 	{
-		icon: "email",
+		icon: IconMail,
 		title: "Email Us",
 		description: "Our team typically responds within 24 hours.",
 		value: "support@rockads.com",
@@ -67,7 +70,7 @@ const contactCards = [
 		external: false,
 	},
 	{
-		icon: "support",
+		icon: IconHeadset,
 		title: "24/7 Support",
 		description: "Round-the-clock support for all partners.",
 		value: "Visit Help Center",
@@ -75,7 +78,7 @@ const contactCards = [
 		external: true,
 	},
 	{
-		icon: "docs",
+		icon: IconFileDescriptionFilled,
 		title: "Documentation",
 		description: "Explore our guides and API references.",
 		value: "docs.rockads.com",
@@ -97,6 +100,14 @@ const socialLinks = [
 	{ label: "Facebook", href: "https://www.facebook.com/rockadscom/" },
 	{ label: "TikTok", href: "https://www.tiktok.com/@rockadscom" },
 ];
+
+onMounted(() => {
+	mounted.value = true;
+});
+
+onUnmounted(() => {
+	mounted.value = false;
+});
 </script>
 
 <template>
@@ -345,7 +356,10 @@ const socialLinks = [
 				</Motion>
 
 				<!-- Sidebar -->
-				<div class="flex flex-col gap-5 lg:col-span-2">
+				<div
+					v-if="mounted"
+					class="flex flex-col gap-5 lg:col-span-2"
+				>
 					<!-- Contact Cards -->
 					<Motion
 						v-for="(card, index) in contactCards"
@@ -361,74 +375,7 @@ const socialLinks = [
 						:transition="{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }"
 					>
 						<div class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
-							<!-- Email -->
-							<svg
-								v-if="card.icon === 'email'"
-								class="size-5"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="1.75"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<rect
-									width="20"
-									height="16"
-									x="2"
-									y="4"
-									rx="2"
-								/>
-								<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-							</svg>
-							<!-- Support / Headset -->
-							<svg
-								v-else-if="card.icon === 'support'"
-								class="size-5"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="1.75"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path d="M3 11a9 9 0 1 1 18 0" />
-								<path d="M21 11v3a2 2 0 0 1-2 2h-1" />
-								<path d="M3 11v3a2 2 0 0 0 2 2h1" />
-								<rect
-									x="9"
-									y="16"
-									width="6"
-									height="4"
-									rx="1"
-								/>
-							</svg>
-							<!-- Docs / File -->
-							<svg
-								v-else-if="card.icon === 'docs'"
-								class="size-5"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="1.75"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-								<polyline points="14 2 14 8 20 8" />
-								<line
-									x1="16"
-									y1="13"
-									x2="8"
-									y2="13"
-								/>
-								<line
-									x1="16"
-									y1="17"
-									x2="8"
-									y2="17"
-								/>
-							</svg>
+							<component :is="card.icon" />
 						</div>
 						<div class="flex flex-col gap-0.5">
 							<span class="text-sm font-semibold text-foreground">{{ card.title }}</span>
