@@ -306,8 +306,13 @@ watch(
 				<Button
 					type="button"
 					size="lg"
+					as-child
 				>
-					Get Started
+					<NuxtLink
+						to="/sign-up"
+					>
+						Get Started
+					</NuxtLink>
 				</Button>
 			</nav>
 
