@@ -1,9 +1,22 @@
+<script setup lang="ts">
+import { LineShadowText } from "@/components/ui/line-shadow-text";
+import EncryptedText from "@/components/ui/encrypted-text/EncryptedText.vue";
+import { TextReveal } from "@/components/ui/text-reveal";
+</script>
+
 <template>
 	<section class="footer-shell">
 		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-16 text-center lg:px-12">
-			<p class="mb-12 text-base tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
+			<!-- <p class="mb-12 text-base tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
 				The only partner you'll ever need.
-			</p>
+			</p> -->
+			<EncryptedText
+				text="The only partner you'll ever need."
+				encrypted-class="text-neutral-500"
+				revealed-class="text-(--footer-kicker-color)"
+				class="mb-12 text-base tracking-(--footer-kicker-tracking) uppercase"
+				:reveal-delay-ms="50"
+			/>
 
 			<div class="relative flex w-full max-w-[492px] flex-col items-center gap-9">
 				<div
@@ -19,15 +32,33 @@
 						<span class="block text-5xl leading-[1.18] text-(--footer-accent-color) md:text-6xl md:leading-[1.2]">Enduring.</span>
 						<span class="block text-5xl leading-[1.18] md:text-6xl md:leading-[1.2]">Limitless.</span> -->
 
-						<p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+						<!-- <p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
 							Stable.
-						</p>
-						<p class="text-[40px] leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
-							<em class="footer-enduring text-(--footer-accent-color)">Enduring.</em>
-						</p>
-						<p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+						</p> -->
+
+						<TextReveal>
+							<LineShadowText
+								class="text-[40px] leading-[48px] font-normal text-white italic md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+								shadow-color="white"
+							>
+								Stable.
+							</LineShadowText>
+
+							<p class="text-[40px] leading-[50px] md:text-[52px] md:leading-[65px] lg:text-[68px] lg:leading-[88px]">
+								<em class="footer-enduring text-(--footer-accent-color)">Enduring.</em>
+							</p>
+
+							<LineShadowText
+								class="text-[40px] leading-[48px] font-normal text-white italic md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+								shadow-color="white"
+							>
+								Limitless.
+							</LineShadowText>
+						</TextReveal>
+
+						<!-- <p class="text-[40px] leading-[48px] font-normal text-white md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
 							Limitless.
-						</p>
+						</p> -->
 					</h2>
 				</div>
 
