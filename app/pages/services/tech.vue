@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Motion } from "motion-v";
 import {
 	IconBrush,
 	IconBuildingStore,
@@ -21,6 +22,8 @@ import aiCreativeStudioPath from "@/assets/images/services/tech/ai-creative-stud
 useHead({
 	title: "Tech Services - Rockads",
 });
+
+const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const platformLogos = [
 	{ name: "Meta", src: techMetaPath },
@@ -84,29 +87,60 @@ const audienceCards = [
 		<section class="relative overflow-hidden bg-white">
 			<TechServicesDotGridCanvas />
 			<div class="relative mx-auto max-w-[1066px] px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
-				<h1 class="text-[40px] leading-[1.14] md:text-[48px] lg:text-[56px]">
-					<span class="text-primary">Tech</span> <span class="text-text-base">Services</span>
-				</h1>
-				<p class="mt-4 text-base font-medium text-foreground lg:mt-5 lg:text-lg">
-					The Full Stack for Global Ad Operations
-				</p>
-				<p class="mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base">
-					From campaign creation to compliance, from automation to creative intelligence and more… Everything you need to run, scale, and protect your global operations.
-				</p>
-				<p class="mt-4 max-w-[1066px] text-sm leading-relaxed lg:mt-5 lg:text-base">
-					Running global ad operations across platforms, markets, and teams demands more than a collection of disconnected tools. It demands an integrated system where every action — from launching a campaign to checking compliance, from reallocating budget to generating creatives — flows through one intelligent layer. That's Rockads.
-				</p>
-				<Button
-					as-child
-					class="mt-8 lg:mt-10"
+				<Motion
+					as="h1"
+					class="text-[40px] leading-[1.14] md:text-[48px] lg:text-[56px]"
+					:initial="{ opacity: 0, y: 28 }"
+					:animate="{ opacity: 1, y: 0 }"
+					:transition="{ duration: 0.65, ease }"
 				>
-					<NuxtLink
-						to="/sign-up"
-						class="px-10! py-6"
+					<span class="text-primary">Tech</span> <span class="text-text-base">Services</span>
+				</Motion>
+				<Motion
+					as="p"
+					class="mt-4 text-base font-medium text-foreground lg:mt-5 lg:text-lg"
+					:initial="{ opacity: 0, y: 20 }"
+					:animate="{ opacity: 1, y: 0 }"
+					:transition="{ duration: 0.55, delay: 0.1, ease }"
+				>
+					The Full Stack for Global Ad Operations
+				</Motion>
+				<Motion
+					as="p"
+					class="mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base"
+					:initial="{ opacity: 0, y: 20 }"
+					:animate="{ opacity: 1, y: 0 }"
+					:transition="{ duration: 0.55, delay: 0.18, ease }"
+				>
+					From campaign creation to compliance, from automation to creative intelligence and more… Everything you need to run, scale, and protect your global operations.
+				</Motion>
+				<Motion
+					as="p"
+					class="mt-4 max-w-[1066px] text-sm leading-relaxed lg:mt-5 lg:text-base"
+					:initial="{ opacity: 0, y: 20 }"
+					:animate="{ opacity: 1, y: 0 }"
+					:transition="{ duration: 0.55, delay: 0.24, ease }"
+				>
+					Running global ad operations across platforms, markets, and teams demands more than a collection of disconnected tools. It demands an integrated system where every action — from launching a campaign to checking compliance, from reallocating budget to generating creatives — flows through one intelligent layer. That's Rockads.
+				</Motion>
+				<Motion
+					as="div"
+					class="mt-8 lg:mt-10"
+					:initial="{ opacity: 0, y: 16 }"
+					:animate="{ opacity: 1, y: 0 }"
+					:transition="{ duration: 0.5, delay: 0.32, ease }"
+				>
+					<Button
+						as-child
 					>
-						Get Started in Minutes
-					</NuxtLink>
-				</Button>
+						<NuxtLink
+							to="/sign-up"
+							class="px-10! py-6"
+						>
+							Get Started in Minutes
+						</NuxtLink>
+					</Button>
+				</Motion>
 			</div>
 		</section>
 
@@ -114,12 +148,26 @@ const audienceCards = [
 		<section class="bg-muted/80 px-5 py-12 lg:px-0 lg:py-16">
 			<div class="border-primary-light relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-4xl border bg-surface-dark md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
 				<div class="flex min-w-0 flex-col p-6 sm:p-8 lg:p-12">
-					<h2 class="text-2xl leading-tight text-white lg:text-[32px]">
+					<Motion
+						as="h2"
+						class="text-2xl leading-tight text-white lg:text-[32px]"
+						:initial="{ opacity: 0, y: 20 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.3 }"
+						:transition="{ duration: 0.55, ease }"
+					>
 						Automation
-					</h2>
-					<p class="mt-6 text-sm leading-relaxed text-white lg:text-base">
+					</Motion>
+					<Motion
+						as="p"
+						class="mt-6 text-sm leading-relaxed text-white lg:text-base"
+						:initial="{ opacity: 0, y: 16 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.3 }"
+						:transition="{ duration: 0.55, delay: 0.1, ease }"
+					>
 						Your operations, on autopilot. Eliminate manual bottlenecks across campaign management, budget allocation, and performance optimization. Rule-based actions, smart budget redistribution, and scheduled operations — all running across every platform.
-					</p>
+					</Motion>
 				</div>
 				<div
 					class="tech-automation-mock relative mx-6 mb-6 overflow-hidden rounded-2xl shadow-lg md:absolute md:right-3 md:bottom-3 md:mx-0 md:mb-0"
@@ -137,7 +185,14 @@ const audienceCards = [
 		<!-- Ad Launcher + Compliance AI -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-16">
 			<div class="mx-auto grid max-w-[1140px] gap-6 md:grid-cols-2 lg:gap-8">
-				<div class="border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12">
+				<Motion
+					as="div"
+					class="border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12"
+					:initial="{ opacity: 0, y: 28 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.15 }"
+					:transition="{ duration: 0.6, ease }"
+				>
 					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						Ad Launcher
 					</h2>
@@ -155,8 +210,15 @@ const audienceCards = [
 							>
 						</div>
 					</div>
-				</div>
-				<div class="border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12">
+				</Motion>
+				<Motion
+					as="div"
+					class="border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12"
+					:initial="{ opacity: 0, y: 28 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.15 }"
+					:transition="{ duration: 0.6, delay: 0.12, ease }"
+				>
 					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						Compliance AI
 					</h2>
@@ -166,13 +228,20 @@ const audienceCards = [
 					<div class="mt-10 flex w-full justify-start overflow-hidden">
 						<ComplianceAiAnimated />
 					</div>
-				</div>
+				</Motion>
 			</div>
 		</section>
 
 		<!-- AI Creative Studio -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
-			<div class="relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl bg-[#e5f1ff] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12">
+			<Motion
+				as="div"
+				class="relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl bg-[#e5f1ff] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12"
+				:initial="{ opacity: 0, y: 32 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.15 }"
+				:transition="{ duration: 0.65, ease }"
+			>
 				<div class="mx-auto max-w-[656px] text-center">
 					<h2 class="text-2xl leading-tight lg:text-[32px]">
 						AI Creative Studio
@@ -188,10 +257,10 @@ const audienceCards = [
 						class="h-auto w-full max-w-full"
 					>
 				</div>
-			</div>
+			</Motion>
 		</section>
 
-		<!-- How it works + audiences (Figma: Automation frame — two columns, dot texture) -->
+		<!-- How it works + audiences -->
 		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
 			<div
 				class="border-primary-light relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl border bg-[#f7f9fb]"
@@ -200,7 +269,14 @@ const audienceCards = [
 				<div
 					class="relative z-10 grid gap-10 p-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,465px)] lg:gap-x-8 lg:gap-y-0 lg:p-12 xl:grid-cols-[447px_465px] xl:gap-x-[132px]"
 				>
-					<div class="max-w-none xl:max-w-[447px]">
+					<Motion
+						as="div"
+						class="max-w-none xl:max-w-[447px]"
+						:initial="{ opacity: 0, y: 24 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.2 }"
+						:transition="{ duration: 0.6, ease }"
+					>
 						<h2 class="text-2xl leading-tight lg:text-[32px]">
 							How It Works Together
 						</h2>
@@ -210,12 +286,17 @@ const audienceCards = [
 						<p class="mt-4 text-base leading-relaxed">
 							Automation monitors performance and automatically optimizes budgets, pauses underperformers, and scales winners. Performance data feeds back into AI Creative Studio to generate better-performing creative iterations.
 						</p>
-					</div>
+					</Motion>
 					<div class="flex flex-col gap-6">
-						<div
-							v-for="a in audienceCards"
+						<Motion
+							v-for="(a, index) in audienceCards"
 							:key="a.title"
+							as="div"
 							class="flex flex-col gap-6 rounded-2xl bg-card p-6 shadow-sm"
+							:initial="{ opacity: 0, y: 24 }"
+							:while-in-view="{ opacity: 1, y: 0 }"
+							:in-view-options="{ once: true, amount: 0.1 }"
+							:transition="{ duration: 0.55, delay: index * 0.1, ease }"
 						>
 							<component
 								:is="a.icon"
@@ -230,7 +311,7 @@ const audienceCards = [
 									{{ a.body }}
 								</p>
 							</div>
-						</div>
+						</Motion>
 					</div>
 				</div>
 			</div>
@@ -238,7 +319,14 @@ const audienceCards = [
 
 		<!-- CTA -->
 		<section class="bg-background px-5 py-16 lg:py-20">
-			<div class="mx-auto max-w-[800px] text-center">
+			<Motion
+				as="div"
+				class="mx-auto max-w-[800px] text-center"
+				:initial="{ opacity: 0, y: 24 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.3 }"
+				:transition="{ duration: 0.6, ease }"
+			>
 				<h2 class=" text-[32px] leading-[1.2] font-semibold lg:text-[40px]">
 					Ready to run tech that scales with you?<br><span class="text-foreground">Start on Rockads</span>
 				</h2>
@@ -253,7 +341,7 @@ const audienceCards = [
 						Get Started in Minutes
 					</NuxtLink>
 				</Button>
-			</div>
+			</Motion>
 		</section>
 
 		<section class="tech-closing relative overflow-hidden px-5 py-20 lg:py-28">
@@ -264,23 +352,58 @@ const audienceCards = [
 				<div class="tech-closing-ellipse size-full rounded-full" />
 			</div>
 			<div class="relative z-10 mx-auto flex max-w-[492px] flex-col items-center gap-9 text-center">
-				<p class="text-sm leading-5 text-(--tech-closing-kicker) lg:text-base">
+				<Motion
+					as="p"
+					class="text-sm leading-5 text-(--tech-closing-kicker) lg:text-base"
+					:initial="{ opacity: 0, y: 16 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.3 }"
+					:transition="{ duration: 0.5, ease }"
+				>
 					The only partner you'll ever need.
-				</p>
+				</Motion>
 				<h2 class="w-full max-w-[536px] text-white">
-					<p class="text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+					<Motion
+						as="p"
+						class="text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+						:initial="{ opacity: 0, y: 24 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.2 }"
+						:transition="{ duration: 0.6, ease }"
+					>
 						Stable.
-					</p>
-					<p class="text-[40px] leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+					</Motion>
+					<Motion
+						as="p"
+						class="text-[40px] leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+						:initial="{ opacity: 0, y: 24 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.2 }"
+						:transition="{ duration: 0.6, delay: 0.1, ease }"
+					>
 						<em class="tech-closing-enduring text-(--tech-closing-accent)">Enduring.</em>
-					</p>
-					<p class="text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]">
+					</Motion>
+					<Motion
+						as="p"
+						class="text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
+						:initial="{ opacity: 0, y: 24 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.2 }"
+						:transition="{ duration: 0.6, delay: 0.2, ease }"
+					>
 						Limitless.
-					</p>
+					</Motion>
 				</h2>
-				<p class="max-w-[372px] text-sm leading-5 text-(--tech-closing-description)">
+				<Motion
+					as="p"
+					class="max-w-[372px] text-sm leading-5 text-(--tech-closing-description)"
+					:initial="{ opacity: 0, y: 16 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.3 }"
+					:transition="{ duration: 0.5, delay: 0.3, ease }"
+				>
 					When others come and go, we'll still be here. Join the infrastructure built to last.
-				</p>
+				</Motion>
 			</div>
 		</section>
 

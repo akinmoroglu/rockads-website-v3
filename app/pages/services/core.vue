@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Motion } from "motion-v";
 import EcosystemSvg from "@/components/services/core/EcosystemSvg.vue";
 import GrowthSvg from "@/components/services/core/GrowthSvg.vue";
 import HeroDots from "@/components/services/core/HeroDots.vue";
@@ -12,6 +13,8 @@ import { Button } from "@/components/ui/button";
 useHead({
 	title: "Core Services - Rockads",
 });
+
+const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const opContinuityBullets = [
 	"Instant 24/7 top-up availability for uninterrupted delivery.",
@@ -58,27 +61,46 @@ const dashboardBullets = [
 		<section class="relative overflow-hidden bg-[#f7f9fb]">
 			<HeroDots />
 			<div class="relative mx-auto max-w-[1066px] space-y-8 px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
-				<h1 class="text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]">
+				<Motion
+					as="h1"
+					class="text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]"
+					:initial="{ opacity: 0, y: 28 }"
+					:animate="{ opacity: 1, y: 0 }"
+					:transition="{ duration: 0.65, ease }"
+				>
 					<span class="text-primary">Core</span> <span class="text-text-base">Services</span>
-				</h1>
-				<div class="space-y-4">
+				</Motion>
+				<Motion
+					as="div"
+					class="space-y-4"
+					:initial="{ opacity: 0, y: 20 }"
+					:animate="{ opacity: 1, y: 0 }"
+					:transition="{ duration: 0.55, delay: 0.12, ease }"
+				>
 					<p class="font-medium lg:text-lg">
 						The Structure Behind Serious Expansion
 					</p>
 					<p class="max-w-[1066px] text-sm leading-relaxed lg:text-base">
 						True global scale isn't just built on technology. It's built on a foundation of operational excellence. Rockads Core is the operational backbone for advertisers who refuse to slow down. We remove every obstacle that stands between you and sustainable global growth: financial friction, operational gaps, compliance risks, and platform complexity. What remains is a clear, stable path to scale, backed by infrastructure, not promises.
 					</p>
-				</div>
-				<Button
-					as-child
+				</Motion>
+				<Motion
+					as="div"
+					:initial="{ opacity: 0, y: 16 }"
+					:animate="{ opacity: 1, y: 0 }"
+					:transition="{ duration: 0.5, delay: 0.25, ease }"
 				>
-					<NuxtLink
-						to="/sign-up"
-						class="px-10! py-6"
+					<Button
+						as-child
 					>
-						Get Started in Minutes
-					</NuxtLink>
-				</Button>
+						<NuxtLink
+							to="/sign-up"
+							class="px-10! py-6"
+						>
+							Get Started in Minutes
+						</NuxtLink>
+					</Button>
+				</Motion>
 			</div>
 		</section>
 
@@ -88,8 +110,13 @@ const dashboardBullets = [
 				<!-- Row 1: Financial Infrastructure + Growth Capacity -->
 				<div class="grid gap-6 md:grid-cols-2 lg:gap-8">
 					<!-- Financial Infrastructure -->
-					<div
+					<Motion
+						as="div"
 						class="flex min-w-0 flex-col overflow-hidden rounded-4xl bg-card p-8 lg:p-12"
+						:initial="{ opacity: 0, y: 28 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.15 }"
+						:transition="{ duration: 0.6, ease }"
 					>
 						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
 							Financial Infrastructure
@@ -103,17 +130,18 @@ const dashboardBullets = [
 						<div class="mt-6 flex w-full flex-1 items-end justify-center overflow-hidden pb-2">
 							<ServicesCoreFinancialSvg />
 						</div>
-					</div>
+					</Motion>
 
 					<!-- Growth Capacity -->
-					<div
+					<Motion
+						as="div"
 						class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-4xl p-8 lg:p-12"
 						style="background-color:#e8f4ff;"
+						:initial="{ opacity: 0, y: 28 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.15 }"
+						:transition="{ duration: 0.6, delay: 0.12, ease }"
 					>
-						<!-- <BlurText
-							text="Growth Capacity"
-							class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]"
-						/> -->
 						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
 							Growth Capacity
 						</h2>
@@ -126,11 +154,18 @@ const dashboardBullets = [
 						<div class="mt-6 flex w-full flex-1 items-end justify-center overflow-hidden">
 							<GrowthSvg />
 						</div>
-					</div>
+					</Motion>
 				</div>
 
 				<!-- Row 2: Operational Continuity (full width, dark) -->
-				<div class="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12">
+				<Motion
+					as="div"
+					class="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12"
+					:initial="{ opacity: 0, y: 32 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.1 }"
+					:transition="{ duration: 0.65, ease }"
+				>
 					<div class="flex min-w-0 flex-col pb-8 lg:pb-12">
 						<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
 							Operational Continuity
@@ -163,10 +198,17 @@ const dashboardBullets = [
 					<div class="flex min-w-0 items-center justify-center overflow-hidden">
 						<OperationSvg />
 					</div>
-				</div>
+				</Motion>
 
 				<!-- Row 3: Strategic Support (dark, reversed layout) -->
-				<div class="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark p-8 md:grid-cols-2 lg:gap-12 lg:p-12">
+				<Motion
+					as="div"
+					class="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark p-8 md:grid-cols-2 lg:gap-12 lg:p-12"
+					:initial="{ opacity: 0, y: 32 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.1 }"
+					:transition="{ duration: 0.65, ease }"
+				>
 					<div class="order-2 flex min-w-0 items-center justify-center overflow-hidden md:order-1">
 						<StrategicSvg />
 					</div>
@@ -199,12 +241,19 @@ const dashboardBullets = [
 							</li>
 						</ul>
 					</div>
-				</div>
+				</Motion>
 
 				<!-- Row 4: Ecosystem Alignment + Integrity Framework -->
 				<div class="grid gap-6 md:grid-cols-2 lg:gap-8">
 					<!-- Ecosystem Alignment -->
-					<div class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12">
+					<Motion
+						as="div"
+						class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12"
+						:initial="{ opacity: 0, y: 28 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.15 }"
+						:transition="{ duration: 0.6, ease }"
+					>
 						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 							Ecosystem Alignment
 						</h2>
@@ -235,10 +284,17 @@ const dashboardBullets = [
 						<div class="mt-8 flex w-full flex-1 items-end overflow-hidden">
 							<EcosystemSvg />
 						</div>
-					</div>
+					</Motion>
 
 					<!-- Integrity Framework -->
-					<div class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12">
+					<Motion
+						as="div"
+						class="border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12"
+						:initial="{ opacity: 0, y: 28 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.15 }"
+						:transition="{ duration: 0.6, delay: 0.12, ease }"
+					>
 						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 							Integrity Framework
 						</h2>
@@ -269,14 +325,21 @@ const dashboardBullets = [
 						<div class="mt-8 flex w-full flex-1 items-end justify-center overflow-hidden">
 							<IntegritySvg />
 						</div>
-					</div>
+					</Motion>
 				</div>
 			</div>
 		</section>
 
 		<!-- Dashboard -->
 		<section class="bg-[#f7f9fb] px-5 pt-12 pb-12 lg:px-0 lg:pt-20 lg:pb-20">
-			<div class="border-primary-light mx-auto grid max-w-[1140px] gap-8 rounded-2xl border bg-white p-8 md:grid-cols-[380px_1fr] lg:gap-12 lg:p-12">
+			<Motion
+				as="div"
+				class="border-primary-light mx-auto grid max-w-[1140px] gap-8 rounded-2xl border bg-white p-8 md:grid-cols-[380px_1fr] lg:gap-12 lg:p-12"
+				:initial="{ opacity: 0, y: 32 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.1 }"
+				:transition="{ duration: 0.65, ease }"
+			>
 				<div class="flex flex-col">
 					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
 						Rockads Dashboard
@@ -313,12 +376,19 @@ const dashboardBullets = [
 						/>
 					</div>
 				</div>
-			</div>
+			</Motion>
 		</section>
 
 		<!-- CTA -->
 		<section class="bg-white px-5 py-16 lg:py-20">
-			<div class="mx-auto max-w-[800px] space-y-10 text-center">
+			<Motion
+				as="div"
+				class="mx-auto max-w-[800px] space-y-10 text-center"
+				:initial="{ opacity: 0, y: 24 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.3 }"
+				:transition="{ duration: 0.6, ease }"
+			>
 				<h2 class="text-text-base text-[32px] leading-[1.2] font-medium lg:text-[40px]">
 					Built for growth that holds.<br> Discuss Your Growth Plan
 				</h2>
@@ -332,7 +402,7 @@ const dashboardBullets = [
 						Get Started in Minutes
 					</NuxtLink>
 				</Button>
-			</div>
+			</Motion>
 		</section>
 
 		<HomeCta />
