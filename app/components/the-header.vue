@@ -195,18 +195,18 @@ watch(
 					class="h-[27px] w-[142px]"
 				>
 				<div
-					class="hidden h-5 w-px bg-white/30 md:block"
+					class="hidden h-5 w-px bg-white/30 lg:block"
 				/>
 				<span
-					class="hidden text-base text-white md:block"
+					class="hidden text-base text-white lg:block"
 				>
 					Your Growth Partner
 				</span>
 			</NuxtLink>
 
-			<nav class="hidden items-center gap-10 lg:flex">
+			<nav class="hidden items-center gap-5 md:flex lg:gap-10">
 				<div
-					class="flex items-center gap-10 text-base text-white"
+					class="flex items-center gap-5 text-sm text-white lg:gap-10 lg:text-base"
 				>
 					<div
 						class="relative"
@@ -237,7 +237,7 @@ watch(
 						<Motion
 							v-if="servicesOpen"
 							as="div"
-							class="absolute top-full left-1/2 w-[560px] -translate-x-1/2 pt-4"
+							class="absolute top-full left-0 w-[440px] pt-4 lg:left-1/2 lg:w-[560px] lg:-translate-x-1/2"
 							:initial="{ opacity: 0, y: -8 }"
 							:animate="{ opacity: 1, y: 0 }"
 							:exit="{ opacity: 0, y: -8 }"
@@ -320,7 +320,7 @@ watch(
 				type="button"
 				variant="ghost"
 				size="icon"
-				class="text-white hover:bg-white/10 lg:hidden"
+				class="text-white hover:bg-white/10 md:hidden"
 				:aria-expanded="mobileMenuOpen"
 				aria-label="Toggle navigation menu"
 				@click="toggleMobileMenu"
@@ -383,7 +383,7 @@ watch(
 		<Motion
 			v-if="mobileMenuOpen"
 			as="div"
-			class="absolute top-full right-0 left-0 border-t border-(--header-border) bg-(--header-background)/95 backdrop-blur-lg lg:hidden"
+			class="absolute top-full right-0 left-0 border-t border-(--header-border) bg-(--header-background)/95 backdrop-blur-lg md:hidden"
 			:initial="{ opacity: 0, y: -8 }"
 			:animate="{ opacity: 1, y: 0 }"
 			:exit="{ opacity: 0, y: -8 }"
