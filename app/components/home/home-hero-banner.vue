@@ -82,7 +82,7 @@ onUnmounted(() => {
 <template>
 	<section
 		ref="heroRef"
-		class="relative h-full max-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e]"
+		class="relative h-full max-h-screen min-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e]"
 	>
 		<div class="absolute inset-0 bg-size-[22px_22px] opacity-8" />
 
