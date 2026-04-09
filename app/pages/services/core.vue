@@ -317,7 +317,7 @@ const dashboardBullets = [
 		<section class="bg-[#f7f9fb] px-5 pt-12 pb-12 lg:px-0 lg:pt-20 lg:pb-20">
 			<Motion
 				as="div"
-				class="border-primary-light mx-auto grid max-w-[1140px] gap-8 rounded-2xl border bg-white p-8 md:grid-cols-[380px_1fr] lg:gap-12 lg:p-12"
+				class="border-primary-light mx-auto grid max-w-[1140px] gap-8 rounded-2xl border bg-white pt-8 pl-8 md:grid-cols-[380px_1fr] lg:gap-12 lg:pt-12 lg:pl-12"
 				:initial="{ opacity: 0, y: 32 }"
 				:while-in-view="{ opacity: 1, y: 0 }"
 				:in-view-options="{ once: true, amount: 0.1 }"
@@ -352,7 +352,7 @@ const dashboardBullets = [
 						</li>
 					</ul>
 				</div>
-				<div class="flex items-start justify-center">
+				<div class="flex items-end justify-center">
 					<SafariMockup
 						url="console.rockads.com/"
 						:image-src="dashboardSvg"
