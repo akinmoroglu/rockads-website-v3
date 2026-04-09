@@ -82,7 +82,7 @@ onUnmounted(() => {
 <template>
 	<section
 		ref="heroRef"
-		class="relative h-full max-h-screen min-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e]"
+		class="relative min-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e] lg:h-full lg:max-h-screen"
 	>
 		<div class="absolute inset-0 bg-size-[22px_22px] opacity-8" />
 
@@ -142,7 +142,7 @@ onUnmounted(() => {
 			</Motion>
 		</Motion>
 
-		<div class="relative z-10 mx-auto flex min-h-[860px] w-full max-w-[1440px] flex-col items-center px-5 pt-[132px] pb-8 lg:min-h-[900px] lg:px-12 lg:pt-[160px]">
+		<div class="relative z-10 mx-auto flex min-h-[560px] w-full max-w-[1440px] flex-col items-center px-5 pt-[108px] sm:min-h-[800px] sm:pt-[132px] lg:min-h-[900px] lg:px-12 lg:pt-[160px] lg:pb-8">
 			<Motion
 				as="div"
 				class="relative overflow-hidden rounded-full border border-[#37A4FF]/35 bg-[#0a75cb]/20 px-3 py-2 text-sm  text-white/90"
@@ -159,7 +159,7 @@ onUnmounted(() => {
 
 			<Motion
 				as="h1"
-				class="mt-6 text-center text-[46px] leading-[1.05] font-extrabold tracking-[-0.03em] text-[#99CBF3] sm:text-[60px] lg:text-[72px]"
+				class="mt-5 text-center text-[36px] leading-[1.1] font-extrabold tracking-[-0.03em] text-[#99CBF3] sm:mt-6 sm:text-[54px] sm:leading-[1.05] lg:text-[72px]"
 				:initial="{ opacity: 0, y: 18 }"
 				:animate="{ opacity: 1, y: 0 }"
 				:transition="{ duration: 0.55, delay: 0.1, ease: 'easeOut' }"
@@ -169,7 +169,7 @@ onUnmounted(() => {
 
 			<Motion
 				as="p"
-				class="mt-5 max-w-[760px] text-center text-[19px] leading-8 text-white/95 lg:text-[20px]"
+				class="mt-4 max-w-[640px] text-center text-[15px] leading-6 text-white/95 sm:mt-5 sm:max-w-[760px] sm:text-[17px] sm:leading-7 lg:text-[20px] lg:leading-8"
 				:initial="{ opacity: 0, y: 14 }"
 				:animate="{ opacity: 1, y: 0 }"
 				:transition="{ duration: 0.55, delay: 0.16, ease: 'easeOut' }"
@@ -180,7 +180,7 @@ onUnmounted(() => {
 
 			<Motion
 				as="p"
-				class="mt-4 max-w-[760px] text-center text-[19px] leading-8 text-[#747A8E] lg:text-[20px]"
+				class="mt-3 max-w-[640px] text-center text-[15px] leading-[1.5] text-[#747A8E] sm:mt-4 sm:max-w-[760px] sm:text-[17px] sm:leading-7 lg:text-[20px] lg:leading-8"
 				:initial="{ opacity: 0, y: 12 }"
 				:animate="{ opacity: 1, y: 0 }"
 				:transition="{ duration: 0.55, delay: 0.22, ease: 'easeOut' }"
@@ -190,7 +190,7 @@ onUnmounted(() => {
 
 			<Motion
 				as="div"
-				class="mt-9"
+				class="mt-7 sm:mt-9"
 				:initial="{ opacity: 0, y: 14, scale: 0.98 }"
 				:animate="{ opacity: 1, y: 0, scale: [0.98, 1, 0.98] }"
 				:transition="{ duration: 1.5, delay: 0.26, ease: 'easeInOut' }"
@@ -200,7 +200,7 @@ onUnmounted(() => {
 				>
 					<NuxtLink
 						to="/contact-us"
-						class="px-10! py-6"
+						class="px-6! py-[14px] sm:px-10! sm:py-6"
 					>
 						<CalendarDays class="size-5" />
 						Book a Call
@@ -209,8 +209,8 @@ onUnmounted(() => {
 			</Motion>
 		</div>
 
-		<div class="absolute right-0 bottom-0 left-0 py-8">
-			<div class="flex flex-col items-center gap-5 pt-14 pb-4">
+		<div class="relative w-full py-6 lg:absolute lg:right-0 lg:bottom-0 lg:py-8">
+			<div class="flex flex-col items-center gap-4 pt-4 pb-2 lg:pt-14 lg:pb-4">
 				<p class="text-center text-xs  tracking-[0.02em] text-white/95">
 					OFFICIAL PLATFORM PARTNERS
 				</p>

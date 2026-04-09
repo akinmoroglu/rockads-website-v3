@@ -108,13 +108,13 @@ onUnmounted(() => {
 			</div>
 
 			<div class="relative mx-auto max-w-[1440px] px-5 py-16 md:px-10 lg:px-[160px] lg:py-[117px]">
-				<div class="flex flex-col gap-8 lg:flex-row lg:gap-[42px]">
+				<div class="flex flex-col gap-8 md:flex-row md:items-start md:gap-[30px] lg:gap-[42px]">
 					<!-- Left column -->
-					<div class="flex shrink-0 flex-col gap-6 lg:w-[447px] lg:gap-8">
+					<div class="flex shrink-0 flex-col gap-6 md:w-[220px] md:gap-8 lg:w-[447px]">
 						<span class="inline-flex items-center self-start rounded-full border border-border px-4 py-2 text-xs font-medium tracking-[2.24px] text-primary lg:px-6 lg:py-3 lg:text-sm">
 							CORE PILLARS
 						</span>
-						<h2 class="text-[32px] leading-[40px] font-medium text-foreground lg:text-[48px] lg:leading-[56px]">
+						<h2 class="text-[28px] leading-[36px] font-medium text-foreground md:text-[36px] md:leading-[44px] lg:text-[48px] lg:leading-[56px]">
 							The Three Pillars <span class="text-primary">of Rockads</span>
 						</h2>
 

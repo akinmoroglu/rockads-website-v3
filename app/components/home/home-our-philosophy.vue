@@ -7,6 +7,7 @@ type PhilosophyItem = {
 };
 
 const scrollWrapper = ref<HTMLElement | null>(null);
+const contentPanelRef = ref<HTMLElement | null>(null);
 const activeIndex = ref(0);
 const isDesktop = ref(false);
 const scrollHeight = ref(0);
@@ -76,6 +77,12 @@ function onResize() {
 
 function setActiveIndex(i: number) {
 	activeIndex.value = i;
+	// On mobile/tablet, scroll the text panel into view after the state updates
+	if (!isDesktop.value && import.meta.client) {
+		nextTick(() => {
+			contentPanelRef.value?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+		});
+	}
 }
 
 onMounted(() => {
@@ -99,7 +106,7 @@ onUnmounted(() => {
 		:style="{ height: isDesktop ? scrollHeight + 'px' : 'auto' }"
 	>
 		<section
-			class="philosophy-section border-y border-white/10 bg-(--philosophy-bg) py-20 text-white lg:py-28"
+			class="philosophy-section border-y border-white/10 bg-(--philosophy-bg) py-14 text-white md:py-20 lg:py-28"
 			:class="isDesktop ? 'sticky top-0' : ''"
 		>
 			<div class="mx-auto w-full max-w-[1240px] px-5 lg:px-12">
@@ -110,14 +117,14 @@ onUnmounted(() => {
 						OUR PHILOSOPHY
 					</span>
 
-					<div class="flex flex-col items-start gap-10 lg:flex-row lg:gap-16">
+					<div class="flex flex-col items-start gap-8 md:flex-row md:gap-10 lg:gap-16">
 						<!-- Left: titles + progress -->
-						<div class="flex w-full shrink-0 flex-col gap-3 lg:max-w-[520px] lg:gap-4">
+						<div class="flex w-full shrink-0 flex-col gap-3 md:max-w-[260px] md:gap-4 lg:max-w-[520px]">
 							<button
 								v-for="(item, i) in items"
 								:key="item.id"
 								type="button"
-								class="cursor-pointer text-left text-[24px] leading-[1.2] font-semibold tracking-[-0.02em] transition-colors duration-500 md:text-[32px] lg:text-[44px]"
+								class="cursor-pointer text-left text-[22px] leading-[1.2] font-semibold tracking-[-0.02em] transition-colors duration-500 md:text-[26px] lg:text-[44px]"
 								:class="
 									activeIndex === i
 										? 'text-(--philosophy-title-accent)'
@@ -147,14 +154,17 @@ onUnmounted(() => {
 						</div>
 
 						<!-- Right: copy with transition -->
-						<div class="relative min-h-[200px] w-full flex-1 lg:min-h-[260px]">
+						<div
+							ref="contentPanelRef"
+							class="relative w-full flex-1 lg:min-h-[260px]"
+						>
 							<Transition
 								name="philosophy-text"
 								mode="out-in"
 							>
 								<p
 									:key="activeItem?.id"
-									class="max-w-[560px] text-[18px] leading-[1.55] text-(--philosophy-body) md:text-[20px]"
+									class="max-w-[560px] text-[16px] leading-[1.6] text-(--philosophy-body) md:text-[18px] lg:text-[20px] lg:leading-[1.55]"
 								>
 									{{ activeItem?.p1 }}
 									<br><br>
