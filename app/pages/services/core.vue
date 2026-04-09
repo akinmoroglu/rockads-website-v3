@@ -7,7 +7,7 @@ import IntegritySvg from "@/components/services/core/IntegritySvg.vue";
 import OperationSvg from "@/components/services/core/OperationSvg.vue";
 import StrategicSvg from "@/components/services/core/StrategicSvg.vue";
 import SafariMockup from "@/components/ui/safari-mockup/SafariMockup.vue";
-import dashboardSvg from "@/assets/images/services/core/dashboardh.svg?url";
+import dashboardSvg from "@/assets/images/services/core/dashboard.svg?url";
 import { Button } from "@/components/ui/button";
 
 useHead({
@@ -323,43 +323,40 @@ const dashboardBullets = [
 				:in-view-options="{ once: true, amount: 0.1 }"
 				:transition="{ duration: 0.65, ease }"
 			>
-				<div class="flex items-center">
-					<div class="flex flex-col">
-						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
-							Rockads Dashboard
-						</h2>
-						<p class="text-text-gray-dark mt-3 text-lg font-medium italic">
-							Every service. One screen. Full control.
-						</p>
-						<p class="text-text-base mt-5 text-sm leading-relaxed lg:text-base">
-							Every layer of Rockads Core, your financial infrastructure, account health, operational workflows, team access, and performance data, managed from a single, purpose-built interface. The Rockads Dashboard doesn't replace what we do. It gives you full visibility and control over everything we provide.
-						</p>
-						<ul class="mt-6 flex flex-col gap-3">
-							<li
-								v-for="item in dashboardBullets"
-								:key="item"
-								class="flex items-start gap-3"
-							>
-								<svg
-									class="mt-0.5 h-5 w-5 shrink-0 text-primary"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-								><path
-									fill-rule="evenodd"
-									d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-									clip-rule="evenodd"
-								/></svg>
-								<span class="text-text-gray-dark text-sm lg:text-base">{{ item }}</span>
-							</li>
-						</ul>
-					</div>
-					<div class="flex items-start justify-center">
-						<SafariMockup
-							url="console.rockads.com/"
-							:image-src="dashboardSvg"
-							class="w-full"
-						/>
-					</div>
+				<div class="flex flex-col">
+					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+						Rockads Dashboard
+					</h2>
+					<p class="text-text-gray-dark mt-3 text-lg font-medium italic">
+						Every service. One screen. Full control.
+					</p>
+					<p class="text-text-base mt-5 text-sm leading-relaxed lg:text-base">
+						Every layer of Rockads Core, your financial infrastructure, account health, operational workflows, team access, and performance data, managed from a single, purpose-built interface. The Rockads Dashboard doesn't replace what we do. It gives you full visibility and control over everything we provide.
+					</p>
+					<ul class="mt-6 flex flex-col gap-3">
+						<li
+							v-for="item in dashboardBullets"
+							:key="item"
+							class="flex items-start gap-3"
+						>
+							<svg
+								class="mt-0.5 h-5 w-5 shrink-0 text-primary"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+							><path
+								fill-rule="evenodd"
+								d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+								clip-rule="evenodd"
+							/></svg>
+							<span class="text-text-gray-dark text-sm lg:text-base">{{ item }}</span>
+						</li>
+					</ul>
+				</div>
+				<div class="flex items-start justify-center">
+					<SafariMockup
+						url="console.rockads.com/"
+						:image-src="dashboardSvg"
+					/>
 				</div>
 			</Motion>
 		</section>
