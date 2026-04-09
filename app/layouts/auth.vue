@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { Motion } from "motion-v";
 import { CheckCircle2 } from "lucide-vue-next";
 import logoSrc from "@/assets/images/logo-rockads.svg";
+import leftGlowAsset from "@/assets/images/home/hero/left-glow.svg?url";
+import rightGlowAsset from "@/assets/images/home/hero/right-glow.svg?url";
 
 const marketingSiteBase = "https://www.rockads.com";
 
@@ -28,27 +31,28 @@ const stats = [
 <template>
 	<div class="flex min-h-screen bg-background text-foreground">
 		<!-- ───────────────────────────── Left: Form column ───────────────────────────── -->
-		<div class="flex w-full flex-col lg:w-[560px] lg:shrink-0 xl:w-[620px]">
+		<div class="flex w-full flex-col lg:w-140 lg:shrink-0 xl:w-155">
 			<!-- Logo -->
 			<header class="shrink-0 px-8 pt-8 pb-4">
 				<NuxtLink
 					to="/"
-					class="inline-flex items-center rounded-md ring-offset-background outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+					class="flex h-[33.75px] items-center gap-3 rounded-md ring-offset-background outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 				>
 					<img
 						:src="logoSrc"
 						alt="Rockads"
-						class="h-8 w-auto"
-						width="120"
-						height="32"
+						class="h-6.75 w-35.5 brightness-0"
 					>
-					<span class="sr-only">Rockads home</span>
+					<div class="h-5 w-px bg-foreground/25" />
+					<span class="text-base text-foreground/60">
+						Your Growth Partner
+					</span>
 				</NuxtLink>
 			</header>
 
 			<!-- Slot: page content -->
 			<main class="flex flex-1 flex-col justify-center px-8 py-6">
-				<div class="mx-auto w-full max-w-[440px]">
+				<div class="mx-auto w-full max-w-110">
 					<slot />
 				</div>
 			</main>
@@ -79,37 +83,78 @@ const stats = [
 		</div>
 
 		<!-- ─────────────────────────── Right: Marketing panel ──────────────────────── -->
-		<div
-			class="relative hidden flex-1 overflow-hidden lg:flex lg:flex-col lg:justify-center"
-			style="background: linear-gradient(145deg, oklch(0.17 0.04 264) 0%, oklch(0.21 0.045 258) 45%, oklch(0.19 0.055 272) 100%);"
-		>
-			<!-- Decorative glow blobs -->
+		<div class="relative hidden flex-1 overflow-hidden bg-linear-to-b from-black to-[#02123e] lg:flex lg:flex-col lg:justify-center">
+			<!-- Subtle dot-grid texture (same as hero) -->
 			<div
-				class="pointer-events-none absolute -top-32 -right-32 h-[520px] w-[520px] rounded-full blur-[120px]"
-				style="background: oklch(0.55 0.17 240 / 0.22);"
-			/>
-			<div
-				class="pointer-events-none absolute -bottom-24 -left-24 h-[400px] w-[400px] rounded-full blur-[100px]"
-				style="background: oklch(0.55 0.17 240 / 0.15);"
+				class="pointer-events-none absolute inset-0 bg-size-[22px_22px] opacity-[0.06]"
+				style="background-image: radial-gradient(circle, white 1px, transparent 1px);"
 			/>
 
-			<!-- Subtle dot grid -->
+			<!-- Left glow — entry fade-in + infinite float, mirroring hero banner -->
 			<div
-				class="pointer-events-none absolute inset-0 opacity-[0.06]"
-				style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 28px 28px;"
-			/>
+				aria-hidden="true"
+				class="pointer-events-none absolute inset-y-0 -left-80 flex w-[min(720px,90%)] items-center"
+			>
+				<Motion
+					as="div"
+					class="h-[min(970px,92vh)] w-full"
+					:initial="{ opacity: 0, x: -160 }"
+					:animate="{ opacity: 1, x: 0 }"
+					:transition="{ duration: 1.1, ease: 'easeOut' }"
+				>
+					<Motion
+						as="div"
+						class="h-full w-full"
+						:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, 6, 0], y: [10, -8, 10] }"
+						:transition="{ duration: 6.2, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
+					>
+						<img
+							:src="leftGlowAsset"
+							alt=""
+							class="h-full w-full object-contain brightness-[1.2] saturate-[1.25] filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+						>
+					</Motion>
+				</Motion>
+			</div>
+
+			<!-- Right glow — entry fade-in + infinite float, mirroring hero banner -->
+			<div
+				aria-hidden="true"
+				class="pointer-events-none absolute inset-y-0 -right-80 flex w-[min(720px,90%)] items-center"
+			>
+				<Motion
+					as="div"
+					class="h-[min(970px,92vh)] w-full"
+					:initial="{ opacity: 0, x: 160 }"
+					:animate="{ opacity: 1, x: 0 }"
+					:transition="{ duration: 1.1, ease: 'easeOut' }"
+				>
+					<Motion
+						as="div"
+						class="h-full w-full"
+						:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, -6, 0], y: [-10, 8, -10] }"
+						:transition="{ duration: 6.6, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
+					>
+						<img
+							:src="rightGlowAsset"
+							alt=""
+							class="h-full w-full object-contain brightness-[1.2] saturate-[1.25] filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
+						>
+					</Motion>
+				</Motion>
+			</div>
 
 			<!-- Panel content -->
 			<div class="relative z-10 px-14 py-16 xl:px-20">
-				<!-- Eye-brow label -->
+				<!-- Eye-brow -->
 				<p class="mb-4 text-xs font-semibold tracking-[0.2em] text-white/40 uppercase">
 					Performance Marketing Platform
 				</p>
 
-				<!-- Headline -->
-				<h2 class="text-[2.6rem] leading-[1.15] font-bold tracking-tight text-white">
+				<!-- Headline — same colour as hero h1 -->
+				<h2 class="text-[2.6rem] leading-[1.12] font-extrabold tracking-[-0.03em] text-[#99CBF3]">
 					Scale Your Ads.<br>
-					<span style="color: oklch(0.72 0.16 238);">Grow Your Revenue.</span>
+					<span class="text-white/70">Grow Your Revenue.</span>
 				</h2>
 				<p class="mt-4 max-w-sm text-base leading-relaxed text-white/55">
 					Everything you need to run profitable ad campaigns — all in one place.
@@ -122,19 +167,13 @@ const stats = [
 						:key="feature"
 						class="flex items-start gap-3"
 					>
-						<CheckCircle2
-							class="mt-0.5 size-5 shrink-0"
-							style="color: oklch(0.72 0.16 238);"
-						/>
+						<CheckCircle2 class="mt-0.5 size-5 shrink-0 text-[#37A4FF]" />
 						<span class="text-sm leading-snug text-white/75">{{ feature }}</span>
 					</li>
 				</ul>
 
-				<!-- Stats row -->
-				<div
-					class="mt-12 grid grid-cols-3 gap-6 border-t pt-10"
-					style="border-color: oklch(1 0 0 / 0.08);"
-				>
+				<!-- Stats -->
+				<div class="mt-12 grid grid-cols-3 gap-6 border-t border-white/10 pt-10">
 					<div
 						v-for="stat in stats"
 						:key="stat.label"
@@ -151,22 +190,3 @@ const stats = [
 		</div>
 	</div>
 </template>
-```
-
-Harika! Layout'u tamamen yeniden yazdım. İşte yapılanlar:
-
-**Sol kolon (form alanı):**
-- Logo, `NuxtLink` ile anasayfaya yönlendiriyor
-- `<slot />` mevcut sign-in / sign-up sayfalarını olduğu gibi render ediyor
-- Alt footer: yıl + Privacy Notice + Terms of Service linkleri
-
-**Sağ kolon (marketing paneli) — sadece `lg:` ve üzeri görünür:**
-- Koyu lacivert → mavi gradient arka plan (`oklch` renk sistemi projeyle uyumlu)
-- İki adet bulanık ışık "blob" dekorasyon + ince nokta grid deseni
-- Eye-brow etiket, büyük başlık, alt başlık
-- 4 madde halinde feature listesi (CheckCircle2 ikonu)
-- 3 sütunlu istatistik satırı: `5K+ aktif reklamveren`, `$2B+ yönetilen harcama`, `3.2× ortalama ROAS`
-
-**Mobil:** Sağ panel gizlenir, form tam ekran gösterilir. `AuthHeader` ve `AuthFooter` bileşenleri artık kullanılmıyor — logo ve footer linkleri doğrudan layout içine entegre edildi.
-
-Eğer sign-in / sign-up sayfalarındaki `Card` bileşeninin kutucuk görünümünü kaldırıp form'u beyaz arka plana düz render etmek istersen, sayfalara `class="border-0 shadow-none"` eklemememi ya da Card wrapper'ı kaldırmamı söyleyebilirsin.
