@@ -2,6 +2,13 @@
 import { Motion } from "motion-v";
 import logoSrc from "@/assets/images/logo-rockads.svg";
 import { Button } from "@/components/ui/button";
+import {
+	NavigationMenu,
+	NavigationMenuContent,
+	NavigationMenuItem,
+	NavigationMenuList,
+	NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 type ServiceItem = {
 	title: string;
@@ -27,7 +34,6 @@ const SCROLL_PIN_THRESHOLD_PX = 100;
 
 const mobileMenuOpen = ref(false);
 const mobileServicesOpen = ref(false);
-const servicesOpen = ref(false);
 
 const desktopLinks = [
 	{ label: "Solutions", href: "/solutions" },
@@ -153,14 +159,6 @@ onUnmounted(() => {
 	window.removeEventListener("scroll", onHeaderScroll);
 });
 
-const openDesktopServices = () => {
-	servicesOpen.value = true;
-};
-
-const closeDesktopServices = () => {
-	servicesOpen.value = false;
-};
-
 const toggleMobileMenu = () => {
 	mobileMenuOpen.value = !mobileMenuOpen.value;
 
@@ -174,7 +172,6 @@ watch(
 	() => {
 		mobileMenuOpen.value = false;
 		mobileServicesOpen.value = false;
-		servicesOpen.value = false;
 	},
 );
 </script>
@@ -208,84 +205,66 @@ watch(
 				<div
 					class="flex items-center gap-5 text-sm text-white lg:gap-10 lg:text-base"
 				>
-					<div
-						class="relative"
-						@mouseenter="openDesktopServices"
-						@mouseleave="closeDesktopServices"
+					<NavigationMenu
+						:viewport="false"
+						class="z-50"
 					>
-						<button
-							class="flex items-center gap-1.5 transition-opacity hover:opacity-80"
-							:class="isServicesActive ? 'opacity-100 underline underline-offset-4' : ''"
-							type="button"
-							aria-haspopup="menu"
-							:aria-expanded="servicesOpen"
-						>
-							Services
-							<svg
-								class="h-3 w-3 transition-transform duration-200"
-								:class="servicesOpen ? 'rotate-180' : ''"
-								viewBox="0 0 12 12"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-							>
-								<path d="M3 5l3 3 3-3" />
-							</svg>
-						</button>
+						<NavigationMenuList>
+							<NavigationMenuItem>
+								<NavigationMenuTrigger
+									class="h-auto bg-transparent px-0 py-0 text-sm text-white hover:bg-transparent hover:text-white/80 focus:bg-transparent focus:text-white data-[state=open]:bg-transparent data-[state=open]:text-white data-[state=open]:hover:bg-transparent data-[state=open]:focus:bg-transparent"
+									:class="isServicesActive ? 'underline underline-offset-4 data-[state=open]:underline' : ''"
+								>
+									Services
+								</NavigationMenuTrigger>
+								<NavigationMenuContent
+									class="w-[440px]! p-0! pr-0! md:left-0 lg:left-1/2 lg:w-[560px]! lg:-translate-x-1/2"
+								>
+									<div class="flex overflow-hidden shadow-xl">
+										<div class="flex w-[220px] flex-col gap-1 border-r border-gray-100 px-5 py-5">
+											<NuxtLink
+												v-for="category in serviceCategories"
+												:key="category.id"
+												:to="category.href"
+												class="block cursor-pointer rounded-lg px-3 py-3 transition-colors"
+												:class="activeCategory === category.id ? 'bg-gray-50' : 'hover:bg-gray-50/50'"
+												@mouseenter="activeCategory = category.id"
+											>
+												<span
+													class="block text-sm leading-5 font-medium"
+													:class="activeCategory === category.id ? 'text-primary' : 'text-foreground'"
+												>
+													{{ category.title }}
+												</span>
+												<span class="mt-0.5 block text-xs leading-4 text-muted-foreground">
+													{{ category.subtitle }}
+												</span>
+											</NuxtLink>
+										</div>
 
-						<Motion
-							v-if="servicesOpen"
-							as="div"
-							class="absolute top-full left-0 w-[440px] pt-4 lg:left-1/2 lg:w-[560px] lg:-translate-x-1/2"
-							:initial="{ opacity: 0, y: -8 }"
-							:animate="{ opacity: 1, y: 0 }"
-							:exit="{ opacity: 0, y: -8 }"
-							:transition="{ duration: 0.18, ease: 'easeOut' }"
-						>
-							<div class="flex overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
-								<div class="flex w-[220px] flex-col gap-1 border-r border-gray-100 px-5 py-5">
-									<NuxtLink
-										v-for="category in serviceCategories"
-										:key="category.id"
-										:to="category.href"
-										class="block cursor-pointer rounded-lg px-3 py-3 transition-colors"
-										:class="activeCategory === category.id ? 'bg-gray-50' : 'hover:bg-gray-50/50'"
-										@mouseenter="activeCategory = category.id"
-									>
-										<span
-											class="block text-sm leading-5 font-medium"
-											:class="activeCategory === category.id ? 'text-primary' : 'text-foreground'"
-										>
-											{{ category.title }}
-										</span>
-										<span class="mt-0.5 block text-xs leading-4 text-muted-foreground">
-											{{ category.subtitle }}
-										</span>
-									</NuxtLink>
-								</div>
-
-								<div class="flex flex-1 flex-col gap-1 px-5 py-5">
-									<Motion
-										v-for="item in activeItems"
-										:key="item.title"
-										as="div"
-										class="rounded-lg px-3 py-3 transition-colors hover:bg-gray-50"
-										:initial="{ opacity: 0, y: 6 }"
-										:animate="{ opacity: 1, y: 0 }"
-										:transition="{ duration: 0.14, ease: 'easeOut' }"
-									>
-										<span class="block text-sm leading-5 text-foreground">
-											{{ item.title }}
-										</span>
-										<span class="mt-0.5 block text-xs leading-4 text-muted-foreground">
-											{{ item.description }}
-										</span>
-									</Motion>
-								</div>
-							</div>
-						</Motion>
-					</div>
+										<div class="flex flex-1 flex-col gap-1 px-5 py-5">
+											<Motion
+												v-for="item in activeItems"
+												:key="item.title"
+												as="div"
+												class="rounded-lg px-3 py-3 transition-colors hover:bg-gray-50"
+												:initial="{ opacity: 0, y: 6 }"
+												:animate="{ opacity: 1, y: 0 }"
+												:transition="{ duration: 0.14, ease: 'easeOut' }"
+											>
+												<span class="block text-sm leading-5 text-foreground">
+													{{ item.title }}
+												</span>
+												<span class="mt-0.5 block text-xs leading-4 text-muted-foreground">
+													{{ item.description }}
+												</span>
+											</Motion>
+										</div>
+									</div>
+								</NavigationMenuContent>
+							</NavigationMenuItem>
+						</NavigationMenuList>
+					</NavigationMenu>
 
 					<Button
 						v-for="link in desktopLinks"
