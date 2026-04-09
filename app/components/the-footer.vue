@@ -215,12 +215,12 @@ function linkAttrs(link: FooterLink) {
 							:key="logo.name"
 						>
 							<div
-								class="flex h-9 min-w-13 items-center justify-center rounded-md bg-white/6 px-3 ring-1 ring-white/8"
+								class="flex h-9 min-w-13 items-center justify-center rounded-md bg-white/6 px-2 ring-1 ring-white/8"
 							>
 								<img
 									:src="logo.icon"
 									:alt="logo.name"
-									class="h-5 w-auto max-w-11 object-contain"
+									class="h-7 w-auto max-w-11 object-contain"
 									loading="lazy"
 								>
 							</div>
