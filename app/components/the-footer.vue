@@ -5,11 +5,9 @@ import InstagramIcon from "@/assets/icons/partners/instagram.svg?url";
 import LinkedInIcon from "@/assets/icons/partners/linkedin.svg?url";
 import TikTokIcon from "@/assets/icons/partners/tiktok.svg?url";
 
-import VisaLogo from "@/assets/icons/brands/visa.svg?url";
-import MastercardLogo from "@/assets/icons/brands/mastercard.svg?url";
-import MaestroLogo from "@/assets/icons/brands/maestro.svg?url";
-import AmexLogo from "@/assets/icons/brands/amex.svg?url";
-import TroyLogo from "@/assets/icons/brands/troy.svg?url";
+import StripeLogo from "@/assets/icons/brands/stripe.svg?url";
+import PayPalLogo from "@/assets/icons/brands/paypal.svg?url";
+import PayoneerLogo from "@/assets/icons/brands/payoneer.svg?url";
 
 type FooterLink = {
 	label: string;
@@ -115,11 +113,9 @@ const socialLinks: SocialLink[] = [
 type FinancialLogo = { name: string; icon: string };
 
 const financialLogos: FinancialLogo[] = [
-	{ name: "Visa", icon: VisaLogo },
-	{ name: "Mastercard", icon: MastercardLogo },
-	{ name: "Maestro", icon: MaestroLogo },
-	{ name: "American Express", icon: AmexLogo },
-	{ name: "Troy", icon: TroyLogo },
+	{ name: "Stripe", icon: StripeLogo },
+	{ name: "PayPal", icon: PayPalLogo },
+	{ name: "Payoneer", icon: PayoneerLogo },
 ];
 
 function linkAttrs(link: FooterLink) {
@@ -253,12 +249,12 @@ function linkAttrs(link: FooterLink) {
 									:aria-label="link.label"
 									class="block transition-opacity hover:opacity-75"
 								>
-									<img
+									<NuxtImg
 										:src="link.icon"
 										:alt="link.iconAlt"
 										class="h-8 w-8 object-contain"
 										loading="lazy"
-									>
+									/>
 								</NuxtLink>
 							</li>
 						</ul>
