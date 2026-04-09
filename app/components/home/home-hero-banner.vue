@@ -19,7 +19,7 @@ const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 const { elementX, elementY, elementWidth, elementHeight, isOutside } = useMouseInElement(heroRef);
 
 /** Max parallax shift in px when cursor is at hero edge */
-const PARALLAX_STRENGTH = 48;
+const PARALLAX_STRENGTH = 18;
 
 const glowMouseOffsets = computed(() => {
 	if (prefersReducedMotion.value || isOutside.value) {
