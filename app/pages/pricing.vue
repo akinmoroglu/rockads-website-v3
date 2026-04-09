@@ -2,9 +2,9 @@
 import HomeCta from "@/components/home/home-cta.vue";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import imgTiktokUrl from "@/assets/images/services/tech/tiktok.svg?url";
-import imgMetaUrl from "@/assets/images/services/tech/meta.svg?url";
-import imgGoogleUrl from "@/assets/images/services/tech/google.svg?url";
+import imgTiktokUrl from "@/assets/icons/brands/tiktok-wordmark.svg?url";
+import imgMetaUrl from "@/assets/icons/brands/meta-wordmark.svg?url";
+import imgGoogleUrl from "@/assets/icons/brands/google-ads-wordmark.svg?url";
 
 useHead({
 	title: "Pricing - Rockads",
@@ -200,21 +200,21 @@ const plans: PricingPlan[] = [
 									<p class="text-sm text-foreground">
 										Unlimited access to ad assets on all major platforms.
 									</p>
-									<div class="flex flex-wrap items-center gap-3">
+									<div class="flex flex-wrap items-baseline gap-3">
 										<img
 											:src="imgTiktokUrl"
 											alt="TikTok"
-											class="h-5 opacity-80"
+											class="h-6"
 										>
 										<img
 											:src="imgMetaUrl"
 											alt="Meta"
-											class="h-5 opacity-80"
+											class="h-6"
 										>
 										<img
 											:src="imgGoogleUrl"
 											alt="Google Ads"
-											class="h-5 opacity-80"
+											class="h-6"
 										>
 									</div>
 								</div>
