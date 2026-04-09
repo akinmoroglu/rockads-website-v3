@@ -9,6 +9,12 @@ import {
 	IconBrandTiktok,
 	IconBrandX,
 } from "@tabler/icons-vue";
+import PartnerXTwitter from "@/assets/icons/partners/x-twitter.svg";
+import PartnerSnapchat from "@/assets/icons/partners/snapchat.svg";
+import PartnerTiktok from "@/assets/icons/partners/tiktok.svg";
+import PartnerGoogle from "@/assets/icons/partners/google.svg";
+import PartnerMeta from "@/assets/icons/partners/meta.svg";
+
 import { computed, ref } from "vue";
 import { Button } from "@/components/ui/button";
 import leftGlowAsset from "@/assets/images/home/hero/left-glow.svg?url";
@@ -55,11 +61,11 @@ const rightGlowMouseStyle = computed(() => ({
 }));
 
 const partnerIcons = [
-	{ component: IconBrandX, label: "X partner" },
-	{ component: IconBrandSnapchat, label: "Snapchat partner" },
-	{ component: IconBrandTiktok, label: "TikTok partner" },
-	{ component: IconBrandGoogle, label: "Google partner" },
-	{ component: IconBrandMeta, label: "Meta partner" },
+	{ component: PartnerXTwitter, label: "X partner" },
+	{ component: PartnerSnapchat, label: "Snapchat partner" },
+	{ component: PartnerTiktok, label: "TikTok partner" },
+	{ component: PartnerGoogle, label: "Google partner" },
+	{ component: PartnerMeta, label: "Meta partner" },
 ];
 
 const { setHeaderTransparent } = useMarketingHeaderAppearance();
@@ -211,17 +217,17 @@ onUnmounted(() => {
 						as="div"
 						:aria-label="icon.label"
 						role="img"
-						class="flex size-8 items-center justify-center rounded-full bg-white/10 p-1"
+						class="flex size-8 items-center justify-center"
 						:initial="{ opacity: 0, y: 8 }"
 						:animate="{ opacity: 1, y: 0 }"
 						:transition="{ duration: 0.45, delay: 0.3 + (index * 0.08), ease: 'easeOut' }"
 					>
-						<component
-							:is="icon.component"
-							class="size-4.5 text-white"
+						<img
+							:src="icon.component"
+							class="size-full"
 							aria-hidden="true"
 							stroke-width="1.8"
-						/>
+						>
 					</Motion>
 				</div>
 			</div>
