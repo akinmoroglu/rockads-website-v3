@@ -1,4 +1,16 @@
 <script setup lang="ts">
+import FacebookIcon from "@/assets/icons/partners/facebook.svg?url";
+import XTwitterIcon from "@/assets/icons/partners/x-twitter.svg?url";
+import InstagramIcon from "@/assets/icons/partners/instagram.svg?url";
+import LinkedInIcon from "@/assets/icons/partners/linkedin.svg?url";
+import TikTokIcon from "@/assets/icons/partners/tiktok.svg?url";
+
+import VisaLogo from "@/assets/icons/brands/visa.svg?url";
+import MastercardLogo from "@/assets/icons/brands/mastercard.svg?url";
+import MaestroLogo from "@/assets/icons/brands/maestro.svg?url";
+import AmexLogo from "@/assets/icons/brands/amex.svg?url";
+import TroyLogo from "@/assets/icons/brands/troy.svg?url";
+
 type FooterLink = {
 	label: string;
 	href: string;
@@ -60,20 +72,54 @@ const legalLinks: FooterLink[] = [
 	},
 ];
 
-const socialLinks: FooterLink[] = [
-	{ label: "Facebook", href: "https://www.facebook.com/rockadscom/", external: true },
-	{ label: "X", href: "https://twitter.com/rockadscom", external: true },
+type SocialLink = FooterLink & { icon: string; iconAlt: string };
+
+const socialLinks: SocialLink[] = [
+	{
+		label: "Facebook",
+		href: "https://www.facebook.com/rockadscom/",
+		external: true,
+		icon: FacebookIcon,
+		iconAlt: "Facebook",
+	},
+	{
+		label: "X",
+		href: "https://twitter.com/rockadscom",
+		external: true,
+		icon: XTwitterIcon,
+		iconAlt: "X (Twitter)",
+	},
 	{
 		label: "Instagram",
 		href: "https://www.instagram.com/rockadscom/",
 		external: true,
+		icon: InstagramIcon,
+		iconAlt: "Instagram",
 	},
 	{
 		label: "LinkedIn",
 		href: "https://www.linkedin.com/company/rockads/",
 		external: true,
+		icon: LinkedInIcon,
+		iconAlt: "LinkedIn",
 	},
-	{ label: "TikTok", href: "https://www.tiktok.com/@rockadscom", external: true },
+	{
+		label: "TikTok",
+		href: "https://www.tiktok.com/@rockadscom",
+		external: true,
+		icon: TikTokIcon,
+		iconAlt: "TikTok",
+	},
+];
+
+type FinancialLogo = { name: string; icon: string };
+
+const financialLogos: FinancialLogo[] = [
+	{ name: "Visa", icon: VisaLogo },
+	{ name: "Mastercard", icon: MastercardLogo },
+	{ name: "Maestro", icon: MaestroLogo },
+	{ name: "American Express", icon: AmexLogo },
+	{ name: "Troy", icon: TroyLogo },
 ];
 
 function linkAttrs(link: FooterLink) {
@@ -89,6 +135,7 @@ function linkAttrs(link: FooterLink) {
 			<div
 				class="mx-auto w-full max-w-(--footer-max-width) px-5 py-10 text-base lg:px-12"
 			>
+				<!-- Navigation link columns -->
 				<div
 					class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12"
 				>
@@ -159,23 +206,63 @@ function linkAttrs(link: FooterLink) {
 					</div>
 				</div>
 
+				<!-- Financial Solutions section -->
+				<div class="mt-10 border-t border-(--footer-border-color) pt-8">
+					<h2
+						class="mb-4 text-sm font-semibold tracking-wide text-(--footer-link-hover-color)"
+					>
+						Our Financial Solutions
+					</h2>
+					<ul class="flex flex-wrap items-center gap-3">
+						<li
+							v-for="logo in financialLogos"
+							:key="logo.name"
+						>
+							<div
+								class="flex h-9 min-w-13 items-center justify-center rounded-md bg-white/6 px-3 ring-1 ring-white/8"
+							>
+								<img
+									:src="logo.icon"
+									:alt="logo.name"
+									class="h-5 w-auto max-w-11 object-contain"
+									loading="lazy"
+								>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Social icons + copyright -->
 				<div
 					class="mt-10 flex flex-col gap-6 border-t border-(--footer-border-color) pt-8 md:flex-row md:items-center md:justify-between"
 				>
-					<ul class="flex flex-wrap gap-x-5 gap-y-2">
-						<li
-							v-for="link in socialLinks"
-							:key="link.label"
+					<div>
+						<h2
+							class="mb-3 text-sm font-semibold tracking-wide text-(--footer-link-hover-color)"
 						>
-							<NuxtLink
-								:to="link.href"
-								v-bind="linkAttrs(link)"
-								class="text-sm text-(--footer-link-color) transition-colors hover:text-(--footer-link-hover-color)"
+							Social
+						</h2>
+						<ul class="flex flex-wrap items-center gap-3">
+							<li
+								v-for="link in socialLinks"
+								:key="link.label"
 							>
-								{{ link.label }}
-							</NuxtLink>
-						</li>
-					</ul>
+								<NuxtLink
+									:to="link.href"
+									v-bind="linkAttrs(link)"
+									:aria-label="link.label"
+									class="block transition-opacity hover:opacity-75"
+								>
+									<img
+										:src="link.icon"
+										:alt="link.iconAlt"
+										class="h-8 w-8 object-contain"
+										loading="lazy"
+									>
+								</NuxtLink>
+							</li>
+						</ul>
+					</div>
 
 					<p class="text-sm text-(--footer-copyright-color)">
 						© 2026 Rockads. All rights reserved.
