@@ -190,7 +190,7 @@ onUnmounted(() => {
 					size="lg"
 					class=""
 				>
-					<NuxtLink to="/contact">
+					<NuxtLink to="/contact-us">
 						<CalendarDays class="size-5" />
 						Book a Call
 					</NuxtLink>
