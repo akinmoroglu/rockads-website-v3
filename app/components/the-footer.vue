@@ -9,6 +9,8 @@ import StripeLogo from "@/assets/icons/brands/stripe.svg?url";
 import PayPalLogo from "@/assets/icons/brands/paypal.svg?url";
 import PayoneerLogo from "@/assets/icons/brands/payoneer.svg?url";
 
+import logoSrc from "@/assets/images/logo-rockads.svg?url";
+
 type FooterLink = {
 	label: string;
 	href: string;
@@ -131,9 +133,16 @@ function linkAttrs(link: FooterLink) {
 			<div
 				class="mx-auto w-full max-w-(--footer-max-width) px-5 py-10 text-base lg:px-12"
 			>
+				<div class="mb-5">
+					<img
+						:src="logoSrc"
+						alt="Rockads"
+						class="h-[27px] w-[142px]"
+					>
+				</div>
 				<!-- Navigation link columns -->
 				<div
-					class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12"
+					class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12"
 				>
 					<div>
 						<h2
@@ -200,70 +209,87 @@ function linkAttrs(link: FooterLink) {
 							</li>
 						</ul>
 					</div>
-				</div>
-
-				<!-- Financial Solutions section -->
-				<div class="mt-10 border-t border-(--footer-border-color) pt-8">
-					<h2
-						class="mb-4 text-sm font-semibold tracking-wide text-(--footer-link-hover-color)"
-					>
-						Our Financial Solutions
-					</h2>
-					<ul class="flex flex-wrap items-center gap-3">
-						<li
-							v-for="logo in financialLogos"
-							:key="logo.name"
-						>
-							<div
-								class="flex h-9 min-w-13 items-center justify-center rounded-md bg-white/6 px-2 ring-1 ring-white/8"
-							>
-								<img
-									:src="logo.icon"
-									:alt="logo.name"
-									class="h-7 w-auto max-w-11 object-contain"
-									loading="lazy"
-								>
-							</div>
-						</li>
-					</ul>
-				</div>
-
-				<!-- Social icons + copyright -->
-				<div
-					class="mt-10 flex flex-col gap-6 border-t border-(--footer-border-color) pt-8 md:flex-row md:items-center md:justify-between"
-				>
-					<div>
+					<div class="">
 						<h2
-							class="mb-3 text-sm font-semibold tracking-wide text-(--footer-link-hover-color)"
+							class="mb-4 text-sm font-semibold tracking-wide text-(--footer-link-hover-color)"
 						>
-							Social
+							Our Financial Solutions
 						</h2>
 						<ul class="flex flex-wrap items-center gap-3">
 							<li
-								v-for="link in socialLinks"
-								:key="link.label"
+								v-for="logo in financialLogos"
+								:key="logo.name"
 							>
-								<NuxtLink
-									:to="link.href"
-									v-bind="linkAttrs(link)"
-									:aria-label="link.label"
-									class="block transition-opacity hover:opacity-75"
+								<div
+									class="flex h-9 min-w-13 items-center justify-center rounded-md bg-white/6 px-2 ring-1 ring-white/8"
 								>
-									<NuxtImg
-										:src="link.icon"
-										:alt="link.iconAlt"
-										class="h-8 w-8 object-contain"
+									<img
+										:src="logo.icon"
+										:alt="logo.name"
+										class="h-7 w-auto max-w-11 object-contain"
 										loading="lazy"
-									/>
-								</NuxtLink>
+									>
+								</div>
 							</li>
 						</ul>
-					</div>
 
+						<div class="mt-6">
+							<h2
+								class="mb-3 text-sm font-semibold tracking-wide text-(--footer-link-hover-color)"
+							>
+								Social
+							</h2>
+							<ul class="flex flex-wrap items-center gap-3">
+								<li
+									v-for="link in socialLinks"
+									:key="link.label"
+								>
+									<NuxtLink
+										:to="link.href"
+										v-bind="linkAttrs(link)"
+										:aria-label="link.label"
+										class="block transition-opacity hover:opacity-75"
+									>
+										<NuxtImg
+											:src="link.icon"
+											:alt="link.iconAlt"
+											class="h-8 w-8 object-contain"
+											loading="lazy"
+										/>
+									</NuxtLink>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="mt-10 border-t border-(--footer-border-color) pt-8">
+					<p class="text-sm font-medium text-(--footer-link-hover-color)">
+						Official Communication Notice:
+					</p>
+					<p
+						class="mt-2 max-w-[1120px] text-xs leading-relaxed text-(--footer-link-color)"
+					>
+						Our official communication channels are limited to our website
+						rockads.com, our WhatsApp line, the live support chat available on our
+						site, and email addresses ending with @rockads.com. Our sales team will
+						only contact you via email addresses with the @rockads.com domain.
+						Please disregard any individuals or platforms claiming to represent
+						Rockads through other channels.
+					</p>
+					<NuxtLink
+						to="/contact"
+						class="mt-3 inline-flex text-sm font-medium text-[#5c9dff] transition-colors hover:text-[#7cb2ff]"
+					>
+						Contact Us
+					</NuxtLink>
+				</div>
+				<div class="mt-10 border-t border-(--footer-border-color) pt-8">
 					<p class="text-sm text-(--footer-copyright-color)">
 						© 2026 Rockads. All rights reserved.
 					</p>
 				</div>
+
+				<!-- Financial Solutions section -->
 			</div>
 		</div>
 	</footer>
