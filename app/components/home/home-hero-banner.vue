@@ -164,7 +164,6 @@ onUnmounted(() => {
 				:transition="{ duration: 0.45, ease: 'easeOut' }"
 			>
 				<span
-					class="badge-beam"
 					aria-hidden="true"
 				/>
 				Stable. <span class="italic">Enduring.</span> Limitless.
