@@ -293,20 +293,20 @@ const dashboardBullets = [
 		<section class="bg-[#f7f9fb] px-5 pt-12 pb-12 lg:px-0 lg:pt-20 lg:pb-20">
 			<div
 				v-reveal="{ amount: 0.1 }"
-				class="reveal border-primary-light mx-auto grid max-w-[1140px] gap-8 rounded-2xl border bg-white p-4 md:grid-cols-[380px_1fr] lg:gap-12 lg:p-4"
+				class="reveal mx-auto grid max-w-[1140px] gap-8 rounded-[30px] bg-[#eceef2] p-6 md:grid-cols-[420px_minmax(0,1fr)] lg:gap-10 lg:px-10 lg:py-8"
 				style="--rv-y: 32px; --rv-dur: 0.65s"
 			>
-				<div class="flex flex-col p-4 lg:p-8">
-					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
+				<div class="flex flex-col">
+					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[46px]">
 						Rockads Dashboard
 					</h2>
-					<p class="text-text-gray-dark mt-3 text-lg font-medium italic">
+					<p class="mt-3 text-base font-medium text-[#747a8e] lg:text-lg">
 						Every service. One screen. Full control.
 					</p>
 					<p class="text-text-base mt-5 text-sm leading-relaxed lg:text-base">
 						Every layer of Rockads Core, your financial infrastructure, account health, operational workflows, team access, and performance data, managed from a single, purpose-built interface. The Rockads Dashboard doesn't replace what we do. It gives you full visibility and control over everything we provide.
 					</p>
-					<ul class="mt-6 flex flex-col gap-3">
+					<ul class="mt-7 flex flex-col gap-4">
 						<li
 							v-for="item in dashboardBullets"
 							:key="item"
@@ -321,11 +321,11 @@ const dashboardBullets = [
 								d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
 								clip-rule="evenodd"
 							/></svg>
-							<span class="text-text-gray-dark text-sm lg:text-base">{{ item }}</span>
+							<span class="text-sm text-[#747a8e] lg:text-base">{{ item }}</span>
 						</li>
 					</ul>
 				</div>
-				<div class="flex items-end justify-center">
+				<div class="-mr-6 -mb-6 flex items-end justify-end lg:-mr-6 lg:-mb-4">
 					<SafariMockup
 						url="console.rockads.com/"
 						:image-src="dashboardSvg"
