@@ -91,7 +91,7 @@ const stats = [
 			/>
 
 			<!-- Left glow — entry fade-in + infinite float, mirroring hero banner -->
-			<div
+			<!-- <div
 				aria-hidden="true"
 				class="pointer-events-none absolute inset-y-0 -left-80 flex w-[min(720px,90%)] items-center"
 			>
@@ -115,10 +115,10 @@ const stats = [
 						>
 					</Motion>
 				</Motion>
-			</div>
+			</div> -->
 
 			<!-- Right glow — entry fade-in + infinite float, mirroring hero banner -->
-			<div
+			<!-- <div
 				aria-hidden="true"
 				class="pointer-events-none absolute inset-y-0 -right-80 flex w-[min(720px,90%)] items-center"
 			>
@@ -142,7 +142,7 @@ const stats = [
 						>
 					</Motion>
 				</Motion>
-			</div>
+			</div> -->
 
 			<!-- Panel content -->
 			<div class="relative z-10 px-14 py-16 xl:px-20">
