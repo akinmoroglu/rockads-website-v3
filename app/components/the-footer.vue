@@ -307,7 +307,7 @@ function linkAttrs(link: FooterLink) {
 	--footer-separator-color: #3a4153;
 	--footer-copyright-color: #4b5061;
 
-	--footer-max-width: 1440px;
+	--footer-max-width: 1280px;
 	--footer-hero-min-height: 686px;
 	--footer-headline-max-width: 536px;
 	--footer-description-max-width: 372px;
