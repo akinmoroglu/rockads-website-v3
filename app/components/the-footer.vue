@@ -270,7 +270,11 @@ function linkAttrs(link: FooterLink) {
 						class="mt-2 max-w-[1120px] text-xs leading-relaxed text-(--footer-link-color)"
 					>
 						Our official communication channels are limited to our website
-						rockads.com, our WhatsApp line, the live support chat available on our
+						<a
+							href="http://www.rockads.com"
+							target="_blank"
+							rel="noopener noreferrer"
+						>rockads.com</a>, our WhatsApp line, the live support chat available on our
 						site, and email addresses ending with @rockads.com. Our sales team will
 						only contact you via email addresses with the @rockads.com domain.
 						Please disregard any individuals or platforms claiming to represent
