@@ -31,7 +31,7 @@ const stats = [
 <template>
 	<div class="flex min-h-screen bg-background text-foreground">
 		<!-- ───────────────────────────── Left: Form column ───────────────────────────── -->
-		<div class="flex w-full flex-col lg:w-140 lg:shrink-0 xl:w-155">
+		<div class="flex w-full flex-col lg:w-1/2 lg:shrink-0">
 			<!-- Logo -->
 			<header class="shrink-0 px-8 pt-8 pb-4">
 				<NuxtLink
@@ -83,7 +83,7 @@ const stats = [
 		</div>
 
 		<!-- ─────────────────────────── Right: Marketing panel ──────────────────────── -->
-		<div class="relative hidden flex-1 overflow-hidden bg-linear-to-b from-black to-[#02123e] lg:flex lg:flex-col lg:justify-center">
+		<div class="relative hidden overflow-hidden bg-linear-to-b from-black to-[#02123e] lg:flex lg:w-1/2 lg:shrink-0 lg:flex-col lg:justify-center">
 			<!-- Subtle dot-grid texture (same as hero) -->
 			<div
 				class="pointer-events-none absolute inset-0 bg-size-[22px_22px] opacity-[0.06]"
