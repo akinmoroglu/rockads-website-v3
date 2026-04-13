@@ -1,22 +1,12 @@
 <script setup lang="ts">
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 import HomeCta from "@/components/home/home-cta.vue";
 import { Motion } from "motion-v";
 import { IconFileDescriptionFilled, IconHeadset, IconMail, IconMessageChatbot } from "@tabler/icons-vue";
@@ -44,36 +34,6 @@ useHead({
 	],
 });
 
-const form = reactive({
-	name: "",
-	email: "",
-	company: "",
-	inquiryType: "",
-	message: "",
-});
-
-const isSubmitting = ref(false);
-const isSubmitted = ref(false);
-
-const mounted = ref(false);
-
-const inquiryTypes = [
-	{ value: "general", label: "General Inquiry" },
-	{ value: "sales", label: "Sales & Partnerships" },
-	{ value: "support", label: "Technical Support" },
-	{ value: "billing", label: "Billing & Payments" },
-	{ value: "press", label: "Press & Media" },
-	{ value: "other", label: "Other" },
-];
-
-async function handleSubmit() {
-	if (isSubmitting.value) return;
-	isSubmitting.value = true;
-	await new Promise(resolve => setTimeout(resolve, 1200));
-	isSubmitting.value = false;
-	isSubmitted.value = true;
-}
-
 const contactCards = [
 	{
 		icon: IconMail,
@@ -99,12 +59,6 @@ const contactCards = [
 		href: "https://docs.rockads.com/",
 		external: true,
 	},
-];
-
-const offices = [
-	{ city: "Istanbul", region: "EMEA Headquarters" },
-	{ city: "Dubai", region: "Middle East & Africa" },
-	{ city: "London", region: "Europe Operations" },
 ];
 
 const socialLinks = [
@@ -180,14 +134,6 @@ const openChat = () => {
 
 	chat.show();
 };
-
-onMounted(() => {
-	mounted.value = true;
-});
-
-onUnmounted(() => {
-	mounted.value = false;
-});
 </script>
 
 <template>
@@ -246,200 +192,24 @@ onUnmounted(() => {
 
 		<!-- Contact Grid -->
 		<section class="mx-auto w-full max-w-[1066px] px-5 py-16 lg:py-24">
-			<div class="grid grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-16">
-				<!-- Contact Form -->
+			<div class="flex flex-col gap-5">
 				<Motion
 					as="div"
-					class="lg:col-span-3"
+					class="rounded-2xl border border-border bg-card p-6 shadow-sm lg:p-8"
 					:initial="{ opacity: 0, y: 24 }"
 					:while-in-view="{ opacity: 1, y: 0 }"
-					:in-view-options="{ once: true, amount: 0.08 }"
+					:in-view-options="{ once: true, amount: 0.1 }"
 					:transition="{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }"
 				>
-					<!-- Success State -->
-					<div
-						v-if="isSubmitted"
-						class="flex min-h-[520px] flex-col items-center justify-center gap-6 rounded-2xl border border-border bg-card p-10 text-center shadow-sm"
-					>
-						<div class="flex size-16 items-center justify-center rounded-full bg-primary/10">
-							<svg
-								class="size-8 text-primary"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<circle
-									cx="12"
-									cy="12"
-									r="10"
-								/>
-								<path d="m9 12 2 2 4-4" />
-							</svg>
-						</div>
-						<div class="flex flex-col gap-2">
-							<h2 class="text-2xl font-semibold text-foreground">
-								Message Sent!
-							</h2>
-							<p class="max-w-sm text-sm leading-relaxed text-muted-foreground">
-								Thanks for reaching out. Our team will get back to you within 24 hours.
-							</p>
-						</div>
-						<Button
-							variant="outline"
-							@click="isSubmitted = false"
-						>
-							Send Another Message
-						</Button>
-					</div>
-
-					<!-- Form -->
-					<form
-						v-else
-						class="flex flex-col gap-6 rounded-2xl border border-border bg-card p-6 shadow-sm lg:p-10"
-						@submit.prevent="handleSubmit"
-					>
-						<div class="flex flex-col gap-1.5">
-							<h2 class="text-xl font-semibold text-foreground">
-								Send us a message
-							</h2>
-							<p class="text-sm text-muted-foreground">
-								Fill out the form and we'll be in touch shortly.
-							</p>
-						</div>
-
-						<div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-							<!-- Full Name -->
-							<div class="flex flex-col gap-1.5">
-								<Label for="contact-name">
-									Full Name <span class="text-destructive">*</span>
-								</Label>
-								<Input
-									id="contact-name"
-									v-model="form.name"
-									placeholder="Jane Smith"
-									required
-								/>
-							</div>
-
-							<!-- Email -->
-							<div class="flex flex-col gap-1.5">
-								<Label for="contact-email">
-									Email Address <span class="text-destructive">*</span>
-								</Label>
-								<Input
-									id="contact-email"
-									v-model="form.email"
-									type="email"
-									placeholder="jane@company.com"
-									required
-								/>
-							</div>
-
-							<!-- Company -->
-							<div class="flex flex-col gap-1.5">
-								<Label for="contact-company">
-									Company Name
-								</Label>
-								<Input
-									id="contact-company"
-									v-model="form.company"
-									placeholder="Your company"
-								/>
-							</div>
-
-							<!-- Inquiry Type -->
-							<div class="flex flex-col gap-1.5">
-								<Label for="contact-inquiry">
-									Inquiry Type <span class="text-destructive">*</span>
-								</Label>
-								<Select
-									v-model="form.inquiryType"
-									required
-								>
-									<SelectTrigger
-										id="contact-inquiry"
-										class="w-full"
-									>
-										<SelectValue placeholder="Select an inquiry type" />
-									</SelectTrigger>
-									<SelectContent>
-										<SelectItem
-											v-for="type in inquiryTypes"
-											:key="type.value"
-											:value="type.value"
-										>
-											{{ type.label }}
-										</SelectItem>
-									</SelectContent>
-								</Select>
-							</div>
-						</div>
-
-						<!-- Message -->
-						<div class="flex flex-col gap-1.5">
-							<Label for="contact-message">
-								Message <span class="text-destructive">*</span>
-							</Label>
-							<Textarea
-								id="contact-message"
-								v-model="form.message"
-								placeholder="Tell us how we can help you..."
-								required
-								class="min-h-[160px] resize-none"
-							/>
-						</div>
-
-						<div class="flex items-center justify-between gap-4">
-							<p class="text-xs text-muted-foreground">
-								Fields marked with <span class="text-destructive">*</span> are required.
-							</p>
-							<Button
-								type="submit"
-								size="lg"
-								class="shrink-0"
-								:disabled="isSubmitting"
-							>
-								<template v-if="isSubmitting">
-									<svg
-										class="mr-2 size-4 animate-spin"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-									>
-										<path d="M21 12a9 9 0 1 1-6.219-8.56" />
-									</svg>
-									Sending…
-								</template>
-								<template v-else>
-									Send Message
-									<svg
-										class="ml-2 size-4"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
-										<path d="m22 2-7 20-4-9-9-4Z" />
-										<path d="M22 2 11 13" />
-									</svg>
-								</template>
-							</Button>
-						</div>
-					</form>
+					<h2 class="text-xl font-semibold text-foreground">
+						Contact Channels
+					</h2>
+					<p class="mt-1 text-sm text-muted-foreground">
+						Reach our team through the channels below.
+					</p>
 				</Motion>
 
-				<!-- Sidebar -->
-				<div
-					v-if="mounted"
-					class="flex flex-col gap-5 lg:col-span-2"
-				>
+				<div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
 					<!-- Contact Cards -->
 					<Motion
 						v-for="(card, index) in contactCards"
@@ -465,50 +235,9 @@ onUnmounted(() => {
 							</span>
 						</div>
 					</Motion>
+				</div>
 
-					<!-- Global Presence -->
-					<Motion
-						as="div"
-						class="rounded-2xl border border-border bg-muted/40 p-5"
-						:initial="{ opacity: 0, y: 20 }"
-						:while-in-view="{ opacity: 1, y: 0 }"
-						:in-view-options="{ once: true, amount: 0.15 }"
-						:transition="{ duration: 0.5, delay: 0.22, ease: [0.16, 1, 0.3, 1] }"
-					>
-						<h3 class="mb-4 text-sm font-semibold text-foreground">
-							Global Presence
-						</h3>
-						<ul class="flex flex-col gap-3">
-							<li
-								v-for="office in offices"
-								:key="office.city"
-								class="flex items-center gap-3"
-							>
-								<svg
-									class="size-4 shrink-0 text-primary"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.75"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-									<circle
-										cx="12"
-										cy="10"
-										r="3"
-									/>
-								</svg>
-								<div>
-									<span class="text-sm font-medium text-foreground">{{ office.city }}</span>
-									<span class="ml-1.5 text-xs text-muted-foreground">— {{ office.region }}</span>
-								</div>
-							</li>
-						</ul>
-					</Motion>
-
-					<!-- Social Links -->
+				<div class="grid grid-cols-1 gap-5">
 					<Motion
 						as="div"
 						class="rounded-2xl border border-border bg-card p-5"
