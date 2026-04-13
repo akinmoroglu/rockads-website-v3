@@ -16,20 +16,20 @@ const items: PhilosophyItem[] = [
 	{
 		id: "partnership",
 		title: "Built on partnership.",
-		p1: "Operating at a global scale requires more than just powerful software; it requires a dedicated growth partner. Rockads centralizes the fragmented complexities of cross-border expansion into a single, high-performance ecosystem.",
-		p2: "We manage the technical, financial, and operational heavy lifting in the background, while we strategize, guide, and scale alongside you. You gain a stable core that keeps expansion fast, clear, and sustainable.",
+		p1: "Operating at a global scale requires more than just powerful software. It requires a dedicated growth partner who understands the full weight of what cross-border expansion demands.",
+		p2: "The technology alone is not enough; without the right partnership behind it, even the most advanced tools fall short.",
 	},
 	{
 		id: "intelligence",
 		title: "Powered by intelligence.",
-		p1: "Data without direction creates noise. Our intelligence layer translates real-time signals into concrete actions, helping you prioritize the markets, campaigns, and channels that carry the highest upside.",
-		p2: "From predictive insights to live performance diagnostics, you move with confidence instead of guesswork. The result is faster iteration, better capital efficiency, and decisions made at the right moment.",
+		p1: "Rockads centralizes the fragmented complexities of this expansion into a single, high-performance ecosystem. Instead of navigating disconnected platforms, scattered financial processes, and inconsistent operational workflows across markets, everything converges in one place.",
+		p2: "We manage the technical, financial, and operational heavy lifting in the background - quietly, consistently, and without interruption.",
 	},
 	{
 		id: "endure",
 		title: "Designed to endure.",
-		p1: "Sustained growth requires systems that do not break under pressure. We build for consistency, resilience, and long-term alignment so your operations stay strong as volume and complexity increase.",
-		p2: "Our teams, infrastructure, and platform partnerships are structured for continuity. You can scale aggressively today while protecting performance and strategic flexibility for tomorrow.",
+		p1: "While we handle that infrastructure, we also strategize, guide, and scale alongside you. This is not a hands-off platform; it is a hands-on partnership.",
+		p2: "We provide the stable, intelligent core that empowers your business to grow without limits.",
 	},
 ];
 
