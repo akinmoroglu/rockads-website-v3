@@ -15,7 +15,7 @@ type ServiceItem = {
 	description: string;
 };
 
-type ServiceCategory = {
+type Category = {
 	id: string;
 	title: string;
 	subtitle: string;
@@ -38,11 +38,10 @@ const mobileServicesOpen = ref(false);
 const desktopLinks = [
 	{ label: "Solutions", href: "/solutions" },
 	{ label: "Pricing", href: "/pricing" },
-	{ label: "Resources", href: "/resources" },
 	{ label: "Sign In", href: "/sign-in" },
 ];
 
-const serviceCategories: ServiceCategory[] = [
+const serviceCategories: Category[] = [
 	{
 		id: "core",
 		title: "Core Services",
@@ -80,8 +79,48 @@ const serviceCategories: ServiceCategory[] = [
 		],
 	},
 ];
+const resources: Category[] = [
+	{
+		id: "resources",
+		title: "Blog",
+		subtitle: "Insights, tips, and best practices for global advertising.",
+		href: "/blog",
+		items: [
+			{
+				title: "Latest Articles",
+				description:
+          "Read strategy guides, market insights, and practical growth playbooks from the Rockads team.",
+			},
+		],
+	},
+	{
+		id: "help-center",
+		title: "Help Center",
+		subtitle: "Get help with your account and campaigns.",
+		href: "/help-center",
+		items: [
+			{
+				title: "Support Articles",
+				description: "Find step-by-step help for account setup, campaign workflows, billing, and troubleshooting.",
+			},
+		],
+	},
+	{
+		id: "docs",
+		title: "Documentation",
+		subtitle: "Learn how to use the platform.",
+		href: "/docs",
+		items: [
+			{
+				title: "Developer Docs",
+				description: "Explore technical documentation, integration details, and platform capabilities in one place.",
+			},
+		],
+	},
+];
 
 const isServicesActive = computed(() => route.path.startsWith("/services"));
+const isResourcesActive = computed(() => route.path.startsWith("/blog") || route.path.startsWith("/help-center") || route.path.startsWith("/docs"));
 
 const activeCategoryFromRoute = computed(() => {
 	const match = serviceCategories.find(cat => route.path.startsWith(cat.href));
@@ -91,8 +130,20 @@ const activeCategoryFromRoute = computed(() => {
 
 const activeCategory = ref(activeCategoryFromRoute.value);
 
+const activeResourceFromRoute = computed(() => {
+	const match = resources.find(resource => route.path.startsWith(resource.href));
+
+	return match?.id ?? resources[0]?.id ?? "resources";
+});
+
+const activeResource = ref(activeResourceFromRoute.value);
+
 watch(activeCategoryFromRoute, (val) => {
 	activeCategory.value = val;
+});
+
+watch(activeResourceFromRoute, (val) => {
+	activeResource.value = val;
 });
 
 const activeItems = computed(() => {
@@ -100,6 +151,10 @@ const activeItems = computed(() => {
 		serviceCategories.find(category => category.id === activeCategory.value)
 			?.items ?? []
 	);
+});
+
+const activeResourceItems = computed(() => {
+	return resources.find(resource => resource.id === activeResource.value)?.items ?? [];
 });
 
 const headerLayoutClasses = computed(() => {
@@ -218,7 +273,7 @@ watch(
 									Services
 								</NavigationMenuTrigger>
 								<NavigationMenuContent
-									class="w-[440px]! p-0! pr-0! md:left-0 lg:left-1/2 lg:w-[560px]! lg:-translate-x-1/2"
+									class="w-[440px]! gap-2 p-0! pr-0! md:left-0 lg:left-1/2 lg:w-[560px]! lg:-translate-x-1/2"
 								>
 									<div class="flex overflow-hidden shadow-xl">
 										<div class="flex w-[220px] flex-col gap-1 border-r border-gray-100 px-5 py-5">
@@ -245,6 +300,59 @@ watch(
 										<div class="flex flex-1 flex-col gap-1 px-5 py-5">
 											<Motion
 												v-for="item in activeItems"
+												:key="item.title"
+												as="div"
+												class="rounded-lg px-3 py-3 transition-colors hover:bg-gray-50"
+												:initial="{ opacity: 0, y: 6 }"
+												:animate="{ opacity: 1, y: 0 }"
+												:transition="{ duration: 0.14, ease: 'easeOut' }"
+											>
+												<span class="block text-sm leading-5 text-foreground">
+													{{ item.title }}
+												</span>
+												<span class="mt-0.5 block text-xs leading-4 text-muted-foreground">
+													{{ item.description }}
+												</span>
+											</Motion>
+										</div>
+									</div>
+								</NavigationMenuContent>
+							</NavigationMenuItem>
+							<NavigationMenuItem>
+								<NavigationMenuTrigger
+									class="h-auto bg-transparent px-0 py-0 text-sm text-white hover:bg-transparent hover:text-white/80 focus:bg-transparent focus:text-white data-[state=open]:bg-transparent data-[state=open]:text-white data-[state=open]:hover:bg-transparent data-[state=open]:focus:bg-transparent"
+									:class="isResourcesActive ? 'underline underline-offset-4 data-[state=open]:underline' : ''"
+								>
+									Resources
+								</NavigationMenuTrigger>
+								<NavigationMenuContent
+									class="w-[440px]! p-0! pr-0! md:left-0 lg:left-1/2 lg:w-[560px]! lg:-translate-x-1/2"
+								>
+									<div class="flex overflow-hidden shadow-xl">
+										<div class="flex w-[220px] flex-col gap-1 border-r border-gray-100 px-5 py-5">
+											<NuxtLink
+												v-for="resource in resources"
+												:key="resource.id"
+												:to="resource.href"
+												class="block cursor-pointer rounded-lg px-3 py-3 transition-colors"
+												:class="activeResource === resource.id ? 'bg-gray-50' : 'hover:bg-gray-50/50'"
+												@mouseenter="activeResource = resource.id"
+											>
+												<span
+													class="block text-sm leading-5 font-medium"
+													:class="activeResource === resource.id ? 'text-primary' : 'text-foreground'"
+												>
+													{{ resource.title }}
+												</span>
+												<span class="mt-0.5 block text-xs leading-4 text-muted-foreground">
+													{{ resource.subtitle }}
+												</span>
+											</NuxtLink>
+										</div>
+
+										<div class="flex flex-1 flex-col gap-1 px-5 py-5">
+											<Motion
+												v-for="item in activeResourceItems"
 												:key="item.title"
 												as="div"
 												class="rounded-lg px-3 py-3 transition-colors hover:bg-gray-50"
