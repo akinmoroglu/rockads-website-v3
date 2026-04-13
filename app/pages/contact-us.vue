@@ -5,6 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
 	Select,
 	SelectContent,
 	SelectItem,
@@ -13,7 +19,7 @@ import {
 } from "@/components/ui/select";
 import HomeCta from "@/components/home/home-cta.vue";
 import { Motion } from "motion-v";
-import { IconFileDescriptionFilled, IconHeadset, IconMail } from "@tabler/icons-vue";
+import { IconFileDescriptionFilled, IconHeadset, IconMail, IconMessageChatbot } from "@tabler/icons-vue";
 
 definePageMeta({
 	layout: "marketing",
@@ -26,6 +32,14 @@ useHead({
 			name: "description",
 			content:
 				"Get in touch with the Rockads team. We're here to help you grow without limits.",
+		},
+	],
+	link: [
+		{
+			rel: "alternate",
+			type: "link",
+			href: "https://www.rockads.com/en/contact-us",
+			hreflang: "en",
 		},
 	],
 });
@@ -100,6 +114,72 @@ const socialLinks = [
 	{ label: "Facebook", href: "https://www.facebook.com/rockadscom/" },
 	{ label: "TikTok", href: "https://www.tiktok.com/@rockadscom" },
 ];
+
+const faqItems = [
+	{
+		id: "faq-1",
+		question: "How quickly will I receive a response?",
+		answer:
+			"Our support team usually replies within 24 hours on business days.",
+	},
+	{
+		id: "faq-2",
+		question: "Can I request a demo before onboarding?",
+		answer:
+			"Yes. Share your goals through the contact form and our team will schedule a guided demo.",
+	},
+	{
+		id: "faq-3",
+		question: "Do you provide technical integration support?",
+		answer:
+			"Absolutely. We support integrations through documentation, direct support, and onboarding sessions.",
+	},
+	{
+		id: "faq-4",
+		question: "Where can I find platform documentation?",
+		answer:
+			"You can access all setup and API guides at docs.rockads.com.",
+	},
+	{
+		id: "faq-5",
+		question: "How can I reach live support?",
+		answer:
+			"Use the Live Support button below to open Desk360 chat when available.",
+	},
+];
+
+const officeAddresses = [
+	{
+		id: "office-us",
+		label: "US - Rockads Corp. Address:",
+		value: "2513 SHALLOWFORD RD BLDG 200 STE 400, MARIETTA, GA, 30066, USA",
+	},
+];
+
+declare global {
+	interface Window {
+		desk360Chat?: {
+			open?: () => void;
+			show: () => void;
+		};
+	}
+}
+
+const openChat = () => {
+	if (!import.meta.client) return;
+
+	const chat = window.desk360Chat;
+
+	if (!chat) return;
+
+	if (chat.open) {
+		chat.open();
+
+		return;
+	}
+
+	chat.show();
+};
 
 onMounted(() => {
 	mounted.value = true;
@@ -461,6 +541,119 @@ onUnmounted(() => {
 					</Motion>
 				</div>
 			</div>
+		</section>
+
+		<section class="mx-auto w-full max-w-[1066px] px-5 pb-16 lg:pb-24">
+			<Motion
+				as="div"
+				class="rounded-2xl border border-border bg-card p-6 shadow-sm lg:p-10"
+				:initial="{ opacity: 0, y: 24 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.1 }"
+				:transition="{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }"
+			>
+				<div class="mb-5">
+					<h2 class="text-2xl font-semibold text-foreground">
+						Frequently Asked Questions
+					</h2>
+					<p class="mt-1 text-sm text-muted-foreground">
+						Quick answers to common contact and onboarding questions.
+					</p>
+				</div>
+				<Accordion
+					type="single"
+					collapsible
+					class="w-full"
+				>
+					<AccordionItem
+						v-for="faq in faqItems"
+						:key="faq.id"
+						:value="faq.id"
+					>
+						<AccordionTrigger>{{ faq.question }}</AccordionTrigger>
+						<AccordionContent>{{ faq.answer }}</AccordionContent>
+					</AccordionItem>
+				</Accordion>
+			</Motion>
+		</section>
+
+		<section class="mx-auto w-full max-w-[1066px] px-5 pb-16 lg:pb-24">
+			<Motion
+				as="div"
+				class="rounded-2xl border border-border bg-muted/30 p-6 text-center lg:p-10"
+				:initial="{ opacity: 0, y: 24 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.1 }"
+				:transition="{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }"
+			>
+				<div class="flex flex-col gap-2 text-sm text-foreground">
+					<p
+						v-for="officeAddress in officeAddresses"
+						:key="officeAddress.id"
+						class="leading-relaxed"
+					>
+						<span class="font-semibold">{{ officeAddress.label }}</span>
+						{{ officeAddress.value }}
+					</p>
+					<p class="leading-relaxed">
+						<span class="font-semibold">E-mail:</span>
+						support@rockads.com
+					</p>
+				</div>
+			</Motion>
+		</section>
+
+		<section class="mx-auto w-full max-w-[1066px] px-5 pb-16 lg:pb-24">
+			<Motion
+				as="div"
+				class="flex flex-col items-center justify-between gap-6 rounded-2xl bg-primary/8 p-6 lg:flex-row lg:p-8"
+				:initial="{ opacity: 0, y: 24 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.1 }"
+				:transition="{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }"
+			>
+				<div class="flex items-center gap-4">
+					<IconMessageChatbot class="size-8 text-primary" />
+					<div>
+						<p class="text-xl font-semibold text-foreground">
+							Need immediate help?
+						</p>
+						<p class="text-sm text-muted-foreground">
+							Our live support team is ready to assist you.
+						</p>
+					</div>
+				</div>
+				<Button
+					type="button"
+					class="w-full lg:w-auto"
+					@click="openChat"
+				>
+					Open Live Support
+				</Button>
+			</Motion>
+		</section>
+
+		<section class="mx-auto w-full max-w-[1066px] px-5 pb-16 text-center lg:pb-24">
+			<Motion
+				as="div"
+				class="flex flex-col items-center gap-6 rounded-2xl border border-border bg-card p-8 lg:p-10"
+				:initial="{ opacity: 0, y: 24 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.1 }"
+				:transition="{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }"
+			>
+				<p class="text-2xl font-semibold text-foreground lg:text-4xl">
+					Ready to start growing with Rockads?
+				</p>
+				<Button
+					as-child
+					size="lg"
+				>
+					<NuxtLink to="/register">
+						Start Now
+					</NuxtLink>
+				</Button>
+			</Motion>
 		</section>
 
 		<!-- CTA -->
