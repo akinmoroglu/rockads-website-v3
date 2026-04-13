@@ -245,7 +245,7 @@ onUnmounted(() => {
 		</section>
 
 		<!-- Contact Grid -->
-		<section class="mx-auto w-full max-w-[1440px] px-5 py-16 lg:px-12 lg:py-24 xl:px-[150px]">
+		<section class="mx-auto w-full max-w-[1066px] px-5 py-16 lg:py-24">
 			<div class="grid grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-16">
 				<!-- Contact Form -->
 				<Motion
