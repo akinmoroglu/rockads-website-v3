@@ -36,7 +36,7 @@ const mobileMenuOpen = ref(false);
 const mobileServicesOpen = ref(false);
 
 const desktopLinks = [
-	{ label: "Solutions", href: "/solutions" },
+	// { label: "Solutions", href: "/solutions" },
 	{ label: "Pricing", href: "/pricing" },
 	{ label: "Sign In", href: "/sign-in" },
 ];
@@ -94,10 +94,10 @@ const resources: Category[] = [
 		],
 	},
 	{
-		id: "help-center",
+		id: "contact-us",
 		title: "Help Center",
 		subtitle: "Get help with your account and campaigns.",
-		href: "/help-center",
+		href: "/contact-us",
 		items: [
 			{
 				title: "Support Articles",
