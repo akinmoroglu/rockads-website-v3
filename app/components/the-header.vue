@@ -264,7 +264,7 @@ watch(
 						:viewport="false"
 						class="z-50"
 					>
-						<NavigationMenuList>
+						<NavigationMenuList class="gap-5 lg:gap-10">
 							<NavigationMenuItem>
 								<NavigationMenuTrigger
 									class="h-auto bg-transparent px-0 py-0 text-sm text-white hover:bg-transparent hover:text-white/80 focus:bg-transparent focus:text-white data-[state=open]:bg-transparent data-[state=open]:text-white data-[state=open]:hover:bg-transparent data-[state=open]:focus:bg-transparent"
@@ -273,7 +273,7 @@ watch(
 									Services
 								</NavigationMenuTrigger>
 								<NavigationMenuContent
-									class="w-[440px]! gap-2 p-0! pr-0! md:left-0 lg:left-1/2 lg:w-[560px]! lg:-translate-x-1/2"
+									class="w-[440px]! p-0! pr-0! md:left-0 lg:left-1/2 lg:w-[560px]! lg:-translate-x-1/2"
 								>
 									<div class="flex overflow-hidden shadow-xl">
 										<div class="flex w-[220px] flex-col gap-1 border-r border-gray-100 px-5 py-5">
