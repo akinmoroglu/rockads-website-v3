@@ -281,7 +281,7 @@ function linkAttrs(link: FooterLink) {
 						Rockads through other channels.
 					</p>
 					<NuxtLink
-						to="/contact"
+						to="/contact-us"
 						class="mt-3 inline-flex text-sm font-medium text-[#5c9dff] transition-colors hover:text-[#7cb2ff]"
 					>
 						Contact Us
