@@ -63,7 +63,10 @@ const formData = ref<Omit<SubmitParams, "captchaResponse" | "skipRecaptcha">>({
 	clientRegions: [],
 });
 
-const formStep = ref(1);
+const route = useRoute();
+const router = useRouter();
+
+const formStep = computed<1 | 2>(() => (Number(route.query.sub) === 2 ? 2 : 1));
 const showStep1Errors = ref(false);
 const showStep2Errors = ref(false);
 
@@ -243,7 +246,7 @@ function handleSubmit() {
 		return;
 	}
 
-	formStep.value = 2;
+	router.push({ query: { ...route.query, sub: "2" } });
 	showStep2Errors.value = false;
 	window.scrollTo(0, 0);
 	pushVirtualPageView("2");

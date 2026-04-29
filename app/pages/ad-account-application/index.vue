@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import { AlertCircle } from "lucide-vue-next";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { computed, onMounted, ref, watch } from "vue";
+import { toast } from "vue-sonner";
 import RARegistrationStepFirst from "@/components/auth/RARegistrationStepFirst.vue";
 import RARegistrationStepSecond from "@/components/auth/RARegistrationStepSecond.vue";
 import RARegistrationStepThird from "@/components/auth/RARegistrationStepThird.vue";
@@ -28,29 +27,51 @@ useSeoMeta({ robots: "noindex, nofollow" });
 useServerSeoMeta({ robots: "noindex, nofollow" });
 
 const route = useRoute();
+const router = useRouter();
 const config = useRuntimeConfig();
 
 const baseURL = (config.public.goApiURL as string).replace(/\/$/, "");
 
-const step = useState<number>("register-step", () => 1);
+const BUSINESS_INFO_KEY = "ad-account-application:business-info";
 
-step.value = 1;
+const VALID_TYPES: ReadonlySet<CustomerType> = new Set([
+	"advertiser",
+	"agency",
+	"partner",
+]);
 
-const customerType = ref<CustomerType | "">("");
+const currentStep = computed<1 | 2 | 3>(() => {
+	const raw = Number(route.query.step);
+
+	if (raw === 2) return 2;
+	if (raw === 3) return 3;
+
+	return 1;
+});
+
+const customerType = computed<CustomerType | null>(() => {
+	const raw = route.query.type;
+
+	if (typeof raw === "string" && VALID_TYPES.has(raw as CustomerType)) {
+		return raw as CustomerType;
+	}
+
+	return null;
+});
+
 const businessInfo = ref<BusinessInfoFormValues | null>(null);
-const inviteToken = ref<string | undefined>(undefined);
 
 const countryList = ref<CountryOptionValue[]>([]);
 const phoneCountryList = ref<PhoneCountryCodeValue[]>([]);
+const inviteToken = ref<string | undefined>(undefined);
 
-const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
-
 const stepThreeRef = ref<{ resetCaptcha: () => void } | null>(null);
 
 const title = computed(() => {
-	if (step.value === 1) return "Tell us about you";
-	if (!customerType.value) return "Tell us about you";
+	if (currentStep.value === 1 || !customerType.value) {
+		return "Tell us about you";
+	}
 	switch (customerType.value) {
 		case "advertiser":
 			return "Set up your advertiser profile";
@@ -64,7 +85,7 @@ const title = computed(() => {
 });
 
 const subtitle = computed(() => {
-	switch (step.value) {
+	switch (currentStep.value) {
 		case 1:
 			return "Pick the option that fits you best — we'll tailor the rest.";
 		case 2:
@@ -114,7 +135,52 @@ async function fetchCountryList() {
 		}));
 	}
 	catch {
-		apiError.value = "Could not load country list. Please refresh and try again.";
+		toast.error("Could not load country list. Please refresh and try again.");
+	}
+}
+
+function restoreBusinessInfo() {
+	if (typeof window === "undefined") return;
+	try {
+		const raw = sessionStorage.getItem(BUSINESS_INFO_KEY);
+
+		if (!raw) return;
+		const parsed = JSON.parse(raw) as BusinessInfoFormValues;
+
+		businessInfo.value = parsed;
+	}
+	catch {
+		// ignore corrupt storage
+	}
+}
+
+function persistBusinessInfo(values: BusinessInfoFormValues | null) {
+	if (typeof window === "undefined") return;
+	try {
+		if (values) {
+			sessionStorage.setItem(BUSINESS_INFO_KEY, JSON.stringify(values));
+		}
+		else {
+			sessionStorage.removeItem(BUSINESS_INFO_KEY);
+		}
+	}
+	catch {
+		// ignore quota / private mode errors
+	}
+}
+
+function reconcileUrlState() {
+	const step = currentStep.value;
+	const type = customerType.value;
+
+	if (step >= 2 && !type) {
+		router.replace({ query: {} });
+
+		return;
+	}
+
+	if (step === 3 && !businessInfo.value) {
+		router.replace({ query: { step: 2, type } });
 	}
 }
 
@@ -127,36 +193,38 @@ onMounted(async () => {
 		inviteToken.value = query.token;
 	}
 
+	restoreBusinessInfo();
+	reconcileUrlState();
+
 	await fetchCountryList();
 
 	pushVirtualPageView("", "Ad Account Application");
 });
 
-onUnmounted(() => {
-	step.value = 1;
-});
+watch(
+	() => [currentStep.value, customerType.value] as const,
+	([step], [prevStep]) => {
+		if (step === 1 && prevStep !== 1) {
+			pushVirtualPageView("", "Ad Account Application");
+		}
+	},
+);
 
 function handleCustomerType(type: CustomerType) {
-	customerType.value = type;
-	step.value = 2;
+	router.push({ query: { step: 2, type } });
 	pushVirtualPageView(`/${type}`, `Register ${type}`);
 }
 
 function handleBusinessInfo(values: BusinessInfoFormValues) {
 	businessInfo.value = values;
-	step.value = 3;
+	persistBusinessInfo(values);
+	router.push({ query: { step: 3, type: customerType.value } });
 	if (typeof window !== "undefined") window.scrollTo(0, 0);
 	pushVirtualPageView(
 		`/${customerType.value}/1`,
 		`Register ${customerType.value} 1`,
 	);
 }
-
-watch(step, (value) => {
-	if (value === 1) {
-		pushVirtualPageView("", "Ad Account Application");
-	}
-});
 
 async function handleSubmit(params: {
 	approximateMonthlySpend: string;
@@ -171,7 +239,6 @@ async function handleSubmit(params: {
 }) {
 	if (!customerType.value || !businessInfo.value) return;
 
-	apiError.value = null;
 	isSubmitting.value = true;
 
 	const payload: CreateLeadParams = {
@@ -199,6 +266,8 @@ async function handleSubmit(params: {
 
 	try {
 		await createLead(baseURL, payload, inviteToken.value);
+		businessInfo.value = null;
+		persistBusinessInfo(null);
 		await navigateTo("/ad-account-application/success");
 	}
 	catch (error: unknown) {
@@ -207,9 +276,14 @@ async function handleSubmit(params: {
 				.response?._data;
 		const code = errData?.code?.toLowerCase();
 
-		apiError.value = errData?.message
-			?? (code ? `Submission failed (${code}).` : null)
-			?? (error instanceof Error ? error.message : "Could not submit your application.");
+		const message
+			= errData?.message
+				?? (code ? `Submission failed (${code}).` : null)
+				?? (error instanceof Error
+					? error.message
+					: "Could not submit your application.");
+
+		toast.error(message);
 
 		stepThreeRef.value?.resetCaptcha();
 		if (typeof window !== "undefined") window.scrollTo(0, 0);
@@ -243,26 +317,16 @@ async function handleSubmit(params: {
 			</span>
 		</div>
 
-		<Alert
-			v-if="apiError"
-			variant="destructive"
-			class="mt-6"
-		>
-			<AlertCircle class="size-4" />
-			<AlertTitle>Could not submit</AlertTitle>
-			<AlertDescription>{{ apiError }}</AlertDescription>
-		</Alert>
-
 		<KeepAlive>
 			<RARegistrationStepFirst
-				v-if="step === 1"
+				v-if="currentStep === 1"
 				@customer-type="handleCustomerType"
 			/>
 		</KeepAlive>
 
 		<KeepAlive>
 			<RARegistrationStepSecond
-				v-if="step === 2"
+				v-if="currentStep === 2 && customerType"
 				:country-list="countryList"
 				:phone-country-list="phoneCountryList"
 				:initial-values="businessInfo ?? undefined"
@@ -271,7 +335,7 @@ async function handleSubmit(params: {
 		</KeepAlive>
 
 		<RARegistrationStepThird
-			v-if="step === 3 && customerType"
+			v-if="currentStep === 3 && customerType && businessInfo"
 			ref="stepThreeRef"
 			:customer-type="customerType"
 			:is-submitting="isSubmitting"

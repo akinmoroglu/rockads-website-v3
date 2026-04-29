@@ -25,22 +25,23 @@ const stats = [
 ];
 
 const route = useRoute();
+const router = useRouter();
 const config = useRuntimeConfig();
-
-const registerStep = useState<number>("register-step", () => 1);
 
 const isApplicationRoute = computed(() => route.path.includes("ad-account-application"));
 const isApplicationSuccess = computed(() => route.path.includes("ad-account-application/success"));
 const isApplicationForm = computed(() => isApplicationRoute.value && !isApplicationSuccess.value);
 
-const isBackBtnVisible = computed(() =>
-	isApplicationForm.value && Number(registerStep.value) > 1,
-);
+const isBackBtnVisible = computed(() => {
+	if (!isApplicationForm.value) return false;
+	const step = Number(route.query.step);
+	const sub = Number(route.query.sub);
+
+	return step > 1 || sub > 1;
+});
 
 function handleBack() {
-	if (Number(registerStep.value) > 1) {
-		registerStep.value = Number(registerStep.value) - 1;
-	}
+	router.back();
 }
 
 const logoHref = computed(() => {
