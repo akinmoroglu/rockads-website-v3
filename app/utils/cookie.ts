@@ -56,3 +56,29 @@ export function clearReferrer(): void {
 
 	localStorage.removeItem(REFERRER_KEY);
 }
+
+/**
+ * Read a real `document.cookie` value. Used for the test-automation cookie
+ * which is set by E2E suites and must hide Turnstile + send a dummy token.
+ */
+export function readDocumentCookie(name: string): string | null {
+	if (!import.meta.client) return null;
+
+	const nameEQ = `${name}=`;
+	const parts = document.cookie.split(";");
+
+	for (let i = 0; i < parts.length; i++) {
+		const trimmed = parts[i]?.trimStart() ?? "";
+
+		if (trimmed.indexOf(nameEQ) === 0) {
+			return decodeURIComponent(trimmed.substring(nameEQ.length));
+		}
+	}
+
+	return null;
+}
+
+/** Returns true when the `rockads_test_automation=1` cookie is present. */
+export function isAutomationCookieSet(): boolean {
+	return Number(readDocumentCookie("rockads_test_automation")) === 1;
+}

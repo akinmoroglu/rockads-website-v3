@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { Motion } from "motion-v";
-import { CheckCircle2 } from "lucide-vue-next";
+import { CheckCircle2, ArrowLeft } from "lucide-vue-next";
 import logoSrc from "@/assets/images/logo-rockads.svg";
-import leftGlowAsset from "@/assets/images/home/hero/left-glow.svg?url";
-import rightGlowAsset from "@/assets/images/home/hero/right-glow.svg?url";
 
 const marketingSiteBase = "https://www.rockads.com";
 
@@ -26,15 +23,73 @@ const stats = [
 	{ value: "$2B+", label: "Ad spend managed" },
 	{ value: "3.2×", label: "Average ROAS" },
 ];
+
+const route = useRoute();
+const config = useRuntimeConfig();
+
+const registerStep = useState<number>("register-step", () => 1);
+
+const isApplicationRoute = computed(() => route.path.includes("ad-account-application"));
+const isApplicationSuccess = computed(() => route.path.includes("ad-account-application/success"));
+const isApplicationForm = computed(() => isApplicationRoute.value && !isApplicationSuccess.value);
+
+const isBackBtnVisible = computed(() =>
+	isApplicationForm.value && Number(registerStep.value) > 1,
+);
+
+function handleBack() {
+	if (Number(registerStep.value) > 1) {
+		registerStep.value = Number(registerStep.value) - 1;
+	}
+}
+
+const logoHref = computed(() => {
+	if (!isApplicationRoute.value) return "/";
+
+	const appURL = (config.public.appURL as string) ?? "";
+	const isStaging = appURL.includes("stage");
+
+	return isStaging ? "https://stage-panel.rockads.com" : "https://marketing.rockads.com/";
+});
 </script>
 
 <template>
 	<div class="flex min-h-screen bg-background text-foreground">
 		<!-- ───────────────────────────── Left: Form column ───────────────────────────── -->
-		<div class="flex w-full flex-col lg:w-1/2 lg:shrink-0">
-			<!-- Logo -->
-			<header class="shrink-0 px-8 pt-8 pb-4">
+		<div
+			class="flex w-full flex-col"
+			:class="isApplicationRoute ? '' : 'lg:w-1/2 lg:shrink-0'"
+		>
+			<!-- Logo + (optional) back button -->
+			<header
+				class="relative flex shrink-0 items-center px-8 pt-8 pb-4"
+				:class="isApplicationRoute ? 'justify-center' : ''"
+			>
+				<button
+					v-if="isBackBtnVisible"
+					type="button"
+					class="absolute left-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+					@click="handleBack"
+				>
+					<ArrowLeft class="size-4" />
+					<span class="hidden sm:inline">Back</span>
+				</button>
+
 				<NuxtLink
+					v-if="isApplicationRoute"
+					:to="logoHref"
+					external
+					target="_self"
+					class="flex h-[33.75px] items-center gap-3 rounded-md ring-offset-background outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+				>
+					<img
+						:src="logoSrc"
+						alt="Rockads"
+						class="h-6.75 w-35.5 brightness-0"
+					>
+				</NuxtLink>
+				<NuxtLink
+					v-else
 					to="/"
 					class="flex h-[33.75px] items-center gap-3 rounded-md ring-offset-background outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 				>
@@ -52,7 +107,10 @@ const stats = [
 
 			<!-- Slot: page content -->
 			<main class="flex flex-1 flex-col justify-center px-8 py-6">
-				<div class="mx-auto w-full max-w-110">
+				<div
+					class="mx-auto w-full"
+					:class="isApplicationRoute ? 'max-w-4xl' : 'max-w-110'"
+				>
 					<slot />
 				</div>
 			</main>
@@ -82,76 +140,23 @@ const stats = [
 			</footer>
 		</div>
 
-		<!-- ─────────────────────────── Right: Marketing panel ──────────────────────── -->
-		<div class="relative hidden overflow-hidden bg-linear-to-b from-black to-[#02123e] lg:flex lg:w-1/2 lg:shrink-0 lg:flex-col lg:justify-center">
+		<!-- ─────────────────────────── Right: Marketing panel (sign-in/up only) ──────────────────────── -->
+		<div
+			v-if="!isApplicationRoute"
+			class="relative hidden overflow-hidden bg-linear-to-b from-black to-[#02123e] lg:flex lg:w-1/2 lg:shrink-0 lg:flex-col lg:justify-center"
+		>
 			<!-- Subtle dot-grid texture (same as hero) -->
 			<div
 				class="pointer-events-none absolute inset-0 bg-size-[22px_22px] opacity-[0.06]"
 				style="background-image: radial-gradient(circle, white 1px, transparent 1px);"
 			/>
 
-			<!-- Left glow — entry fade-in + infinite float, mirroring hero banner -->
-			<!-- <div
-				aria-hidden="true"
-				class="pointer-events-none absolute inset-y-0 -left-80 flex w-[min(720px,90%)] items-center"
-			>
-				<Motion
-					as="div"
-					class="h-[min(970px,92vh)] w-full"
-					:initial="{ opacity: 0, x: -160 }"
-					:animate="{ opacity: 1, x: 0 }"
-					:transition="{ duration: 1.1, ease: 'easeOut' }"
-				>
-					<Motion
-						as="div"
-						class="h-full w-full"
-						:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, 6, 0], y: [10, -8, 10] }"
-						:transition="{ duration: 6.2, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
-					>
-						<img
-							:src="leftGlowAsset"
-							alt=""
-							class="h-full w-full object-contain brightness-[1.2] saturate-[1.25] filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
-						>
-					</Motion>
-				</Motion>
-			</div> -->
-
-			<!-- Right glow — entry fade-in + infinite float, mirroring hero banner -->
-			<!-- <div
-				aria-hidden="true"
-				class="pointer-events-none absolute inset-y-0 -right-80 flex w-[min(720px,90%)] items-center"
-			>
-				<Motion
-					as="div"
-					class="h-[min(970px,92vh)] w-full"
-					:initial="{ opacity: 0, x: 160 }"
-					:animate="{ opacity: 1, x: 0 }"
-					:transition="{ duration: 1.1, ease: 'easeOut' }"
-				>
-					<Motion
-						as="div"
-						class="h-full w-full"
-						:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, -6, 0], y: [-10, 8, -10] }"
-						:transition="{ duration: 6.6, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
-					>
-						<img
-							:src="rightGlowAsset"
-							alt=""
-							class="h-full w-full object-contain brightness-[1.2] saturate-[1.25] filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
-						>
-					</Motion>
-				</Motion>
-			</div> -->
-
 			<!-- Panel content -->
 			<div class="relative z-10 px-14 py-16 xl:px-20">
-				<!-- Eye-brow -->
 				<p class="mb-4 text-xs font-semibold tracking-[0.2em] text-white/40 uppercase">
 					Performance Marketing Platform
 				</p>
 
-				<!-- Headline — same colour as hero h1 -->
 				<h2 class="text-[2.6rem] leading-[1.12] font-extrabold tracking-[-0.03em] text-[#99CBF3]">
 					Scale Your Ads.<br>
 					<span class="text-white/70">Grow Your Revenue.</span>
@@ -160,7 +165,6 @@ const stats = [
 					Everything you need to run profitable ad campaigns — all in one place.
 				</p>
 
-				<!-- Feature list -->
 				<ul class="mt-10 space-y-4">
 					<li
 						v-for="feature in features"
@@ -172,7 +176,6 @@ const stats = [
 					</li>
 				</ul>
 
-				<!-- Stats -->
 				<div class="mt-12 grid grid-cols-3 gap-6 border-t border-white/10 pt-10">
 					<div
 						v-for="stat in stats"
