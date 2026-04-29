@@ -266,7 +266,6 @@ async function handleSubmit(params: {
 
 	try {
 		await createLead(baseURL, payload, inviteToken.value);
-		businessInfo.value = null;
 		persistBusinessInfo(null);
 		await navigateTo("/ad-account-application/success");
 	}
