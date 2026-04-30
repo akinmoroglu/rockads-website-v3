@@ -6,6 +6,9 @@ import imgTiktokUrl from "@/assets/icons/brands/tiktok-wordmark.svg?url";
 import imgMetaUrl from "@/assets/icons/brands/meta-wordmark.svg?url";
 import imgGoogleUrl from "@/assets/icons/brands/google-ads-wordmark.svg?url";
 
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+
 useHead({
 	title: "Pricing - Rockads",
 });
@@ -107,6 +110,12 @@ const plans: PricingPlan[] = [
 		highlighted: false,
 	},
 ];
+
+const router = useRouter();
+
+onMounted(() => {
+	router.push("/pricing");
+});
 </script>
 
 <template>
