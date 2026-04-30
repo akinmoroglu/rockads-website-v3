@@ -27,7 +27,6 @@ import { TextReveal } from "@/components/ui/text-reveal";
 				</div>
 
 				<div
-					<div
 					class="relative z-10 w-full max-w-(--footer-headline-max-width)"
 				>
 					<TextReveal>
