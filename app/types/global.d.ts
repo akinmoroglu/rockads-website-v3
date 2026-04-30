@@ -3,6 +3,11 @@
  */
 export {};
 
+declare module "*.md?raw" {
+	const content: string;
+	export default content;
+}
+
 declare global {
 	interface Window {
 		/** Desk360 live chat widget — present when the loader script is on the page. */
