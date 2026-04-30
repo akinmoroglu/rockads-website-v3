@@ -81,10 +81,10 @@ const serviceCategories: Category[] = [
 ];
 const resources: Category[] = [
 	{
-		id: "resources",
+		id: "blog",
 		title: "Blog",
 		subtitle: "Insights, tips, and best practices for global advertising.",
-		href: "/blog",
+		href: "https://blog.rockads.com",
 		items: [
 			{
 				title: "Latest Articles",
@@ -94,7 +94,7 @@ const resources: Category[] = [
 		],
 	},
 	{
-		id: "contact-us",
+		id: "help-center",
 		title: "Help Center",
 		subtitle: "Get help with your account and campaigns.",
 		href: "/contact-us",
@@ -109,7 +109,7 @@ const resources: Category[] = [
 		id: "docs",
 		title: "Documentation",
 		subtitle: "Learn how to use the platform.",
-		href: "/docs",
+		href: "https://docs.rockads.com",
 		items: [
 			{
 				title: "Developer Docs",
@@ -120,7 +120,9 @@ const resources: Category[] = [
 ];
 
 const isServicesActive = computed(() => route.path.startsWith("/services"));
-const isResourcesActive = computed(() => route.path.startsWith("/blog") || route.path.startsWith("/help-center") || route.path.startsWith("/docs"));
+const isResourcesActive = computed(() => route.path.startsWith("/contact-us"));
+
+const isExternalUrl = (url: string) => /^https?:\/\//i.test(url);
 
 const activeCategoryFromRoute = computed(() => {
 	const match = serviceCategories.find(cat => route.path.startsWith(cat.href));
@@ -131,9 +133,9 @@ const activeCategoryFromRoute = computed(() => {
 const activeCategory = ref(activeCategoryFromRoute.value);
 
 const activeResourceFromRoute = computed(() => {
-	const match = resources.find(resource => route.path.startsWith(resource.href));
+	const match = resources.find(resource => !isExternalUrl(resource.href) && route.path.startsWith(resource.href));
 
-	return match?.id ?? resources[0]?.id ?? "resources";
+	return match?.id ?? resources[0]?.id ?? "blog";
 });
 
 const activeResource = ref(activeResourceFromRoute.value);
@@ -334,6 +336,9 @@ watch(
 												v-for="resource in resources"
 												:key="resource.id"
 												:to="resource.href"
+												:external="isExternalUrl(resource.href)"
+												:target="isExternalUrl(resource.href) ? '_blank' : undefined"
+												:rel="isExternalUrl(resource.href) ? 'noopener noreferrer' : undefined"
 												class="block cursor-pointer rounded-lg px-3 py-3 transition-colors"
 												:class="activeResource === resource.id ? 'bg-gray-50' : 'hover:bg-gray-50/50'"
 												@mouseenter="activeResource = resource.id"
