@@ -53,6 +53,16 @@ export const resendVerificationFormSchema = z.object({
 	email: z.string().email("Enter a valid email address"),
 });
 
+export const facebookVerifyFormSchema = z.object({
+	facebookProfile: z
+		.string()
+		.min(1, "Facebook profile URL is required")
+		.regex(
+			/^(https?:\/\/)?(www\.)?facebook\.com\/(profile\.php\?id=\d+|[a-zA-Z0-9.]{3,})$/,
+			"Enter a valid Facebook profile URL (e.g. facebook.com/yourname)",
+		),
+});
+
 export const acceptInvitationFormSchema = z
 	.object({
 		name: z.string().max(120, "Name is too long"),
