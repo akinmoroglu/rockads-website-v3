@@ -56,19 +56,19 @@ const featureLinks: FooterLink[] = [
 const legalLinks: FooterLink[] = [
 	{
 		label: "Service Agreement",
-		href: `${marketingSiteBase}/en/terms-of-service-of-rockads/`,
+		href: "/terms-of-service-of-rockads",
 	},
 	{
 		label: "Purchase Policy",
-		href: `${marketingSiteBase}/en/purchase-policy/`,
+		href: "/purchase-policy",
 	},
 	{
 		label: "Privacy Notice",
-		href: `${marketingSiteBase}/en/privacy-notice/`,
+		href: "/privacy-notice",
 	},
 	{
 		label: "Cookie Policy",
-		href: `${marketingSiteBase}/en/cookie-policy/`,
+		href: "/cookie-policy",
 	},
 ];
 

@@ -39,12 +39,10 @@ useHead({
 
 const gtmEvent = useGtmEvent();
 
-const marketingSiteBase = "https://www.rockads.com";
-
 const legal = {
-	terms: `${marketingSiteBase}/en/terms-of-service-of-rockads/`,
-	privacy: `${marketingSiteBase}/en/privacy-notice/`,
-	cookies: `${marketingSiteBase}/en/cookie-policy/`,
+	terms: "/terms-of-service-of-rockads",
+	privacy: "/privacy-notice",
+	cookies: "/cookie-policy",
 } as const;
 
 const config = useRuntimeConfig();
@@ -388,24 +386,27 @@ function handleTermsCancel() {
 								<div class="min-w-0 flex-1 space-y-1">
 									<FormLabel class="block text-sm leading-snug font-normal text-muted-foreground">
 										I accept the
-										<a
-											:href="legal.terms"
+										<NuxtLink
+											:to="legal.terms"
 											target="_blank"
-											rel="noopener noreferrer"
 											class="font-medium text-primary underline-offset-4 hover:underline"
-										>service agreement</a>,
-										<a
-											:href="legal.privacy"
+										>
+											service agreement
+										</NuxtLink>,
+										<NuxtLink
+											:to="legal.privacy"
 											target="_blank"
-											rel="noopener noreferrer"
 											class="font-medium text-primary underline-offset-4 hover:underline"
-										>privacy policy</a>, and
-										<a
-											:href="legal.cookies"
+										>
+											privacy policy
+										</NuxtLink>, and
+										<NuxtLink
+											:to="legal.cookies"
 											target="_blank"
-											rel="noopener noreferrer"
 											class="font-medium text-primary underline-offset-4 hover:underline"
-										>cookie policy</a>.
+										>
+											cookie policy
+										</NuxtLink>.
 									</FormLabel>
 									<FormMessage />
 								</div>

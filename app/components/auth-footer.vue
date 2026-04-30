@@ -1,14 +1,12 @@
 <script setup lang="ts">
-const marketingSiteBase = "https://www.rockads.com";
-
 const legalLinks = [
 	{
 		label: "Privacy Notice",
-		href: `${marketingSiteBase}/en/privacy-notice/`,
+		href: "/privacy-notice",
 	},
 	{
 		label: "Terms of Service",
-		href: `${marketingSiteBase}/en/terms-of-service-of-rockads/`,
+		href: "/terms-of-service-of-rockads",
 	},
 ] as const;
 
@@ -27,14 +25,14 @@ const year = new Date().getFullYear();
 				class="order-1 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:order-2 sm:justify-end"
 				aria-label="Legal"
 			>
-				<a
+				<NuxtLink
 					v-for="link in legalLinks"
 					:key="link.href"
-					:href="link.href"
+					:to="link.href"
 					class="font-medium underline-offset-4 transition-colors hover:text-foreground hover:underline"
 				>
 					{{ link.label }}
-				</a>
+				</NuxtLink>
 			</nav>
 		</div>
 	</footer>

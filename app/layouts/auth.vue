@@ -2,11 +2,9 @@
 import { CheckCircle2, ArrowLeft } from "lucide-vue-next";
 import logoSrc from "@/assets/images/logo-rockads.svg";
 
-const marketingSiteBase = "https://www.rockads.com";
-
 const legalLinks = [
-	{ label: "Privacy Notice", href: `${marketingSiteBase}/en/privacy-notice/` },
-	{ label: "Terms of Service", href: `${marketingSiteBase}/en/terms-of-service-of-rockads/` },
+	{ label: "Privacy Notice", href: "/privacy-notice" },
+	{ label: "Terms of Service", href: "/terms-of-service-of-rockads" },
 ] as const;
 
 const year = new Date().getFullYear();
@@ -128,14 +126,12 @@ const logoHref = computed(() => {
 							class="text-border select-none"
 							aria-hidden="true"
 						>·</span>
-						<a
-							:href="link.href"
-							target="_blank"
-							rel="noopener noreferrer"
+						<NuxtLink
+							:to="link.href"
 							class="underline-offset-4 transition-colors hover:text-foreground hover:underline"
 						>
 							{{ link.label }}
-						</a>
+						</NuxtLink>
 					</template>
 				</div>
 			</footer>
