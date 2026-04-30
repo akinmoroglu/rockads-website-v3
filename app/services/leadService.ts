@@ -18,9 +18,7 @@ function buildAdPlatforms(
 ): string {
 	const filtered = adPlatforms.filter(p => p !== "others");
 
-	return otherAdPlatforms
-		? `${filtered.join(", ")},${otherAdPlatforms}`
-		: filtered.join(", ");
+	return `${filtered.join(", ")},${otherAdPlatforms}`;
 }
 
 function buildPayload(params: CreateLeadParams): CreateLeadPayload {

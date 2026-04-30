@@ -110,6 +110,8 @@ function pushVirtualPageView(extraPath: string, title: string) {
 		pageUrl: `${window.location.href}${extraPath}`,
 		pageTitle: title,
 		pagePath: `${window.location.pathname}${extraPath}`,
+		previousPath: (router.options.history as { state?: { back?: string } })
+			.state?.back,
 	});
 }
 

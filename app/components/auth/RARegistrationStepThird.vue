@@ -206,6 +206,8 @@ function pushVirtualPageView(stepLabel: string) {
 		pageUrl: `${window.location.href}/${props.customerType}/${stepLabel}`,
 		pageTitle: `Register ${props.customerType} ${stepLabel}`,
 		pagePath: `${window.location.pathname}/${props.customerType}/${stepLabel}`,
+		previousPath: (router.options.history as { state?: { back?: string } })
+			.state?.back,
 	});
 }
 

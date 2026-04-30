@@ -44,7 +44,7 @@ function onSubmit(values: BusinessInfoFormValues) {
 		...values,
 		businessName: values.businessName.trim(),
 		website: formatWebsiteUrl(values.website.trim()) ?? values.website,
-		phoneNumber: values.phoneNumber.replace(/\D/g, "").slice(0, 10),
+		phoneNumber: values.phoneNumber.replace(/\D/g, "").slice(0, 15),
 	};
 
 	emit("formData", normalized);
@@ -63,7 +63,7 @@ const initialFormValues: Partial<BusinessInfoFormValues> = {
 
 function onPhoneInput(event: Event, setValue: (v: string) => void) {
 	const input = event.target as HTMLInputElement;
-	const digits = input.value.replace(/\D/g, "").slice(0, 10);
+	const digits = input.value.replace(/\D/g, "").slice(0, 15);
 
 	input.value = digits;
 	setValue(digits);
@@ -137,8 +137,9 @@ function onPhoneInput(event: Event, setValue: (v: string) => void) {
 									type="tel"
 									inputmode="numeric"
 									autocomplete="tel-national"
-									placeholder="(---) --- -- --"
-									maxlength="10"
+									placeholder="Phone number"
+									minlength="7"
+									maxlength="15"
 									class="h-12"
 									:class="errorMessage ? 'border-destructive' : ''"
 									@input="(e) => onPhoneInput(e, setValue as (v: string) => void)"

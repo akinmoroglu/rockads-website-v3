@@ -23,7 +23,11 @@ export const businessInfoFormSchema = z.object({
 		.refine(value => /^(https?:\/\/)?[^\s.]+\.[^\s]{2,}$/i.test(value), "Enter a valid URL"),
 	country: countryOptionSchema,
 	phoneCountryCode: phoneCountryCodeSchema,
-	phoneNumber: z.string().trim().min(1, "Required"),
+	phoneNumber: z
+		.string()
+		.trim()
+		.min(7, "Phone number is too short")
+		.max(15, "Phone number is too long"),
 });
 
 export type BusinessInfoFormValues = z.infer<typeof businessInfoFormSchema>;
