@@ -144,7 +144,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 		</CardContent>
 		<CardFooter class="justify-center text-sm text-muted-foreground">
 			<NuxtLink
-				to="/sign-in"
+				to="/signin"
 				class="font-medium text-primary hover:underline"
 			>
 				Back to sign in

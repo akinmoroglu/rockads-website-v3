@@ -38,7 +38,7 @@ const mobileServicesOpen = ref(false);
 const desktopLinks = [
 	// { label: "Solutions", href: "/solutions" },
 	{ label: "Pricing", href: "/pricing" },
-	{ label: "Sign In", href: "/sign-in" },
+	{ label: "Sign In", href: "/signin" },
 ];
 
 const serviceCategories: Category[] = [
@@ -401,7 +401,7 @@ watch(
 					as-child
 				>
 					<NuxtLink
-						to="/sign-up"
+						to="/register"
 					>
 						Get Started
 					</NuxtLink>
@@ -546,7 +546,7 @@ watch(
 					class="text-base"
 					as-child
 				>
-					<NuxtLink to="/sign-up">
+					<NuxtLink to="/register">
 						Get Started
 					</NuxtLink>
 				</Button>

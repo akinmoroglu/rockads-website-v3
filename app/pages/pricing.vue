@@ -129,7 +129,7 @@ const plans: PricingPlan[] = [
 					size="lg"
 					class="mt-8 lg:mt-10"
 				>
-					<NuxtLink to="/sign-up">
+					<NuxtLink to="/register">
 						Get Started Free
 					</NuxtLink>
 				</Button>

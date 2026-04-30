@@ -199,7 +199,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				test-id="reset-password-sign-in-btn"
 				as-child
 			>
-				<NuxtLink to="/sign-in">
+				<NuxtLink to="/signin">
 					Go to sign in
 				</NuxtLink>
 			</Button>
@@ -214,7 +214,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 			</Button>
 			<NuxtLink
 				v-else
-				to="/sign-in"
+				to="/signin"
 				class="text-sm font-medium text-muted-foreground hover:text-primary hover:underline"
 			>
 				Back to sign in

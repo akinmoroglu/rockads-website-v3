@@ -100,7 +100,7 @@ onMounted(async () => {
 				v-if="verifyState !== 'pending'"
 				as-child
 			>
-				<NuxtLink to="/sign-in">
+				<NuxtLink to="/signin">
 					Go to sign in
 				</NuxtLink>
 			</Button>

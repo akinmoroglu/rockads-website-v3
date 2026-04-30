@@ -101,7 +101,7 @@ const audienceCards = [
 						as-child
 					>
 						<NuxtLink
-							to="/sign-up"
+							to="/register"
 							class="px-10! py-6"
 						>
 							Get Started in Minutes
@@ -277,7 +277,7 @@ const audienceCards = [
 					class="mt-8 lg:mt-10"
 				>
 					<NuxtLink
-						to="/sign-up"
+						to="/register"
 						class="px-10! py-6"
 					>
 						Get Started in Minutes

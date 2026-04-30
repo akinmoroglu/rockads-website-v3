@@ -271,7 +271,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				test-id="accept-invite-sign-in-btn"
 				as-child
 			>
-				<NuxtLink to="/sign-in">
+				<NuxtLink to="/signin">
 					Go to sign in
 				</NuxtLink>
 			</Button>
@@ -281,13 +281,13 @@ const onFormSubmit: SubmissionHandler = (values) => {
 				variant="outline"
 				as-child
 			>
-				<NuxtLink to="/sign-in">
+				<NuxtLink to="/signin">
 					Back to sign in
 				</NuxtLink>
 			</Button>
 			<NuxtLink
 				v-else
-				to="/sign-in"
+				to="/signin"
 				class="text-sm font-medium text-muted-foreground hover:text-primary hover:underline"
 			>
 				Back to sign in

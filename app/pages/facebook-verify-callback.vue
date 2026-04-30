@@ -85,7 +85,7 @@ onMounted(() => {
 				as-child
 				:variant="isSuccess ? 'default' : 'outline'"
 			>
-				<NuxtLink to="/sign-in">
+				<NuxtLink to="/signin">
 					Back to sign in
 				</NuxtLink>
 			</Button>
