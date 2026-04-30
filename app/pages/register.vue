@@ -148,7 +148,7 @@ async function onSubmit(values: SignUpFormValues) {
 		// Verification is handled via the email link itself — no intermediate
 		// step needed here. Bounce to sign-in with a heads-up toast.
 		toast.success("Account created. Check your email to verify your address.");
-		await navigateTo("/sign-in");
+		await navigateTo("/signin");
 	}
 	catch (error: unknown) {
 		const errorData = (error as { data?: { message?: string } })?.data;
@@ -249,7 +249,7 @@ function handleTermsCancel() {
 							<FormLabel>Name and surname</FormLabel>
 							<FormControl>
 								<Input
-									test-id="sign-up-name-input"
+									test-id="register-name-input"
 									type="text"
 									autocomplete="name"
 									placeholder="Name and surname"
@@ -268,7 +268,7 @@ function handleTermsCancel() {
 							<FormLabel>Email</FormLabel>
 							<FormControl>
 								<Input
-									test-id="sign-up-email-input"
+									test-id="register-email-input"
 									type="email"
 									autocomplete="email"
 									placeholder="Enter a valid e-mail"
@@ -288,7 +288,7 @@ function handleTermsCancel() {
 							<FormControl>
 								<div class="relative">
 									<Input
-										test-id="sign-up-password-input"
+										test-id="register-password-input"
 										:type="showPassword ? 'text' : 'password'"
 										autocomplete="new-password"
 										class="pr-10"
@@ -328,7 +328,7 @@ function handleTermsCancel() {
 							<FormControl>
 								<div class="relative">
 									<Input
-										test-id="sign-up-password-confirm-input"
+										test-id="register-password-confirm-input"
 										:type="showPasswordConfirm ? 'text' : 'password'"
 										autocomplete="new-password"
 										class="pr-10"
@@ -367,7 +367,7 @@ function handleTermsCancel() {
 							<div class="flex gap-3">
 								<FormControl>
 									<Checkbox
-										test-id="sign-up-terms-checkbox"
+										test-id="register-terms-checkbox"
 										:model-value="value === true"
 										class="mt-0.5"
 										@update:model-value="() => handleTermsCheckboxClick(value === true)"
@@ -418,7 +418,7 @@ function handleTermsCancel() {
 					/>
 
 					<Button
-						test-id="sign-up-submit-btn"
+						test-id="register-submit-btn"
 						type="submit"
 						class="w-full"
 						:disabled="isSubmitting"
@@ -434,7 +434,7 @@ function handleTermsCancel() {
 			<CardFooter class="justify-center text-sm text-muted-foreground">
 				Already have an account?
 				<NuxtLink
-					to="/sign-in"
+					to="/signin"
 					class="ml-1 font-medium text-primary hover:underline"
 				>
 					Sign in

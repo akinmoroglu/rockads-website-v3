@@ -196,7 +196,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 		<CardFooter class="flex flex-col gap-2 sm:flex-row sm:justify-center">
 			<Button
 				v-if="success"
-				test-id="reset-password-sign-in-btn"
+				test-id="reset-password-signin-btn"
 				as-child
 			>
 				<NuxtLink to="/signin">

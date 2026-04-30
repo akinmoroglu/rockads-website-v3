@@ -268,7 +268,7 @@ const onFormSubmit: SubmissionHandler = (values) => {
 		<CardFooter class="flex flex-col gap-2 sm:flex-row sm:justify-center">
 			<Button
 				v-if="success"
-				test-id="accept-invite-sign-in-btn"
+				test-id="accept-invite-signin-btn"
 				as-child
 			>
 				<NuxtLink to="/signin">

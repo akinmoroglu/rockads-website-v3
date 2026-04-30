@@ -240,7 +240,7 @@ function handleTwoFactorOpenChange(open: boolean) {
 							<FormLabel>Email</FormLabel>
 							<FormControl>
 								<Input
-									test-id="sign-in-email-input"
+									test-id="signin-email-input"
 									type="email"
 									autocomplete="email"
 									placeholder="you@company.com"
@@ -268,7 +268,7 @@ function handleTwoFactorOpenChange(open: boolean) {
 							<FormControl>
 								<div class="relative">
 									<Input
-										test-id="sign-in-password-input"
+										test-id="signin-password-input"
 										:type="showPassword ? 'text' : 'password'"
 										autocomplete="current-password"
 										class="pr-10"
@@ -307,7 +307,7 @@ function handleTwoFactorOpenChange(open: boolean) {
 					/>
 
 					<Button
-						test-id="sign-in-submit-btn"
+						test-id="signin-submit-btn"
 						type="submit"
 						class="w-full"
 						:disabled="isSubmitting"
@@ -323,7 +323,7 @@ function handleTwoFactorOpenChange(open: boolean) {
 			<CardFooter class="justify-center text-sm text-muted-foreground">
 				No account yet?
 				<NuxtLink
-					to="/sign-up"
+					to="/register"
 					class="ml-1 font-medium text-primary hover:underline"
 				>
 					Create one
