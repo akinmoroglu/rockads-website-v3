@@ -217,23 +217,40 @@ onUnmounted(() => {
 	window.removeEventListener("scroll", onHeaderScroll);
 });
 
-const toggleMobileMenu = () => {
-	mobileMenuOpen.value = !mobileMenuOpen.value;
+const closeMobileMenu = () => {
+	mobileMenuOpen.value = false;
+	mobileServicesOpen.value = false;
+	mobileResourcesOpen.value = false;
+};
 
-	if (!mobileMenuOpen.value) {
-		mobileServicesOpen.value = false;
-		mobileResourcesOpen.value = false;
+const toggleMobileMenu = () => {
+	if (mobileMenuOpen.value) {
+		closeMobileMenu();
+	}
+	else {
+		mobileMenuOpen.value = true;
 	}
 };
 
 watch(
 	() => route.path,
 	() => {
-		mobileMenuOpen.value = false;
-		mobileServicesOpen.value = false;
-		mobileResourcesOpen.value = false;
+		closeMobileMenu();
 	},
 );
+
+watch(mobileMenuOpen, (open) => {
+	if (typeof document === "undefined") {
+		return;
+	}
+	document.body.style.overflow = open ? "hidden" : "";
+});
+
+onUnmounted(() => {
+	if (typeof document !== "undefined") {
+		document.body.style.overflow = "";
+	}
+});
 </script>
 
 <template>
@@ -475,14 +492,9 @@ watch(
 			</Button>
 		</div>
 
-		<Motion
+		<div
 			v-if="mobileMenuOpen"
-			as="div"
-			class="absolute top-full right-0 left-0 border-t border-(--header-border) bg-(--header-background)/95 backdrop-blur-lg md:hidden"
-			:initial="{ opacity: 0, y: -8 }"
-			:animate="{ opacity: 1, y: 0 }"
-			:exit="{ opacity: 0, y: -8 }"
-			:transition="{ duration: 0.2, ease: 'easeOut' }"
+			class="mobile-menu-panel absolute top-full right-0 left-0 max-h-[calc(100vh-var(--marketing-header-height))] overflow-y-auto border-t border-(--header-border) bg-(--header-background)/95 backdrop-blur-lg md:hidden"
 		>
 			<div class="flex flex-col gap-1 px-5 py-6">
 				<button
@@ -505,14 +517,9 @@ watch(
 					</svg>
 				</button>
 
-				<Motion
+				<div
 					v-if="mobileServicesOpen"
-					as="div"
 					class="flex flex-col gap-3 pb-2 pl-4"
-					:initial="{ opacity: 0, height: 0 }"
-					:animate="{ opacity: 1, height: 'auto' }"
-					:exit="{ opacity: 0, height: 0 }"
-					:transition="{ duration: 0.2, ease: 'easeInOut' }"
 				>
 					<div
 						v-for="category in serviceCategories"
@@ -522,6 +529,7 @@ watch(
 						<NuxtLink
 							:to="category.href"
 							class="text-sm font-medium text-primary underline-offset-4 hover:underline"
+							@click="closeMobileMenu"
 						>
 							{{ category.title }}
 						</NuxtLink>
@@ -534,7 +542,7 @@ watch(
 							<span class="block text-xs text-white/60">{{ item.description }}</span>
 						</div>
 					</div>
-				</Motion>
+				</div>
 
 				<button
 					type="button"
@@ -556,14 +564,9 @@ watch(
 					</svg>
 				</button>
 
-				<Motion
+				<div
 					v-if="mobileResourcesOpen"
-					as="div"
 					class="flex flex-col gap-3 pb-2 pl-4"
-					:initial="{ opacity: 0, height: 0 }"
-					:animate="{ opacity: 1, height: 'auto' }"
-					:exit="{ opacity: 0, height: 0 }"
-					:transition="{ duration: 0.2, ease: 'easeInOut' }"
 				>
 					<NuxtLink
 						v-for="resource in resources"
@@ -573,10 +576,11 @@ watch(
 						:target="isExternalUrl(resource.href) ? '_blank' : undefined"
 						:rel="isExternalUrl(resource.href) ? 'noopener noreferrer' : undefined"
 						class="text-sm font-medium text-primary underline-offset-4 hover:underline"
+						@click="closeMobileMenu"
 					>
 						{{ resource.title }}
 					</NuxtLink>
-				</Motion>
+				</div>
 
 				<NuxtLink
 					v-for="link in desktopLinks"
@@ -584,6 +588,7 @@ watch(
 					:to="link.href"
 					class="py-3 text-base text-white"
 					active-class="underline underline-offset-4"
+					@click="closeMobileMenu"
 				>
 					{{ link.label }}
 				</NuxtLink>
@@ -592,12 +597,15 @@ watch(
 					class="text-base"
 					as-child
 				>
-					<NuxtLink to="/register">
+					<NuxtLink
+						to="/register"
+						@click="closeMobileMenu"
+					>
 						Get Started
 					</NuxtLink>
 				</Button>
 			</div>
-		</Motion>
+		</div>
 	</header>
 </template>
 
