@@ -28,13 +28,6 @@ import { signUpFormSchema } from "@/lib/auth-form-schemas";
 import { signUp } from "@/services/signUpService";
 import { getCookie, getReferralCode, setCookie, clearReferrer } from "@/utils/cookie";
 
-declare global {
-	interface Window {
-		dataLayer?: Record<string, unknown>[];
-		fbq?: (...args: unknown[]) => void;
-	}
-}
-
 definePageMeta({
 	layout: "auth",
 });
@@ -42,6 +35,8 @@ definePageMeta({
 useHead({
 	title: "Sign Up - Rockads",
 });
+
+const gtmEvent = useGtmEvent();
 
 const marketingSiteBase = "https://www.rockads.com";
 
@@ -75,10 +70,29 @@ const initialEmail = typeof route.query.email === "string" ? route.query.email :
 // Capture UTM codes and referral code on mount
 onMounted(() => {
 	setCookie(route.query as Record<string, string | string[] | undefined>);
+	gtmEvent.pageViewEvent("Sign Up - Rockads");
 });
 
-function pushDataLayerEvents() {
+function fireRegistrationCompletedEvents() {
 	if (!import.meta.client) return;
+
+	const eventName = "web.signup.completed";
+	const eventPayload = {
+		event_category: "signup",
+		event_label: "Register - Completed",
+	} as const;
+
+	if (window.$gtag) {
+		window.$gtag.event(eventName, eventPayload);
+	}
+	if (window.firebase) {
+		try {
+			window.firebase.analytics().logEvent(eventName, eventPayload);
+		}
+		catch (error) {
+			console.error("Firebase analytics logEvent failed:", error);
+		}
+	}
 
 	window.dataLayer = window.dataLayer ?? [];
 	window.dataLayer.push({
@@ -124,7 +138,7 @@ async function onSubmit(values: SignUpFormValues) {
 			agreement: values.accept_terms,
 		});
 
-		pushDataLayerEvents();
+		fireRegistrationCompletedEvents();
 
 		if (response.token) {
 			handleAutoLogin(response.token);
