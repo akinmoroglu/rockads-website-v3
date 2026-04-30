@@ -2,7 +2,7 @@
 import { toTypedSchema } from "@vee-validate/zod";
 import type { SubmissionHandler } from "vee-validate";
 import type { z } from "zod";
-import { AlertCircle, Eye, EyeOff, Mail } from "lucide-vue-next";
+import { AlertCircle, ChevronLeft, Eye, EyeOff, Mail } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -68,21 +68,21 @@ const showTermsModal = ref(false);
 // `accept_terms` without forcing the user to double-tap the checkbox.
 const formRef = ref<{ setFieldValue?: (field: string, value: unknown) => void } | null>(null);
 
-// v2: email form is opt-in. Social providers are the primary path; email is
-// revealed only after the user picks "Continue with email".
-const showEmailForm = ref(false);
+// v2: two-step flow.
+// step 1 = chooser (social buttons + "continue with email")
+// step 2 = full email form
+const currentStep = ref<1 | 2>(1);
 
 function setAcceptTerms(value: boolean) {
 	formRef.value?.setFieldValue?.("accept_terms", value);
 }
 
-// Pre-fill email from query param (e.g. from invite link). If we land here
-// from an invite, surface the form right away so the prefilled email is
-// actually visible.
+// Pre-fill email from query param (e.g. from invite link). When the email is
+// already known, jump straight to the email form.
 const initialEmail = typeof route.query.email === "string" ? route.query.email : "";
 
 if (initialEmail) {
-	showEmailForm.value = true;
+	currentStep.value = 2;
 }
 
 // Capture UTM codes and referral code on mount
@@ -215,11 +215,29 @@ function handleTermsCancel() {
 	<div>
 		<Card class="w-full">
 			<CardHeader class="space-y-2 text-center sm:text-left">
+				<div v-if="currentStep === 2">
+					<Button
+						test-id="register-back-to-socials-btn"
+						type="button"
+						variant="ghost"
+						size="sm"
+						class="-ml-2 h-8 px-2 text-muted-foreground"
+						@click="currentStep = 1"
+					>
+						<ChevronLeft class="mr-1 size-4" />
+						Back to socials
+					</Button>
+				</div>
 				<CardTitle class="text-2xl">
 					Create your account
 				</CardTitle>
 				<CardDescription class="text-base">
-					Work smarter, grow faster. Rockads is a performance marketing ecosystem.
+					<template v-if="currentStep === 1">
+						Work smarter, grow faster. Rockads is a performance marketing ecosystem.
+					</template>
+					<template v-else>
+						Sign up with your email below.
+					</template>
 				</CardDescription>
 			</CardHeader>
 			<CardContent class="space-y-4">
@@ -232,32 +250,33 @@ function handleTermsCancel() {
 					<AlertDescription>{{ apiError }}</AlertDescription>
 				</Alert>
 
-				<AuthSocialLoginButtons
-					requires-agreement
-					:agreement="agreement"
-					@require-agreement="handleRequireAgreement"
-				/>
+				<template v-if="currentStep === 1">
+					<AuthSocialLoginButtons
+						requires-agreement
+						:agreement="agreement"
+						@require-agreement="handleRequireAgreement"
+					/>
 
-				<div class="relative flex items-center gap-3">
-					<div class="h-px flex-1 bg-border" />
-					<span class="text-xs text-muted-foreground">or</span>
-					<div class="h-px flex-1 bg-border" />
-				</div>
+					<div class="relative flex items-center gap-3">
+						<div class="h-px flex-1 bg-border" />
+						<span class="text-xs text-muted-foreground">or</span>
+						<div class="h-px flex-1 bg-border" />
+					</div>
 
-				<Button
-					v-if="!showEmailForm"
-					test-id="register-show-email-form-btn"
-					type="button"
-					variant="outline"
-					class="w-full"
-					@click="showEmailForm = true"
-				>
-					<Mail class="mr-2 size-4" />
-					Continue with email
-				</Button>
+					<Button
+						test-id="register-continue-with-email-btn"
+						type="button"
+						variant="outline"
+						class="w-full"
+						@click="currentStep = 2"
+					>
+						<Mail class="mr-2 size-4" />
+						Continue with email
+					</Button>
+				</template>
 
 				<Form
-					v-show="showEmailForm"
+					v-show="currentStep === 2"
 					ref="formRef"
 					:validation-schema="formSchema"
 					:initial-values="{ accept_terms: false, email: initialEmail }"
