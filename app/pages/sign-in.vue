@@ -2,7 +2,7 @@
 import { toTypedSchema } from "@vee-validate/zod";
 import type { SubmissionHandler } from "vee-validate";
 import type { z } from "zod";
-import { AlertCircle } from "lucide-vue-next";
+import { AlertCircle, Eye, EyeOff } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -57,6 +57,7 @@ type SignInFormValues = z.infer<typeof signInFormSchema>;
 const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const isVerifyingTwoFactor = ref(false);
+const showPassword = ref(false);
 const { token: captchaToken, isDummyToken, resetToken } = useTurnstileToken();
 
 // 2FA modal state — set after a successful /signin call when 2FA is in play.
@@ -265,13 +266,34 @@ function handleTwoFactorOpenChange(open: boolean) {
 								</NuxtLink>
 							</div>
 							<FormControl>
-								<Input
-									test-id="sign-in-password-input"
-									type="password"
-									autocomplete="current-password"
-									placeholder="Enter your password"
-									v-bind="componentField"
-								/>
+								<div class="relative">
+									<Input
+										test-id="sign-in-password-input"
+										:type="showPassword ? 'text' : 'password'"
+										autocomplete="current-password"
+										class="pr-10"
+										placeholder="Enter your password"
+										v-bind="componentField"
+									/>
+									<Button
+										type="button"
+										variant="ghost"
+										size="icon"
+										class="absolute top-0 right-0 h-9 w-9 text-muted-foreground hover:text-foreground"
+										:aria-pressed="showPassword"
+										:aria-label="showPassword ? 'Hide password' : 'Show password'"
+										@click="showPassword = !showPassword"
+									>
+										<Eye
+											v-if="!showPassword"
+											class="size-4"
+										/>
+										<EyeOff
+											v-else
+											class="size-4"
+										/>
+									</Button>
+								</div>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
