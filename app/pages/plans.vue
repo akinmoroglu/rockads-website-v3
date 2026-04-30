@@ -238,9 +238,6 @@ const plans: PricingPlan[] = [
 					</div>
 
 					<div class="mt-auto flex flex-col gap-4">
-						<div class="inline-flex w-fit items-center rounded-full bg-[#ccf2e7] px-5 py-1.5">
-							<span class="text-base font-bold text-foreground">Free</span>
-						</div>
 						<NuxtLink
 							test-id="plans-rockads-free-cta-button"
 							to="/register"
