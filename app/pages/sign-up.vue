@@ -133,7 +133,7 @@ async function onSubmit(values: SignUpFormValues) {
 	isSubmitting.value = true;
 
 	try {
-		const response = await signUp(baseURL, {
+		await signUp(baseURL, {
 			name: values.name.trim(),
 			email: values.email.trim(),
 			password: values.password,
