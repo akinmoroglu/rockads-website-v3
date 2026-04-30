@@ -40,6 +40,14 @@ export default defineNuxtConfig({
 	alias: {
 		"@": new URL("./app", import.meta.url).pathname,
 	},
+	imports: {
+		presets: [
+			{
+				from: "@gtm-support/vue-gtm",
+				imports: ["useGtm"],
+			},
+		],
+	},
 	compatibilityDate: "2025-07-15",
 
 	vite: {
