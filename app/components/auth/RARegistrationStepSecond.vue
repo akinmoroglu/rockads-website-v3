@@ -44,7 +44,6 @@ function onSubmit(values: BusinessInfoFormValues) {
 		...values,
 		businessName: values.businessName.trim(),
 		website: formatWebsiteUrl(values.website.trim()) ?? values.website,
-		phoneNumber: values.phoneNumber.replace(/\D/g, "").slice(0, 15),
 	};
 
 	emit("formData", normalized);
@@ -60,14 +59,6 @@ const initialFormValues: Partial<BusinessInfoFormValues> = {
 	country: props.initialValues?.country,
 	phoneCountryCode: props.initialValues?.phoneCountryCode,
 };
-
-function onPhoneInput(event: Event, setValue: (v: string) => void) {
-	const input = event.target as HTMLInputElement;
-	const digits = input.value.replace(/\D/g, "").slice(0, 15);
-
-	input.value = digits;
-	setValue(digits);
-}
 </script>
 
 <template>
@@ -126,14 +117,14 @@ function onPhoneInput(event: Event, setValue: (v: string) => void) {
 					</FormField>
 
 					<FormField
-						v-slot="{ value, setValue, errorMessage }"
+						v-slot="{ componentField }"
 						name="phoneNumber"
 					>
 						<FormItem class="flex-1">
 							<FormControl>
 								<Input
 									id="registration-phone-input"
-									:value="value"
+									v-numeric-only="15"
 									type="tel"
 									inputmode="numeric"
 									autocomplete="tel-national"
@@ -141,8 +132,7 @@ function onPhoneInput(event: Event, setValue: (v: string) => void) {
 									minlength="7"
 									maxlength="15"
 									class="h-12"
-									:class="errorMessage ? 'border-destructive' : ''"
-									@input="(e) => onPhoneInput(e, setValue as (v: string) => void)"
+									v-bind="componentField"
 								/>
 							</FormControl>
 							<FormMessage />
