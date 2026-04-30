@@ -34,6 +34,7 @@ const SCROLL_PIN_THRESHOLD_PX = 100;
 
 const mobileMenuOpen = ref(false);
 const mobileServicesOpen = ref(false);
+const mobileResourcesOpen = ref(false);
 
 const desktopLinks = [
 	// { label: "Solutions", href: "/solutions" },
@@ -221,6 +222,7 @@ const toggleMobileMenu = () => {
 
 	if (!mobileMenuOpen.value) {
 		mobileServicesOpen.value = false;
+		mobileResourcesOpen.value = false;
 	}
 };
 
@@ -229,6 +231,7 @@ watch(
 	() => {
 		mobileMenuOpen.value = false;
 		mobileServicesOpen.value = false;
+		mobileResourcesOpen.value = false;
 	},
 );
 </script>
@@ -412,7 +415,7 @@ watch(
 				type="button"
 				variant="ghost"
 				size="icon"
-				class="text-white hover:bg-white/10 md:hidden"
+				class="-mr-1.5 text-white hover:bg-white/10 md:hidden"
 				:aria-expanded="mobileMenuOpen"
 				aria-label="Toggle navigation menu"
 				@click="toggleMobileMenu"
@@ -533,11 +536,54 @@ watch(
 					</div>
 				</Motion>
 
+				<button
+					type="button"
+					class="flex w-full items-center justify-between py-3 text-base text-white"
+					:aria-expanded="mobileResourcesOpen"
+					@click="mobileResourcesOpen = !mobileResourcesOpen"
+				>
+					Resources
+					<svg
+						class="h-4 w-4 transition-transform duration-200"
+						:class="mobileResourcesOpen ? 'rotate-180' : ''"
+						viewBox="0 0 12 12"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+					>
+						<path d="M3 5l3 3 3-3" />
+					</svg>
+				</button>
+
+				<Motion
+					v-if="mobileResourcesOpen"
+					as="div"
+					class="flex flex-col gap-3 pb-2 pl-4"
+					:initial="{ opacity: 0, height: 0 }"
+					:animate="{ opacity: 1, height: 'auto' }"
+					:exit="{ opacity: 0, height: 0 }"
+					:transition="{ duration: 0.2, ease: 'easeInOut' }"
+				>
+					<NuxtLink
+						v-for="resource in resources"
+						:key="resource.id"
+						:to="resource.href"
+						:external="isExternalUrl(resource.href)"
+						:target="isExternalUrl(resource.href) ? '_blank' : undefined"
+						:rel="isExternalUrl(resource.href) ? 'noopener noreferrer' : undefined"
+						class="text-sm font-medium text-primary underline-offset-4 hover:underline"
+					>
+						{{ resource.title }}
+					</NuxtLink>
+				</Motion>
+
 				<NuxtLink
 					v-for="link in desktopLinks"
 					:key="`mobile-${link.label}`"
 					:to="link.href"
 					class="py-3 text-base text-white"
+					active-class="underline underline-offset-4"
 				>
 					{{ link.label }}
 				</NuxtLink>
