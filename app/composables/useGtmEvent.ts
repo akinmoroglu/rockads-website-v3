@@ -1,23 +1,19 @@
 /**
- * Push GTM events to `window.dataLayer`. The GTM script itself is loaded
- * via the GTM container snippet using `runtimeConfig.public.gtm.id`.
+ * Push GTM events through the `@zadigetvoltaire/nuxt-gtm` module's
+ * `useGtm()` composable. Container is loaded automatically by the module
+ * using `runtimeConfig.public.gtm.id` (env: `GTM_KEY`).
  *
  * `pageViewEvent(title)` mirrors the legacy Vue 2 helper
  * (event: 'GAVirtual', pageUrl, pageTitle, pagePath, previousPath) so
- * downstream GTM tags continue to fire on the new auth pages.
+ * downstream GTM tags continue to fire.
  */
 export function useGtmEvent() {
 	const router = useRouter();
-
-	function push(payload: Record<string, unknown>) {
-		if (!import.meta.client) return;
-		window.dataLayer = window.dataLayer ?? [];
-		window.dataLayer.push(payload);
-	}
+	const gtm = useGtm();
 
 	function pageViewEvent(title: string) {
 		if (!import.meta.client) return;
-		push({
+		gtm?.push({
 			event: "GAVirtual",
 			pageUrl: window.location.href,
 			pageTitle: title,
@@ -27,5 +23,5 @@ export function useGtmEvent() {
 		});
 	}
 
-	return { push, pageViewEvent };
+	return { pageViewEvent };
 }

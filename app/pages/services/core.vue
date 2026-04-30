@@ -13,6 +13,12 @@ useHead({
 	title: "Core Services - Rockads",
 });
 
+const gtmEvent = useGtmEvent();
+
+onMounted(() => {
+	gtmEvent.pageViewEvent("Core Services - Rockads");
+});
+
 const opContinuityBullets = [
 	"Instant 24/7 top-up availability for uninterrupted delivery.",
 	"Minimal latency in critical financial moments.",

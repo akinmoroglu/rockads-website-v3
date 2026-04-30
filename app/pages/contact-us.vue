@@ -34,6 +34,12 @@ useHead({
 	],
 });
 
+const gtmEvent = useGtmEvent();
+
+onMounted(() => {
+	gtmEvent.pageViewEvent("Contact Us - Rockads");
+});
+
 const contactCards = [
 	{
 		icon: IconMail,
@@ -110,15 +116,6 @@ const officeAddresses = [
 	},
 ];
 
-declare global {
-	interface Window {
-		desk360Chat?: {
-			open?: () => void;
-			show: () => void;
-		};
-	}
-}
-
 const openChat = () => {
 	if (!import.meta.client) return;
 
@@ -132,7 +129,7 @@ const openChat = () => {
 		return;
 	}
 
-	chat.show();
+	chat.show?.();
 };
 </script>
 

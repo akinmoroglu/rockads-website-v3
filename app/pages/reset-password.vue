@@ -33,6 +33,12 @@ useHead({
 	title: "Reset Password - Rockads",
 });
 
+const gtmEvent = useGtmEvent();
+
+onMounted(() => {
+	gtmEvent.pageViewEvent("Reset Password - Rockads");
+});
+
 const config = useRuntimeConfig();
 const route = useRoute();
 

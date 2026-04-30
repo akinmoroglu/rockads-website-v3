@@ -33,6 +33,12 @@ useHead({
 	title: "Forgot Password - Rockads",
 });
 
+const gtmEvent = useGtmEvent();
+
+onMounted(() => {
+	gtmEvent.pageViewEvent("Forgot Password - Rockads");
+});
+
 const config = useRuntimeConfig();
 
 const formSchema = toTypedSchema(forgotPasswordFormSchema);

@@ -22,6 +22,12 @@ useHead({
 	title: "Tech Services - Rockads",
 });
 
+const gtmEvent = useGtmEvent();
+
+onMounted(() => {
+	gtmEvent.pageViewEvent("Tech Services - Rockads");
+});
+
 const platformLogos = [
 	{ name: "Meta", src: techMetaPath },
 	{ name: "Google", src: techGooglePath },

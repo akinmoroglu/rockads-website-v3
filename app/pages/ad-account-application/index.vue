@@ -14,11 +14,7 @@ import { createLead } from "@/services/leadService";
 import type { CreateLeadParams } from "~/models/lead";
 import { setCookie } from "@/utils/cookie";
 
-declare global {
-	interface Window {
-		dataLayer?: Record<string, unknown>[];
-	}
-}
+const gtm = useGtm();
 
 definePageMeta({ layout: "auth" });
 
@@ -98,13 +94,12 @@ const subtitle = computed(() => {
 });
 
 function pushDataLayer(payload: Record<string, unknown>) {
-	if (typeof window === "undefined") return;
-	window.dataLayer = window.dataLayer ?? [];
-	window.dataLayer.push(payload);
+	if (!import.meta.client) return;
+	gtm?.push(payload);
 }
 
 function pushVirtualPageView(extraPath: string, title: string) {
-	if (typeof window === "undefined") return;
+	if (!import.meta.client) return;
 	pushDataLayer({
 		event: "GAVirtual",
 		pageUrl: `${window.location.href}${extraPath}`,

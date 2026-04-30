@@ -33,6 +33,12 @@ useHead({
 	title: "Accept Invitation - Rockads",
 });
 
+const gtmEvent = useGtmEvent();
+
+onMounted(() => {
+	gtmEvent.pageViewEvent("Accept Invitation - Rockads");
+});
+
 const config = useRuntimeConfig();
 const route = useRoute();
 

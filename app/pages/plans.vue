@@ -13,6 +13,12 @@ definePageMeta({
 	layout: "marketing",
 });
 
+const gtmEvent = useGtmEvent();
+
+onMounted(() => {
+	gtmEvent.pageViewEvent("Plans - Rockads");
+});
+
 interface PricingFeature {
 	label: string;
 	included: boolean;

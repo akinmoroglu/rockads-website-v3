@@ -2,7 +2,7 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-	modules: ["shadcn-nuxt", "@nuxtjs/turnstile", "@nuxt/image"],
+	modules: ["shadcn-nuxt", "@nuxtjs/turnstile", "@nuxt/image", "@zadigetvoltaire/nuxt-gtm"],
 	devtools: {
 		enabled: true,
 

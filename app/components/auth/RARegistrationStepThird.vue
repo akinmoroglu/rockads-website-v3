@@ -16,11 +16,7 @@ import { isAutomationCookieSet } from "@/utils/cookie";
 import RABtnGroup from "./RABtnGroup.vue";
 import RACheckboxGroup from "./RACheckboxGroup.vue";
 
-declare global {
-	interface Window {
-		dataLayer?: Record<string, unknown>[];
-	}
-}
+const gtm = useGtm();
 
 const props = defineProps<{
 	customerType: CustomerType;
@@ -145,9 +141,8 @@ watch(
 );
 
 function pushDataLayer(payload: Record<string, unknown>) {
-	if (typeof window === "undefined") return;
-	window.dataLayer = window.dataLayer ?? [];
-	window.dataLayer.push(payload);
+	if (!import.meta.client) return;
+	gtm?.push(payload);
 }
 
 function fireFunnelEventsForStep1() {
@@ -200,7 +195,7 @@ function fireFunnelEventsForFinalNonAdvertiser() {
 }
 
 function pushVirtualPageView(stepLabel: string) {
-	if (typeof window === "undefined") return;
+	if (!import.meta.client) return;
 	pushDataLayer({
 		event: "GAVirtual",
 		pageUrl: `${window.location.href}/${props.customerType}/${stepLabel}`,

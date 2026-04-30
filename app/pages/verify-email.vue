@@ -20,6 +20,7 @@ useHead({
 	title: "Verify Email - Rockads",
 });
 
+const gtmEvent = useGtmEvent();
 const config = useRuntimeConfig();
 const route = useRoute();
 
@@ -34,6 +35,8 @@ const verifyMessage = ref("");
 
 onMounted(async () => {
 	if (!import.meta.client) return;
+
+	gtmEvent.pageViewEvent("Verify Email - Rockads");
 
 	if (!linkToken.value) {
 		verifyState.value = "error";

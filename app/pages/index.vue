@@ -21,6 +21,12 @@ useHead({
 		},
 	],
 });
+
+const gtmEvent = useGtmEvent();
+
+onMounted(() => {
+	gtmEvent.pageViewEvent("Rockads - Grow Without Limits");
+});
 </script>
 
 <template>
