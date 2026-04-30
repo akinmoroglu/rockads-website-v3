@@ -4,15 +4,16 @@ import termsMarkdown from "@/assets/terms-of-service.md?raw";
 
 /**
  * Tiny line-based renderer — handles only the subset of Markdown produced by
- * our Terms of Service source: headings (`#`/`##`/`###`), horizontal rules
- * (`---`), unordered lists (`-`/`*`), ordered lists (`1.`), and `**bold**`
- * inline emphasis. Anything else is rendered as a paragraph.
+ * our Terms of Service source: headings (`#`/`##`/`###`/`####`), horizontal
+ * rules (`---`), unordered lists (`-`/`*`), ordered lists (`1.`), `**bold**`
+ * inline emphasis, and `[label](url)` links (incl. `mailto:`). Anything else
+ * is rendered as a paragraph.
  *
  * We deliberately avoid `v-html` on user-facing input — the source file is
  * trusted, but we still escape special chars to keep the renderer hermetic.
  */
 type Block
-	= | { type: "h1" | "h2" | "h3"; text: string }
+	= | { type: "h1" | "h2" | "h3" | "h4"; text: string }
 		| { type: "p"; text: string }
 		| { type: "ul"; items: string[] }
 		| { type: "ol"; items: string[] }
@@ -26,10 +27,21 @@ function escapeHtml(input: string): string {
 }
 
 function renderInline(text: string): string {
-	return escapeHtml(text).replace(
-		/\*\*([^*]+)\*\*/g,
-		"<strong>$1</strong>",
-	);
+	let html = escapeHtml(text);
+
+	html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+
+	html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
+		const href = String(url).trim();
+		const isExternal = /^https?:/i.test(href);
+		const attrs = isExternal
+			? " target=\"_blank\" rel=\"noopener noreferrer\""
+			: "";
+
+		return `<a href="${href}" class="text-primary underline underline-offset-2 hover:opacity-80"${attrs}>${label}</a>`;
+	});
+
+	return html;
 }
 
 function parseMarkdown(source: string): Block[] {
@@ -75,13 +87,13 @@ function parseMarkdown(source: string): Block[] {
 			continue;
 		}
 
-		const heading = /^(#{1,3})\s+(.*)$/.exec(line);
+		const heading = /^(#{1,4})\s+(.*)$/.exec(line);
 
 		if (heading) {
 			flushParagraph();
 			flushList();
-			const level = heading[1]!.length as 1 | 2 | 3;
-			const type = (`h${level}`) as "h1" | "h2" | "h3";
+			const level = heading[1]!.length as 1 | 2 | 3 | 4;
+			const type = (`h${level}`) as "h1" | "h2" | "h3" | "h4";
 
 			blocks.push({ type, text: heading[2]!.trim() });
 			continue;
@@ -139,6 +151,11 @@ const blocks = computed(() => parseMarkdown(termsMarkdown));
 			<h3
 				v-else-if="block.type === 'h3'"
 				class="mt-4 text-base font-semibold"
+				v-html="renderInline(block.text)"
+			/>
+			<h4
+				v-else-if="block.type === 'h4'"
+				class="mt-3 text-sm font-semibold"
 				v-html="renderInline(block.text)"
 			/>
 			<hr
