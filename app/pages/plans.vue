@@ -236,7 +236,7 @@ const plans: PricingPlan[] = [
 							<span class="text-base font-bold text-foreground">Free</span>
 						</div>
 						<NuxtLink
-							test-id="pricing-rockads-free-cta-button"
+							test-id="plans-rockads-free-cta-button"
 							to="/register"
 							class="flex h-12 w-full items-center justify-center rounded-xl bg-[#00c088] text-sm font-semibold text-white transition-all hover:bg-[#00a876] active:scale-[0.98]"
 						>
@@ -286,7 +286,7 @@ const plans: PricingPlan[] = [
 					</div>
 
 					<NuxtLink
-						test-id="pricing-rockads-partner-cta-button"
+						test-id="plans-rockads-partner-cta-button"
 						to="/register"
 						class="flex h-12 w-full items-center justify-center rounded-xl bg-[#c2a441] text-sm font-semibold text-white transition-all hover:bg-[#a88c36] active:scale-[0.98]"
 					>

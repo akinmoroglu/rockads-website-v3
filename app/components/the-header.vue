@@ -37,7 +37,7 @@ const mobileServicesOpen = ref(false);
 
 const desktopLinks = [
 	// { label: "Solutions", href: "/solutions" },
-	{ label: "Pricing", href: "/pricing" },
+	{ label: "Plans", href: "/plans" },
 	{ label: "Sign In", href: "/signin" },
 ];
 

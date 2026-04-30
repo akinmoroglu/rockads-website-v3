@@ -114,7 +114,7 @@ const plans: PricingPlan[] = [
 const router = useRouter();
 
 onMounted(() => {
-	router.push("/pricing");
+	router.push("/plans");
 });
 </script>
 
