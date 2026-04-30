@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import HomeCta from "@/components/home/home-cta.vue";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import imgTiktokUrl from "@/assets/icons/brands/tiktok-wordmark.svg?url";
 import imgMetaUrl from "@/assets/icons/brands/meta-wordmark.svg?url";
 import imgGoogleUrl from "@/assets/icons/brands/google-ads-wordmark.svg?url";
 
 useHead({
-	title: "Pricing - Rockads",
+	title: "Plans - Rockads",
 });
 
 definePageMeta({
@@ -114,46 +113,24 @@ const plans: PricingPlan[] = [
 		<!-- Hero -->
 		<section class="relative overflow-hidden bg-white">
 			<TechServicesDotGridCanvas />
-			<div class="relative mx-auto max-w-[1066px] px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
-				<h1 class="text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]">
-					<span class="text-primary">Rockads</span> <span class="text-foreground">Pricing</span>
-				</h1>
-				<p class="mt-4 text-base font-medium text-foreground lg:mt-5 lg:text-lg">
-					The Plan for Every Stage of Growth
-				</p>
-				<p class="mx-auto mt-6 max-w-[780px] text-sm leading-relaxed text-muted-foreground lg:mt-8 lg:text-base">
-					From your first campaign to enterprise scale — Rockads gives you the tools, the infrastructure, and the partner support to grow without friction. Choose the plan that fits where you are today, and upgrade as you accelerate.
-				</p>
-				<Button
-					as-child
-					size="lg"
-					class="mt-8 lg:mt-10"
-				>
-					<NuxtLink to="/register">
-						Get Started Free
-					</NuxtLink>
-				</Button>
-			</div>
-		</section>
-
-		<!-- Rockads Plans Section -->
-		<section class="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 lg:px-12 lg:py-16 xl:px-[150px]">
-			<!-- Section header -->
-			<div class="mb-10 flex flex-col items-center gap-3 text-center">
+			<div class="relative mx-auto flex max-w-[1066px] flex-col items-center px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
 				<Badge
 					variant="secondary"
 					class="px-3 py-1 text-xs font-semibold tracking-widest uppercase"
 				>
 					Plans
 				</Badge>
-				<h2 class="text-3xl font-semibold text-foreground lg:text-4xl">
-					Rockads Plans
-				</h2>
-				<p class="max-w-xl text-sm text-muted-foreground">
+				<h1 class="mt-4 text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]">
+					<span class="text-primary">Rockads</span> <span class="text-foreground">Plans</span>
+				</h1>
+				<p class="mx-auto mt-6 max-w-[780px] text-sm leading-relaxed text-muted-foreground lg:mt-8 lg:text-base">
 					Boost your advertising strategy with Rockads. Choose the plan that suits your needs and manage your campaigns efficiently.
 				</p>
 			</div>
+		</section>
 
+		<!-- Rockads Plans Section -->
+		<section class="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 lg:px-12 lg:py-16 xl:px-[150px]">
 			<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
 				<!-- Rockads Free Card -->
 				<div class="flex flex-col gap-8 rounded-2xl border border-[#b8e8d4] bg-[#f0fcf8] p-6 lg:p-8">
@@ -258,13 +235,13 @@ const plans: PricingPlan[] = [
 						<div class="inline-flex w-fit items-center rounded-full bg-[#ccf2e7] px-5 py-1.5">
 							<span class="text-base font-bold text-foreground">Free</span>
 						</div>
-						<button
-							test-id="pricing-rockads-free-contact-button"
-							type="button"
+						<NuxtLink
+							test-id="pricing-rockads-free-cta-button"
+							to="/register"
 							class="flex h-12 w-full items-center justify-center rounded-xl bg-[#00c088] text-sm font-semibold text-white transition-all hover:bg-[#00a876] active:scale-[0.98]"
 						>
-							Contact Us
-						</button>
+							Get Started Free
+						</NuxtLink>
 					</div>
 				</div>
 
@@ -308,19 +285,22 @@ const plans: PricingPlan[] = [
 						</div>
 					</div>
 
-					<button
-						test-id="pricing-rockads-partner-contact-button"
-						type="button"
+					<NuxtLink
+						test-id="pricing-rockads-partner-cta-button"
+						to="/register"
 						class="flex h-12 w-full items-center justify-center rounded-xl bg-[#c2a441] text-sm font-semibold text-white transition-all hover:bg-[#a88c36] active:scale-[0.98]"
 					>
-						Contact Us
-					</button>
+						Get Started Free
+					</NuxtLink>
 				</div>
 			</div>
 		</section>
 
-		<!-- Pricing Cards Section -->
-		<section class="bg-muted/40 px-4 py-14 sm:px-6 lg:px-12 lg:py-20 xl:px-[150px]">
+		<!-- TODO: Pricing Cards Section temporarily hidden — re-enable when finalized. -->
+		<section
+			v-if="false"
+			class="bg-muted/40 px-4 py-14 sm:px-6 lg:px-12 lg:py-20 xl:px-[150px]"
+		>
 			<div class="mb-14 flex flex-col items-center gap-3 text-center">
 				<Badge
 					variant="secondary"
