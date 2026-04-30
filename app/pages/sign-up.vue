@@ -120,11 +120,6 @@ function fireRegistrationCompletedEvents() {
 	}
 }
 
-function handleAutoLogin(token: string) {
-	clearReferrer();
-	window.location.href = `${panelAutoLoginUrl}?token=${token}`;
-}
-
 async function onSubmit(values: SignUpFormValues) {
 	if (!values.accept_terms) {
 		// Force the user through the terms modal — same gate as the source.
@@ -149,12 +144,6 @@ async function onSubmit(values: SignUpFormValues) {
 		});
 
 		fireRegistrationCompletedEvents();
-
-		if (response.token) {
-			handleAutoLogin(response.token);
-
-			return;
-		}
 
 		// Verification is handled via the email link itself — no intermediate
 		// step needed here. Bounce to sign-in with a heads-up toast.
