@@ -45,14 +45,6 @@ export const resetPasswordFormSchema = z
 		path: ["password_confirmation"],
 	});
 
-export const verifyEmailTokenFormSchema = z.object({
-	token: z.string().min(8, "Enter the verification token from your email"),
-});
-
-export const resendVerificationFormSchema = z.object({
-	email: z.string().email("Enter a valid email address"),
-});
-
 export const facebookVerifyFormSchema = z.object({
 	facebookProfile: z
 		.string()

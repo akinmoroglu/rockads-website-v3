@@ -3,6 +3,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import type { SubmissionHandler } from "vee-validate";
 import type { z } from "zod";
 import { AlertCircle, Eye, EyeOff } from "lucide-vue-next";
+import { toast } from "vue-sonner";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -155,10 +156,10 @@ async function onSubmit(values: SignUpFormValues) {
 			return;
 		}
 
-		await navigateTo({
-			path: "/verify-email",
-			query: { email: values.email.trim() },
-		});
+		// Verification is handled via the email link itself — no intermediate
+		// step needed here. Bounce to sign-in with a heads-up toast.
+		toast.success("Account created. Check your email to verify your address.");
+		await navigateTo("/sign-in");
 	}
 	catch (error: unknown) {
 		const errorData = (error as { data?: { message?: string } })?.data;
