@@ -108,7 +108,7 @@ const logoHref = computed(() => {
 			<main class="flex flex-1 flex-col justify-center px-8 py-6">
 				<div
 					class="mx-auto w-full"
-					:class="isApplicationRoute ? 'max-w-4xl' : 'max-w-110'"
+					:class="isApplicationRoute ? 'max-w-4xl' : 'max-w-130'"
 				>
 					<slot />
 				</div>
