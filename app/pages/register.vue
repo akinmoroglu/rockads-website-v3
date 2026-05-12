@@ -27,6 +27,11 @@ import { Spinner } from "@/components/ui/spinner";
 import { signUpFormSchema } from "@/lib/auth-form-schemas";
 import { signUp } from "@/services/signUpService";
 import { getCookie, getReferralCode, setCookie } from "@/utils/cookie";
+import {
+	REGISTER_VERIFY_QUERY,
+	readRegisterVerifyState,
+	writeRegisterVerifyState,
+} from "@/utils/register-verify-storage";
 import RegisterSuccess from "@/components/auth/RegisterSuccess.vue";
 import TermsOfServiceDialog from "@/components/auth/TermsOfServiceDialog.vue";
 
@@ -48,6 +53,7 @@ const legal = {
 
 const config = useRuntimeConfig();
 const route = useRoute();
+const router = useRouter();
 
 const baseURL = (config.public.goApiURL as string).replace(/\/$/, "");
 const panelAutoLoginUrl = config.public.panelAutoLoginUrl as string;
@@ -77,10 +83,34 @@ function setAcceptTerms(value: boolean) {
 // Pre-fill email from query param (e.g. from invite link)
 const initialEmail = typeof route.query.email === "string" ? route.query.email : "";
 
+async function clearStatusFromUrl() {
+	const { [REGISTER_VERIFY_QUERY.key]: _omit, ...rest } = route.query;
+
+	await router.replace({ query: rest });
+}
+
+// Restore success state on refresh: URL flag must be present AND we need
+// the persisted email/timestamp from sessionStorage to make the screen useful.
+function restoreVerifyStateFromUrl() {
+	if (route.query[REGISTER_VERIFY_QUERY.key] !== REGISTER_VERIFY_QUERY.value) return;
+
+	const stored = readRegisterVerifyState();
+
+	if (stored) {
+		submittedEmail.value = stored.email;
+		signupSuccess.value = true;
+
+		return;
+	}
+	// Stale URL (e.g. shared link, new tab) — clean it so the form renders properly.
+	void clearStatusFromUrl();
+}
+
 // Capture UTM codes and referral code on mount
 onMounted(() => {
 	setCookie(route.query as Record<string, string | string[] | undefined>);
 	gtmEvent.pageViewEvent("Sign Up - Rockads");
+	restoreVerifyStateFromUrl();
 });
 
 function fireRegistrationCompletedEvents() {
@@ -147,8 +177,14 @@ async function onSubmit(values: SignUpFormValues) {
 
 		fireRegistrationCompletedEvents();
 
-		submittedEmail.value = values.email.trim();
+		const email = values.email.trim();
+
+		writeRegisterVerifyState({ email, resendStartedAt: Date.now() });
+		submittedEmail.value = email;
 		signupSuccess.value = true;
+		await router.replace({
+			query: { ...route.query, [REGISTER_VERIFY_QUERY.key]: REGISTER_VERIFY_QUERY.value },
+		});
 	}
 	catch (error: unknown) {
 		const errorData = (error as { data?: { message?: string } })?.data;

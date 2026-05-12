@@ -5,6 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import { getEmailProviderInfo } from "@/utils/email-provider";
+import {
+	clearRegisterVerifyState,
+	readRegisterVerifyState,
+	writeRegisterVerifyState,
+} from "@/utils/register-verify-storage";
 
 const props = defineProps<{
 	email: string;
@@ -16,23 +21,41 @@ const secondsLeft = ref(RESEND_COOLDOWN_SECONDS);
 const isResending = ref(false);
 let intervalId: ReturnType<typeof setInterval> | null = null;
 
-function startCountdown() {
-	secondsLeft.value = RESEND_COOLDOWN_SECONDS;
-	if (intervalId) clearInterval(intervalId);
-	intervalId = setInterval(() => {
-		if (secondsLeft.value > 0) {
-			secondsLeft.value -= 1;
+function computeRemaining(startedAt: number): number {
+	const elapsed = Math.floor((Date.now() - startedAt) / 1000);
 
-			return;
-		}
-		if (intervalId) {
-			clearInterval(intervalId);
-			intervalId = null;
-		}
-	}, 1000);
+	return Math.max(0, RESEND_COOLDOWN_SECONDS - elapsed);
 }
 
-onMounted(startCountdown);
+function tick() {
+	if (secondsLeft.value > 0) {
+		secondsLeft.value -= 1;
+
+		return;
+	}
+	if (intervalId) {
+		clearInterval(intervalId);
+		intervalId = null;
+	}
+}
+
+function startCountdown(initialSeconds: number) {
+	secondsLeft.value = initialSeconds;
+	if (intervalId) clearInterval(intervalId);
+	if (initialSeconds <= 0) return;
+	intervalId = setInterval(tick, 1000);
+}
+
+onMounted(() => {
+	// Resume from persisted timestamp if the user refreshed mid-countdown.
+	const stored = readRegisterVerifyState();
+	const startedAt = stored?.resendStartedAt ?? Date.now();
+
+	if (!stored) {
+		writeRegisterVerifyState({ email: props.email, resendStartedAt: startedAt });
+	}
+	startCountdown(computeRemaining(startedAt));
+});
 
 onBeforeUnmount(() => {
 	if (intervalId) clearInterval(intervalId);
@@ -51,7 +74,10 @@ async function handleResend() {
 		// Expected: POST `${goApiURL}/resend-verification` with { email, captcha_response }.
 		await new Promise(resolve => setTimeout(resolve, 600));
 		toast.success("Verification email resent. Check your inbox.");
-		startCountdown();
+		const startedAt = Date.now();
+
+		writeRegisterVerifyState({ email: props.email, resendStartedAt: startedAt });
+		startCountdown(RESEND_COOLDOWN_SECONDS);
 	}
 	catch (error: unknown) {
 		toast.error(error instanceof Error ? error.message : "Could not resend the email. Try again in a moment.");
@@ -64,6 +90,10 @@ async function handleResend() {
 function handleCheckEmail() {
 	if (!import.meta.client) return;
 	window.open(provider.value.url, "_blank", "noopener,noreferrer");
+}
+
+function handleReturnHome() {
+	clearRegisterVerifyState();
 }
 </script>
 
@@ -147,6 +177,7 @@ function handleCheckEmail() {
 					<NuxtLink
 						to="/"
 						class="text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+						@click="handleReturnHome"
 					>
 						Return to homepage
 					</NuxtLink>
