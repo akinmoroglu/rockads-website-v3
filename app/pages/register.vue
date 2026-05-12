@@ -3,7 +3,6 @@ import { toTypedSchema } from "@vee-validate/zod";
 import type { SubmissionHandler } from "vee-validate";
 import type { z } from "zod";
 import { AlertCircle, Eye, EyeOff } from "lucide-vue-next";
-import { toast } from "vue-sonner";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,7 +26,13 @@ import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { signUpFormSchema } from "@/lib/auth-form-schemas";
 import { signUp } from "@/services/signUpService";
-import { getCookie, getReferralCode, setCookie, clearReferrer } from "@/utils/cookie";
+import { getCookie, getReferralCode, setCookie } from "@/utils/cookie";
+import {
+	REGISTER_VERIFY_QUERY,
+	readRegisterVerifyState,
+	writeRegisterVerifyState,
+} from "@/utils/register-verify-storage";
+import RegisterSuccess from "@/components/auth/RegisterSuccess.vue";
 import TermsOfServiceDialog from "@/components/auth/TermsOfServiceDialog.vue";
 
 definePageMeta({
@@ -48,6 +53,7 @@ const legal = {
 
 const config = useRuntimeConfig();
 const route = useRoute();
+const router = useRouter();
 
 const baseURL = (config.public.goApiURL as string).replace(/\/$/, "");
 const panelAutoLoginUrl = config.public.panelAutoLoginUrl as string;
@@ -60,6 +66,13 @@ const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const showPassword = ref(false);
 const showPasswordConfirm = ref(false);
+// Initialize from URL synchronously so SSR + hydration render the success
+// shell directly (no form-flash on refresh). Email/countdown populate from
+// sessionStorage on client mount via restoreVerifyStateFromUrl().
+const signupSuccess = ref(
+	route.query[REGISTER_VERIFY_QUERY.key] === REGISTER_VERIFY_QUERY.value,
+);
+const submittedEmail = ref("");
 const { token: captchaToken, isDummyToken, resetToken } = useTurnstileToken();
 const agreement = ref<boolean | null>(null);
 const showTermsRequiredError = ref(false);
@@ -75,10 +88,34 @@ function setAcceptTerms(value: boolean) {
 // Pre-fill email from query param (e.g. from invite link)
 const initialEmail = typeof route.query.email === "string" ? route.query.email : "";
 
+async function clearStatusFromUrl() {
+	const { [REGISTER_VERIFY_QUERY.key]: _omit, ...rest } = route.query;
+
+	await router.replace({ query: rest });
+}
+
+// Hydrate the success shell with persisted email on mount. If storage is
+// empty (stale URL, shared link, new tab), revert to the form and clean the
+// query so the user lands on a clean register page.
+function hydrateVerifyState() {
+	if (!signupSuccess.value) return;
+
+	const stored = readRegisterVerifyState();
+
+	if (stored) {
+		submittedEmail.value = stored.email;
+
+		return;
+	}
+	signupSuccess.value = false;
+	void clearStatusFromUrl();
+}
+
 // Capture UTM codes and referral code on mount
 onMounted(() => {
 	setCookie(route.query as Record<string, string | string[] | undefined>);
 	gtmEvent.pageViewEvent("Sign Up - Rockads");
+	hydrateVerifyState();
 });
 
 function fireRegistrationCompletedEvents() {
@@ -145,10 +182,14 @@ async function onSubmit(values: SignUpFormValues) {
 
 		fireRegistrationCompletedEvents();
 
-		// Verification is handled via the email link itself — no intermediate
-		// step needed here. Bounce to sign-in with a heads-up toast.
-		toast.success("Account created. Check your email to verify your address.");
-		await navigateTo("/signin");
+		const email = values.email.trim();
+
+		writeRegisterVerifyState({ email, resendStartedAt: Date.now() });
+		submittedEmail.value = email;
+		signupSuccess.value = true;
+		await router.replace({
+			query: { ...route.query, [REGISTER_VERIFY_QUERY.key]: REGISTER_VERIFY_QUERY.value },
+		});
 	}
 	catch (error: unknown) {
 		const errorData = (error as { data?: { message?: string } })?.data;
@@ -203,7 +244,15 @@ function handleTermsCancel() {
 
 <template>
 	<div>
-		<Card class="w-full">
+		<RegisterSuccess
+			v-if="signupSuccess"
+			:email="submittedEmail"
+		/>
+
+		<Card
+			v-else
+			class="w-full"
+		>
 			<CardHeader class="space-y-2 text-center sm:text-left">
 				<CardTitle class="text-2xl">
 					Create your account
