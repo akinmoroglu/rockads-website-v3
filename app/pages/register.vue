@@ -66,7 +66,12 @@ const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const showPassword = ref(false);
 const showPasswordConfirm = ref(false);
-const signupSuccess = ref(false);
+// Initialize from URL synchronously so SSR + hydration render the success
+// shell directly (no form-flash on refresh). Email/countdown populate from
+// sessionStorage on client mount via restoreVerifyStateFromUrl().
+const signupSuccess = ref(
+	route.query[REGISTER_VERIFY_QUERY.key] === REGISTER_VERIFY_QUERY.value,
+);
 const submittedEmail = ref("");
 const { token: captchaToken, isDummyToken, resetToken } = useTurnstileToken();
 const agreement = ref<boolean | null>(null);
@@ -89,20 +94,20 @@ async function clearStatusFromUrl() {
 	await router.replace({ query: rest });
 }
 
-// Restore success state on refresh: URL flag must be present AND we need
-// the persisted email/timestamp from sessionStorage to make the screen useful.
-function restoreVerifyStateFromUrl() {
-	if (route.query[REGISTER_VERIFY_QUERY.key] !== REGISTER_VERIFY_QUERY.value) return;
+// Hydrate the success shell with persisted email on mount. If storage is
+// empty (stale URL, shared link, new tab), revert to the form and clean the
+// query so the user lands on a clean register page.
+function hydrateVerifyState() {
+	if (!signupSuccess.value) return;
 
 	const stored = readRegisterVerifyState();
 
 	if (stored) {
 		submittedEmail.value = stored.email;
-		signupSuccess.value = true;
 
 		return;
 	}
-	// Stale URL (e.g. shared link, new tab) — clean it so the form renders properly.
+	signupSuccess.value = false;
 	void clearStatusFromUrl();
 }
 
@@ -110,7 +115,7 @@ function restoreVerifyStateFromUrl() {
 onMounted(() => {
 	setCookie(route.query as Record<string, string | string[] | undefined>);
 	gtmEvent.pageViewEvent("Sign Up - Rockads");
-	restoreVerifyStateFromUrl();
+	hydrateVerifyState();
 });
 
 function fireRegistrationCompletedEvents() {

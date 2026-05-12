@@ -123,7 +123,15 @@ function handleReturnHome() {
 				</h1>
 				<p class="mx-auto max-w-md text-base leading-relaxed text-muted-foreground">
 					We sent a verification link to
-					<span class="font-medium break-all text-foreground">{{ email }}</span>.
+					<span
+						v-if="email"
+						class="font-medium break-all text-foreground"
+					>{{ email }}</span>
+					<span
+						v-else
+						class="inline-block h-4 w-44 animate-pulse rounded bg-muted align-middle"
+						aria-hidden="true"
+					/>.
 					Click it to access ad accounts, automation tools, and AI features built for serious advertisers.
 				</p>
 			</div>
