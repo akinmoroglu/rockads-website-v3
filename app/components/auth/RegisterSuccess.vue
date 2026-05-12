@@ -99,19 +99,40 @@ function handleReturnHome() {
 
 <template>
 	<Card class="relative w-full overflow-hidden">
-		<!-- Subtle gradient halo behind the icon -->
-		<div
-			aria-hidden="true"
-			class="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[radial-gradient(ellipse_at_top,theme(colors.primary/15),transparent_70%)]"
-		/>
-
 		<CardContent class="relative space-y-8 px-6 py-10 sm:px-10 sm:py-12">
-			<!-- Icon -->
-			<div class="flex justify-center">
+			<!-- Icon with layered halo + concentric rings -->
+			<div class="relative flex justify-center pt-2">
 				<div class="relative">
-					<div class="absolute inset-0 animate-pulse rounded-full bg-primary/15 blur-xl" />
-					<div class="relative flex size-20 items-center justify-center rounded-full bg-primary/10 ring-1 ring-primary/20">
-						<MailCheck class="size-9 text-primary" />
+					<!-- Ambient radial glow centered on the icon -->
+					<div
+						aria-hidden="true"
+						class="pointer-events-none absolute left-1/2 top-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,--theme(--color-primary/30),--theme(--color-primary/5)_45%,transparent_70%)] blur-2xl"
+					/>
+
+					<!-- Decorative concentric rings -->
+					<div
+						aria-hidden="true"
+						class="pointer-events-none absolute -inset-12 rounded-full border border-primary/6"
+					/>
+					<div
+						aria-hidden="true"
+						class="pointer-events-none absolute -inset-6 rounded-full border border-primary/10"
+					/>
+
+					<!-- Slow inner pulse -->
+					<div
+						aria-hidden="true"
+						class="pointer-events-none absolute inset-0 animate-pulse rounded-full bg-primary/25 blur-lg animation-duration-[3s]"
+					/>
+
+					<!-- Icon container with gradient + soft shadow -->
+					<div class="relative flex size-20 items-center justify-center rounded-full bg-linear-to-br from-primary/25 via-primary/12 to-primary/5 shadow-lg shadow-primary/15 ring-1 ring-primary/25">
+						<!-- Inner faint ring for depth -->
+						<div
+							aria-hidden="true"
+							class="pointer-events-none absolute inset-1.5 rounded-full ring-1 ring-primary/10"
+						/>
+						<MailCheck class="relative size-9 text-primary" />
 					</div>
 				</div>
 			</div>
