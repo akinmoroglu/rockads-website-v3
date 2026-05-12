@@ -3,7 +3,6 @@ import { toTypedSchema } from "@vee-validate/zod";
 import type { SubmissionHandler } from "vee-validate";
 import type { z } from "zod";
 import { AlertCircle, Eye, EyeOff } from "lucide-vue-next";
-import { toast } from "vue-sonner";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,7 +26,8 @@ import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { signUpFormSchema } from "@/lib/auth-form-schemas";
 import { signUp } from "@/services/signUpService";
-import { getCookie, getReferralCode, setCookie, clearReferrer } from "@/utils/cookie";
+import { getCookie, getReferralCode, setCookie } from "@/utils/cookie";
+import RegisterSuccess from "@/components/auth/RegisterSuccess.vue";
 import TermsOfServiceDialog from "@/components/auth/TermsOfServiceDialog.vue";
 
 definePageMeta({
@@ -60,6 +60,8 @@ const apiError = ref<string | null>(null);
 const isSubmitting = ref(false);
 const showPassword = ref(false);
 const showPasswordConfirm = ref(false);
+const signupSuccess = ref(false);
+const submittedEmail = ref("");
 const { token: captchaToken, isDummyToken, resetToken } = useTurnstileToken();
 const agreement = ref<boolean | null>(null);
 const showTermsRequiredError = ref(false);
@@ -145,10 +147,8 @@ async function onSubmit(values: SignUpFormValues) {
 
 		fireRegistrationCompletedEvents();
 
-		// Verification is handled via the email link itself — no intermediate
-		// step needed here. Bounce to sign-in with a heads-up toast.
-		toast.success("Account created. Check your email to verify your address.");
-		await navigateTo("/signin");
+		submittedEmail.value = values.email.trim();
+		signupSuccess.value = true;
 	}
 	catch (error: unknown) {
 		const errorData = (error as { data?: { message?: string } })?.data;
@@ -203,7 +203,15 @@ function handleTermsCancel() {
 
 <template>
 	<div>
-		<Card class="w-full">
+		<RegisterSuccess
+			v-if="signupSuccess"
+			:email="submittedEmail"
+		/>
+
+		<Card
+			v-else
+			class="w-full"
+		>
 			<CardHeader class="space-y-2 text-center sm:text-left">
 				<CardTitle class="text-2xl">
 					Create your account
