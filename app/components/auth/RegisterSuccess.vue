@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { Mail, MailCheck, RotateCcw } from "lucide-vue-next";
+import { MailCheck, RotateCcw } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
-import { getEmailProviderInfo } from "@/utils/email-provider";
 import {
 	clearRegisterVerifyState,
 	readRegisterVerifyState,
@@ -63,8 +62,6 @@ onBeforeUnmount(() => {
 
 const canResend = computed(() => secondsLeft.value === 0 && !isResending.value);
 
-const provider = computed(() => getEmailProviderInfo(props.email));
-
 async function handleResend() {
 	if (!canResend.value) return;
 	isResending.value = true;
@@ -85,11 +82,6 @@ async function handleResend() {
 	finally {
 		isResending.value = false;
 	}
-}
-
-function handleCheckEmail() {
-	if (!import.meta.client) return;
-	window.open(provider.value.url, "_blank", "noopener,noreferrer");
 }
 
 function handleReturnHome() {
@@ -159,16 +151,6 @@ function handleReturnHome() {
 
 			<!-- CTAs -->
 			<div class="space-y-3">
-				<Button
-					test-id="register-success-check-email-btn"
-					type="button"
-					class="h-12 w-full text-base"
-					@click="handleCheckEmail"
-				>
-					<Mail class="size-5" />
-					Check your email
-				</Button>
-
 				<Button
 					test-id="register-success-resend-btn"
 					type="button"
