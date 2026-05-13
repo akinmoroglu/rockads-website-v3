@@ -4,6 +4,7 @@ import { toast } from "vue-sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
+import { resendVerificationEmail } from "@/services/signUpService";
 import {
 	clearRegisterVerifyState,
 	readRegisterVerifyState,
@@ -15,6 +16,10 @@ const props = defineProps<{
 }>();
 
 const RESEND_COOLDOWN_SECONDS = 60;
+
+const config = useRuntimeConfig();
+const baseURL = (config.public.goApiURL as string).replace(/\/$/, "");
+const { token: captchaToken, isDummyToken, widgetRef: turnstile, resetToken } = useTurnstileToken();
 
 const secondsLeft = ref(RESEND_COOLDOWN_SECONDS);
 const isResending = ref(false);
@@ -67,9 +72,10 @@ async function handleResend() {
 	isResending.value = true;
 
 	try {
-		// TODO(backend): wire to real endpoint once available.
-		// Expected: POST `${goApiURL}/resend-verification` with { email, captcha_response }.
-		await new Promise(resolve => setTimeout(resolve, 600));
+		await resendVerificationEmail(baseURL, {
+			email: props.email,
+			captcha_response: captchaToken.value || undefined,
+		});
 		toast.success("Verification email resent. Check your inbox.");
 		const startedAt = Date.now();
 
@@ -77,10 +83,16 @@ async function handleResend() {
 		startCountdown(RESEND_COOLDOWN_SECONDS);
 	}
 	catch (error: unknown) {
-		toast.error(error instanceof Error ? error.message : "Could not resend the email. Try again in a moment.");
+		const errorData = (error as { data?: { message?: string } })?.data;
+
+		toast.error(
+			errorData?.message
+				?? (error instanceof Error ? error.message : "Could not resend the email. Try again in a moment."),
+		);
 	}
 	finally {
 		isResending.value = false;
+		resetToken();
 	}
 }
 
@@ -151,6 +163,14 @@ function handleReturnHome() {
 
 			<!-- CTAs -->
 			<div class="space-y-3">
+				<NuxtTurnstile
+					v-if="!isDummyToken"
+					ref="turnstile"
+					v-model="captchaToken"
+					class="w-full"
+					:options="{ size: 'flexible' }"
+				/>
+
 				<Button
 					test-id="register-success-resend-btn"
 					type="button"

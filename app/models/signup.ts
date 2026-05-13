@@ -23,3 +23,8 @@ export type OAuthSignInPayload = {
 export type OAuthSignInResponse = {
 	redirect_url: string;
 };
+
+export type ResendVerificationEmailPayload = {
+	email: string;
+	captcha_response?: string;
+};
