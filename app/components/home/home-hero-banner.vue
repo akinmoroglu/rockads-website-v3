@@ -2,13 +2,6 @@
 import { useMediaQuery, useMouseInElement } from "@vueuse/core";
 import { Motion } from "motion-v";
 import { CalendarDays } from "lucide-vue-next";
-import {
-	IconBrandGoogle,
-	IconBrandMeta,
-	IconBrandSnapchat,
-	IconBrandTiktok,
-	IconBrandX,
-} from "@tabler/icons-vue";
 import PartnerXTwitter from "@/assets/icons/partners/x-twitter.svg";
 import PartnerSnapchat from "@/assets/icons/partners/snapchat.svg";
 import PartnerTiktok from "@/assets/icons/partners/tiktok.svg";
@@ -22,43 +15,35 @@ import rightGlowAsset from "@/assets/images/home/hero/right-glow.svg?url";
 
 const heroRef = ref<HTMLElement | null>(null);
 const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-const { elementX, elementY, elementWidth, elementHeight, isOutside } = useMouseInElement(heroRef);
+const { elementX, elementY, isOutside } = useMouseInElement(heroRef);
 
-/** Max parallax shift in px when cursor is at hero edge */
 const PARALLAX_STRENGTH = 18;
 
-const glowMouseOffsets = computed(() => {
-	if (prefersReducedMotion.value || isOutside.value) {
-		return { left: { x: 0, y: 0 }, right: { x: 0, y: 0 } };
-	}
-	const w = elementWidth.value;
-	const h = elementHeight.value;
-
-	if (w <= 0 || h <= 0) {
-		return { left: { x: 0, y: 0 }, right: { x: 0, y: 0 } };
-	}
-	const nx = (elementX.value / w) * 2 - 1;
-	const ny = (elementY.value / h) * 2 - 1;
-
+const leftGlowMouseStyle = computed(() => {
+	if (isOutside.value || prefersReducedMotion.value) return {};
+	const el = heroRef.value;
+	if (!el) return {};
+	const cx = el.offsetWidth / 2;
+	const cy = el.offsetHeight / 2;
+	const dx = (elementX.value - cx) / cx;
+	const dy = (elementY.value - cy) / cy;
 	return {
-		left: {
-			x: nx * PARALLAX_STRENGTH * 0.9,
-			y: ny * PARALLAX_STRENGTH * 0.55,
-		},
-		right: {
-			x: nx * PARALLAX_STRENGTH * -0.75,
-			y: ny * PARALLAX_STRENGTH * 0.5,
-		},
+		transform: `translate(${-dx * PARALLAX_STRENGTH}px, ${-dy * PARALLAX_STRENGTH * 0.4}px)`,
 	};
 });
 
-const leftGlowMouseStyle = computed(() => ({
-	transform: `translate3d(${glowMouseOffsets.value.left.x}px, ${glowMouseOffsets.value.left.y}px, 0)`,
-}));
-
-const rightGlowMouseStyle = computed(() => ({
-	transform: `translate3d(${glowMouseOffsets.value.right.x}px, ${glowMouseOffsets.value.right.y}px, 0)`,
-}));
+const rightGlowMouseStyle = computed(() => {
+	if (isOutside.value || prefersReducedMotion.value) return {};
+	const el = heroRef.value;
+	if (!el) return {};
+	const cx = el.offsetWidth / 2;
+	const cy = el.offsetHeight / 2;
+	const dx = (elementX.value - cx) / cx;
+	const dy = (elementY.value - cy) / cy;
+	return {
+		transform: `translate(${dx * PARALLAX_STRENGTH}px, ${-dy * PARALLAX_STRENGTH * 0.4}px)`,
+	};
+});
 
 const partnerIcons = [
 	{ component: PartnerXTwitter, label: "X partner" },
@@ -82,91 +67,43 @@ onUnmounted(() => {
 <template>
 	<section
 		ref="heroRef"
-		class="relative min-h-screen overflow-hidden bg-linear-to-b from-black to-[#02123e] lg:h-full lg:max-h-screen"
+		class="hero-section relative flex min-h-screen flex-col overflow-hidden lg:h-full lg:max-h-screen"
 	>
-		<div class="absolute inset-0 bg-size-[22px_22px] opacity-8" />
-
-		<!-- Left glow: section-relative so the offset is always from the viewport edge,
-     keeping the same partially-off-screen look at every resolution.
-     At 2xl (1536px+) the glow grows wider to fill the larger side margins.
-     -->
+		<!-- Left glow -->
 		<div
+			class="pointer-events-none absolute left-0 top-0 z-0 h-full w-[48%] origin-left transition-transform duration-700 ease-out"
+			:style="leftGlowMouseStyle"
 			aria-hidden="true"
-			class="pointer-events-none absolute inset-y-0 left-[-26rem] z-1 hidden w-[min(920px,92vw)] items-center lg:flex 2xl:w-[min(1200px,50vw)]"
 		>
-			<Motion
-				as="div"
-				class="h-[min(970px,92vh)] w-full 2xl:h-[min(1200px,92vh)]"
-				:initial="{ opacity: 0, x: -180 }"
-				:animate="{ opacity: 1, x: 0 }"
-				:transition="{ duration: 1.1, ease: 'easeOut' }"
+			<img
+				:src="leftGlowAsset"
+				class="h-full w-full object-cover object-right"
+				alt=""
 			>
-				<Motion
-					as="div"
-					class="h-full w-full"
-					:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, 6, 0], y: [10, -8, 10] }"
-					:transition="{ duration: 6.2, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
-				>
-					<div
-						class="h-full w-full will-change-transform"
-						:style="leftGlowMouseStyle"
-					>
-						<img
-							:src="leftGlowAsset"
-							alt=""
-							aria-hidden="true"
-							class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
-						>
-					</div>
-				</Motion>
-			</Motion>
 		</div>
 
-		<!-- Right glow: same approach, mirrored -->
+		<!-- Right glow -->
 		<div
+			class="pointer-events-none absolute right-0 top-0 z-0 h-full w-[48%] origin-right transition-transform duration-700 ease-out"
+			:style="rightGlowMouseStyle"
 			aria-hidden="true"
-			class="pointer-events-none absolute inset-y-0 right-[-26rem] z-1 hidden w-[min(920px,92vw)] items-center lg:flex 2xl:w-[min(1200px,50vw)]"
 		>
-			<Motion
-				as="div"
-				class="h-[min(970px,92vh)] w-full 2xl:h-[min(1200px,92vh)]"
-				:initial="{ opacity: 0, x: 180 }"
-				:animate="{ opacity: 1, x: 0 }"
-				:transition="{ duration: 1.1, ease: 'easeOut' }"
+			<img
+				:src="rightGlowAsset"
+				class="h-full w-full object-cover object-left"
+				alt=""
 			>
-				<Motion
-					as="div"
-					class="h-full w-full"
-					:animate="{ opacity: [0.88, 0.96, 0.88], x: [0, -6, 0], y: [-10, 8, -10] }"
-					:transition="{ duration: 6.6, delay: 1.1, repeat: Infinity, ease: 'easeInOut' }"
-				>
-					<div
-						class="h-full w-full will-change-transform"
-						:style="rightGlowMouseStyle"
-					>
-						<img
-							:src="rightGlowAsset"
-							alt=""
-							aria-hidden="true"
-							class="h-full w-full object-contain brightness-120 saturate-125 filter-[drop-shadow(0_0_28px_rgba(18,131,255,0.24))]"
-						>
-					</div>
-				</Motion>
-			</Motion>
 		</div>
 
-		<div class="relative z-10 mx-auto flex min-h-[560px] w-full max-w-[1440px] flex-col items-center px-5 pt-[108px] sm:min-h-[800px] sm:pt-[132px] lg:min-h-[900px] lg:px-12 lg:pt-[160px] lg:pb-8">
+		<div class="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col items-center justify-center px-5 pt-(--marketing-header-height) lg:px-12 lg:pt-(--marketing-header-height-lg)">
 			<Motion
-				as="div"
-				class="relative overflow-hidden rounded-full border border-[#37A4FF]/35 bg-[#0a75cb]/20 px-3 py-2 text-sm  text-white/90"
+				as="p"
+				class="text-xs font-medium tracking-[0.2em] text-white/40"
 				:initial="{ opacity: 0, y: 12 }"
 				:animate="{ opacity: 1, y: 0 }"
 				:transition="{ duration: 0.45, ease: 'easeOut' }"
 			>
-				<span
-					aria-hidden="true"
-				/>
-				Stable. <span class="italic">Enduring.</span> Limitless.
+				Official. Integrated. <span class="italic">Always On.</span>
 			</Motion>
 
 			<Motion
@@ -181,49 +118,44 @@ onUnmounted(() => {
 
 			<Motion
 				as="p"
-				class="mt-4 max-w-[640px] text-center text-[15px] leading-6 text-white/95 sm:mt-5 sm:max-w-[760px] sm:text-[17px] sm:leading-7 lg:text-[20px] lg:leading-8"
+				class="mt-4 max-w-[640px] text-center text-[15px] leading-6 text-white/80 sm:mt-5 sm:max-w-[760px] sm:text-[17px] sm:leading-7 lg:text-[20px] lg:leading-8"
 				:initial="{ opacity: 0, y: 14 }"
 				:animate="{ opacity: 1, y: 0 }"
 				:transition="{ duration: 0.55, delay: 0.16, ease: 'easeOut' }"
 			>
-				Rockads is a cross-border business accelerator; the stable, intelligent, scalable ground upon which the world's
-				fastest-growing brands and entrepreneurs build their global operations.
-			</Motion>
-
-			<Motion
-				as="p"
-				class="mt-3 max-w-[640px] text-center text-[15px] leading-[1.5] text-[#747A8E] sm:mt-4 sm:max-w-[760px] sm:text-[17px] sm:leading-7 lg:text-[20px] lg:leading-8"
-				:initial="{ opacity: 0, y: 12 }"
-				:animate="{ opacity: 1, y: 0 }"
-				:transition="{ duration: 0.55, delay: 0.22, ease: 'easeOut' }"
-			>
-				A global growth partner and a next-generation full-stack platform.
+				Capital to scale. Platforms to run. Infrastructure that never stops. Everything agencies and brands need to grow, in one place.
 			</Motion>
 
 			<Motion
 				as="div"
-				class="mt-7 sm:mt-9"
+				class="mt-7 flex flex-col items-center gap-3 sm:mt-9 sm:flex-row sm:gap-4"
 				:initial="{ opacity: 0, y: 14, scale: 0.98 }"
-				:animate="{ opacity: 1, y: 0, scale: [0.98, 1, 0.98] }"
-				:transition="{ duration: 1.5, delay: 0.26, ease: 'easeInOut' }"
+				:animate="{ opacity: 1, y: 0, scale: 1 }"
+				:transition="{ duration: 0.5, delay: 0.26, ease: 'easeOut' }"
 			>
-				<Button
-					as-child
-				>
+				<Button as-child variant="outline" class="border-white/60 bg-transparent text-white hover:bg-white/10 hover:text-white">
 					<NuxtLink
 						to="/contact-us"
 						class="px-6! py-[14px] sm:px-10! sm:py-6"
 					>
 						<CalendarDays class="size-5" />
-						Book a Call
+						Talk to Our Team
+					</NuxtLink>
+				</Button>
+				<Button as-child>
+					<NuxtLink
+						to="/services/tech"
+						class="px-6! py-[14px] sm:px-10! sm:py-6"
+					>
+						Explore Features
 					</NuxtLink>
 				</Button>
 			</Motion>
 		</div>
 
-		<div class="relative w-full py-6 lg:absolute lg:right-0 lg:bottom-0 lg:py-8">
+		<div class="relative w-full py-8">
 			<div class="flex flex-col items-center gap-4 pt-4 pb-2 lg:pt-14 lg:pb-4">
-				<p class="text-center text-xs  tracking-[0.02em] text-white/95">
+				<p class="text-center text-xs tracking-[0.02em] text-white/40">
 					OFFICIAL PLATFORM PARTNERS
 				</p>
 				<div class="flex items-center gap-4">
@@ -242,7 +174,6 @@ onUnmounted(() => {
 							:src="icon.component"
 							class="size-full"
 							aria-hidden="true"
-							stroke-width="1.8"
 						>
 					</Motion>
 				</div>
@@ -252,44 +183,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/*
- * Border-beam: a rotating conic-gradient "light" clipped by the pill's
- * overflow:hidden, so only the thin edge area glows as it sweeps around.
- */
-.badge-beam {
-	pointer-events: none;
-	position: absolute;
-	border-radius: 50%;
-	aspect-ratio: 1;
-	/* Bigger than the container so the glow reaches all corners of the pill */
-	width: 160%;
-	/* Centre on the pill */
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) rotate(0deg);
-	/* A tight bright arc (~10 % of the circle) fading in & out */
-	background: conic-gradient(
-		from 0deg,
-		transparent 0%,
-		transparent 82%,
-		rgba(55, 164, 255, 0.35) 87%,
-		rgba(147, 197, 253, 0.9) 92%,
-		rgba(55, 164, 255, 0.3) 96%,
-		transparent 100%
-	);
-	animation: badge-beam-spin 3.5s linear infinite;
-	will-change: transform;
-}
-
-@keyframes badge-beam-spin {
-	to {
-		transform: translate(-50%, -50%) rotate(360deg);
-	}
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.badge-beam {
-		animation: none;
-	}
+.hero-section {
+	background: linear-gradient(to bottom, #060a14 0%, #02123e 100%);
 }
 </style>

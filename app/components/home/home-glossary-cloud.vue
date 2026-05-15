@@ -44,21 +44,21 @@ const rawTags: RawTag[] = [
 	{ text: "/cpm-optimization", x: 58, y: 14, url: "https://blog.rockads.com/cpm-in-meta-ads-why-its-high-and-how-to-reduce-it/", desc: "Understand what drives high CPM in Meta Ads and apply practical tactics to bring your cost per thousand impressions down." },
 	{ text: "/catalog-ads", x: 86, y: 18, url: "https://blog.rockads.com/tiktok-smart-catalog-ads/", desc: "Smart+ Catalog Ads combine dynamic creative with AI-powered targeting for scalable, conversion-optimized product campaigns." },
 	{ text: "/creative-practices", x: 4, y: 28, url: "https://blog.rockads.com/tiktok-ads-creative-best-practices/", desc: "After TikTok's Q2 algorithm shift, creative freshness and hook clarity matter more than ever for ad delivery performance." },
-	{ text: "/budget-rules", x: 38, y: 24, url: "https://blog.rockads.com/budget-automation-rules-you-need-to-scale-meta-ads/", desc: "Five essential automation rules to scale Meta Ads — auto-scale winners, pause losers, cap tests, and reallocate unused spend." },
-	{ text: "/content-production", x: 68, y: 26, url: "https://blog.rockads.com/from-hook-ideas-to-scroll-stopping-creatives/", desc: "AI tools take you from brief to tested ad creative in 15 minutes — handling hooks, copy variations, and CTA optimization at scale." },
-	{ text: "/campaign-roles", x: 14, y: 38, url: "https://blog.rockads.com/campaign-role-automation-playbook/", desc: "Assign specific roles to campaigns — prospecting, retargeting, testing, loyalty — with tailored automation rules for each." },
+	{ text: "/budget-rules", x: 38, y: 24, url: "https://blog.rockads.com/budget-automation-rules-you-need-to-scale-meta-ads/", desc: "Five essential automation rules to scale Meta Ads, auto-scale winners, pause losers, cap tests, and reallocate unused spend." },
+	{ text: "/content-production", x: 68, y: 26, url: "https://blog.rockads.com/from-hook-ideas-to-scroll-stopping-creatives/", desc: "AI tools take you from brief to tested ad creative in 15 minutes, handling hooks, copy variations, and CTA optimization at scale." },
+	{ text: "/campaign-roles", x: 14, y: 38, url: "https://blog.rockads.com/campaign-role-automation-playbook/", desc: "Assign specific roles to campaigns, prospecting, retargeting, testing, loyalty, with tailored automation rules for each." },
 	{ text: "/capi-pixel", x: 80, y: 34, url: "https://blog.rockads.com/capi-vs-pixel/", desc: "Relying on Meta Pixel alone can lose up to 70% of conversion data. Add server-side CAPI to survive iOS privacy restrictions." },
 	{ text: "/reels-scoring", x: 28, y: 46, url: "https://blog.rockads.com/how-meta-scores-your-reels-ads-engagement-watch-time-more/", desc: "Meta scores Reels ads on watch time, hook strength, and engagement signals. Poor scores lead to higher CPMs and slower delivery." },
-	{ text: "/fix-roas", x: 60, y: 44, url: "https://blog.rockads.com/how-to-diagnose-and-fix-poor-roas-in-meta-ads/", desc: "Diagnose poor ROAS through funnel breakdown, audience saturation, and creative fatigue — then fix it with targeted optimizations." },
-	{ text: "/ppc-automation", x: 86, y: 46, url: "https://blog.rockads.com/signs-your-ppc-campaigns-need-automation/", desc: "Five clear signs your PPC campaigns need automation — constant manual bid adjustments, multi-platform chaos, and budget waste." },
+	{ text: "/fix-roas", x: 60, y: 44, url: "https://blog.rockads.com/how-to-diagnose-and-fix-poor-roas-in-meta-ads/", desc: "Diagnose poor ROAS through funnel breakdown, audience saturation, and creative fatigue, then fix it with targeted optimizations." },
+	{ text: "/ppc-automation", x: 86, y: 46, url: "https://blog.rockads.com/signs-your-ppc-campaigns-need-automation/", desc: "Five clear signs your PPC campaigns need automation, constant manual bid adjustments, multi-platform chaos, and budget waste." },
 	{ text: "/ad-fatigue", x: 6, y: 54, url: "https://blog.rockads.com/what-is-ad-fatigue-and-how-to-beat-it-in-your-meta-tiktok-campaigns/", desc: "When audiences see the same ads too often, CTR drops and CPC rises. Rotate creatives weekly and cap frequency at 3–4." },
 	{ text: "/automation-roi", x: 72, y: 54, url: "https://blog.rockads.com/how-to-calculate-roi-from-ppc-automation-tools/", desc: "Calculate the true return from PPC automation by measuring time savings, performance lifts, and reduced manual overhead." },
 	{ text: "/meta-dropshipping", x: 18, y: 66, url: "https://blog.rockads.com/how-to-run-meta-ads-for-dropshipping/", desc: "Step-by-step guide to running profitable Meta Ads for dropshipping with niche targeting, Pixel setup, and optimized placements." },
 	{ text: "/tiktok-blackfriday", x: 52, y: 64, url: "https://blog.rockads.com/essential-tiktok-marketing-tips-to-supercharge-your-black-friday-campaigns/", desc: "Supercharge Black Friday campaigns on TikTok with trending content, retargeting strategies, and compelling ad creatives." },
 	{ text: "/ai-marketing", x: 82, y: 66, url: "https://blog.rockads.com/revolutionize-your-marketing-how-artificial-intelligence-is-changing-the-game/", desc: "AI is transforming marketing through advanced data analysis, personalized campaigns, chatbots, and automated optimization." },
-	{ text: "/blackfriday-checklist", x: 4, y: 78, url: "https://blog.rockads.com/ultimate-black-friday-checklist-for-performance-marketers/", desc: "The ultimate performance marketing checklist for Black Friday — from audience setup to creative testing and budget planning." },
+	{ text: "/blackfriday-checklist", x: 4, y: 78, url: "https://blog.rockads.com/ultimate-black-friday-checklist-for-performance-marketers/", desc: "The ultimate performance marketing checklist for Black Friday, from audience setup to creative testing and budget planning." },
 	{ text: "/tiktok-shadowban", x: 36, y: 76, url: "https://blog.rockads.com/tiktok-shadowban-what-is-it-and-how-to-get-unshadowbanned/", desc: "TikTok can silently limit your reach if you violate guidelines. Learn how to detect a shadowban and recover your visibility." },
-	{ text: "/community-guidelines", x: 66, y: 78, url: "https://blog.rockads.com/behind-the-scenes-of-tiktoks-community-guidelines/", desc: "Explore the content policies TikTok enforces to maintain a safe environment — from hate speech rules to copyright enforcement." },
+	{ text: "/community-guidelines", x: 66, y: 78, url: "https://blog.rockads.com/behind-the-scenes-of-tiktoks-community-guidelines/", desc: "Explore the content policies TikTok enforces to maintain a safe environment, from hate speech rules to copyright enforcement." },
 	{ text: "/google-suspensions", x: 24, y: 90, url: "https://blog.rockads.com/understanding-and-overcoming-circumventing-systems-suspensions/", desc: "Google Ads account suspended for circumventing systems? Learn why it happens and the exact steps to appeal and recover." },
 ];
 
@@ -224,15 +224,14 @@ const motionTransitionDelayed = { ...motionTransition, delay: 0.06 };
 				:in-view-options="{ once: true, amount: 0.35 }"
 				:transition="motionTransition"
 			>
-				<span class="inline-flex w-fit items-center rounded-full border border-(--glossary-pill-border) bg-(--glossary-pill-bg) px-4 py-2 text-xs font-medium tracking-[0.16em] text-(--glossary-pill-text) lg:px-6 lg:py-3 lg:text-sm">
+				<span class="text-xs font-medium tracking-[0.2em] text-foreground/40 uppercase">
 					GLOSSARY
 				</span>
 				<h2
 					id="glossary-heading"
-					class="text-[28px] leading-[36px] font-medium tracking-[-0.02em] text-(--glossary-title) md:text-[36px] md:leading-[44px] lg:text-[40px] lg:leading-[48px]"
+					class="text-[28px] leading-[1.2] font-medium tracking-[-0.02em] text-(--glossary-title) md:text-[36px] lg:text-[40px] lg:leading-[1.15]"
 				>
-					Field notes from our
-					<span class="text-primary">blog</span>
+					Live from inside the platforms.
 				</h2>
 			</Motion>
 

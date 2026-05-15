@@ -1,58 +1,56 @@
 <script setup lang="ts">
-import { LineShadowText } from "@/components/ui/line-shadow-text";
-import EncryptedText from "@/components/ui/encrypted-text/EncryptedText.vue";
-import { TextReveal } from "@/components/ui/text-reveal";
+import { Button } from "@/components/ui/button";
 </script>
 
 <template>
 	<section class="footer-shell">
 		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-12 text-center sm:py-16 lg:px-12">
-			<!-- <p class="mb-12 text-base tracking-(--footer-kicker-tracking) text-(--footer-kicker-color) uppercase">
-				The only partner you'll ever need.
-			</p> -->
-			<EncryptedText
-				text="The only partner you'll ever need."
-				encrypted-class="text-neutral-500"
-				revealed-class="text-(--footer-kicker-color)"
-				class="mb-8 text-sm tracking-(--footer-kicker-tracking) uppercase sm:mb-12 sm:text-base"
-				:reveal-delay-ms="50"
-			/>
 
-			<div class="relative flex min-h-[233px] w-full max-w-[492px] flex-col items-center gap-9">
+			<!-- Kicker -->
+			<span class="mb-8 text-xs font-medium tracking-[0.2em] text-(--footer-kicker-color) uppercase sm:mb-10">
+				THE ONLY PARTNER YOU'LL EVER NEED
+			</span>
+
+			<div class="relative flex w-full max-w-[580px] flex-col items-center gap-8">
+
+				<!-- Glow ellipse -->
 				<div
-					class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[200px] w-[240px] max-w-[calc(100%+2rem)] -translate-x-1/2 -translate-y-1/2 sm:h-[260px] sm:w-[300px] md:h-[350px] md:w-[400px] lg:h-[458px] lg:w-[536px]"
+					class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[200px] w-[240px] -translate-x-1/2 -translate-y-1/2 sm:h-[300px] sm:w-[360px] lg:h-[460px] lg:w-[540px]"
 					aria-hidden="true"
 				>
 					<div class="footer-hero-ellipse size-full rounded-full" />
 				</div>
 
-				<div
-					class="relative z-10 w-full max-w-(--footer-headline-max-width)"
-				>
-					<TextReveal>
-						<LineShadowText
-							class="text-[32px] leading-[40px] font-normal text-white italic sm:text-[40px] sm:leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-							shadow-color="white"
-						>
-							Stable.
-						</LineShadowText>
+				<!-- Headline -->
+				<h2 class="relative z-10 text-[34px] leading-[1.1] font-extrabold tracking-[-0.03em] text-white sm:text-[48px] lg:text-[64px]">
+					Ready to run without limits?
+				</h2>
 
-						<p class="text-[32px] leading-[42px] sm:text-[40px] sm:leading-[50px] md:text-[52px] md:leading-[65px] lg:text-[68px] lg:leading-[88px]">
-							<em class="footer-enduring text-(--footer-accent-color)">Enduring.</em>
-						</p>
+				<!-- Description -->
+				<p class="relative z-10 max-w-[400px] text-[15px] leading-[1.7] text-(--footer-description-color)">
+					Talk to us. We'll show you exactly what changes when the infrastructure is right.
+				</p>
 
-						<LineShadowText
-							class="text-[32px] leading-[40px] font-normal text-white italic sm:text-[40px] sm:leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-							shadow-color="white"
+				<!-- CTAs -->
+				<div class="relative z-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+					<Button as-child>
+						<NuxtLink
+							to="/contact-us"
+							class="px-8! py-[14px] sm:px-10! sm:py-6"
 						>
-							Limitless.
-						</LineShadowText>
-					</TextReveal>
+							Book a Call
+						</NuxtLink>
+					</Button>
+					<Button as-child variant="outline" class="border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white">
+						<NuxtLink
+							to="/services/tech"
+							class="px-8! py-[14px] sm:px-10! sm:py-6"
+						>
+							Explore Features
+						</NuxtLink>
+					</Button>
 				</div>
 
-				<p class="relative z-10 max-w-(--footer-description-max-width) px-4 text-sm leading-5 text-(--footer-description-color) sm:px-0">
-					When others come and go, we'll still be here. Join the infrastructure built to last.
-				</p>
 			</div>
 		</div>
 	</section>
@@ -60,21 +58,11 @@ import { TextReveal } from "@/components/ui/text-reveal";
 
 <style scoped>
 .footer-shell {
-	--footer-bg-color: #080b0f;
+	--footer-bg-color: #060a14;
 	--footer-kicker-color: #898fa5;
-	--footer-accent-color: #f6ca9a;
 	--footer-description-color: #9fa6bb;
-	--footer-border-color: #23293a;
-	--footer-link-color: #747a8e;
-	--footer-link-hover-color: #a3abc1;
-	--footer-separator-color: #3a4153;
-	--footer-copyright-color: #4b5061;
-
 	--footer-max-width: 1440px;
 	--footer-hero-min-height: 420px;
-	--footer-headline-max-width: 536px;
-	--footer-description-max-width: 372px;
-	--footer-kicker-tracking: 0.3em;
 
 	background-color: var(--footer-bg-color);
 }
@@ -85,27 +73,12 @@ import { TextReveal } from "@/components/ui/text-reveal";
 	}
 }
 
-@media (min-width: 768px) {
-	.footer-shell {
-		--footer-hero-min-height: 580px;
-	}
-}
-
 @media (min-width: 1024px) {
 	.footer-shell {
-		--footer-hero-min-height: 686px;
+		--footer-hero-min-height: 620px;
 	}
 }
 
-/* Fraunces italic bold — matches Figma footer headline accent (SOFT / WONK axes) */
-.footer-enduring {
-	font-family: var(--font-fraunces);
-	font-style: italic;
-	font-weight: 700;
-	font-variation-settings: "SOFT" 0, "WONK" 1;
-}
-
-/* Figma footer CTA: large blurred ellipse behind headline stack (node 19822:38117) */
 .footer-hero-ellipse {
 	background: radial-gradient(
 		ellipse 75% 72% at 50% 50%,

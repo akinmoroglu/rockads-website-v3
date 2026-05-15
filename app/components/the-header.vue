@@ -38,7 +38,7 @@ const mobileResourcesOpen = ref(false);
 
 const desktopLinks = [
 	// { label: "Solutions", href: "/solutions" },
-	{ label: "Plans", href: "/plans" },
+	{ label: "Pricing", href: "/plans" },
 	{ label: "Sign In", href: "/signin" },
 ];
 
