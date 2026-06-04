@@ -66,7 +66,7 @@ const creativeTypes = [
 const audienceCards = [
 	{
 		title: "E-Commerce Brands",
-		body: "A complete tech stack for brands scaling globally — from creative production to campaign deployment to automated optimization. No more stitching together five different tools.",
+		body: "A complete tech stack for brands scaling globally, from creative production to campaign deployment to automated optimization. No more stitching together five different tools.",
 		icon: IconShoppingBag,
 	},
 	{
@@ -100,7 +100,7 @@ const audienceCards = [
 					From campaign creation to compliance, from automation to creative intelligence and more… Everything you need to run, scale, and protect your global operations.
 				</p>
 				<p class="hero-anim hero-anim-4 mt-4 max-w-[1066px] text-sm leading-relaxed lg:mt-5 lg:text-base">
-					Running global ad operations across platforms, markets, and teams demands more than a collection of disconnected tools. It demands an integrated system where every action — from launching a campaign to checking compliance, from reallocating budget to generating creatives — flows through one intelligent layer. That's Rockads.
+					Running global ad operations across platforms, markets, and teams demands more than a collection of disconnected tools. It demands an integrated system where every action, from launching a campaign to checking compliance, from reallocating budget to generating creatives, flows through one intelligent layer. That's Rockads.
 				</p>
 				<div class="hero-anim hero-anim-5 mt-8 lg:mt-10">
 					<Button
@@ -133,7 +133,7 @@ const audienceCards = [
 						class="reveal mt-6 text-sm leading-relaxed text-white lg:text-base"
 						style="--rv-y: 16px; --rv-dur: 0.55s; --rv-delay: 0.1s"
 					>
-						Your operations, on autopilot. Eliminate manual bottlenecks across campaign management, budget allocation, and performance optimization. Rule-based actions, smart budget redistribution, and scheduled operations — all running across every platform.
+						Your operations, on autopilot. Eliminate manual bottlenecks across campaign management, budget allocation, and performance optimization. Rule-based actions, smart budget redistribution, and scheduled operations, all running across every platform.
 					</p>
 				</div>
 				<div

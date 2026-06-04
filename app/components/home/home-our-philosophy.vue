@@ -2,18 +2,18 @@
 const items = [
 	{
 		id: "access",
-		title: "Start advertising everywhere. Today.",
-		body: "You are connected from day one. Meta, TikTok, Google, Snapchat, and X. No setup friction. No waiting. Just access.",
+		title: "Start advertising everywhere. Now.",
+		body: "You are connected from day one. Meta, TikTok, Google, Snapchat, and X. No setup friction. No waiting. Go live.",
 	},
 	{
 		id: "live",
-		title: "Your business never misses a day.",
-		body: "Every platform has rules. We've spent years encoding them, so your campaigns keep running. Whatever happens.",
+		title: "Always on, always running.",
+		body: "Years inside these platforms taught us what keeps business live. That experience is now part of every system we operate. Keeping your business running. Every day.",
 	},
 	{
 		id: "ceiling",
-		title: "The ceiling isn't yours.",
-		body: "Spend more. Enter new markets. Scale faster. Whatever's been blocking you, we've already built around it.",
+		title: "Room to scale. No limits.",
+		body: "Spend more. New markets. Faster growth. Whatever was holding you back, the path forward is already cleared.",
 	},
 ];
 </script>
@@ -29,7 +29,7 @@ const items = [
 
 			<!-- Enabler Statement -->
 			<h2 class="mt-3 max-w-[680px] text-[28px] font-medium leading-[1.2] text-white md:text-[34px] lg:text-[40px] lg:leading-[1.15]">
-				We don't run your ads. We make sure nothing can stop you from running them.
+				Your ads run. We make sure they never stop.
 			</h2>
 
 			<!-- Three items — editorial stack -->

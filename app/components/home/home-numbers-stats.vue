@@ -14,6 +14,30 @@ type Stat = {
 
 const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
+type RtbItem = {
+	title: string;
+	body: string;
+};
+
+const rtbItems: RtbItem[] = [
+	{
+		title: "Official Partners. Not Resellers.",
+		body: "Not intermediaries. Official partners with Meta, TikTok, Google, Snapchat, and X. Priority support, higher limits, and a direct line when something needs to move fast.",
+	},
+	{
+		title: "Five Years Inside the Platforms.",
+		body: "Through every policy cycle, every market shift. That exposure became institutional knowledge. It is what we operate on.",
+	},
+	{
+		title: "150+ Markets. Zero Border Friction.",
+		body: "Cross-border payments, capital routing, compliance: handled. Your spend never stops because of a banking problem.",
+	},
+	{
+		title: "AI-Powered Operations.",
+		body: "Every tool starts with one question: what slows a partner down? The answer handles what used to require a full ops team. Automatically, in real time.",
+	},
+];
+
 const stats: Stat[] = [
 	{ numericValue: 2020, from: 2017, suffix: "", label: "In market since", duration: 1.5, delay: 0 },
 	{ numericValue: 400, from: 0, suffix: "+", label: "Active Partners", duration: 2, delay: 0.1 },
@@ -52,9 +76,34 @@ function staticStatDisplay(stat: Stat): string {
 					Working with us is a positioning decision.
 				</h2>
 				<p class="max-w-[560px] text-[15px] leading-[1.7] text-white/60">
-					Official platform partnerships. Institutional know-how built over years, not months. A team that has been in this ecosystem since before it was crowded.
+					Five years of building the real thing. Official partnerships with every major platform. Financial infrastructure that moves capital across borders without friction. Institutional knowledge earned through every policy cycle, every market shift.
 				</p>
 			</Motion>
+
+			<!-- RTB Grid -->
+			<div class="grid w-full grid-cols-1 gap-6 border-y border-white/10 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+				<Motion
+					v-for="(item, index) in rtbItems"
+					:key="item.title"
+					as="div"
+					class="flex flex-col gap-2"
+					:initial="{ opacity: 0, y: 16 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.2 }"
+					:transition="{
+						duration: 0.5,
+						delay: index * 0.08,
+						ease: [0.16, 1, 0.3, 1],
+					}"
+				>
+					<span class="text-sm font-semibold text-white">
+						{{ item.title }}
+					</span>
+					<p class="text-sm leading-relaxed text-white/50">
+						{{ item.body }}
+					</p>
+				</Motion>
+			</div>
 
 			<!-- Stats -->
 			<div
@@ -95,6 +144,9 @@ function staticStatDisplay(stat: Stat): string {
 				</Motion>
 			</div>
 
+			<p class="text-sm font-medium tracking-wide text-white/40">
+				That comes with your name on our platform.
+			</p>
 		</div>
 	</section>
 </template>

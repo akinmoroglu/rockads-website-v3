@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import HomeOrchestration from "@/components/home/home-orchestration.vue";
 import HomeGlossaryCloud from "@/components/home/home-glossary-cloud.vue";
 import HomeGlobalExpansion from "@/components/home/home-global-expansion.vue";
 import HomeHeroBanner from "@/components/home/home-hero-banner.vue";
 import HomeNumbersStats from "@/components/home/home-numbers-stats.vue";
 import HomeOurPhilosophy from "@/components/home/home-our-philosophy.vue";
-import HomeThreePillars from "@/components/home/home-three-pillars-v2.vue";
+import HomeHowWeDoIt from "@/components/home/home-how-we-do-it.vue";
+import HomeWhoWeServe from "@/components/home/home-who-we-serve.vue";
 import HomeCta from "@/components/home/home-cta.vue";
 
 definePageMeta({
@@ -32,8 +34,10 @@ onMounted(() => {
 <template>
 	<main class="w-full">
 		<HomeHeroBanner />
-		<HomeThreePillars />
 		<HomeOurPhilosophy />
+		<HomeHowWeDoIt />
+		<HomeOrchestration />
+		<HomeWhoWeServe />
 		<HomeGlobalExpansion />
 		<HomeNumbersStats />
 		<HomeGlossaryCloud />

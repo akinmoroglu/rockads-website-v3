@@ -131,7 +131,7 @@ onMounted(() => {
 					The Plan for Every Stage of Growth
 				</p>
 				<p class="mx-auto mt-6 max-w-[780px] text-sm leading-relaxed text-muted-foreground lg:mt-8 lg:text-base">
-					From your first campaign to enterprise scale — Rockads gives you the tools, the infrastructure, and the partner support to grow without friction. Choose the plan that fits where you are today, and upgrade as you accelerate.
+					From your first campaign to enterprise scale, Rockads gives you the tools, the infrastructure, and the partner support to grow without friction. Choose the plan that fits where you are today, and upgrade as you accelerate.
 				</p>
 				<Button
 					as-child
@@ -302,7 +302,7 @@ onMounted(() => {
 									Sales Strategy
 								</p>
 								<p class="text-sm leading-relaxed text-muted-foreground">
-									Strategic growth planning, budget management, and media support for your business — <strong class="text-foreground">360-degree</strong> support to increase profitability.
+									Strategic growth planning, budget management, and media support for your business, <strong class="text-foreground">360-degree</strong> support to increase profitability.
 								</p>
 							</div>
 

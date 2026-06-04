@@ -83,7 +83,7 @@ const title = computed(() => {
 const subtitle = computed(() => {
 	switch (currentStep.value) {
 		case 1:
-			return "Pick the option that fits you best — we'll tailor the rest.";
+			return "Pick the option that fits you best, we'll tailor the rest.";
 		case 2:
 			return "A few business details so we can verify your account.";
 		case 3:

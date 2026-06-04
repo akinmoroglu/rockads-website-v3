@@ -182,7 +182,7 @@ const openChat = () => {
 					:animate="{ opacity: 1, y: 0 }"
 					:transition="{ duration: 0.55, delay: 0.17, ease: [0.16, 1, 0.3, 1] }"
 				>
-					Whether you have a question about our platform, need help getting started, or want to explore a partnership — our team is ready to connect.
+					Whether you have a question about our platform, need help getting started, or want to explore a partnership, our team is ready to connect.
 				</Motion>
 			</div>
 		</section>

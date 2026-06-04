@@ -159,7 +159,7 @@ const logoHref = computed(() => {
 					<span class="text-white/70">Grow Your Revenue.</span>
 				</h2>
 				<p class="mt-4 max-w-sm text-base leading-relaxed text-white/55">
-					Everything you need to run profitable ad campaigns — all in one place.
+					Everything you need to run profitable ad campaigns, all in one place.
 				</p>
 
 				<ul class="mt-10 space-y-4">

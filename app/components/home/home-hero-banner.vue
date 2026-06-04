@@ -103,7 +103,7 @@ onUnmounted(() => {
 				:animate="{ opacity: 1, y: 0 }"
 				:transition="{ duration: 0.45, ease: 'easeOut' }"
 			>
-				Official. Integrated. <span class="italic">Always On.</span>
+				Connected, stable, <span class="italic">limitless.</span>
 			</Motion>
 
 			<Motion
@@ -123,7 +123,7 @@ onUnmounted(() => {
 				:animate="{ opacity: 1, y: 0 }"
 				:transition="{ duration: 0.55, delay: 0.16, ease: 'easeOut' }"
 			>
-				Capital to scale. Platforms to run. Infrastructure that never stops. Everything agencies and brands need to grow, in one place.
+				Start advertising on every major platform today.<br />Stay live, stay compliant, scale without a ceiling.<br />All of it, already in place.
 			</Motion>
 
 			<Motion
@@ -158,7 +158,7 @@ onUnmounted(() => {
 				<p class="text-center text-xs tracking-[0.02em] text-white/40">
 					OFFICIAL PLATFORM PARTNERS
 				</p>
-				<div class="flex items-center gap-4">
+				<div class="flex w-full max-w-[560px] items-center justify-between sm:max-w-[680px]">
 					<Motion
 						v-for="(icon, index) in partnerIcons"
 						:key="icon.label"

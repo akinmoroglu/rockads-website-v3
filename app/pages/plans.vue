@@ -272,7 +272,7 @@ const plans: PricingPlan[] = [
 								Sales Strategy
 							</p>
 							<p class="text-sm leading-relaxed text-muted-foreground">
-								Strategic growth planning, budget management, and media support for your business — <strong class="text-foreground">360-degree</strong> support to increase profitability.
+								Strategic growth planning, budget management, and media support for your business, <strong class="text-foreground">360-degree</strong> support to increase profitability.
 							</p>
 						</div>
 
@@ -299,7 +299,7 @@ const plans: PricingPlan[] = [
 			</div>
 		</section>
 
-		<!-- TODO: Pricing Cards Section temporarily hidden — re-enable when finalized. -->
+		<!-- TODO: Pricing Cards Section temporarily hidden, re-enable when finalized. -->
 		<section
 			v-if="false"
 			class="bg-muted/40 px-4 py-14 sm:px-6 lg:px-12 lg:py-20 xl:px-[150px]"
