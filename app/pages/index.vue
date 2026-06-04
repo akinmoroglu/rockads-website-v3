@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import HomeOrchestration from "@/components/home/home-orchestration.vue";
 import HomeGlossaryCloud from "@/components/home/home-glossary-cloud.vue";
-import HomeGlobalExpansion from "@/components/home/home-global-expansion.vue";
 import HomeHeroBanner from "@/components/home/home-hero-banner.vue";
 import HomeNumbersStats from "@/components/home/home-numbers-stats.vue";
 import HomeOurPhilosophy from "@/components/home/home-our-philosophy.vue";
@@ -38,7 +37,6 @@ onMounted(() => {
 		<HomeHowWeDoIt />
 		<HomeOrchestration />
 		<HomeWhoWeServe />
-		<HomeGlobalExpansion />
 		<HomeNumbersStats />
 		<HomeGlossaryCloud />
 		<HomeCta />
