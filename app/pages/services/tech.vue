@@ -427,10 +427,9 @@ const audienceCards = [
 }
 
 .tech-closing-enduring {
-	font-family: var(--font-fraunces);
+	font-family: var(--font-sans);
 	font-style: italic;
 	font-weight: 700;
-	font-variation-settings: "SOFT" 0, "WONK" 1;
 }
 
 .tech-closing-ellipse {

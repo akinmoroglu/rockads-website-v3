@@ -1,6 +1,6 @@
 /* Tailwind CSS v4 */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,WONK@0,9..144,100..900,0..1;1,9..144,100..900,0..1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -45,8 +45,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --color-surface-cream: var(--surface-cream);
 	--color-surface-dark: var(--surface-dark);
-  /* Marketing display / Figma headline accent (e.g. footer "Enduring.") */
-  --font-fraunces: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  /* Primary sans — Rockads Design System: Red Hat Display */
+  --font-sans: "Red Hat Display", ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 :root {
@@ -57,7 +57,7 @@
 	--card-foreground: oklch(0.18 0.02 260);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.18 0.02 260);
-	--primary: oklch(0.55 0.17 240);
+	--primary: oklch(0.571 0.193 245); /* Rockads brand primary: #007ce1 */
 	--primary-foreground: oklch(0.99 0 0);
 	--secondary: oklch(0.95 0.01 240);
 	--secondary-foreground: oklch(0.18 0.02 260);
@@ -68,8 +68,8 @@
 	--destructive: oklch(0.55 0.22 25);
 	--border: oklch(0.92 0.008 245);
 	--input: oklch(0.92 0.008 245);
-	--ring: oklch(0.55 0.17 240);
-	--chart-1: oklch(0.55 0.17 240);
+	--ring: oklch(0.571 0.193 245); /* #007ce1 */
+	--chart-1: oklch(0.571 0.193 245);
 	--chart-2: oklch(0.7 0.15 165);
 	--chart-3: oklch(0.78 0.14 80);
 	--chart-4: oklch(0.55 0.22 25);
@@ -86,6 +86,13 @@
 	--header-border: oklch(0.2178 0 0);
 	--surface-cream: oklch(0.9744 0.0203 74.66);
 	--surface-dark: oklch(0.2215 0.0235 262.33);
+	/* Rockads brand tokens — use these for non-shadcn components */
+	--brand-primary: #007ce1;
+	--brand-secondary: #00c088;
+	--brand-dark: #151b26;
+	--brand-success: #00c088;
+	--brand-warning: #f59e0b;
+	--brand-error: #ef4444;
 	--marketing-header-height: 4.5rem;
 	--marketing-header-height-lg: 6.25rem;
 }

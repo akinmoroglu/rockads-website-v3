@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm dev *)",
+      "Bash(pnpm approve-builds *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(open *)",
+      "Bash(env)",
+      "mcp__plugin_vercel_vercel__get_project",
+      "mcp__plugin_vercel_vercel__list_deployments",
+      "Bash(vercel --version)",
+      "Bash(npm i *)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "shadcnVue"
+  ]
+}

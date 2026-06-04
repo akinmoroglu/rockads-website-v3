@@ -71,26 +71,26 @@ onUnmounted(() => {
 	>
 		<!-- Left glow -->
 		<div
-			class="pointer-events-none absolute left-0 top-0 z-0 h-full w-[48%] origin-left transition-transform duration-700 ease-out"
+			class="pointer-events-none absolute left-[-20rem] top-0 z-0 h-full w-[52%] origin-left transition-transform duration-700 ease-out"
 			:style="leftGlowMouseStyle"
 			aria-hidden="true"
 		>
 			<img
 				:src="leftGlowAsset"
-				class="h-full w-full object-cover object-right"
+				class="h-full w-full object-contain"
 				alt=""
 			>
 		</div>
 
 		<!-- Right glow -->
 		<div
-			class="pointer-events-none absolute right-0 top-0 z-0 h-full w-[48%] origin-right transition-transform duration-700 ease-out"
+			class="pointer-events-none absolute right-[-20rem] top-0 z-0 h-full w-[52%] origin-right transition-transform duration-700 ease-out"
 			:style="rightGlowMouseStyle"
 			aria-hidden="true"
 		>
 			<img
 				:src="rightGlowAsset"
-				class="h-full w-full object-cover object-left"
+				class="h-full w-full object-contain"
 				alt=""
 			>
 		</div>

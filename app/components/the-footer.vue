@@ -320,12 +320,11 @@ function linkAttrs(link: FooterLink) {
 	background-color: var(--footer-bg-color);
 }
 
-/* Fraunces italic bold — matches Figma footer headline accent (SOFT / WONK axes) */
+/* Italic bold accent — Red Hat Display per Rockads design system */
 .footer-enduring {
-	font-family: var(--font-fraunces);
+	font-family: var(--font-sans);
 	font-style: italic;
 	font-weight: 700;
-	font-variation-settings: "SOFT" 0, "WONK" 1;
 }
 
 /* Figma footer CTA: large blurred ellipse behind headline stack (node 19822:38117) */

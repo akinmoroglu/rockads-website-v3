@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
+import { fileURLToPath } from "node:url";
 
 export default defineNuxtConfig({
 	modules: ["shadcn-nuxt", "@nuxtjs/turnstile", "@nuxt/image", "@zadigetvoltaire/nuxt-gtm"],
@@ -52,6 +53,11 @@ export default defineNuxtConfig({
 
 	vite: {
 		plugins: [tailwindcss()],
+		resolve: {
+			alias: {
+				"@": fileURLToPath(new URL("./app", import.meta.url)),
+			},
+		},
 	},
 	shadcn: {
 		/**
