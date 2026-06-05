@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Motion } from "motion-v";
+
 const items = [
 	{
 		id: "access",
@@ -19,41 +21,60 @@ const items = [
 </script>
 
 <template>
-	<section class="border-y border-white/10 bg-[#070f1d] py-20 text-white lg:py-24">
+	<section class="border-y border-foreground/10 bg-white py-20 text-foreground lg:py-24">
 		<div class="mx-auto w-full max-w-[1440px] px-5 md:px-10 lg:px-12 xl:px-[160px]">
 
 			<!-- Label -->
-			<span class="text-xs font-medium tracking-[0.2em] text-white/40 uppercase">
-				CORE MESSAGES
-			</span>
+			<Motion
+				as="span"
+				class="text-xs font-medium tracking-[0.2em] text-foreground/40 uppercase"
+				:initial="{ opacity: 0, y: 8 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.5 }"
+				:transition="{ duration: 0.4, ease: 'easeOut' }"
+			>
+				OUR PROMISE
+			</Motion>
 
 			<!-- Enabler Statement -->
-			<h2 class="mt-3 max-w-[680px] text-[28px] font-medium leading-[1.2] text-white md:text-[34px] lg:text-[40px] lg:leading-[1.15]">
+			<Motion
+				as="h2"
+				class="mt-3 max-w-[680px] text-[28px] font-medium leading-[1.2] text-foreground md:text-[34px] lg:text-[40px] lg:leading-[1.15]"
+				:initial="{ opacity: 0, y: 12 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.4 }"
+				:transition="{ duration: 0.5, delay: 0.05, ease: 'easeOut' }"
+			>
 				Your ads run. We make sure they never stop.
-			</h2>
+			</Motion>
 
 			<!-- Three items — editorial stack -->
-			<div class="mt-10 flex flex-col divide-y divide-white/10 lg:mt-12">
-				<div
+			<div class="mt-10 flex flex-col divide-y divide-foreground/10 lg:mt-12">
+				<Motion
 					v-for="(item, index) in items"
 					:key="item.id"
+					as="div"
 					class="flex flex-col gap-3 py-7 md:flex-row md:items-start md:gap-0 md:py-9"
+					:initial="{ opacity: 0, y: 16 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.2 }"
+					:transition="{ duration: 0.5, delay: 0.1 + index * 0.1, ease: [0.16, 1, 0.3, 1] }"
 				>
 					<!-- Number -->
-					<span class="w-16 shrink-0 text-xs font-medium tabular-nums text-white/30 md:pt-[5px]">
+					<span class="w-16 shrink-0 text-xs font-medium tabular-nums text-foreground/30 md:pt-[5px]">
 						{{ String(index + 1).padStart(2, '0') }}
 					</span>
 
 					<!-- Title -->
-					<h3 class="shrink-0 text-[20px] font-semibold leading-[1.25] text-[#f2c38b] md:w-[420px] lg:text-[22px]">
+					<h3 class="shrink-0 text-[20px] font-semibold leading-[1.25] text-primary md:w-[420px] lg:text-[22px]">
 						{{ item.title }}
 					</h3>
 
 					<!-- Body -->
-					<p class="max-w-[460px] text-[15px] leading-[1.7] text-white/65 md:ml-auto">
+					<p class="max-w-[460px] text-[15px] leading-[1.7] text-foreground/60 md:ml-auto">
 						{{ item.body }}
 					</p>
-				</div>
+				</Motion>
 			</div>
 
 		</div>

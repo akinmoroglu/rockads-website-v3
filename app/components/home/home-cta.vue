@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Motion } from "motion-v";
 import { Button } from "@/components/ui/button";
 </script>
 
@@ -7,9 +8,16 @@ import { Button } from "@/components/ui/button";
 		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-12 text-center sm:py-16 lg:px-12">
 
 			<!-- Kicker -->
-			<span class="mb-8 text-xs font-medium tracking-[0.2em] text-(--footer-kicker-color) uppercase sm:mb-10">
+			<Motion
+				as="span"
+				class="mb-8 text-xs font-medium tracking-[0.2em] text-(--footer-kicker-color) uppercase sm:mb-10"
+				:initial="{ opacity: 0, y: 8 }"
+				:while-in-view="{ opacity: 1, y: 0 }"
+				:in-view-options="{ once: true, amount: 0.4 }"
+				:transition="{ duration: 0.4, ease: 'easeOut' }"
+			>
 				THE ONLY PARTNER YOU'LL EVER NEED
-			</span>
+			</Motion>
 
 			<div class="relative flex w-full max-w-[580px] flex-col items-center gap-8">
 
@@ -22,17 +30,38 @@ import { Button } from "@/components/ui/button";
 				</div>
 
 				<!-- Headline -->
-				<h2 class="relative z-10 text-[34px] leading-[1.1] font-extrabold tracking-[-0.03em] text-white sm:text-[48px] lg:text-[64px]">
+				<Motion
+					as="h2"
+					class="relative z-10 text-[34px] leading-[1.1] font-extrabold tracking-[-0.03em] text-white sm:text-[48px] lg:text-[64px]"
+					:initial="{ opacity: 0, y: 18, scale: 0.98 }"
+					:while-in-view="{ opacity: 1, y: 0, scale: 1 }"
+					:in-view-options="{ once: true, amount: 0.3 }"
+					:transition="{ duration: 0.6, delay: 0.06, ease: [0.16, 1, 0.3, 1] }"
+				>
 					Ready to run without limits?
-				</h2>
+				</Motion>
 
 				<!-- Description -->
-				<p class="relative z-10 max-w-[400px] text-[15px] leading-[1.7] text-(--footer-description-color)">
+				<Motion
+					as="p"
+					class="relative z-10 max-w-[400px] text-[15px] leading-[1.7] text-(--footer-description-color)"
+					:initial="{ opacity: 0, y: 12 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.3 }"
+					:transition="{ duration: 0.5, delay: 0.14, ease: 'easeOut' }"
+				>
 					Talk to us. We'll show you exactly what changes when the infrastructure is right.
-				</p>
+				</Motion>
 
 				<!-- CTAs -->
-				<div class="relative z-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+				<Motion
+					as="div"
+					class="relative z-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
+					:initial="{ opacity: 0, y: 10 }"
+					:while-in-view="{ opacity: 1, y: 0 }"
+					:in-view-options="{ once: true, amount: 0.3 }"
+					:transition="{ duration: 0.5, delay: 0.22, ease: 'easeOut' }"
+				>
 					<Button as-child>
 						<NuxtLink
 							to="/contact-us"
@@ -49,7 +78,7 @@ import { Button } from "@/components/ui/button";
 							Explore Features
 						</NuxtLink>
 					</Button>
-				</div>
+				</Motion>
 
 			</div>
 		</div>
