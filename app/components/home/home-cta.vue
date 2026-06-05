@@ -7,18 +7,6 @@ import { Button } from "@/components/ui/button";
 	<section class="footer-shell">
 		<div class="mx-auto flex min-h-(--footer-hero-min-height) w-full max-w-(--footer-max-width) flex-col items-center justify-center px-5 py-12 text-center sm:py-16 lg:px-12">
 
-			<!-- Kicker -->
-			<Motion
-				as="span"
-				class="mb-8 text-xs font-medium tracking-[0.2em] text-(--footer-kicker-color) uppercase sm:mb-10"
-				:initial="{ opacity: 0, y: 8 }"
-				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: true, amount: 0.4 }"
-				:transition="{ duration: 0.4, ease: 'easeOut' }"
-			>
-				THE ONLY PARTNER YOU'LL EVER NEED
-			</Motion>
-
 			<div class="relative flex w-full max-w-[580px] flex-col items-center gap-8">
 
 				<!-- Glow ellipse -->

@@ -24,18 +24,6 @@ const items = [
 	<section class="border-y border-foreground/10 bg-white py-20 text-foreground lg:py-24">
 		<div class="mx-auto w-full max-w-[1440px] px-5 md:px-10 lg:px-12 xl:px-[160px]">
 
-			<!-- Label -->
-			<Motion
-				as="span"
-				class="text-xs font-medium tracking-[0.2em] text-foreground/40 uppercase"
-				:initial="{ opacity: 0, y: 8 }"
-				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: true, amount: 0.5 }"
-				:transition="{ duration: 0.4, ease: 'easeOut' }"
-			>
-				OUR PROMISE
-			</Motion>
-
 			<!-- Enabler Statement -->
 			<Motion
 				as="h2"

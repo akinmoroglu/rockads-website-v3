@@ -224,9 +224,6 @@ const motionTransitionDelayed = { ...motionTransition, delay: 0.06 };
 				:in-view-options="{ once: true, amount: 0.35 }"
 				:transition="motionTransition"
 			>
-				<span class="text-xs font-medium tracking-[0.2em] text-foreground/40 uppercase">
-					GLOSSARY
-				</span>
 				<h2
 					id="glossary-heading"
 					class="text-[28px] leading-[1.2] font-medium tracking-[-0.02em] text-(--glossary-title) md:text-[36px] lg:text-[40px] lg:leading-[1.15]"

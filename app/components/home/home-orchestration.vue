@@ -77,9 +77,6 @@ const features = [
 				:transition="{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }"
 			>
 				<div class="flex flex-col gap-4 lg:max-w-[600px]">
-					<span class="text-xs font-medium tracking-[0.2em] text-foreground/40 uppercase">
-						ORCHESTRATION
-					</span>
 					<h2 class="text-[26px] font-medium leading-[1.2] text-foreground md:text-[34px] lg:text-[42px] lg:leading-[1.15]">
 						Manage and Scale Your Ad Operations
 						<span class="font-display italic text-primary"> from a Single Hub</span>

@@ -66,9 +66,6 @@ function staticStatDisplay(stat: Stat): string {
 				:in-view-options="{ once: true, amount: 0.35 }"
 				:transition="{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }"
 			>
-				<span class="text-xs font-medium tracking-[0.2em] text-white/40 uppercase">
-					CREDENTIALS
-				</span>
 				<h2
 					id="numbers-stats-heading"
 					class="max-w-[640px] text-[28px] leading-[1.2] font-medium text-white md:text-[36px] lg:text-[44px] lg:leading-[1.15]"

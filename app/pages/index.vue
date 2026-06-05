@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HomeOrchestration from "@/components/home/home-orchestration.vue";
+import HomePlatformShowcase from "@/components/home/home-platform-showcase.vue";
 import HomeGlossaryCloud from "@/components/home/home-glossary-cloud.vue";
 import HomeHeroBanner from "@/components/home/home-hero-banner.vue";
 import HomeNumbersStats from "@/components/home/home-numbers-stats.vue";
@@ -35,7 +35,7 @@ onMounted(() => {
 		<HomeHeroBanner />
 		<HomeOurPhilosophy />
 		<HomeHowWeDoIt />
-		<HomeOrchestration />
+		<HomePlatformShowcase />
 		<HomeWhoWeServe />
 		<HomeNumbersStats />
 		<HomeGlossaryCloud />

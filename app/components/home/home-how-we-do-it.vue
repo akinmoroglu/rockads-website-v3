@@ -7,17 +7,6 @@ import { Motion } from "motion-v";
 		<div class="mx-auto w-full max-w-[1440px] px-5 md:px-10 lg:px-12 xl:px-[160px]">
 
 			<Motion
-				as="span"
-				class="text-xs font-medium tracking-[0.2em] text-foreground/40 uppercase"
-				:initial="{ opacity: 0, y: 8 }"
-				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: true, amount: 0.5 }"
-				:transition="{ duration: 0.4, ease: 'easeOut' }"
-			>
-				HOW WE DO IT
-			</Motion>
-
-			<Motion
 				as="h2"
 				class="mt-5 max-w-[720px] text-[28px] font-medium leading-[1.2] text-foreground md:text-[36px] lg:text-[44px] lg:leading-[1.15]"
 				:initial="{ opacity: 0, y: 14 }"
