@@ -87,29 +87,23 @@ const audienceCards = [
 		<TheHeader />
 
 		<!-- Hero -->
-		<section class="relative overflow-hidden bg-white">
+		<section class="relative overflow-hidden bg-[#060a14] text-white">
 			<TechServicesDotGridCanvas />
 			<div class="relative mx-auto max-w-[1066px] px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
-				<h1 class="hero-anim hero-anim-1 text-[40px] leading-[1.14] md:text-[48px] lg:text-[56px]">
-					<span class="text-primary">Tech</span> <span class="text-text-base">Services</span>
-				</h1>
-				<p class="hero-anim hero-anim-2 mt-4 text-base font-medium text-foreground lg:mt-5 lg:text-lg">
-					The Full Stack for Global Ad Operations
+				<div class="hero-anim hero-anim-1">
+					<h1 class="rk-display text-white">
+						The operating system for ad-ops at <em>scale.</em>
+					</h1>
+				</div>
+				<p class="hero-anim hero-anim-2 mt-4 text-white/80 font-medium lg:text-lg">
+					Stitching together disconnected tools slows down expansion.
 				</p>
-				<p class="hero-anim hero-anim-3 mt-6 max-w-[1066px] text-sm leading-relaxed lg:mt-8 lg:text-base">
-					From campaign creation to compliance, from automation to creative intelligence and more… Everything you need to run, scale, and protect your global operations.
-				</p>
-				<p class="hero-anim hero-anim-4 mt-4 max-w-[1066px] text-sm leading-relaxed lg:mt-5 lg:text-base">
-					Running global ad operations across platforms, markets, and teams demands more than a collection of disconnected tools. It demands an integrated system where every action, from launching a campaign to checking compliance, from reallocating budget to generating creatives, flows through one intelligent layer. That's Rockads.
+				<p class="hero-anim hero-anim-3 mt-6 max-w-[1066px] text-white/55 text-sm leading-relaxed lg:text-base">
+					Rockads unifies campaign deployment, automated optimization, real-time policy monitoring, and creative generation into a single intelligence layer. Everything you need to run, scale, and protect your global operations.
 				</p>
 				<div class="hero-anim hero-anim-5 mt-8 lg:mt-10">
-					<Button
-						as-child
-					>
-						<NuxtLink
-							to="/register"
-							class="px-10! py-6"
-						>
+					<Button as-child>
+						<NuxtLink to="/register" class="px-10! py-6 bg-primary hover:bg-primary-600 text-white font-medium rounded-control">
 							Get Started in Minutes
 						</NuxtLink>
 					</Button>
@@ -118,19 +112,19 @@ const audienceCards = [
 		</section>
 
 		<!-- Automation -->
-		<section class="bg-muted/80 px-5 py-12 lg:px-0 lg:py-16">
-			<div class="border-primary-light relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-4xl border bg-surface-dark md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
+		<section class="bg-[#f7f8fb] px-5 py-12 lg:px-0 lg:py-16">
+			<div class="relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
 				<div class="flex min-w-0 flex-col p-6 sm:p-8 lg:p-12">
 					<h2
 						v-reveal="{ amount: 0.3 }"
-						class="reveal text-2xl leading-tight text-white lg:text-[32px]"
+						class="reveal rk-h2-italic text-white"
 						style="--rv-y: 20px; --rv-dur: 0.55s"
 					>
 						Automation
 					</h2>
 					<p
 						v-reveal="{ amount: 0.3 }"
-						class="reveal mt-6 text-sm leading-relaxed text-white lg:text-base"
+						class="reveal rk-body mt-5 text-white/75"
 						style="--rv-y: 16px; --rv-dur: 0.55s; --rv-delay: 0.1s"
 					>
 						Your operations, on autopilot. Eliminate manual bottlenecks across campaign management, budget allocation, and performance optimization. Rule-based actions, smart budget redistribution, and scheduled operations, all running across every platform.
@@ -150,17 +144,17 @@ const audienceCards = [
 		</section>
 
 		<!-- Ad Launcher + Compliance AI -->
-		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-16">
+		<section class="bg-[#f7f8fb] px-5 pb-12 lg:px-0 lg:pb-16">
 			<div class="mx-auto grid max-w-[1140px] gap-6 md:grid-cols-2 lg:gap-8">
 				<div
 					v-reveal="{ amount: 0.15 }"
-					class="reveal border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12"
+					class="reveal flex min-w-0 flex-col rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
 				>
-					<h2 class="text-2xl leading-tight lg:text-[32px]">
-						Ad Launcher
+					<h2 class="rk-h2-italic text-foreground">
+						One launch. Every <em>platform.</em>
 					</h2>
-					<p class="mt-6 text-sm leading-relaxed lg:text-base">
-						One launch. Every platform. Every market. Build once, customize per market, and deploy across Meta, Google, TikTok, Snapchat, and X simultaneously. Unified campaign builder, market-specific customization, and instant multi-platform deployment.
+					<p class="rk-body mt-5 text-foreground/75">
+						Build once, customize per market, and deploy across Meta, Google, TikTok, Snapchat, and X simultaneously. Unified campaign builder, market-specific customization, and instant multi-platform deployment.
 					</p>
 					<div class="mt-8 flex flex-wrap gap-3.5">
 						<div
@@ -176,14 +170,14 @@ const audienceCards = [
 				</div>
 				<div
 					v-reveal="{ amount: 0.15 }"
-					class="reveal border-primary-light flex min-w-0 flex-col rounded-4xl border bg-card p-8 lg:p-12"
+					class="reveal flex min-w-0 flex-col rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
 					style="--rv-delay: 0.12s"
 				>
-					<h2 class="text-2xl leading-tight lg:text-[32px]">
-						Compliance AI
+					<h2 class="rk-h2-italic text-foreground">
+						Stay compliant. Stay <em>live.</em>
 					</h2>
-					<p class="mt-6 text-sm leading-relaxed lg:text-base">
-						Stay compliant. Stay live. Stay ahead. Continuously monitor campaigns, creatives, and account health across every platform. Pre-publish policy scanning, real-time risk monitoring, and cross-border regulatory intelligence.
+					<p class="rk-body mt-5 text-foreground/75">
+						Continuously monitor campaigns, creatives, and account health across every platform. Pre-publish policy scanning, real-time risk monitoring, and cross-border regulatory intelligence.
 					</p>
 					<div class="mt-10 flex w-full justify-start overflow-hidden">
 						<ComplianceAiAnimated />
@@ -193,18 +187,18 @@ const audienceCards = [
 		</section>
 
 		<!-- AI Creative Studio -->
-		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
+		<section class="bg-[#f7f8fb] px-5 pb-12 lg:px-0 lg:pb-20">
 			<div
 				v-reveal="{ amount: 0.15 }"
-				class="reveal relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl bg-[#e5f1ff] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12"
+				class="reveal relative mx-auto max-w-[1140px] overflow-hidden rounded-2xl border border-primary/10 bg-[#e6f2fc] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12"
 				style="--rv-y: 32px; --rv-dur: 0.65s"
 			>
 				<div class="mx-auto max-w-[656px] text-center">
-					<h2 class="text-2xl leading-tight lg:text-[32px]">
-						AI Creative Studio
+					<h2 class="rk-h2-italic text-foreground">
+						Creatives that perform. At any <em>scale.</em>
 					</h2>
-					<p class="mt-4 text-sm leading-relaxed lg:mt-6 lg:text-base">
-						Creatives that perform. At any scale. Generate, iterate, and optimize ad creatives with AI powered by real-time performance data. From product feeds to multi-format output, with automated localization and brand consistency.
+					<p class="rk-body mt-5 text-foreground/75">
+						Generate, iterate, and optimize ad creatives with AI powered by real-time performance data. From product feeds to multi-format output, with automated localization and brand consistency.
 					</p>
 				</div>
 				<div class="mt-10 grid place-items-center gap-4">
@@ -218,9 +212,9 @@ const audienceCards = [
 		</section>
 
 		<!-- How it works + audiences -->
-		<section class="bg-muted/80 px-5 pb-12 lg:px-0 lg:pb-20">
+		<section class="bg-[#f7f8fb] px-5 pb-12 lg:px-0 lg:pb-20">
 			<div
-				class="border-primary-light relative mx-auto max-w-[1140px] overflow-hidden rounded-4xl border bg-[#f7f9fb]"
+				class="relative mx-auto max-w-[1140px] overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
 			>
 				<TechServicesDotGridCanvas variant="lightCard" />
 				<div
@@ -231,13 +225,13 @@ const audienceCards = [
 						class="reveal max-w-none xl:max-w-[447px]"
 						style="--rv-y: 24px"
 					>
-						<h2 class="text-2xl leading-tight lg:text-[32px]">
-							How It Works Together
+						<h2 class="rk-h2-italic text-foreground">
+							How it works <em>together.</em>
 						</h2>
-						<p class="mt-6 text-base leading-relaxed">
+						<p class="rk-body mt-5 text-foreground/75">
 							AI Creative Studio generates ad creatives from your product feed and brand assets. Compliance AI scans every creative and campaign configuration for policy compliance before launch. Ad Launcher deploys compliant campaigns across all platforms and markets simultaneously.
 						</p>
-						<p class="mt-4 text-base leading-relaxed">
+						<p class="rk-body mt-4 text-foreground/75">
 							Automation monitors performance and automatically optimizes budgets, pauses underperformers, and scales winners. Performance data feeds back into AI Creative Studio to generate better-performing creative iterations.
 						</p>
 					</div>
@@ -246,7 +240,7 @@ const audienceCards = [
 							v-for="(a, index) in audienceCards"
 							:key="a.title"
 							v-reveal="{ amount: 0.1 }"
-							class="reveal flex flex-col gap-6 rounded-2xl bg-card p-6 shadow-sm"
+							class="reveal flex flex-col gap-6 rounded-xl border border-border bg-card p-6 shadow-xs"
 							:style="{ '--rv-y': '24px', '--rv-dur': '0.55s', '--rv-delay': `${index * 0.1}s` }"
 						>
 							<component
@@ -255,10 +249,10 @@ const audienceCards = [
 								stroke-width="1.5"
 							/>
 							<div class="flex flex-col gap-4">
-								<h3 class="text-xl leading-7">
+								<h3 class="rk-h3 text-foreground">
 									{{ a.title }}
 								</h3>
-								<p class="text-sm leading-normal text-foreground/50">
+								<p class="rk-body-sm">
 									{{ a.body }}
 								</p>
 							</div>

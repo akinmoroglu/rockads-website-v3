@@ -61,28 +61,25 @@ const dashboardBullets = [
 		<TheHeader />
 
 		<!-- Hero -->
-		<section class="relative overflow-hidden bg-[#f7f9fb]">
+		<section class="relative overflow-hidden bg-[#060a14] text-white">
 			<HeroDots />
 			<div class="relative mx-auto max-w-[1066px] space-y-8 px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
-				<h1 class="hero-anim hero-anim-1 text-[40px] leading-[1.14] font-medium md:text-[48px] lg:text-[56px]">
-					<span class="text-primary">Core</span> <span class="text-text-base">Services</span>
-				</h1>
-				<div class="hero-anim hero-anim-2 space-y-4">
-					<p class="font-medium lg:text-lg">
-						The Structure Behind Serious Expansion
+				<div class="hero-anim hero-anim-1">
+					<h1 class="rk-display text-white">
+						The structure behind serious <em>expansion.</em>
+					</h1>
+				</div>
+				<div class="hero-anim hero-anim-2 space-y-4 max-w-[800px] mx-auto">
+					<p class="text-white/80 font-medium lg:text-lg">
+						True scale is built on operational certainty, not promises.
 					</p>
-					<p class="max-w-[1066px] text-sm leading-relaxed lg:text-base">
-						True global scale isn't just built on technology. It's built on a foundation of operational excellence. Rockads Core is the operational backbone for advertisers who refuse to slow down. We remove every obstacle that stands between you and sustainable global growth: financial friction, operational gaps, compliance risks, and platform complexity. What remains is a clear, stable path to scale, backed by infrastructure, not promises.
+					<p class="text-white/55 text-sm leading-relaxed lg:text-base">
+						Rockads Core is the operational backbone for advertisers who refuse to slow down. We remove every obstacle that stands between you and sustainable global growth: financial friction, operational gaps, compliance risks, and platform complexity. What remains is a clear, stable path to scale, backed by infrastructure, not promises.
 					</p>
 				</div>
 				<div class="hero-anim hero-anim-3">
-					<Button
-						as-child
-					>
-						<NuxtLink
-							to="/register"
-							class="px-10! py-6"
-						>
+					<Button as-child>
+						<NuxtLink to="/register" class="px-10! py-6 bg-primary hover:bg-primary-600 text-white font-medium rounded-control">
 							Get Started in Minutes
 						</NuxtLink>
 					</Button>
@@ -91,25 +88,24 @@ const dashboardBullets = [
 		</section>
 
 		<!-- Service Cards -->
-		<section class="bg-[#f7f9fb] px-5 lg:px-0">
-			<div class="mx-auto flex max-w-[1141px] flex-col gap-6 lg:gap-8">
+		<section class="bg-[#f7f8fb] py-20 lg:py-24 px-5 lg:px-0">
+			<div class="mx-auto flex max-w-[1140px] flex-col gap-6 lg:gap-8">
 				<!-- Row 1: Financial Infrastructure + Growth Capacity -->
 				<div class="grid gap-6 md:grid-cols-2 lg:gap-8">
 					<!-- Financial Infrastructure -->
 					<div
 						v-reveal="{ amount: 0.15 }"
-						class="reveal flex min-w-0 flex-col overflow-hidden rounded-4xl bg-card p-8 lg:p-12"
+						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
 					>
-						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
-							Financial Infrastructure
-						</h2>
-						<p class="mt-3 text-base text-[#747a8e] lg:text-lg">
-							Resilient foundations. Zero friction.
-						</p>
-						<p class="mt-5 text-sm leading-relaxed lg:text-base">
+						<div>
+							<h2 class="rk-h2-italic text-foreground">
+								Capital and compliance, <em>unlocked.</em>
+							</h2>
+						</div>
+						<p class="rk-body mt-5 text-foreground/75">
 							Our financial infrastructure gives partners more room to operate, greater stability, and the flexibility to move fast. Versatile payment models, flexible settlement structures, compliance-first account foundations, and credit-backed continuity, engineered so your most ambitious moves are never constrained by cash mechanics.
 						</p>
-						<div class="mt-6 flex w-full flex-1 items-end justify-center overflow-hidden pb-2">
+						<div class="mt-8 flex w-full flex-1 items-end justify-center overflow-hidden pb-2">
 							<ServicesCoreFinancialSvg />
 						</div>
 					</div>
@@ -117,19 +113,18 @@ const dashboardBullets = [
 					<!-- Growth Capacity -->
 					<div
 						v-reveal="{ amount: 0.15 }"
-						class="reveal border-primary-light flex min-w-0 flex-col overflow-hidden rounded-4xl p-8 lg:p-12"
-						:style="{ 'backgroundColor': '#e8f4ff', '--rv-delay': '0.12s' }"
+						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl bg-surface-cream p-8 lg:p-12"
+						:style="{ '--rv-delay': '0.12s' }"
 					>
-						<h2 class="text-2xl leading-tight font-medium lg:text-[32px]">
-							Growth Capacity
-						</h2>
-						<p class="mt-3 text-base text-[#747a8e] lg:text-lg">
-							Scale without ceilings.
-						</p>
-						<p class="mt-5 text-sm leading-relaxed lg:text-base">
+						<div>
+							<h2 class="rk-h2-italic text-foreground">
+								Scale without <em>ceilings.</em>
+							</h2>
+						</div>
+						<p class="rk-body mt-5 text-foreground/75">
 							An operating environment designed to absorb expansion without bottlenecks. New markets, increased spend, new accounts. Core's infrastructure scales with you, never against you. There are no artificial limits on where or how fast you can grow.
 						</p>
-						<div class="mt-6 flex w-full flex-1 items-end justify-center overflow-hidden">
+						<div class="mt-8 flex w-full flex-1 items-end justify-center overflow-hidden">
 							<GrowthSvg />
 						</div>
 					</div>
@@ -138,17 +133,14 @@ const dashboardBullets = [
 				<!-- Row 2: Operational Continuity (full width, dark) -->
 				<div
 					v-reveal="{ amount: 0.1 }"
-					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12"
+					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12"
 					style="--rv-y: 32px; --rv-dur: 0.65s"
 				>
 					<div class="flex min-w-0 flex-col pb-8 lg:pb-12">
-						<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
-							Operational Continuity
+						<h2 class="rk-h2-italic text-white">
+							Always on. No <em>exceptions.</em>
 						</h2>
-						<p class="mt-3 text-base font-medium text-white lg:text-lg ">
-							Always on. No exceptions.
-						</p>
-						<p class="mt-5 text-sm leading-relaxed text-white/80 lg:text-base">
+						<p class="rk-body mt-5 text-white/75">
 							Instant, 24/7 top-up support that eliminates the waiting game. When campaigns are live and budgets need to move, we ensure operations keep running. Not tomorrow, not next shift. Now.
 						</p>
 						<ul class="mt-6 flex flex-col gap-3">
@@ -166,7 +158,7 @@ const dashboardBullets = [
 									d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
 									clip-rule="evenodd"
 								/></svg>
-								<span class="text-sm text-white lg:text-base">{{ item }}</span>
+								<span class="rk-body-sm text-white/80">{{ item }}</span>
 							</li>
 						</ul>
 					</div>
@@ -178,20 +170,17 @@ const dashboardBullets = [
 				<!-- Row 3: Strategic Support (dark, reversed layout) -->
 				<div
 					v-reveal="{ amount: 0.1 }"
-					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-surface-dark p-8 md:grid-cols-2 lg:gap-12 lg:p-12"
+					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] p-8 md:grid-cols-2 lg:gap-12 lg:p-12"
 					style="--rv-y: 32px; --rv-dur: 0.65s"
 				>
 					<div class="order-2 flex min-w-0 items-center justify-center overflow-hidden md:order-1">
 						<StrategicSvg />
 					</div>
 					<div class="order-1 flex min-w-0 flex-col md:order-2">
-						<h2 class="text-2xl leading-tight font-medium text-white lg:text-[32px]">
-							Strategic Support
+						<h2 class="rk-h2-italic text-white">
+							Partnership in <em>practice.</em>
 						</h2>
-						<p class="mt-3 text-base font-medium text-white lg:text-lg">
-							Partnership in practice.
-						</p>
-						<p class="mt-5 text-sm leading-relaxed text-white/80 lg:text-base">
+						<p class="rk-body mt-5 text-white/75">
 							Software alone is not a strategy. A dedicated team supports your growth with real-world operational experience and a commitment to long-term alignment. Not a helpdesk. A growth partner that understands your business, your markets, and your goals.
 						</p>
 						<ul class="mt-6 flex flex-col gap-3">
@@ -209,7 +198,7 @@ const dashboardBullets = [
 									d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
 									clip-rule="evenodd"
 								/></svg>
-								<span class="text-sm text-white lg:text-base">{{ item }}</span>
+								<span class="rk-body-sm text-white/80">{{ item }}</span>
 							</li>
 						</ul>
 					</div>
@@ -220,15 +209,12 @@ const dashboardBullets = [
 					<!-- Ecosystem Alignment -->
 					<div
 						v-reveal="{ amount: 0.15 }"
-						class="reveal border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12"
+						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
 					>
-						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
-							Ecosystem Alignment
+						<h2 class="rk-h2-italic text-foreground">
+							Connected by <em>design.</em>
 						</h2>
-						<p class="text-text-gray-dark mt-3 text-base font-medium lg:text-lg">
-							Connected by design.
-						</p>
-						<p class="text-text-base mt-5 text-sm leading-relaxed lg:text-base">
+						<p class="rk-body mt-5 text-foreground/75">
 							Our platform relationships and deep understanding of the digital advertising ecosystem are brought together in one cohesive structure. We are positioned at the center of global ad infrastructure, and we bring that advantage to you.
 						</p>
 						<ul class="mt-6 flex flex-col gap-3">
@@ -246,7 +232,7 @@ const dashboardBullets = [
 									d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
 									clip-rule="evenodd"
 								/></svg>
-								<span class="text-text-gray-dark text-sm lg:text-base">{{ item }}</span>
+								<span class="rk-body-sm text-foreground/75">{{ item }}</span>
 							</li>
 						</ul>
 						<div class="mt-8 flex w-full flex-1 items-end overflow-hidden">
@@ -257,16 +243,13 @@ const dashboardBullets = [
 					<!-- Integrity Framework -->
 					<div
 						v-reveal="{ amount: 0.15 }"
-						class="reveal border-primary-light flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-white p-8 lg:p-12"
+						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
 						style="--rv-delay: 0.12s"
 					>
-						<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[32px]">
-							Integrity Framework
+						<h2 class="rk-h2-italic text-foreground">
+							Built to <em>last.</em>
 						</h2>
-						<p class="text-text-gray-dark mt-3 text-base font-medium lg:text-lg">
-							Built to last.
-						</p>
-						<p class="text-text-base mt-5 text-sm leading-relaxed lg:text-base">
+						<p class="rk-body mt-5 text-foreground/75">
 							Operational safeguards that protect consistency, clarity, and long-term platform health. Compliance isn't left to chance. It's built into every layer.
 						</p>
 						<ul class="mt-6 flex flex-col gap-3">
@@ -284,7 +267,7 @@ const dashboardBullets = [
 									d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
 									clip-rule="evenodd"
 								/></svg>
-								<span class="text-text-gray-dark text-sm lg:text-base">{{ item }}</span>
+								<span class="rk-body-sm text-foreground/75">{{ item }}</span>
 							</li>
 						</ul>
 						<div class="mt-8 flex w-full flex-1 items-end justify-center overflow-hidden">
