@@ -113,31 +113,27 @@ const audienceCards = [
 
 		<!-- Automation -->
 		<section class="bg-[#f7f8fb] px-5 py-12 lg:px-0 lg:py-16">
-			<div class="relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12">
+			<div
+				v-reveal="{ amount: 0.15 }"
+				class="reveal relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12"
+				style="--rv-y: 32px; --rv-dur: 0.65s"
+			>
 				<div class="flex min-w-0 flex-col p-6 sm:p-8 lg:p-12">
-					<h2
-						v-reveal="{ amount: 0.3 }"
-						class="reveal rk-h2-italic text-white"
-						style="--rv-y: 20px; --rv-dur: 0.55s"
-					>
+					<h2 class="rk-h2-italic text-white">
 						Automation
 					</h2>
-					<p
-						v-reveal="{ amount: 0.3 }"
-						class="reveal rk-body mt-5 text-white/75"
-						style="--rv-y: 16px; --rv-dur: 0.55s; --rv-delay: 0.1s"
-					>
+					<p class="rk-body mt-5 text-white/75">
 						Your operations, on autopilot. Eliminate manual bottlenecks across campaign management, budget allocation, and performance optimization. Rule-based actions, smart budget redistribution, and scheduled operations, all running across every platform.
 					</p>
 				</div>
 				<div
-					class="tech-automation-mock relative mx-6 mb-6 overflow-hidden rounded-2xl shadow-lg md:absolute md:right-3 md:bottom-3 md:mx-0 md:mb-0"
+					class="tech-automation-mock relative mx-6 mb-6 overflow-hidden rounded-2xl shadow-lg md:absolute md:left-[360px] md:top-3 md:right-3 md:bottom-3 md:mx-0 md:mb-0"
 					aria-hidden="true"
 				>
 					<img
 						:src="techAutomationPath"
 						alt=""
-						class="h-auto w-full max-w-full object-contain"
+						class="h-auto w-full max-w-full object-contain md:h-full md:w-full md:object-contain md:object-right-bottom"
 					>
 				</div>
 			</div>
