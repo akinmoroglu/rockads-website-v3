@@ -79,7 +79,7 @@ const dashboardBullets = [
 				</div>
 				<div class="hero-anim hero-anim-3">
 					<Button as-child>
-						<NuxtLink to="/register" class="px-10! py-6 bg-primary hover:bg-primary-600 text-white font-medium rounded-control">
+						<NuxtLink to="/register" class="px-10! py-6 bg-primary hover:bg-primary-600 text-white font-medium rounded-control transition-all duration-200">
 							Get Started in Minutes
 						</NuxtLink>
 					</Button>
@@ -95,7 +95,7 @@ const dashboardBullets = [
 					<!-- Financial Infrastructure -->
 					<div
 						v-reveal="{ amount: 0.15 }"
-						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
+						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md"
 					>
 						<div>
 							<h2 class="rk-h2-italic text-foreground">
@@ -113,7 +113,7 @@ const dashboardBullets = [
 					<!-- Growth Capacity -->
 					<div
 						v-reveal="{ amount: 0.15 }"
-						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl bg-surface-cream p-8 lg:p-12"
+						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl bg-surface-cream p-8 lg:p-12 transition-all duration-300 hover:shadow-md border border-[#efd9b5]/40"
 						:style="{ '--rv-delay': '0.12s' }"
 					>
 						<div>
@@ -133,7 +133,7 @@ const dashboardBullets = [
 				<!-- Row 2: Operational Continuity (full width, dark) -->
 				<div
 					v-reveal="{ amount: 0.1 }"
-					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12"
+					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] px-8 pt-8 md:grid-cols-2 lg:gap-12 lg:px-12 lg:pt-12 transition-all duration-300 hover:border-primary/25 hover:shadow-lg"
 					style="--rv-y: 32px; --rv-dur: 0.65s"
 				>
 					<div class="flex min-w-0 flex-col pb-8 lg:pb-12">
@@ -170,7 +170,7 @@ const dashboardBullets = [
 				<!-- Row 3: Strategic Support (dark, reversed layout) -->
 				<div
 					v-reveal="{ amount: 0.1 }"
-					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] p-8 md:grid-cols-2 lg:gap-12 lg:p-12"
+					class="reveal grid gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] p-8 md:grid-cols-2 lg:gap-12 lg:p-12 transition-all duration-300 hover:border-primary/25 hover:shadow-lg"
 					style="--rv-y: 32px; --rv-dur: 0.65s"
 				>
 					<div class="order-2 flex min-w-0 items-center justify-center overflow-hidden md:order-1">
@@ -209,7 +209,7 @@ const dashboardBullets = [
 					<!-- Ecosystem Alignment -->
 					<div
 						v-reveal="{ amount: 0.15 }"
-						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
+						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md"
 					>
 						<h2 class="rk-h2-italic text-foreground">
 							Connected by <em>design.</em>
@@ -243,7 +243,7 @@ const dashboardBullets = [
 					<!-- Integrity Framework -->
 					<div
 						v-reveal="{ amount: 0.15 }"
-						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
+						class="reveal flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md"
 						style="--rv-delay: 0.12s"
 					>
 						<h2 class="rk-h2-italic text-foreground">
@@ -286,13 +286,13 @@ const dashboardBullets = [
 				style="--rv-y: 32px; --rv-dur: 0.65s"
 			>
 				<div class="flex flex-col">
-					<h2 class="text-text-base text-2xl leading-tight font-medium lg:text-[46px]">
+					<h2 class="rk-h1 text-foreground">
 						Rockads Dashboard
 					</h2>
-					<p class="mt-3 text-base font-medium text-[#747a8e] lg:text-lg">
+					<p class="rk-body mt-3 font-medium text-muted-foreground lg:text-lg">
 						Every service. One screen. Full control.
 					</p>
-					<p class="text-text-base mt-5 text-sm leading-relaxed lg:text-base">
+					<p class="rk-body mt-5 text-foreground/75">
 						Every layer of Rockads Core, your financial infrastructure, account health, operational workflows, team access, and performance data, managed from a single, purpose-built interface. The Rockads Dashboard doesn't replace what we do. It gives you full visibility and control over everything we provide.
 					</p>
 					<ul class="mt-7 flex flex-col gap-4">
@@ -310,11 +310,11 @@ const dashboardBullets = [
 								d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
 								clip-rule="evenodd"
 							/></svg>
-							<span class="text-sm text-[#747a8e] lg:text-base">{{ item }}</span>
+							<span class="rk-body-sm text-[#747a8e]">{{ item }}</span>
 						</li>
 					</ul>
 				</div>
-				<div class="-mr-6 -mb-6 flex items-end justify-end lg:-mr-6 lg:-mb-4">
+				<div class="-mr-6 -mb-6 flex items-end justify-end lg:-mr-10 lg:-mb-8">
 					<SafariMockup
 						url="console.rockads.com/"
 						:image-src="dashboardSvg"
@@ -338,7 +338,7 @@ const dashboardBullets = [
 				>
 					<NuxtLink
 						to="/register"
-						class="px-10! py-6"
+						class="px-10! py-6 transition-all duration-200"
 					>
 						Get Started in Minutes
 					</NuxtLink>

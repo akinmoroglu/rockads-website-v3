@@ -103,7 +103,7 @@ const audienceCards = [
 				</p>
 				<div class="hero-anim hero-anim-5 mt-8 lg:mt-10">
 					<Button as-child>
-						<NuxtLink to="/register" class="px-10! py-6 bg-primary hover:bg-primary-600 text-white font-medium rounded-control">
+						<NuxtLink to="/register" class="px-10! py-6 bg-primary hover:bg-primary-600 text-white font-medium rounded-control transition-all duration-200">
 							Get Started in Minutes
 						</NuxtLink>
 					</Button>
@@ -115,7 +115,7 @@ const audienceCards = [
 		<section class="bg-[#f7f8fb] px-5 py-12 lg:px-0 lg:py-16">
 			<div
 				v-reveal="{ amount: 0.15 }"
-				class="reveal relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12"
+				class="reveal relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12 transition-all duration-300 hover:border-primary/25 hover:shadow-lg"
 				style="--rv-y: 32px; --rv-dur: 0.65s"
 			>
 				<div class="flex min-w-0 flex-col p-6 sm:p-8 lg:p-12">
@@ -144,7 +144,7 @@ const audienceCards = [
 			<div class="mx-auto grid max-w-[1140px] gap-6 md:grid-cols-2 lg:gap-8">
 				<div
 					v-reveal="{ amount: 0.15 }"
-					class="reveal flex min-w-0 flex-col rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
+					class="reveal flex min-w-0 flex-col rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md"
 				>
 					<h2 class="rk-h2-italic text-foreground">
 						One launch. Every <em>platform.</em>
@@ -156,6 +156,7 @@ const audienceCards = [
 						<div
 							v-for="p in platformLogos"
 							:key="p.name"
+							class="transition-all duration-300 filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100"
 						>
 							<img
 								:src="p.src"
@@ -166,7 +167,7 @@ const audienceCards = [
 				</div>
 				<div
 					v-reveal="{ amount: 0.15 }"
-					class="reveal flex min-w-0 flex-col rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm"
+					class="reveal flex min-w-0 flex-col rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md"
 					style="--rv-delay: 0.12s"
 				>
 					<h2 class="rk-h2-italic text-foreground">
@@ -186,7 +187,7 @@ const audienceCards = [
 		<section class="bg-[#f7f8fb] px-5 pb-12 lg:px-0 lg:pb-20">
 			<div
 				v-reveal="{ amount: 0.15 }"
-				class="reveal relative mx-auto max-w-[1140px] overflow-hidden rounded-2xl border border-primary/10 bg-[#e6f2fc] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12"
+				class="reveal relative mx-auto max-w-[1140px] overflow-hidden rounded-2xl border border-primary/10 bg-[#e6f2fc] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12 transition-all duration-300 hover:border-primary/20 hover:shadow-md"
 				style="--rv-y: 32px; --rv-dur: 0.65s"
 			>
 				<div class="mx-auto max-w-[656px] text-center">
@@ -210,7 +211,7 @@ const audienceCards = [
 		<!-- How it works + audiences -->
 		<section class="bg-[#f7f8fb] px-5 pb-12 lg:px-0 lg:pb-20">
 			<div
-				class="relative mx-auto max-w-[1140px] overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+				class="relative mx-auto max-w-[1140px] overflow-hidden rounded-2xl border border-border bg-slate-50/50 shadow-sm"
 			>
 				<TechServicesDotGridCanvas variant="lightCard" />
 				<div
@@ -236,7 +237,7 @@ const audienceCards = [
 							v-for="(a, index) in audienceCards"
 							:key="a.title"
 							v-reveal="{ amount: 0.1 }"
-							class="reveal flex flex-col gap-6 rounded-xl border border-border bg-card p-6 shadow-xs"
+							class="reveal flex flex-col gap-6 rounded-xl border border-border bg-card p-6 shadow-xs transition-all duration-300 hover:border-primary/20 hover:shadow-md"
 							:style="{ '--rv-y': '24px', '--rv-dur': '0.55s', '--rv-delay': `${index * 0.1}s` }"
 						>
 							<component
@@ -274,7 +275,7 @@ const audienceCards = [
 				>
 					<NuxtLink
 						to="/register"
-						class="px-10! py-6"
+						class="px-10! py-6 transition-all duration-200"
 					>
 						Get Started in Minutes
 					</NuxtLink>
