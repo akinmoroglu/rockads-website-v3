@@ -158,7 +158,7 @@ onUnmounted(() => {
 				<p class="text-center text-xs tracking-[0.02em] text-white/40">
 					OFFICIAL PLATFORM PARTNERS
 				</p>
-				<div class="flex w-full max-w-[560px] items-center justify-between sm:max-w-[680px]">
+				<div class="flex w-full items-center justify-center gap-6 sm:gap-10">
 					<Motion
 						v-for="(icon, index) in partnerIcons"
 						:key="icon.label"

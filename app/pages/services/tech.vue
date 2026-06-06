@@ -1,13 +1,4 @@
 <script setup lang="ts">
-import {
-	IconBrush,
-	IconBuildingStore,
-	IconPhoto,
-	IconPlayerPlay,
-	IconShoppingBag,
-	IconSparkles,
-	IconTopologyStarRing,
-} from "@tabler/icons-vue";
 import { Button } from "@/components/ui/button";
 import techAutomationPath from "@/assets/images/services/tech/ad-automation.svg?url";
 import techMetaPath from "@/assets/images/services/tech/meta.svg?url";
@@ -28,415 +19,655 @@ onMounted(() => {
 	gtmEvent.pageViewEvent("Tech Services - Rockads");
 });
 
-const platformLogos = [
-	{ name: "Meta", src: techMetaPath },
-	{ name: "Google", src: techGooglePath },
-	{ name: "TikTok", src: techTikTokPath },
-	{ name: "X", src: techXPath },
-	{ name: "Snapchat", src: techSnapchatPath },
+const PRODUCTS = [
+	{ 
+		id: "creative-studio", 
+		action: "Generate",
+		name: "AI Creative Studio", 
+		h: "Creatives that perform. At any <em>scale.</em>",
+		lead: "Generate, iterate and optimize ad creatives with AI powered by live performance — from product feed to multi-format output.",
+		chips: ["Feed-to-creative", "Automated localization", "Brand consistency"] 
+	},
+	{ 
+		id: "compliance-ai", 
+		action: "Verify",
+		name: "Compliance AI", 
+		h: "Stay compliant. Stay <em>live.</em>",
+		lead: "Continuously monitor campaigns, creatives and account health. Catch policy risk before it ever takes you offline.",
+		chips: ["Pre-publish scanning", "Real-time risk monitoring", "Cross-border intelligence"] 
+	},
+	{ 
+		id: "ad-launcher", 
+		action: "Deploy",
+		name: "Ad Launcher", 
+		h: "One launch. Every <em>platform.</em>",
+		lead: "Build once, customize per market, deploy across Meta, Google, TikTok, Snapchat & X — simultaneously.",
+		chips: ["Unified builder", "Per-market variants", "Instant multi-platform deploy"],
+		platforms: true 
+	},
+	{ 
+		id: "automation", 
+		action: "Optimize",
+		name: "Automation", 
+		h: "Your operations, on <em>autopilot.</em>",
+		lead: "Eliminate manual bottlenecks across campaign management, budget allocation and optimization — running on every platform.",
+		chips: ["Rule-based actions", "Smart budget shifts", "Scheduled operations"] 
+	},
 ];
 
-const creativeTypes = [
-	{
-		title: "Ad Creatives",
-		description: "Meta Ads, Google Ads, LinkedIn Ads, CTA-focused creatives, carousel ads.",
-		hint: "Auto-size adaptation, balanced text areas.",
-		icon: IconBrush,
-	},
-	{
-		title: "Product Creatives",
-		description: "Product cutouts, collections, pricing highlights, product mockups.",
-		hint: "Visual alignment with brand identity.",
-		icon: IconPhoto,
-	},
-	{
-		title: "Video Creatives",
-		description: "Short videos (Reels, TikTok), animated product demos.",
-		hint: "Optional voice-over, dynamic CTA variations.",
-		icon: IconPlayerPlay,
-	},
-	{
-		title: "Stock & thematic visuals",
-		description: "Seasonal visuals, background images, themed banners.",
-		hint: "AI-powered stock suggestions.",
-		icon: IconSparkles,
-	},
+const PLAT = [
+	{ name: "meta", src: techMetaPath },
+	{ name: "google", src: techGooglePath },
+	{ name: "tiktok", src: techTikTokPath },
+	{ name: "snapchat", src: techSnapchatPath },
+	{ name: "x-twitter", src: techXPath },
 ];
 
-const audienceCards = [
-	{
-		title: "E-Commerce Brands",
-		body: "A complete tech stack for brands scaling globally, from creative production to campaign deployment to automated optimization. No more stitching together five different tools.",
-		icon: IconShoppingBag,
-	},
-	{
-		title: "Digital Agencies",
-		body: "Manage more clients without growing your ops team. Unified tools for launching, monitoring, and optimizing campaigns across every client and every platform.",
-		icon: IconBuildingStore,
-	},
-	{
-		title: "Enterprise & Performance Teams",
-		body: "Enterprise-grade infrastructure with role-based access, approval workflows, audit trails, and compliance built into every layer. Scale without losing control.",
-		icon: IconTopologyStarRing,
-	},
+const LOOP = [
+	{ action: "Generate", h: "AI Creative Studio", p: "Builds creatives from your feed & brand assets." },
+	{ action: "Verify", h: "Compliance AI", p: "Scans every creative & config before launch." },
+	{ action: "Deploy", h: "Ad Launcher", p: "Ships compliant campaigns across all platforms." },
+	{ action: "Optimize", h: "Automation", p: "Reallocates budget; data feeds back into Studio." },
 ];
+
+const RD_ICONS: Record<string, string> = {
+	"check": '<path d="M20 6 9 17l-5-5"/>',
+	"chevron-right": '<path d="m9 18 6-6-6-6"/>',
+	"arrow-right": '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+};
 </script>
 
 <template>
-	<div class="font-display">
+	<div class="font-display page-wrapper">
 		<TheHeader />
 
 		<!-- Hero -->
-		<section class="relative overflow-hidden bg-[#060a14] text-white">
-			<TechServicesDotGridCanvas />
-			<div class="relative mx-auto max-w-[1066px] px-5 pt-[140px] pb-12 text-center lg:px-0 lg:pt-[164px] lg:pb-16">
-				<div class="hero-anim hero-anim-1">
-					<h1 class="rk-display text-white">
-						The operating system for ad-ops at <em>scale.</em>
-					</h1>
-				</div>
-				<p class="hero-anim hero-anim-2 mt-4 text-white/80 font-medium lg:text-lg">
-					Stitching together disconnected tools slows down expansion.
-				</p>
-				<p class="hero-anim hero-anim-3 mt-6 max-w-[1066px] text-white/55 text-sm leading-relaxed lg:text-base">
-					Rockads unifies campaign deployment, automated optimization, real-time policy monitoring, and creative generation into a single intelligence layer. Everything you need to run, scale, and protect your global operations.
-				</p>
-				<div class="hero-anim hero-anim-5 mt-8 lg:mt-10">
+		<section class="te-hero">
+			<div class="te-hero__grid" />
+			<div class="rd-wrap te-hero__inner">
+				<span class="rd-kicker rd-kicker--light">Tech Services</span>
+				<h1>The operating system for ad-ops at <em>scale.</em></h1>
+				<p class="te-hero__sub">Campaign deployment, automated optimization, real-time policy monitoring and creative generation — unified into a single intelligence layer.</p>
+				<div class="te-hero__cta">
 					<Button as-child>
-						<NuxtLink to="/register" class="px-10! py-6 bg-primary hover:bg-primary-600 text-white font-medium rounded-control transition-all duration-200">
+						<NuxtLink to="/register" class="px-6 py-3 bg-primary hover:bg-primary-600 text-white font-medium rounded-control transition-all duration-200 inline-flex items-center gap-2">
 							Get Started in Minutes
+							<svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" v-html="RD_ICONS['arrow-right']"></svg>
+						</NuxtLink>
+					</Button>
+					<Button as-child variant="outline" class="rd-btn--ghost-light">
+						<NuxtLink to="/contact-us" class="px-6 py-3 border border-white/30 text-white hover:bg-white/10 font-medium rounded-control transition-all duration-200 inline-flex items-center gap-2">
+							Book a Demo
 						</NuxtLink>
 					</Button>
 				</div>
 			</div>
 		</section>
 
-		<!-- Automation -->
-		<section class="bg-[#f7f8fb] px-5 py-12 lg:px-0 lg:py-16">
-			<div
-				v-reveal="{ amount: 0.15 }"
-				class="reveal relative mx-auto grid max-w-[1140px] gap-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#070f1d] md:min-h-112 md:grid-cols-[minmax(0,336px)_1fr] md:items-start lg:gap-12 transition-all duration-300 hover:border-primary/25 hover:shadow-lg"
-				style="--rv-y: 32px; --rv-dur: 0.65s"
-			>
-				<div class="flex min-w-0 flex-col p-6 sm:p-8 lg:p-12">
-					<h2 class="rk-h2-italic text-white">
-						Automation
-					</h2>
-					<p class="rk-body mt-5 text-white/75">
-						Your operations, on autopilot. Eliminate manual bottlenecks across campaign management, budget allocation, and performance optimization. Rule-based actions, smart budget redistribution, and scheduled operations, all running across every platform.
-					</p>
-				</div>
-				<div
-					class="tech-automation-mock relative mx-6 mb-6 overflow-hidden rounded-2xl shadow-lg md:absolute md:left-[360px] md:top-3 md:right-3 md:bottom-3 md:mx-0 md:mb-0"
-					aria-hidden="true"
-				>
-					<img
-						:src="techAutomationPath"
-						alt=""
-						class="h-auto w-full max-w-full object-contain md:h-full md:w-full md:object-contain md:object-right-bottom"
-					>
-				</div>
-			</div>
-		</section>
-
-		<!-- Ad Launcher + Compliance AI -->
-		<section class="bg-[#f7f8fb] px-5 pb-12 lg:px-0 lg:pb-16">
-			<div class="mx-auto grid max-w-[1140px] gap-6 md:grid-cols-2 lg:gap-8">
-				<div
-					v-reveal="{ amount: 0.15 }"
-					class="reveal flex min-w-0 flex-col rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md"
-				>
-					<h2 class="rk-h2-italic text-foreground">
-						One launch. Every <em>platform.</em>
-					</h2>
-					<p class="rk-body mt-5 text-foreground/75">
-						Build once, customize per market, and deploy across Meta, Google, TikTok, Snapchat, and X simultaneously. Unified campaign builder, market-specific customization, and instant multi-platform deployment.
-					</p>
-					<div class="mt-8 flex flex-wrap gap-3.5">
-						<div
-							v-for="p in platformLogos"
-							:key="p.name"
-							class="transition-all duration-300 filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100"
-						>
-							<img
-								:src="p.src"
-								:alt="p.name"
-							>
+		<!-- Showcase Bands -->
+		<div 
+			v-for="(p, i) in PRODUCTS" 
+			:id="p.id"
+			:key="p.id"
+		>
+			<section class="te-show">
+				<div class="te-show__glow" />
+				<div class="rd-wrap te-band" :class="{ 'te-band--rev': i % 2 === 1 }">
+					<div v-reveal="{ amount: 0.14 }" class="reveal">
+						<div class="te-idx">
+							<span class="te-idx__n">{{ String(i + 1).padStart(2, '0') }} / 04 · {{ p.action }}</span>
 						</div>
-					</div>
-				</div>
-				<div
-					v-reveal="{ amount: 0.15 }"
-					class="reveal flex min-w-0 flex-col rounded-2xl border border-border bg-card p-8 lg:p-12 shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md"
-					style="--rv-delay: 0.12s"
-				>
-					<h2 class="rk-h2-italic text-foreground">
-						Stay compliant. Stay <em>live.</em>
-					</h2>
-					<p class="rk-body mt-5 text-foreground/75">
-						Continuously monitor campaigns, creatives, and account health across every platform. Pre-publish policy scanning, real-time risk monitoring, and cross-border regulatory intelligence.
-					</p>
-					<div class="mt-10 flex w-full justify-start overflow-hidden">
-						<ComplianceAiAnimated />
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- AI Creative Studio -->
-		<section class="bg-[#f7f8fb] px-5 pb-12 lg:px-0 lg:pb-20">
-			<div
-				v-reveal="{ amount: 0.15 }"
-				class="reveal relative mx-auto max-w-[1140px] overflow-hidden rounded-2xl border border-primary/10 bg-[#e6f2fc] px-6 pt-8 sm:px-8 lg:px-12 lg:pt-12 transition-all duration-300 hover:border-primary/20 hover:shadow-md"
-				style="--rv-y: 32px; --rv-dur: 0.65s"
-			>
-				<div class="mx-auto max-w-[656px] text-center">
-					<h2 class="rk-h2-italic text-foreground">
-						Creatives that perform. At any <em>scale.</em>
-					</h2>
-					<p class="rk-body mt-5 text-foreground/75">
-						Generate, iterate, and optimize ad creatives with AI powered by real-time performance data. From product feeds to multi-format output, with automated localization and brand consistency.
-					</p>
-				</div>
-				<div class="mt-10 grid place-items-center gap-4">
-					<img
-						:src="aiCreativeStudioPath"
-						alt="AI Creative Studio"
-						class="h-auto w-full max-w-full"
-					>
-				</div>
-			</div>
-		</section>
-
-		<!-- How it works + audiences -->
-		<section class="bg-[#f7f8fb] px-5 pb-12 lg:px-0 lg:pb-20">
-			<div
-				class="relative mx-auto max-w-[1140px] overflow-hidden rounded-2xl border border-border bg-slate-50/50 shadow-sm"
-			>
-				<TechServicesDotGridCanvas variant="lightCard" />
-				<div
-					class="relative z-10 grid gap-10 p-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,465px)] lg:gap-x-8 lg:gap-y-0 lg:p-12 xl:grid-cols-[447px_465px] xl:gap-x-[132px]"
-				>
-					<div
-						v-reveal="{ amount: 0.2 }"
-						class="reveal max-w-none xl:max-w-[447px]"
-						style="--rv-y: 24px"
-					>
-						<h2 class="rk-h2-italic text-foreground">
-							How it works <em>together.</em>
-						</h2>
-						<p class="rk-body mt-5 text-foreground/75">
-							AI Creative Studio generates ad creatives from your product feed and brand assets. Compliance AI scans every creative and campaign configuration for policy compliance before launch. Ad Launcher deploys compliant campaigns across all platforms and markets simultaneously.
-						</p>
-						<p class="rk-body mt-4 text-foreground/75">
-							Automation monitors performance and automatically optimizes budgets, pauses underperformers, and scales winners. Performance data feeds back into AI Creative Studio to generate better-performing creative iterations.
-						</p>
-					</div>
-					<div class="flex flex-col gap-6">
-						<div
-							v-for="(a, index) in audienceCards"
-							:key="a.title"
-							v-reveal="{ amount: 0.1 }"
-							class="reveal flex flex-col gap-6 rounded-xl border border-border bg-card p-6 shadow-xs transition-all duration-300 hover:border-primary/20 hover:shadow-md"
-							:style="{ '--rv-y': '24px', '--rv-dur': '0.55s', '--rv-delay': `${index * 0.1}s` }"
-						>
-							<component
-								:is="a.icon"
-								class="size-8 shrink-0 text-primary"
-								stroke-width="1.5"
-							/>
-							<div class="flex flex-col gap-4">
-								<h3 class="rk-h3 text-foreground">
-									{{ a.title }}
-								</h3>
-								<p class="rk-body-sm">
-									{{ a.body }}
-								</p>
+						<h2 v-html="p.h" />
+						<p class="te-band__lead">{{ p.lead }}</p>
+						<div class="te-chips">
+							<span 
+								v-for="c in p.chips" 
+								:key="c" 
+								class="te-chip"
+							>
+								<svg class="lucide" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" v-html="RD_ICONS['check']"></svg>
+								{{ c }}
+							</span>
+						</div>
+						<div v-if="p.platforms" class="te-platrow">
+							<div
+								v-for="plat in PLAT"
+								:key="plat.name"
+								class="transition-all duration-300 filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100"
+							>
+								<img :src="plat.src" :alt="plat.name" class="w-[26px] h-[26px] inline-block" />
 							</div>
 						</div>
 					</div>
+					<div v-reveal="{ amount: 0.14 }" class="te-band__media reveal">
+						<!-- Custom .te-frame browser mockup chrome for Ad Launcher & Compliance AI -->
+						<div v-if="p.id === 'ad-launcher' || p.id === 'compliance-ai'" class="te-frame">
+							<div class="te-frame__bar">
+								<span class="te-frame__dot" style="background:#ff5f57" />
+								<span class="te-frame__dot" style="background:#febc2e" />
+								<span class="te-frame__dot" style="background:#28c840" />
+								<span class="te-frame__tag">{{ p.name }} — live console</span>
+							</div>
+							
+							<div v-if="p.id === 'ad-launcher'" class="w-full aspect-[16/10] bg-[#0c1424] flex flex-col justify-center items-center p-6 text-center text-white/50 relative overflow-hidden">
+								<div class="relative z-10 flex flex-col items-center gap-4">
+									<div class="size-16 rounded-full bg-primary/20 flex items-center justify-center text-primary border border-primary/40 animate-pulse">
+										<svg class="lucide" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" v-html="RD_ICONS['rocket']"></svg>
+									</div>
+									<div class="flex flex-col gap-1">
+										<div class="text-sm font-semibold text-white/80">Launching campaigns...</div>
+										<div class="text-xs text-white/40">Multi-platform dispatch active</div>
+									</div>
+									<div class="flex gap-2 items-center mt-2">
+										<span v-for="plat in PLAT" :key="plat.name" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
+											<img :src="plat.src" :alt="plat.name" class="w-4 h-4 filter brightness-100 opacity-80" />
+										</span>
+									</div>
+								</div>
+								<!-- Background subtle grid -->
+								<div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px]" />
+							</div>
+
+							<div v-else-if="p.id === 'compliance-ai'" class="w-full aspect-[16/10] bg-[#0c1424] flex items-center justify-center p-8">
+								<ComplianceAiAnimated />
+							</div>
+						</div>
+
+						<!-- Automation and AI Creative Studio feature embedded browser frames, render them directly -->
+						<div v-else-if="p.id === 'automation'" class="w-full">
+							<img :src="techAutomationPath" alt="Automation Console" class="w-full h-auto rounded-2xl border border-white/10 shadow-2xl" />
+						</div>
+
+						<div v-else-if="p.id === 'creative-studio'" class="w-full">
+							<img :src="aiCreativeStudioPath" alt="AI Creative Studio" class="w-full h-auto rounded-2xl border border-white/10 shadow-2xl" />
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<!-- Loop -->
+		<section class="rd-sec te-loop">
+			<div class="rd-wrap">
+				<div v-reveal="{ amount: 0.14 }" class="rd-sec__head reveal" style="max-width:720px">
+					<span class="rd-kicker rd-kicker--light">How it works together</span>
+					<h2 class="rd-h2" style="color:#fff">Four products. One closed <em>loop.</em></h2>
+				</div>
+				<div class="te-loop__grid">
+					<div 
+						v-for="(s, index) in LOOP" 
+						:key="s.h"
+						v-reveal="{ amount: 0.14 }" 
+						class="te-loop__step reveal"
+						:style="{ transitionDelay: `${index * 0.07}s` }"
+					>
+						<span class="te-loop__ic font-black text-[15px] italic">
+							0{{ index + 1 }}
+						</span>
+						<h4>{{ s.action }}</h4>
+						<p class="text-white/80 font-medium text-[14px] mt-1 mb-2">{{ s.h }}</p>
+						<p>{{ s.p }}</p>
+						<span v-if="index < 3" class="te-loop__arrow">
+							<svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" v-html="RD_ICONS['chevron-right']"></svg>
+						</span>
+					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- CTA -->
-		<section class="bg-background px-5 py-16 lg:py-20">
-			<div
-				v-reveal="{ amount: 0.3 }"
-				class="reveal mx-auto max-w-[800px] text-center"
-				style="--rv-y: 24px"
-			>
-				<h2 class=" text-[32px] leading-[1.2] font-semibold lg:text-[40px]">
-					Ready to run tech that scales with you?<br><span class="text-foreground">Start on Rockads</span>
-				</h2>
-				<Button
-					as-child
-					class="mt-8 lg:mt-10"
-				>
-					<NuxtLink
-						to="/register"
-						class="px-10! py-6 transition-all duration-200"
-					>
-						Get Started in Minutes
-					</NuxtLink>
-				</Button>
+		<!-- Closing -->
+		<section class="te-closing">
+			<div class="te-closing__ellipse" />
+			<div v-reveal="{ amount: 0.14 }" class="te-closing__in reveal">
+				<p class="te-closing__kicker">The only partner you'll ever need.</p>
+				<div class="te-closing__words">
+					<p>Connected,</p>
+					<p><em>stable,</em></p>
+					<p>limitless.</p>
+				</div>
+				<p class="te-closing__desc">When others come and go, we'll still be here. Join the infrastructure built to last.</p>
+				<div class="te-closing__cta">
+					<Button as-child>
+						<NuxtLink to="/register" class="px-6 py-3 bg-primary hover:bg-primary-600 text-white font-medium rounded-control transition-all duration-200 inline-flex items-center gap-2">
+							Start on Rockads
+							<svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" v-html="RD_ICONS['arrow-right']"></svg>
+						</NuxtLink>
+					</Button>
+				</div>
 			</div>
 		</section>
-
-		<section class="tech-closing relative overflow-hidden px-5 py-20 lg:py-28">
-			<div
-				class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[260px] w-[300px] max-w-[calc(100%+2rem)] -translate-x-1/2 -translate-y-1/2 md:h-[350px] md:w-[400px] lg:h-[458px] lg:w-[536px]"
-				aria-hidden="true"
-			>
-				<div class="tech-closing-ellipse size-full rounded-full" />
-			</div>
-			<div class="relative z-10 mx-auto flex max-w-[492px] flex-col items-center gap-9 text-center">
-				<p
-					v-reveal="{ amount: 0.3 }"
-					class="reveal text-sm leading-5 text-(--tech-closing-kicker) lg:text-base"
-					style="--rv-y: 16px; --rv-dur: 0.5s"
-				>
-					The only partner you'll ever need.
-				</p>
-				<h2 class="w-full max-w-[536px] text-white">
-					<p
-						v-reveal="{ amount: 0.2 }"
-						class="reveal text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-						style="--rv-y: 24px"
-					>
-						Stable.
-					</p>
-					<p
-						v-reveal="{ amount: 0.2 }"
-						class="reveal text-[40px] leading-[48px] md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-						style="--rv-y: 24px; --rv-delay: 0.1s"
-					>
-						<em class="tech-closing-enduring text-(--tech-closing-accent)">Enduring.</em>
-					</p>
-					<p
-						v-reveal="{ amount: 0.2 }"
-						class="reveal text-[40px] leading-[48px] font-normal md:text-[52px] md:leading-[60px] lg:text-[68px] lg:leading-[72px]"
-						style="--rv-y: 24px; --rv-delay: 0.2s"
-					>
-						Limitless.
-					</p>
-				</h2>
-				<p
-					v-reveal="{ amount: 0.3 }"
-					class="reveal max-w-[372px] text-sm leading-5 text-(--tech-closing-description)"
-					style="--rv-y: 16px; --rv-dur: 0.5s; --rv-delay: 0.3s"
-				>
-					When others come and go, we'll still be here. Join the infrastructure built to last.
-				</p>
-			</div>
-		</section>
-
-		<TheFooter />
 	</div>
 </template>
 
 <style scoped>
-/* ── Hero enter animations ───────────────────────────────── */
-@keyframes hero-enter {
-	from {
-		opacity: 0;
-		transform: translateY(var(--hero-y, 20px));
-	}
-	to {
-		opacity: 1;
-		transform: none;
-	}
+/* Scoped brand colors & variables copied from design system */
+.page-wrapper {
+	--rk-primary:        #007ce1;
+	--rk-primary-600:    #006fca;
+	--rk-primary-050:    #e6f2fc;
+	--rk-secondary:      #00c088;
+	--rk-secondary-600:  #00a676;
+	--rk-hero-accent:    #99cbf3;
+	--rk-fg-1:           #151b26;
+	--rk-fg-2:           #41485a;
+	--rk-fg-3:           #6b7280;
+	--rk-fg-4:           #9aa1b1;
+	--rk-border:         #e7e9ef;
+	--rk-border-strong:  #d4d8e2;
+	--rk-bg:             #f7f8fb;
+	--rk-card:           #ffffff;
+	--rk-muted:          #f0f2f6;
+	--rk-surface-cream:  #f7efe2;
+	--rk-dark:           #151b26;
+	--rk-dark-900:       #060a14;
+	--rk-dark-800:       #070f1d;
+	--rk-dark-700:       #02123e;
+	--rk-header:         #010101;
+	--rk-footer:         #080b0f;
+	--rk-dark-border:    #23293a;
+	--rk-on-dark-1:      #ffffff;
+	--rk-on-dark-2:      rgba(255,255,255,0.60);
+	--rk-on-dark-3:      rgba(255,255,255,0.40);
+	--rk-ease-out:       cubic-bezier(0.16, 1, 0.3, 1);
+	--rk-radius-xl:      16px;
+	
+	--rd-maxw:           1240px;
+	--rd-gut:            clamp(20px, 5vw, 88px);
+	--rd-ink:            #0b1018;
+
+	background:          var(--rk-dark-900);
+	min-height:          100vh;
+	color:               #fff;
 }
 
-.hero-anim {
-	animation: hero-enter cubic-bezier(0.16, 1, 0.3, 1) both;
+/* Redesign Scaffolding */
+.rd-wrap { 
+	width: 100%; 
+	max-width: var(--rd-maxw); 
+	margin: 0 auto; 
+	padding-inline: var(--rd-gut); 
 }
 
-.hero-anim-1 {
-	animation-duration: 0.65s;
-	--hero-y: 28px;
+.rd-kicker { 
+	font-size: 12px; 
+	font-weight: 600; 
+	letter-spacing: .22em; 
+	text-transform: uppercase; 
+}
+.rd-kicker--light { 
+	color: rgba(255,255,255,.45); 
 }
 
-.hero-anim-2 {
-	animation-duration: 0.55s;
-	animation-delay: 0.1s;
+.rd-sec { 
+	padding-block: clamp(64px, 9vw, 120px); 
+}
+.rd-sec__head { 
+	max-width: 680px; 
+}
+.rd-h2 { 
+	font-size: clamp(30px, 4.2vw, 48px); 
+	line-height: 1.1; 
+	font-weight: 500; 
+	letter-spacing: -.02em; 
+	margin: 14px 0 0; 
+}
+.rd-h2 em { 
+	font-style: italic; 
+	font-weight: 700; 
 }
 
-.hero-anim-3 {
-	animation-duration: 0.55s;
-	animation-delay: 0.18s;
+.rd-btn--ghost-light {
+	background: transparent;
+	color: #fff;
+	border-color: rgba(255,255,255,.28);
+}
+.rd-btn--ghost-light:hover {
+	background: rgba(255,255,255,.08);
+	border-color: rgba(255,255,255,.5);
 }
 
-.hero-anim-4 {
-	animation-duration: 0.55s;
-	animation-delay: 0.24s;
+/* Scroll reveal overrides matching Nuxt directive */
+.reveal { 
+	opacity: 0; 
+	transform: translateY(22px); 
+	transition: opacity .7s var(--rk-ease-out), transform .7s var(--rk-ease-out); 
+}
+.reveal.in-view { 
+	opacity: 1; 
+	transform: none; 
+}
+@media (prefers-reduced-motion: reduce) { 
+	.reveal { 
+		opacity: 1; 
+		transform: none; 
+		transition: none; 
+	} 
 }
 
-.hero-anim-5 {
-	animation-duration: 0.5s;
-	animation-delay: 0.32s;
-	--hero-y: 16px;
+/* ===== HERO ===== */
+.te-hero { 
+	position: relative; 
+	overflow: hidden; 
+	padding: 150px 0 100px; 
+	text-align: center; 
+	color: #fff;
+	background: radial-gradient(120% 80% at 50% -8%, #0a1733 0%, #060a14 58%); 
+}
+.te-hero__grid { 
+	position: absolute; 
+	inset: 0; 
+	opacity: .5; 
+	pointer-events: none;
+	background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); 
+	background-size: 30px 30px;
+	mask-image: radial-gradient(70% 60% at 50% 30%, #000 0%, transparent 80%); 
+	-webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000 0%, transparent 80%); 
+}
+.te-hero__inner { 
+	position: relative; 
+	z-index: 2; 
+}
+.te-hero h1 { 
+	margin: 20px auto 0; 
+	max-width: 16ch; 
+	font-size: clamp(42px, 6.6vw, 80px); 
+	line-height: 1.03; 
+	font-weight: 800; 
+	letter-spacing: -.035em; 
+}
+.te-hero h1 em { 
+	font-style: italic; 
+	color: var(--rk-hero-accent); 
+}
+.te-hero__sub { 
+	margin: 22px auto 0; 
+	max-width: 58ch; 
+	font-size: clamp(16px, 1.6vw, 19px); 
+	line-height: 1.6; 
+	color: rgba(255,255,255,.66); 
+}
+.te-hero__cta { 
+	margin-top: 32px; 
+	display: flex; 
+	gap: 14px; 
+	justify-content: center; 
+	flex-wrap: wrap; 
 }
 
-/* ── Scroll reveal ───────────────────────────────────────── */
-.reveal {
-	opacity: 0;
-	transform: translateY(var(--rv-y, 28px));
-	transition:
-		opacity var(--rv-dur, 0.6s) cubic-bezier(0.16, 1, 0.3, 1) var(--rv-delay, 0s),
-		transform var(--rv-dur, 0.6s) cubic-bezier(0.16, 1, 0.3, 1) var(--rv-delay, 0s);
+/* ===== PRODUCT SHOWCASE BANDS ===== */
+.te-show { 
+	position: relative; 
+	padding: clamp(64px, 9vw, 112px) 0; 
+	border-top: 1px solid rgba(255,255,255,.06); 
+}
+.te-show__glow { 
+	position: absolute; 
+	pointer-events: none; 
+	width: 520px; 
+	height: 420px; 
+	top: 0;
+	background: radial-gradient(ellipse 55% 55% at 50% 30%, rgba(0,124,225,.16), transparent 70%); 
+}
+.te-show:nth-child(even) .te-show__glow { 
+	right: -80px; 
+}
+.te-show:nth-child(odd) .te-show__glow { 
+	left: -80px; 
+}
+.te-band { 
+	position: relative; 
+	z-index: 2; 
+	display: grid; 
+	grid-template-columns: 0.85fr 1.15fr; 
+	gap: clamp(36px, 5vw, 80px); 
+	align-items: center; 
+}
+.te-band--rev .te-band__media { 
+	order: -1; 
+}
+.te-idx { 
+	display: flex; 
+	align-items: center; 
+	gap: 12px; 
+}
+.te-idx__n { 
+	font-size: 13px; 
+	font-weight: 700; 
+	font-variant-numeric: tabular-nums; 
+	color: var(--rk-hero-accent); 
+	letter-spacing: .1em; 
+}
+.te-idx__ic { 
+	width: 40px; 
+	height: 40px; 
+	border-radius: 12px; 
+	background: rgba(0,124,225,.16); 
+	color: var(--rk-hero-accent); 
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+}
+.te-idx__ic .lucide { 
+	width: 21px; 
+	height: 21px; 
+}
+.te-band h2 { 
+	margin: 22px 0 0; 
+	font-size: clamp(28px, 3.8vw, 46px); 
+	line-height: 1.08; 
+	font-weight: 600; 
+	letter-spacing: -.02em; 
+	color: #fff; 
+}
+.te-band h2 :deep(em) { 
+	font-style: italic; 
+	font-weight: 700; 
+	color: var(--rk-hero-accent); 
+}
+.te-band__lead { 
+	margin: 16px 0 0; 
+	font-size: 16px; 
+	line-height: 1.65; 
+	color: rgba(255,255,255,.64); 
+	max-width: 46ch; 
+}
+.te-chips { 
+	margin: 24px 0 0; 
+	display: flex; 
+	flex-wrap: wrap; 
+	gap: 9px; 
+}
+.te-chip { 
+	display: inline-flex; 
+	align-items: center; 
+	gap: 7px; 
+	height: 32px; 
+	padding: 0 13px; 
+	border-radius: 9px;
+	background: rgba(255,255,255,.05); 
+	border: 1px solid rgba(255,255,255,.09); 
+	font-size: 13px; 
+	color: rgba(255,255,255,.78); 
+}
+.te-chip .lucide { 
+	width: 14px; 
+	height: 14px; 
+	color: var(--rk-secondary); 
+}
+.te-platrow { 
+	margin: 24px 0 0; 
+	display: flex; 
+	align-items: center; 
+	gap: 18px; 
+}
+.te-platrow img { 
+	width: 26px; 
+	height: 26px; 
+	opacity: .7; 
+	transition: opacity .2s; 
+}
+.te-platrow img:hover { 
+	opacity: 1; 
 }
 
-.reveal.in-view {
-	opacity: 1;
-	transform: none;
+/* media frame */
+.te-frame { 
+	border-radius: 16px; 
+	overflow: hidden; 
+	border: 1px solid rgba(255,255,255,.1);
+	box-shadow: 0 40px 100px rgba(0,30,90,.4), 0 8px 24px rgba(0,0,0,.35); 
+	background: #0c1424; 
+}
+.te-frame__bar { 
+	height: 38px; 
+	display: flex; 
+	align-items: center; 
+	gap: 7px; 
+	padding: 0 14px; 
+	background: #131d30; 
+	border-bottom: 1px solid rgba(255,255,255,.06); 
+}
+.te-frame__dot { 
+	width: 10px; 
+	height: 10px; 
+	border-radius: 50%; 
+}
+.te-frame__tag { 
+	margin-left: 12px; 
+	font-size: 11.5px; 
+	color: rgba(255,255,255,.4); 
+}
+@media (max-width: 900px) { 
+	.te-band { 
+		grid-template-columns: 1fr; 
+		gap: 28px; 
+	} 
+	.te-band--rev .te-band__media { 
+		order: 0; 
+	} 
 }
 
-@media (prefers-reduced-motion: reduce) {
-	.hero-anim {
-		animation: none;
-	}
-
-	.reveal {
-		opacity: 1;
-		transform: none;
-		transition: none;
-	}
+/* ===== HOW IT WORKS TOGETHER ===== */
+.te-loop { 
+	background: #070f1d; 
+	border-top: 1px solid rgba(255,255,255,.06); 
+}
+.te-loop__grid { 
+	margin-top: 44px; 
+	display: grid; 
+	grid-template-columns: repeat(4, 1fr); 
+	gap: 14px; 
+}
+.te-loop__step { 
+	position: relative; 
+	padding: 24px 20px; 
+	border-radius: var(--rk-radius-lg); 
+	border: 1px solid rgba(255,255,255,.09); 
+	background: rgba(255,255,255,.025); 
+}
+.te-loop__step h4 { 
+	margin: 14px 0 0; 
+	font-size: 16px; 
+	font-weight: 600; 
+	color: #fff; 
+}
+.te-loop__step p { 
+	margin: 7px 0 0; 
+	font-size: 13.5px; 
+	line-height: 1.55; 
+	color: rgba(255,255,255,.55); 
+}
+.te-loop__ic { 
+	width: 36px; 
+	height: 36px; 
+	border-radius: 10px; 
+	background: rgba(0,124,225,.16); 
+	color: var(--rk-hero-accent); 
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+}
+.te-loop__ic .lucide { 
+	width: 19px; 
+	height: 19px; 
+}
+.te-loop__arrow { 
+	position: absolute; 
+	right: -11px; 
+	top: 50%; 
+	transform: translateY(-50%); 
+	z-index: 3; 
+	color: rgba(255,255,255,.3); 
+}
+@media (max-width: 900px) { 
+	.te-loop__grid { 
+		grid-template-columns: 1fr 1fr; 
+	} 
+	.te-loop__arrow { 
+		display: none; 
+	} 
 }
 
-/* ── Section styles ──────────────────────────────────────── */
-.tech-automation-mock {
-	max-height: 420px;
+/* ===== CLOSING (kept iconic) ===== */
+.te-closing { 
+	position: relative; 
+	overflow: hidden; 
+	background: #080b0f; 
+	text-align: center; 
+	padding: clamp(90px, 13vw, 150px) 20px; 
+}
+.te-closing__ellipse { 
+	position: absolute; 
+	top: 50%; 
+	left: 50%; 
+	width: 536px; 
+	height: 458px; 
+	max-width: 90%; 
+	transform: translate(-50%, -50%);
+	border-radius: 50%; 
+	background: radial-gradient(ellipse 75% 72% at 50% 50%, rgba(38,56,94,.52), rgba(38,56,94,.16) 45%, rgba(8,11,15,0) 72%); 
+	filter: blur(40px); 
+}
+.te-closing__in { 
+	position: relative; 
+	z-index: 2; 
+	max-width: 540px; 
+	margin: 0 auto; 
+}
+.te-closing__kicker { 
+	font-size: 15px; 
+	color: #898fa5; 
+}
+.te-closing__words { 
+	margin: 30px 0; 
+}
+.te-closing__words p { 
+	margin: 0; 
+	font-size: clamp(40px, 8vw, 68px); 
+	line-height: 1.06; 
+	font-weight: 400; 
+	color: #fff; 
+}
+.te-closing__words em { 
+	font-style: italic; 
+	font-weight: 700; 
+	color: #f6ca9a; 
+}
+.te-closing__desc { 
+	max-width: 38ch; 
+	margin: 0 auto; 
+	font-size: 14.5px; 
+	line-height: 1.55; 
+	color: #9fa6bb; 
+}
+.te-closing__cta { 
+	margin-top: 40px; 
 }
 
-.tech-closing {
-	--tech-closing-bg: #080b0f;
-	--tech-closing-kicker: #898fa5;
-	--tech-closing-accent: #f6ca9a;
-	--tech-closing-description: #9fa6bb;
-	background-color: var(--tech-closing-bg);
-}
-
-.tech-closing-enduring {
-	font-family: var(--font-sans);
-	font-style: italic;
-	font-weight: 700;
-}
-
-.tech-closing-ellipse {
-	background: radial-gradient(
-		ellipse 75% 72% at 50% 50%,
-		rgb(38 56 94 / 52%) 0%,
-		rgb(38 56 94 / 16%) 45%,
-		rgb(8 11 15 / 0%) 72%
-	);
-	filter: blur(40px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.tech-closing-ellipse {
-		filter: blur(20px);
-		opacity: 0.9;
-	}
+.lucide { 
+	width: 18px; 
+	height: 18px; 
+	display: inline-block; 
+	vertical-align: middle; 
 }
 </style>

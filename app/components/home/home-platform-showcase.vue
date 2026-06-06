@@ -5,15 +5,14 @@ import {
 	IconRefresh,
 	IconRocket,
 	IconShieldCheck,
-	IconFileDescription,
 	IconSparkles,
+	IconBrandWhatsapp,
 } from "@tabler/icons-vue";
+import techAutomationPath from "@/assets/images/services/tech/ad-automation.svg?url";
+import aiCreativeStudioPath from "@/assets/images/services/tech/ai-creative-studio.svg?url";
 
 const CYCLE_MS = 4500;
 const TICK_MS = 40;
-
-const APPEAL_TEXT =
-	"We respectfully appeal the rejection of AD-2024-00143. The ad content complies with Meta's advertising policies. The imagery displays educational health information, not misleading claims. Supporting documentation is attached. We request a full policy review and respectfully ask that this ad be reconsidered for approval.";
 
 const features = [
 	{
@@ -41,14 +40,6 @@ const features = [
 		url: "app.rockads.com/compliance",
 	},
 	{
-		id: "appeal",
-		icon: IconFileDescription,
-		title: "Smart Appeal",
-		body: "AI-drafted appeals. Recover rejected campaigns in minutes, not days.",
-		color: "#8b5cf6",
-		url: "app.rockads.com/smart-appeal",
-	},
-	{
 		id: "creative",
 		icon: IconSparkles,
 		title: "AI Creative Agent",
@@ -56,6 +47,23 @@ const features = [
 		color: "#ec4899",
 		url: "app.rockads.com/ai-creative",
 	},
+	{
+		id: "whatsapp",
+		icon: IconBrandWhatsapp,
+		title: "WhatsApp API",
+		body: "Direct onboarding to the WhatsApp Business API. Turn retention into revenue.",
+		color: "#25D366",
+		url: "app.rockads.com/whatsapp",
+	},
+];
+
+const chatMessages = [
+	{ id: 1, type: "brand", text: "Hey Alex 👋 Black Friday just went live — 30% off everything for the next 24h ⚡️", time: "09:41" },
+	{ id: 2, type: "brand", text: "Your favorite ☕️ Cold Brew is back in stock too. Want me to drop the link?", time: "09:41" },
+	{ id: 3, type: "user", text: "Yes please!", time: "09:42" },
+	{ id: 4, type: "brand", text: "Here you go → brand.co/bf-drop Code BF30 auto-applied 🎁", time: "09:42" },
+	{ id: 5, type: "user", text: "Just ordered 🙌", time: "09:43" },
+	{ id: 6, type: "brand", text: "Boom 🔥 You unlocked a free sample. We'll text you when it ships.", time: "09:43" },
 ];
 
 const automationRules = [
@@ -86,12 +94,10 @@ const active = ref(0);
 const progress = ref(0);
 const bulkCount = ref(0);
 const bulkLive = ref(new Set<number>());
-const appealText = ref("");
 
 // Timers
 let cycleTimer: ReturnType<typeof setInterval> | null = null;
 let bulkTimer: ReturnType<typeof setInterval> | null = null;
-let appealTimer: ReturnType<typeof setInterval> | null = null;
 
 function startCycle() {
 	if (cycleTimer) clearInterval(cycleTimer);
@@ -122,24 +128,8 @@ function startBulkAnimation() {
 	}, 220);
 }
 
-function startAppealAnimation() {
-	if (appealTimer) clearInterval(appealTimer);
-	appealText.value = "";
-	let idx = 0;
-	appealTimer = setInterval(() => {
-		if (idx < APPEAL_TEXT.length) {
-			appealText.value += APPEAL_TEXT[idx];
-			idx++;
-		}
-		else {
-			clearInterval(appealTimer!);
-		}
-	}, 22);
-}
-
 function runFeatureAnimation(i: number) {
 	if (i === 1) startBulkAnimation();
-	if (i === 3) startAppealAnimation();
 }
 
 function pick(i: number) {
@@ -157,36 +147,37 @@ onMounted(() => {
 onUnmounted(() => {
 	if (cycleTimer) clearInterval(cycleTimer);
 	if (bulkTimer) clearInterval(bulkTimer);
-	if (appealTimer) clearInterval(appealTimer);
 });
 </script>
 
 <template>
 	<section class="platform-section py-20 lg:py-28">
-		<div class="mx-auto w-full max-w-[1440px] px-5 md:px-10 lg:px-12 xl:px-[160px]">
-
-			<!-- Header -->
-			<Motion
-				as="div"
-				class="mb-12 max-w-[560px] lg:mb-16"
-				:initial="{ opacity: 0, y: 16 }"
-				:while-in-view="{ opacity: 1, y: 0 }"
-				:in-view-options="{ once: true, amount: 0.3 }"
-				:transition="{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }"
-			>
-				<h2 class="text-[28px] font-medium leading-[1.2] text-white md:text-[36px] lg:text-[44px] lg:leading-[1.15]">
-					The platform behind the growth.
-				</h2>
-				<p class="mt-4 text-[15px] leading-[1.7] text-white/55 lg:text-[17px]">
-					Five tools built around one goal: keeping your campaigns live and scaling.
-				</p>
-			</Motion>
+		<div class="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-10 xl:px-[80px] 2xl:px-[120px]">
 
 			<!-- Content grid -->
-			<div class="flex flex-col gap-6 lg:grid lg:items-start lg:grid-cols-[380px_1fr] lg:gap-10 xl:grid-cols-[420px_1fr] xl:gap-14">
+			<div class="flex flex-col gap-8 lg:grid lg:items-start lg:grid-cols-[340px_1fr] lg:gap-12 xl:grid-cols-[380px_1fr] xl:gap-16">
 
-				<!-- Feature list -->
-				<div class="flex flex-col gap-1">
+				<!-- Left Column: Header + Feature list -->
+				<div class="flex flex-col">
+					<!-- Header -->
+					<Motion
+						as="div"
+						class="mb-10 max-w-[560px] lg:mb-12"
+						:initial="{ opacity: 0, y: 16 }"
+						:while-in-view="{ opacity: 1, y: 0 }"
+						:in-view-options="{ once: true, amount: 0.3 }"
+						:transition="{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }"
+					>
+						<h2 class="text-[28px] font-medium leading-[1.2] text-white md:text-[36px] lg:text-[44px] lg:leading-[1.15]">
+							The platform behind the growth.
+						</h2>
+						<p class="mt-4 text-[15px] leading-[1.7] text-white/55 lg:text-[17px]">
+							Five tools built around one goal: keeping your campaigns live and scaling.
+						</p>
+					</Motion>
+
+					<!-- Feature list -->
+					<div class="flex flex-col gap-1">
 					<button
 						v-for="(f, i) in features"
 						:key="f.id"
@@ -237,6 +228,7 @@ onUnmounted(() => {
 						</div>
 					</button>
 				</div>
+				</div>
 
 				<!-- Mockup window -->
 				<Motion
@@ -248,7 +240,7 @@ onUnmounted(() => {
 					:transition="{ duration: 0.6, delay: 0.12, ease: [0.16, 1, 0.3, 1] }"
 				>
 					<!-- Window chrome -->
-					<div class="flex items-center gap-1.5 border-b border-white/[0.06] bg-white/[0.04] px-4 py-3">
+					<div v-if="active !== 0 && active !== 3" class="flex items-center gap-1.5 border-b border-white/[0.06] bg-white/[0.04] px-4 py-3">
 						<span class="size-2.5 rounded-full bg-white/10" />
 						<span class="size-2.5 rounded-full bg-white/10" />
 						<span class="size-2.5 rounded-full bg-white/10" />
@@ -258,42 +250,14 @@ onUnmounted(() => {
 					</div>
 
 					<!-- Content area -->
-					<div class="relative min-h-[380px] bg-[#0d1420] lg:min-h-[420px]">
+					<div class="relative min-h-[380px] bg-[#0d1420] lg:min-h-[500px] xl:min-h-[540px]">
 						<Transition name="mockup" mode="out-in">
-							<div :key="active" class="p-5 lg:p-6">
+							<div :key="active" :class="[active === 0 || active === 3 ? '' : 'p-6 lg:p-10']">
 
 								<!-- Automation -->
 								<template v-if="active === 0">
-									<div class="mb-4 flex gap-2 overflow-x-hidden">
-										<div
-											v-for="t in ['Pause Low ROAS', 'Budget Scale-Up', 'Pause High CPA']"
-											:key="t"
-											class="shrink-0 rounded-lg border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[11px] text-white/40"
-										>
-											{{ t }}
-										</div>
-									</div>
-									<div class="flex flex-col gap-2">
-										<div
-											v-for="(rule, ri) in automationRules"
-											:key="ri"
-											class="flex items-center justify-between rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-3 slide-in"
-											:style="{ animationDelay: `${ri * 0.1}s` }"
-										>
-											<div>
-												<p class="text-[12px] font-semibold text-white/80">{{ rule.name }}</p>
-												<p class="mt-0.5 text-[11px] text-white/30">{{ rule.desc }}</p>
-											</div>
-											<span
-												class="flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium"
-												:class="rule.status === 'Active'
-													? 'bg-emerald-500/15 text-emerald-400'
-													: 'bg-white/[0.06] text-white/35'"
-											>
-												<span v-if="rule.status === 'Active'" class="size-1.5 shrink-0 rounded-full bg-emerald-400 pulse-dot" />
-												{{ rule.status }}
-											</span>
-										</div>
+									<div class="w-full">
+										<img :src="techAutomationPath" alt="Automation Console" class="w-full h-auto block" />
 									</div>
 								</template>
 
@@ -389,64 +353,81 @@ onUnmounted(() => {
 									</div>
 								</template>
 
-								<!-- Smart Appeal -->
+								<!-- AI Creative Agent -->
 								<template v-else-if="active === 3">
-									<div class="mb-3 rounded-xl border border-red-500/25 bg-red-500/10 p-3.5 slide-in">
-										<div class="flex items-start gap-3">
-											<div class="flex size-7 shrink-0 items-center justify-center rounded-lg bg-red-500/20">
-												<svg class="size-3.5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-													<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" />
-												</svg>
-											</div>
-											<div class="flex-1">
-												<p class="text-[12px] font-semibold text-red-300">Rejected — Policy Violation</p>
-												<p class="mt-0.5 text-[10px] text-white/35">Summer Sale — Hero Banner · Meta Ads</p>
-											</div>
-											<span class="shrink-0 rounded-full bg-primary/20 px-2 py-0.5 text-[9px] font-bold text-primary">Appealing</span>
-										</div>
-									</div>
-									<div class="rounded-xl border border-white/[0.08] bg-white/[0.03] p-4 slide-in" style="animation-delay: 0.12s">
-										<div class="mb-3 flex items-center gap-2">
-											<div class="flex size-5 items-center justify-center rounded-full bg-primary/25">
-												<svg class="size-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
-													<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-												</svg>
-											</div>
-											<p class="text-[11px] font-medium text-white/50">AI Writing Appeal</p>
-											<span class="ml-auto tabular-nums text-[10px] text-white/25">
-												{{ Math.min(100, Math.round((appealText.length / APPEAL_TEXT.length) * 100)) }}%
-											</span>
-										</div>
-										<p class="min-h-[100px] font-mono text-[11px] leading-relaxed text-white/55">
-											{{ appealText }}<span v-if="appealText.length < APPEAL_TEXT.length" class="cursor-blink">|</span>
-										</p>
+									<div class="w-full">
+										<img :src="aiCreativeStudioPath" alt="AI Creative Studio" class="w-full h-auto block" />
 									</div>
 								</template>
 
-								<!-- AI Creative Agent -->
+								<!-- WhatsApp API -->
 								<template v-else-if="active === 4">
-									<div class="mb-3 flex items-center gap-2 slide-in">
-										<div class="flex size-5 items-center justify-center rounded-full bg-pink-500/20">
-											<svg class="size-3 text-pink-400" viewBox="0 0 20 20" fill="currentColor">
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
+									<div class="mb-4 grid grid-cols-2 gap-6 lg:gap-8">
+										<!-- Left Header -->
+										<div class="flex flex-col slide-in">
+											<p class="text-[13px] font-semibold text-white/80">Campaign Manager</p>
+											<p class="mt-0.5 text-[11px] text-[#25D366]">Meta Business API: Connected</p>
 										</div>
-										<p class="text-[12px] text-white/45">Generating ad creatives from your brand...</p>
+										<!-- Right Header -->
+										<div class="flex flex-col items-center slide-in" style="animation-delay: 0.4s;">
+											<p class="text-[11px] text-white/30 pt-0.5">Live Chat Preview</p>
+										</div>
 									</div>
-									<div class="grid grid-cols-3 gap-2.5">
-										<div
-											v-for="(card, n) in creativeCards"
-											:key="n"
-											class="creative-pop overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.04]"
-											:style="{ animationDelay: `${n * 0.15}s` }"
-										>
-											<div class="h-16" :style="{ background: card.bg }" />
-											<div class="p-2">
-												<div class="h-1.5 w-4/5 rounded-full bg-white/[0.08]" />
-												<div class="mt-1 h-1.5 w-3/5 rounded-full bg-white/[0.08]" />
-												<div class="mt-2 flex items-center justify-between">
-													<div class="h-4 w-2/3 rounded-md bg-primary/20" />
-													<span class="text-[9px] text-white/25">{{ card.platform }}</span>
+									<div class="grid grid-cols-2 gap-6 lg:gap-8">
+										<!-- Left: Dashboard Stats -->
+										<div class="flex flex-col gap-4">
+											<div class="rounded-xl border border-white/[0.07] bg-white/[0.03] p-4 slide-in" style="animation-delay: 0.1s;">
+												<p class="text-[12px] text-white/50">Active Broadcast</p>
+												<p class="mt-1 text-[16px] font-semibold text-white">Black Friday VIP Drop</p>
+												<div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+													<div class="h-full w-[85%] rounded-full bg-[#25D366]"></div>
+												</div>
+												<p class="mt-2 text-right text-[10px] text-white/40">12,450 / 15,000 sent</p>
+											</div>
+											<div class="grid grid-cols-2 gap-4">
+												<div class="rounded-xl border border-white/[0.07] bg-white/[0.03] p-4 slide-in" style="animation-delay: 0.2s;">
+													<p class="text-[24px] font-bold text-white">98%</p>
+													<p class="text-[11px] text-white/50">Avg. Open Rate</p>
+												</div>
+												<div class="rounded-xl border border-white/[0.07] bg-white/[0.03] p-4 slide-in" style="animation-delay: 0.3s;">
+													<p class="text-[24px] font-bold text-white">32%</p>
+													<p class="text-[11px] text-white/50">Conv. Rate</p>
+												</div>
+											</div>
+										</div>
+
+										<!-- Right: Live Preview -->
+										<div class="flex flex-col items-center justify-start -mt-2">
+											<div class="relative h-[260px] w-[130px] shrink-0 overflow-hidden rounded-[16px] border-[3px] border-[#1a1f2e] bg-[#0b141a] shadow-lg slide-in" style="animation-delay: 0.4s;">
+												<!-- Notch -->
+												<div class="absolute left-1/2 top-0 z-20 h-2 w-10 -translate-x-1/2 rounded-b-[4px] bg-[#1a1f2e]"></div>
+												
+												<!-- Header -->
+												<div class="absolute left-0 right-0 top-0 z-10 flex items-center gap-1.5 bg-[#202c33] px-1.5 pb-1 pt-4">
+													<div class="flex size-4 shrink-0 items-center justify-center rounded-full bg-[#25D366] text-[6px] font-bold text-[#060a14]">RB</div>
+													<div class="flex flex-col">
+														<span class="text-[7px] font-semibold text-white">Retail Brand</span>
+													</div>
+												</div>
+
+												<!-- Chat Area -->
+												<div class="absolute bottom-[28px] left-0 right-0 top-[30px] overflow-hidden bg-[#0b141a] p-1.5">
+													<div class="flex flex-col justify-end space-y-1.5 pt-2">
+														<div
+															v-for="(msg, index) in chatMessages"
+															:key="msg.id"
+															class="relative max-w-[85%] rounded-[6px] px-1.5 py-1 creative-pop"
+															:class="msg.type === 'user' ? 'self-end bg-[#005c4b] text-white rounded-tr-[1px]' : 'self-start bg-[#202c33] text-white rounded-tl-[1px]'"
+															:style="{ animationDelay: `${0.6 + index * 0.3}s` }"
+														>
+															<p class="text-[5px] leading-relaxed">{{ msg.text }}</p>
+														</div>
+													</div>
+												</div>
+
+												<!-- Input Area -->
+												<div class="absolute bottom-0 left-0 right-0 flex items-center gap-1 bg-[#202c33] p-1.5">
+													<div class="flex h-4 w-full items-center rounded-full bg-[#2a3942] px-1.5"></div>
 												</div>
 											</div>
 										</div>
